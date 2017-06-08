@@ -6,7 +6,7 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       aa
+ * @link       Nicole
  * @since      0.1
  *
  * @package    Pressbooks-related-content
@@ -25,7 +25,7 @@
  * @since      0.1
  * @package    Pressbooks-related-content
  * @subpackage Pressbooks-related-content/includes
- * @author     Nicole <aa>
+ * @author     Nicole <nicoleacuna95@gmail.com>
  */
 /**
 	* Initialize the class and set its properties.

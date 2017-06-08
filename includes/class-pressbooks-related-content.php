@@ -158,7 +158,8 @@ class Pressbooks_Related_Content {
 	 */
 	private function define_metadata_changes() {
 		
-		$plugin_chapter_metadata		 = new Pb_Rc_Chapter( $this->get_plugin_name(), $this->get_version() );
+		//create a isntance of Pb_Rc_chapter class
+		$plugin_chapter_metadata = new Pb_Rc_Chapter( $this->get_plugin_name(), $this->get_version() );
 
 		// The custom_metadata_manager_init_metadata hook, defines all the metaboxes and their fields 
 		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_chapter_metadata, 'add_metadata', 31 );

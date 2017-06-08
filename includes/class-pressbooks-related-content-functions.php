@@ -12,13 +12,14 @@
 class Pr_Rc_Functions {
 	
 	/**
-	* Prints all the informations about the Resources
+	*Create a instance of Pb_Rc_chapter and
+	* prints all the information about the resources fields
 	**/
 	function print_chapter_resources_fields(){
 		$pm_CR = Pb_Rc_Chapter::get_instance();
 		$pm_CR->print_chapter_resources_fields();
 	}
-
+	
 	/**
 	 * Fixes pop-out for extra sidebar buttons.
 	 */
@@ -27,6 +28,7 @@ class Pr_Rc_Functions {
 		wp_dequeue_script( 'pb-pop-out-toc' );
 		wp_enqueue_script( 'pb-pop-out-toc', get_stylesheet_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
 	}
+	
 	add_action( 'wp_enqueue_scripts', 'pm_enqueue_scripts' );
 
 }
