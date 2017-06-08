@@ -31,11 +31,15 @@ You can see all of the screenshots of the plugin here<--?
 == Changelogs ==
 0.1
 
-	•Accesibility: Custom Chapter Metadata: new custom metabox called Resources with links fields. This fields contains to video, audio, exercises, activities and bibliography that teachers insert.
+	*Accesibility: Custom Chapter Metadata: new custom metabox called Resources with links fields. This fields contains to video, audio, exercises, activities and bibliography that teachers insert.
 
 == Upgrade Notice ==
 0.1
 To use an old version as the start point.
 
-== Credits ==
-Here's a link to 
+##Credits 
+Here's a link to [WordPress Plugin Boilerplate](http://wppb.io/).
+Here's a link to [WordPress](https://wordpress.org/)
+Here's a llink to [PressBooks](https://pressbooks.org/get-involved/)
+Here's a link to [Dilinger](http://dillinger.io/)
+Here's a link to [Markdown's Syntax Documentation](https://daringfireball.net/projects/markdown/syntax)
