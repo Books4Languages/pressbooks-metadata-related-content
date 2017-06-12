@@ -6,7 +6,6 @@ Tags: pressbooks, links
 
 Tested up to: [![WordPress](https://img.shields.io/wordpress/v/akismet.svg)](https://wordpress.org/download/)
 
-Requires:  [![Pressbooks](https://img.shields.io/badge/Pressbooks-V%203.9.9-red.svg)](https://github.com/pressbooks/pressbooks/releases/tag/3.9.9)
 
 Stable tag: [![Current Release](https://img.shields.io/github/release/Books4Languages/pressbooks-metadata.svg)](https://github.com/Books4Languages/pressbooks-metadata/releases/latest/)
 
@@ -26,14 +25,19 @@ With this plugin you can create new links in chapter posttype and show them in a
 
 ## Requirements 
 Plugin works with:
-PHP 5.6.X
-Pressbooks 3.9
+
+* PHP![PHP](https://img.shields.io/badge/PHP-5.6.X-blue.svg)
+
+* [![Pressbooks](https://img.shields.io/badge/Pressbooks-V%203.9.9-red.svg)](https://github.com/pressbooks/pressbooks/releases/tag/3.9.9)
 
 ## Disclaimers 
 The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 
 ## Screenshots 
 You can see all of the screenshots of the plugin here
+
+## Roadmap
+
 
 ## Changelogs 
 ### 0.1
