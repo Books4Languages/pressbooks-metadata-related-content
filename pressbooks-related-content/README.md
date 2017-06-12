@@ -64,7 +64,7 @@ You can see all of the screenshots of the plugin here
 
 
 ### 0.1
-* **REQUERIIRED**
+* **REQUERIRED**
 	* Plugin Borilerplate. 
 
 ## Upgrade Notice 
