@@ -30,6 +30,8 @@ Plugin works with:
 
 - [![Pressbooks](https://img.shields.io/badge/Pressbooks-V%203.9.9-red.svg)](https://github.com/pressbooks/pressbooks/releases/tag/3.9.9)
 
+-
+
 
 ## Disclaimers 
 The Pressbooks plugin is supplied "as is" and all use is at your own risk.
@@ -40,10 +42,10 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 
 
 ## Changelogs 
-### 0.2
+### 0.1
 * **ADDITONS**
  
- 	* New custom metabox called **Resources** with links fields. 
+ 	* New  custom metabox called **Resources** with links fields. 
 
 		* New multiple field: **video**: Video link
 		* New multiple field: **audio**: Audio link
@@ -54,6 +56,9 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 		* New function: **add_metadata** that produce the resources links to Resource metabox in custom post Chapter.
 		* New function: **print_chapter_r_fields** that create a table that contains the chapter links and print this in frontend. This function is called in functions.php that is in pressbooks-books4languages-child(theme).
 		* New function: **get_instance** that return the instance of Pb_Rc_Chapter class. This function is called in pressbooks-related-content.php and functions.php that is in pressbooks-books4languages-child(theme).
+
+	* In pressbooks related content class	
+
 		* New function:  **define_metadata_changes** that create a instance of Pb_Rc_Chapter and defines all the metaboxes and their fields. This function is in include/pressbooks-related-content.php.
 		* New action : **custom_metadata_manager_init_metadata** that call add_metadata function.
 
@@ -62,16 +67,15 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 	* includes/class-external-content.php
 	* includes/class-pressbooks-related-content.php
 
-
-### 0.1
 * **REQUERIRED**
-	* Plugin Borilerplate. 
+
+	* Boilerplate plugin
+
 
 ## Upgrade Notice 
-### 0.2
-To use the version 2.0 of the plugin.
 ### 0.1
-To begin with the plugin boilerplate.
+To use the first version of the plugin.
+
 
 ## Credits 
 Here's a link to [WordPress Plugin Boilerplate](http://wppb.io/).

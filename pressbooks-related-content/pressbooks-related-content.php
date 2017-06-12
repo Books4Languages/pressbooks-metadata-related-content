@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Pressbooks-related-content
  * Plugin URI:        Pb-rc
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       This plugin creates links fields in  new chapter metabox and shot this information in frontend
  * Version:           0.1
  * Author:            Nicole
  * Author URI:        Nicole

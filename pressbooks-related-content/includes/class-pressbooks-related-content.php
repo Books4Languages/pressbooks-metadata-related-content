@@ -69,7 +69,7 @@ class Pressbooks_Related_Content {
 	public function __construct() {
 
 		$this->plugin_name = 'pressbooks-related-content';
-		$this->version = '1.0.0';
+		$this->version = '0.1.0.0';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -124,7 +124,6 @@ class Pressbooks_Related_Content {
 		*
 		* The class responsible for print rescource metabox in frontend
 		*/
-
 		require_once plugin_dir_path( dirname(__FILE__) ) . 'includes/class-external-content.php';
 
 		$this->loader = new Pressbooks_Related_Content_Loader();
@@ -149,8 +148,8 @@ class Pressbooks_Related_Content {
 	}
 	  
 	/**
-	 * Register all of the metadata customization.
-	 *
+	 * Register all of the metadata customization that are
+	 * in Pb_Rc_Chapter class.
 	 *
 	 *
 	 * @since    0.1
@@ -158,7 +157,7 @@ class Pressbooks_Related_Content {
 	 */
 	private function define_metadata_changes() {
 		
-		//create a isntance of Pb_Rc_chapter class
+		//create a instance of Pb_Rc_chapter class
 		$plugin_chapter_metadata = new Pb_Rc_Chapter( $this->get_plugin_name(), $this->get_version() );
 
 		// The custom_metadata_manager_init_metadata hook, defines all the metaboxes and their fields 

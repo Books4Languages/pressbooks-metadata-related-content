@@ -3,26 +3,11 @@
 /**
  * The file that defines the core plugin class
  *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
+ * A class that creates new Chapter metabox and new links fields.
  *
  * @link       Nicole
  * @since      0.1
  *
- * @package    Pressbooks-related-content
- * @subpackage Pressbooks-related-content/includes
- */
-
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      0.1
  * @package    Pressbooks-related-content
  * @subpackage Pressbooks-related-content/includes
  * @author     Nicole <nicoleacuna95@gmail.com>
@@ -36,7 +21,7 @@
 	Class Pb_Rc_Chapter{
 
 	/**
-	 * The ID of this plugin.
+	 * The  name of this plugin.
 	 *
 	 * @since    0.1
 	 * @access   private
@@ -64,7 +49,7 @@
 	}
 
 	/**
-	* The function which produces the metafields to other
+	* The function which produces the metafields to 
 	* Chapter metabox with custom metadata of Pressbooks
 	*
 	* @since 0.1
@@ -74,14 +59,14 @@
 
 		//---- Chapter Metadata metabox ----//
 
-		// adds a new group to the Chapter post type
+		// create a new group to the Chapter post type
 		x_add_metadata_group( 'resources_metadata', 'chapter', array(
 			'label' => 'Resources'
 		) );
 
-		//----------- metafields ----------- //
+		//----------- Metafields ----------- //
 		
-		// add Activities metafield
+		// add Activities metafield to  Chapter Metadata metabox
 		x_add_metadata_field( 	'pb_activities', 'chapter', array(
 			'group' 		=>	'resources_metadata',
 			'field_type'	=> 	'text',
@@ -91,7 +76,7 @@
 			'multiple'      =>  'true'
 		) );
 
-		// add Video metafield
+		// add Video metafield to  Chapter Metadata metabox
 		x_add_metadata_field( 	'pb_video', 'chapter', array(
 			'group' 		=> 	'resources_metadata',
 			'field_type'	=> 	'text',
@@ -101,7 +86,7 @@
 			'placeholder' 	=>	'http://site.com/'
 		) );
 
-		// add Audio metafield
+		// add Audio metafield to  Chapter Metadata metabox
 		x_add_metadata_field( 	'pb_audio', 'chapter', array(
 			'group' 		=> 	'resources_metadata',
 			'field_type'	=> 	'text',
@@ -111,7 +96,7 @@
 			'placeholder' 	=>	'http://site.com/'
 		) );
 
-		//add Bibliography metafield
+		//add Bibliography metafield to  Chapter Metadata metabox
 		x_add_metadata_field( 	'pb_bibliography', 'chapter', array(
 			'group' 		=> 	'resources_metadata',
 			'field_type'	=> 	'text',
@@ -121,7 +106,7 @@
 			'placeholder' 	=>	'http://site.com/'
 		) );
 
-		//add Exercises metafield
+		//add Exercises metafield to  Chapter Metadata metabox
 		x_add_metadata_field( 	'pb_exercises', 'chapter', array(
 			'group' 		=> 	'resources_metadata',
 			'field_type'	=> 	'text',
@@ -151,14 +136,17 @@
 	/**
 	 * Prints the HTML code of chapter metadata for the public part of
 	 * the book.
-	 * This function is called by resource pop out in sidebar.php 
+	 * This function is called by resource pop out in sidebar.php.
 	 * sidebar.php is localized in child theme: books4languages
 	 *
 	 * @since 0.1
 	 */
 	public function print_chapter_r_fields(){
 	
-	  /*Gets the chapter resources metadata from the database*/
+	  /*
+	  *Gets the chapter resources metadata 
+	  *from the database
+	  */
         global $wpdb;
         global $post;
         $table_name=$wpdb->prefix.'postmeta';
@@ -169,7 +157,9 @@
         $meta_biblio = $wpdb->get_results("SELECT meta_value FROM $table_name WHERE meta_key='pb_bibliography' ORDER BY meta_id DESC");
 
 
-       /* Create a table that contains the chapter metadata. Print this table in frontend */
+       /* Create a table that contains the chapter metadata. 
+       *Print this table in frontend 
+       */
 		?>
 
 		<table class="metadata_questtions_answers">
@@ -179,9 +169,6 @@
 		foreach($meta_act as $meta_key) {
 			?>
 			<tr>
-			<?php 
-			//quitamos los 'http:// y https://'
-			?>
 			<td><p><?php echo '<a target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td>
 			</tr> 
 		<?php
