@@ -40,12 +40,31 @@ You can see all of the screenshots of the plugin here
 
 
 ## Changelogs 
+### 0.2
+* **ADDITONS**
+ *New custom metabox called **Resources** with links fields. This fields contains video, audio, exercises, activities and bibliography links that teachers insert.
+
+	* New field: **video**: Video link
+	* New field: **audio**: Audio link
+	* New field: **exercises**: Exercises link
+	* New field: **activities**: Activities link
+	* New field: **bibliography**: Bibliography
+	* New class: **Pb_Rc_Chapter** that contains the functions add_metadata, print_chapter_r_fields and get_instance. This class is in includes/class-external-content.php.
+	* New function: **add_metadata** that produce the resources links to Reource metabox in custom post Chapter.
+	* New function: **print_chapter_r_fields** that create a table that contains the chapter links and print this in frontend.
+	* New function: **get_instance** that return the instance of the external-content class. This function is called in pressbooks-related-content.php and functions.php that is in pressbooks-books4languages-child(theme).
+	*New function:  **define_metadata_changes** that create a instance of Pb_Rc_Chapter and defines all the metaboxes and their fields. This function is in include/pressbooks-related-content.php.
+	*New action : **custom_metadata_manager_init_metadata** that call a add_metadata function.
+
 ### 0.1
-* Accesibility: Custom Chapter Metadata: new custom metabox called Resources with links fields. This fields contains video, audio, exercises, activities and bibliography links that teachers insert.
+* **REQUERIIRED**
+	* Plugin Borilerplate. 
 
 ## Upgrade Notice 
-### 0.1
-To use an old version as the start point.
+### 0.2
+To use the version 2.0 of the plugin.
+## 0.1
+To begin with the plugin boilerplate.
 
 ## Credits 
 Here's a link to [WordPress Plugin Boilerplate](http://wppb.io/).
