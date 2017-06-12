@@ -26,7 +26,7 @@ With this plugin you can create new links in chapter posttype and show them in a
 ## Requirements 
 Plugin works with:
 
-* PHP![PHP](https://img.shields.io/badge/PHP-5.6.X-blue.svg)
+* ![PHP](https://img.shields.io/badge/PHP-5.6.X-blue.svg)
 
 * [![Pressbooks](https://img.shields.io/badge/Pressbooks-V%203.9.9-red.svg)](https://github.com/pressbooks/pressbooks/releases/tag/3.9.9)
 
