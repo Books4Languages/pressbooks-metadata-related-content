@@ -30,8 +30,6 @@ Plugin works with:
 
 - [![Pressbooks](https://img.shields.io/badge/Pressbooks-V%203.9.9-red.svg)](https://github.com/pressbooks/pressbooks/releases/tag/3.9.9)
 
--
-
 
 ## Disclaimers 
 The Pressbooks plugin is supplied "as is" and all use is at your own risk.
