@@ -4,7 +4,8 @@ The first thing that you have to do is download the plugin and installed in your
 
 The second thing that you have to do  is copy this code in the part that you want in your theme. 
 <code>
-<?php  
+<? php  
+
 	$resources= new Pb_Rc_Chapter('Pressbooks-related-content', '0.1' );
 	$resources-> print_chapter_r_fields();
 ?>
