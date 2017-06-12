@@ -42,7 +42,8 @@ You can see all of the screenshots of the plugin here
 ## Changelogs 
 ### 0.2
 * **ADDITONS**
- *New custom metabox called **Resources** with links fields. This fields contains video, audio, exercises, activities and bibliography links that teachers insert.
+ 
+ * New custom metabox called **Resources** with links fields. This fields contains video, audio, exercises, activities and bibliography links that teachers insert.
 
 	* New field: **video**: Video link
 	* New field: **audio**: Audio link
