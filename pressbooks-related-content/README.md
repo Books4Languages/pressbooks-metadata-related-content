@@ -59,8 +59,8 @@ You can see all of the screenshots of the plugin here
 
 * **List of files revised**
 
-	*includes/class-external-content.php
-	*includes/class-pressbooks-related-content.php
+	* includes/class-external-content.php
+	* includes/class-pressbooks-related-content.php
 
 
 ### 0.1
@@ -70,7 +70,7 @@ You can see all of the screenshots of the plugin here
 ## Upgrade Notice 
 ### 0.2
 To use the version 2.0 of the plugin.
-## 0.1
+### 0.1
 To begin with the plugin boilerplate.
 
 ## Credits 
