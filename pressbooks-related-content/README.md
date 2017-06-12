@@ -1,6 +1,6 @@
 ## Presbooks-related-content 
 
-Contributors: @colomet, @nicoleacuna
+Contributors: @colomet,  @nicoleacuna
 
 Tags: pressbooks, links
 
