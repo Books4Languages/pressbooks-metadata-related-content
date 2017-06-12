@@ -14,7 +14,7 @@ License:  [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)]
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 ## Description  
-With this plugin you can create new links in chapter posttype and show them in a frontend. But to show the new links in chapter posttype you need to donwload the books4languages theme and active it.
+With this plugin you can create new links in chapter posttype and show them in a frontend. But to show the new links in chapter posttype in frontend you need to donwload the books4languages theme and active it.
 
 ## Installation 
 1. Clone (or copy) this repository to the /wp-content/plugins/ directory.
