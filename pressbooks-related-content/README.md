@@ -1,14 +1,20 @@
 ## Presbooks-related-content 
 
-Contributors: @colomet @nicoleacuna
+Contributors: @colomet, @nicoleacuna
+
 Tags: pressbooks, links
+
 Tested up to: [![WordPress](https://img.shields.io/wordpress/v/akismet.svg)](https://wordpress.org/download/)
+
 Requires:  [![Pressbooks](https://img.shields.io/badge/Pressbooks-V%203.9.9-red.svg)](https://github.com/pressbooks/pressbooks/releases/tag/3.9.9)
+
 Stable tag: [![Current Release](https://img.shields.io/github/release/Books4Languages/pressbooks-metadata.svg)](https://github.com/Books4Languages/pressbooks-metadata/releases/latest/)
+
 License:  [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/Books4Languages/pressbooks-metadata/blob/master/license.txt)
+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-## Description 
+## Description  
 With this plugin you can create new links in chapter posttype and show them in a frontend.
 
 ## Installation 
@@ -39,9 +45,13 @@ To use an old version as the start point.
 
 ## Credits 
 Here's a link to [WordPress Plugin Boilerplate](http://wppb.io/).
+
 Here's a link to [WordPress](https://wordpress.org/)
+
 Here's a llink to [PressBooks](https://pressbooks.org/get-involved/)
+
 Here's a link to [Dilinger](http://dillinger.io/)
+
 Here's a link to [Markdown's Syntax Documentation](https://daringfireball.net/projects/markdown/syntax)
 
 
