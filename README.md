@@ -14,7 +14,7 @@ License:  [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)]
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 ## Description  
-With this plugin you can create new links in chapter posttype and show them in a frontend.
+With this plugin you can create new links in chapter posttype and show them in a frontend. We use boilerplate 3.0 version to create this plugin.
 
 ## Installation 
 1. Clone (or copy) this repository to the /wp-content/plugins/ directory.
@@ -65,9 +65,6 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 	* includes/class-external-content.php
 	* includes/class-pressbooks-related-content.php
 
-* **REQUERIRED**
-
-	* Boilerplate plugin
 
 
 ## Upgrade Notice 
