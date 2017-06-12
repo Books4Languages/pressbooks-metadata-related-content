@@ -50,7 +50,7 @@ You can see all of the screenshots of the plugin here
 	* New field: **exercises**: Exercises link
 	* New field: **activities**: Activities link
 	* New field: **bibliography**: Bibliography
-	* New class: **Pb_Rc_Chapter** that contains the functions *add_metadata**, **print_chapter_r_fields** and **get_instance**. This class is in includes/class-external-content.php.
+	* New class: **Pb_Rc_Chapter** that contains the functions **add_metadata**, **print_chapter_r_fields** and **get_instance**. This class is in includes/class-external-content.php.
 	* New function: **add_metadata** that produce the resources links to Reource metabox in custom post Chapter.
 	* New function: **print_chapter_r_fields** that create a table that contains the chapter links and print this in frontend.
 	* New function: **get_instance** that return the instance of the external-content class. This function is called in pressbooks-related-content.php and functions.php that is in pressbooks-books4languages-child(theme).
