@@ -42,13 +42,13 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 ### 0.2
 * **ADDITONS**
  
- 	* New custom metabox called **Resources** with links fields. This fields contains video, audio, exercises, activities and bibliography links that teachers insert.
+ 	* New custom metabox called **Resources** with links fields. 
 
-		* New field: **video**: Video link
-		* New field: **audio**: Audio link
-		* New field: **exercises**: Exercises link
-		* New field: **activities**: Activities link
-		* New field: **bibliography**: Bibliography link
+		* New multiple field: **video**: Video link
+		* New multiple field: **audio**: Audio link
+		* New multiple field: **exercises**: Exercises link
+		* New multiple field: **activities**: Activities link
+		* New multiple field: **bibliography**: Bibliography link
 		* New class: **Pb_Rc_Chapter** that contains the functions **add_metadata**, **print_chapter_r_fields** and **get_instance**. This class is in includes/class-external-content.php.
 		* New function: **add_metadata** that produce the resources links to Resource metabox in custom post Chapter.
 		* New function: **print_chapter_r_fields** that create a table that contains the chapter links and print this in frontend. This function is called in functions.php that is in pressbooks-books4languages-child(theme).
