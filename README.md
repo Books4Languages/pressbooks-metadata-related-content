@@ -30,6 +30,8 @@ Plugin works with:
 
 - [![Pressbooks](https://img.shields.io/badge/Pressbooks-V%203.9.9-red.svg)](https://github.com/pressbooks/pressbooks/releases/tag/3.9.9)
 
+- This plugin requires having the pressbooks-isced-fields plugin enabled.
+
 
 ## Disclaimers 
 The Pressbooks plugin is supplied "as is" and all use is at your own risk.
@@ -40,8 +42,55 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 
 
 ## Changelogs 
+### 0.2
+
+* **ADDITIONS**
+	* New custom metabox called **Related Books** with links/text field in Book Info.
+
+		* New text field: **Vocabulary**: Vocabulary link/text
+		* New text field: **Grammar**: Grammar link/text
+		* New text field: **Phonetics and Spelling**: Cultural and Sociocultural link/text
+		* New text field: **Texts and functions**: link/text
+		* New text field: **Cultural and Sociocultural**: Cultural and Sociocultural link/text
+		* New text field: **Extra content**: Extra content link/text
+		* New class: **Pb_Rc_Books** that contains the functions **add_metadata**, **get_instance**, **print_link_based**, **are_related_books_enable** and **print_related_books_fields. This class is in include/class-pressbooks-related-books-metadata.php
+		* New function: **add_metadata** that produce the Related books metabox and the texts fields to Related Books metabox in Book Info. 
+		* New function: **get_instance** that return the instance of Pb_Rc_Chapter class. This function is called in pressbooks-related-content.php and in class-presbooks-related-functions.php
+		*New function: **print_link_based**.*This function takes information from the link_based field and languages field (Field created in the pressbooks-isced-fields plugin). Display a link and the image of the language flag	in the footer in frontend. This function is called by a shortcode in class-pressbooks-related-functions.php.
+		* New function: **print_related_books_fields** that prints the links (HTML code) to related books for the public part of the book.
+	    This fucntion is called by shortcode in clas-pressbooks-related-functions.php
+
+
+	* New custom metabox called **Related Books** with checkbox field in Parts. This button enables or disables the functions of related books.
+
+
+		* New php file: **class-presbooks-related-functions.php** that is in include/. This file contains the shortcodes of the plugin. Contains **print_related_content** function, **print_related_books** function and **print_links_based** function. And the shortcodes: **related_content**, **related_books**, and **related_based**.
+		* New function: **are_related_books_enabled**. This function checks if the related book checkbox is enabled.Receive with parameter the post_id and returns true if the checkbox is enabled, false otherwise.
+		* New function: **print_related_content($type)**.Shortcode that calls the function print_chapter_r_fields with a parameter. This parameter is the type. Depending on the type you pass one parameter or another.
+		* New function: **print_related_books** is a shortcode that calls the print_related_books_fields() function.
+		* New function: **print_links_based** is a shortcode  that calls the print_link_based() function.
+
+
+
+	* In pressbooks related content class
+
+		*New action:**custom_metadata_manager_init_metadata** that call add_metadata function of Pb_Rc_Books class.
+
+* **ENHANCEMENTS**
+	
+	* We replace the call in functions theme with a shortcode called **are_related_books_enabled**.
+	* Documentation 
+
+* **List of files revised**
+
+	* includes/class-pressbooks-related-functions.
+	* includes/class-pressbooks-related-books-metadata.php
+	* includes/class-pressbooks-related-functions.php
+	* includes/class-pressbooks-related-content.php
+
+
 ### 0.1
-* **ADDITONS**
+* **ADDITIONS**
  
  	* New  custom metabox called **Resources** with links fields. 
 
@@ -58,7 +107,7 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 	* In pressbooks related content class	
 
 		* New function:  **define_metadata_changes** that create a instance of Pb_Rc_Chapter and defines all the metaboxes and their fields. This function is in include/pressbooks-related-content.php.
-		* New action : **custom_metadata_manager_init_metadata** that call add_metadata function.
+		* New action : **custom_metadata_manager_init_metadata** that call add_metadata function of Pb_Rc_Chapter class.
 
 * **List of files revised**
 
@@ -68,6 +117,8 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 
 
 ## Upgrade Notice 
+### 0.2
+To use the last version of the plugin.
 ### 0.1
 To use the first version of the plugin.
 
