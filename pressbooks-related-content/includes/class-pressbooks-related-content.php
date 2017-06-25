@@ -70,7 +70,6 @@ class Pressbooks_Related_Content {
 
 		$this->plugin_name = 'pressbooks-related-content';
 		$this->version = '0.1.0.0';
-
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_metadata_changes();
@@ -125,6 +124,19 @@ class Pressbooks_Related_Content {
 		* The class responsible for print rescource metabox in frontend
 		*/
 		require_once plugin_dir_path( dirname(__FILE__) ) . 'includes/class-external-content.php';
+		/**
+		*
+		* The class responsible for print related books metadata in frontend
+		*/
+
+		require_once plugin_dir_path( dirname(__FILE__) ) . 'includes/classs-pressbooks-related-books-metadata.php';
+		/*
+		*
+		* The php file on are the shortcodes
+		*/
+		require_once plugin_dir_path( dirname(__FILE__) ) . 'includes/class-pressbooks-related-functions.php';
+
+
 
 		$this->loader = new Pressbooks_Related_Content_Loader();
 
@@ -159,9 +171,16 @@ class Pressbooks_Related_Content {
 		
 		//create a instance of Pb_Rc_chapter class
 		$plugin_chapter_metadata = new Pb_Rc_Chapter( $this->get_plugin_name(), $this->get_version() );
+		//create a instance of Pressbooks_Metadata_Related_Books_Metadata
+		$plugin_related_books_metadata = new Pb_Rc_Books($this->get_plugin_name(), $this->get_version());
 
 		// The custom_metadata_manager_init_metadata hook, defines all the metaboxes and their fields 
+		// add metadata to chapter
 		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_chapter_metadata, 'add_metadata', 31 );
+		//add metadata to book info
+		$this->loader->add_action('custom_metadata_manager_init_metadata',$plugin_related_books_metadata,'add_metadata', 31 );
+
+		
 	}
 	
 
@@ -178,6 +197,7 @@ class Pressbooks_Related_Content {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		
 
 	}
 
