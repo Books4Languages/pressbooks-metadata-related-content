@@ -55,10 +55,10 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 			* **Cultural and Sociocultural**
 			* **Extra content**
 			* **Link of book based**
-		* New class: **Pb_Rc_Books** that contains the functions **add_metadata**, **get_instance**, **print_link_based**, **are_related_books_enable** and **print_related_books_fields. This class is in include/class-pressbooks-related-books-metadata.php
+		* New class: **Pb_Rc_Books** that contains the functions **add_metadata**, **get_instance**, **print_link_based**, **are_related_books_enable** and **print_related_books_fields**. This class is in include/class-pressbooks-related-books-metadata.php
 		* New function: **add_metadata** that produce the Related books metabox and the texts fields to Related Books metabox in Book Info. 
 		* New function: **get_instance** that return the instance of Pb_Rc_Chapter class. This function is called in pressbooks-related-content.php and in class-presbooks-related-functions.php
-		*New function: **print_link_based**. This function takes information from the **link_based** field and **languages** field (Field created in the **pressbooks-isced-fields** plugin). The function displays a link and the image of the language flag (epending on the language field value) in the footer of frontend. This function is called by a shortcode in **class-pressbooks-related-functions.php**.
+		* New function: **print_link_based**. This function takes information from the **link_based** field and **languages** field (Field created in the **pressbooks-isced-fields** plugin). The function displays a link and the image of the language flag (epending on the language field value) in the footer of frontend. This function is called by a shortcode in **class-pressbooks-related-functions.php**.
 		* New function: **print_related_books_fields** that prints the links (**HTML** code) to related books for the public part of the book.This fucntion is called by shortcode in **clas-pressbooks-related-functions.php**
 
 
@@ -75,11 +75,11 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 
 	* In pressbooks related content class
 
-		*New action:**custom_metadata_manager_init_metadata** that call add_metadata function of **Pb_Rc_Books** class.
+		* New action:**custom_metadata_manager_init_metadata** that call add_metadata function of **Pb_Rc_Books** class.
 
 * **ENHANCEMENTS**
 	
-	* We replace the call of **print_ in_chapter_r_fields() function in functions theme with a shortcode called **are_related_books_enabled**.
+	* We replace the call of **print_ in_chapter_r_field** function in functions theme with a shortcode called **are_related_books_enabled**.
 	* The **print_chapter_r_fields($cont)** function now receives a parameter that serves to know what information to display. If receives "video" only display the video values in frontend. If receives "audio" only display the audio values in frontend. If receives "activities" only display the activities values in frontend. If receives "exercises" only display the exercises values in frontend. If receives "biblio" only display the biblio values in frontend. If receives "all"  display all values of all the fields in the frontend. 
 	* Documentation 
 
