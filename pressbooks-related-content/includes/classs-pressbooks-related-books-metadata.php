@@ -313,6 +313,7 @@
 		?>
 		<!-- Wew create a table for frontend-->
 		<table class="metadata_questions_answers">
+		<tr><td> RELATED BOOKS </td></tr>
 		<?php
 		//These variables are used to know whether to show the title or not
 		$tituloVoc=true;
