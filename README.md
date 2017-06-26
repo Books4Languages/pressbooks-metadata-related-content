@@ -7,9 +7,9 @@ Tags: pressbooks, links
 Tested up to: [![WordPress](https://img.shields.io/wordpress/v/akismet.svg)](https://wordpress.org/download/)
 
 
-Stable tag: [![Current Release](https://img.shields.io/github/release/Books4Languages/pressbooks-metadata.svg)](https://github.com/Books4Languages/pressbooks-metadata/releases/latest/)
+Stable tag: [![Current Release](https://img.shields.io/github/release/Books4Languages/pressbooks-metadata-related_content.svg)](https://github.com/Books4Languages/pressbooks-metadata-related_content/releases/latest/)
 
-License:  [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/Books4Languages/pressbooks-metadata/blob/master/license.txt)
+License:  [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/license.txt)
 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,43 +47,46 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 * **ADDITIONS**
 	* New custom metabox called **Related Books** with links/text field in Book Info.
 
-		* New text field: **Vocabulary**: Vocabulary link/text
-		* New text field: **Grammar**: Grammar link/text
-		* New text field: **Phonetics and Spelling**: Cultural and Sociocultural link/text
-		* New text field: **Texts and functions**: link/text
-		* New text field: **Cultural and Sociocultural**: Cultural and Sociocultural link/text
-		* New text field: **Extra content**: Extra content link/text
+		* New texts fields (You can put a link or a word)
+			* **Vocabulary**
+			* **Grammar**
+			* **Phonetics and Spelling**
+			* **Texts and functions**
+			* **Cultural and Sociocultural**
+			* **Extra content**
+			* **Link of book based**
 		* New class: **Pb_Rc_Books** that contains the functions **add_metadata**, **get_instance**, **print_link_based**, **are_related_books_enable** and **print_related_books_fields. This class is in include/class-pressbooks-related-books-metadata.php
 		* New function: **add_metadata** that produce the Related books metabox and the texts fields to Related Books metabox in Book Info. 
 		* New function: **get_instance** that return the instance of Pb_Rc_Chapter class. This function is called in pressbooks-related-content.php and in class-presbooks-related-functions.php
-		*New function: **print_link_based**.*This function takes information from the link_based field and languages field (Field created in the pressbooks-isced-fields plugin). Display a link and the image of the language flag	in the footer in frontend. This function is called by a shortcode in class-pressbooks-related-functions.php.
-		* New function: **print_related_books_fields** that prints the links (HTML code) to related books for the public part of the book.
-	    This fucntion is called by shortcode in clas-pressbooks-related-functions.php
+		*New function: **print_link_based**. This function takes information from the **link_based** field and **languages** field (Field created in the **pressbooks-isced-fields** plugin). The function displays a link and the image of the language flag (epending on the language field value) in the footer of frontend. This function is called by a shortcode in **class-pressbooks-related-functions.php**.
+		* New function: **print_related_books_fields** that prints the links (**HTML** code) to related books for the public part of the book.This fucntion is called by shortcode in **clas-pressbooks-related-functions.php**
 
 
 	* New custom metabox called **Related Books** with checkbox field in Parts. This button enables or disables the functions of related books.
 
 
-		* New php file: **class-presbooks-related-functions.php** that is in include/. This file contains the shortcodes of the plugin. Contains **print_related_content** function, **print_related_books** function and **print_links_based** function. And the shortcodes: **related_content**, **related_books**, and **related_based**.
+		* New php file: **class-presbooks-related-functions.php** that is in include/. This file contains the **shortcodes** of the plugin. Contains **print_related_content** function, **print_related_books** function and **print_links_based** function. And the shortcodes: **related_content**, **related_books**, and **related_based**.
 		* New function: **are_related_books_enabled**. This function checks if the related book checkbox is enabled.Receive with parameter the post_id and returns true if the checkbox is enabled, false otherwise.
-		* New function: **print_related_content($type)**.Shortcode that calls the function print_chapter_r_fields with a parameter. This parameter is the type. Depending on the type you pass one parameter or another.
-		* New function: **print_related_books** is a shortcode that calls the print_related_books_fields() function.
-		* New function: **print_links_based** is a shortcode  that calls the print_link_based() function.
+		* New function: **print_related_content($type)**.Shortcode that calls the function **print_chapter_r_fields** with a parameter. This parameter is the type. Depending on the type you pass one parameter or another.
+		* New function: **print_related_books** is a shortcode that calls the **print_related_books_fields** function.
+		* New function: **print_links_based** is a shortcode  that calls the **print_link_based** function.
 
 
 
 	* In pressbooks related content class
 
-		*New action:**custom_metadata_manager_init_metadata** that call add_metadata function of Pb_Rc_Books class.
+		*New action:**custom_metadata_manager_init_metadata** that call add_metadata function of **Pb_Rc_Books** class.
 
 * **ENHANCEMENTS**
 	
-	* We replace the call in functions theme with a shortcode called **are_related_books_enabled**.
+	* We replace the call of **print_ in_chapter_r_fields() function in functions theme with a shortcode called **are_related_books_enabled**.
+	* The **print_chapter_r_fields($cont)** function now receives a parameter that serves to know what information to display. If receives "video" only display the video values in frontend. If receives "audio" only display the audio values in frontend. If receives "activities" only display the activities values in frontend. If receives "exercises" only display the exercises values in frontend. If receives "biblio" only display the biblio values in frontend. If receives "all"  display all values of all the fields in the frontend. 
 	* Documentation 
 
 * **List of files revised**
 
-	* includes/class-pressbooks-related-functions.
+	* includes/class-pressbooks-related-functions.php
+	* includes/class-external-content.php
 	* includes/class-pressbooks-related-books-metadata.php
 	* includes/class-pressbooks-related-functions.php
 	* includes/class-pressbooks-related-content.php
