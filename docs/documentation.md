@@ -8,11 +8,11 @@ To create a shortcode the first thing to do is to create a function with the fun
 
 Once we have the function implemented. What we should do is add our shortcode to our plugin. This is done as follows:
 
-add_shortcode('example', 'get_example');
+![add_example](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/docs/add_ex.JPG)
 
 Where example would be the name of the shortcode and get_example would be the function that would implement it.
 
-<?php echo do_shortcode("[example_shortcode]"); ?>
+![echo_example](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/docs/echo_ex.JPG)
 
 Then to call the shortcode and perform its functionality simply put the next line where you want to be implemented.
 
