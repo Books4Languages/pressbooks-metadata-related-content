@@ -6,9 +6,9 @@ Once we have installed the plugin on our site, we can already use the shortcodes
 If you want to display the data entered in the fields. Copy the following code wherever you want it to be displayed.
 
 * If you want to show all then the variable type will be all. (Quiet fields left blank will not be displayed)
-** `[related_content type="all"]`
+ 	* Show all: `[related_content type="all"]`
 * If you just want to display a field you have the following options to put inside type: rc_videos, rc_audios, rc_biblio, rc_exercises, rc_activities.
-** For example: Only show audios: `[related_content type="rc_audios"]`
+	* Only show audios: `[related_content type="rc_audios"]`
 
 
 ## HOW TO ADD SHORTCODES IN YOUR THEME
