@@ -58,7 +58,7 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 		* New class: **Pb_Rc_Books**. 
 			* New function: **get_instance** that return the instance of Pb_Rc_Chapter class.
 			* New function: **print_link_based**. Displays a link and the image of the language flag in the footer. 
-			* New function: **print_related_books_fieldprints the links to related books for the theme. 
+			* New function: **print_related_books_field** prints the links to related books for the theme. 
 
 	* New custom metabox called **Related Books** create a checkbox that enables or disables the functions of related books.
 
