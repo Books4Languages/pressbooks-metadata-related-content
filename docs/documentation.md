@@ -1,4 +1,15 @@
 ### 0.2
+## HOW TO ADD SHORTCODES 
+
+Once we have installed the plugin on our site, we can already use the shortcodes. To add them all you have to do is copy the following code as you want it to be displayed in the frontend.
+
+If you want to display the data entered in the fields. Copy the following code wherever you want it to be displayed.
+
+* If you want to show all then the variable type will be all. (Quiet fields left blank will not be displayed)
+** `[related_content type="all"]`
+* If you just want to display a field you have the following options to put inside type: rc_videos, rc_audios, rc_biblio, rc_exercises, rc_activities.
+** For example: Only show audios: `[related_content type="rc_audios"]`
+
 
 ## HOW TO ADD SHORTCODES IN YOUR THEME
 
@@ -25,7 +36,7 @@ The first thing that you have to do is download the plugin and installed in your
 
 The second thing that you have to do  is copy this code in the part that you want in your theme. Our plugin has 3 shortcodes:
 
-### Shortcode for resources. 
+### Shortcode for resources
 This shortcode have 1 parameter called type. The types can be: all, rc_videos, rc_audios, rc_biblio, rc_exercises, rc_activities.
 
 `<?php echo do_shortcode('[related_content type="all"]'); ?>`
