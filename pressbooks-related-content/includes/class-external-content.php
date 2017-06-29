@@ -58,6 +58,7 @@
 	*
 	* @since 0.1
 	*/
+	/*
 	public function add_metadata(){
 
 
@@ -123,7 +124,7 @@
 
 		
 
-	}
+	}*/
 
 	/**
 	* This function return the instance of the class

@@ -68,6 +68,7 @@
 	*
 	* @since 0.2
 	*/
+	/*
 	public function add_metadata(){
 
 		//We add a brief explanation
@@ -84,7 +85,7 @@
 		) );
        
 		/* Create  text field Vocabulary */
-		x_add_metadata_field( 	'vocabulary_book', 'metadata', array(
+	/*	x_add_metadata_field( 	'vocabulary_book', 'metadata', array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Vocabulary',
@@ -93,7 +94,7 @@
 		) );
 
 		/* Create  text field Grammar */
-		x_add_metadata_field( 	'grammar_book', 'metadata', array(
+	/*	x_add_metadata_field( 	'grammar_book', 'metadata', array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Grammar',
@@ -102,7 +103,7 @@
 		) );
 
 		/* Create  text field Phonetics and Spelling */
-		x_add_metadata_field( 	'phonetics_spelling_book', 'metadata', array(
+		/*x_add_metadata_field( 	'phonetics_spelling_book', 'metadata', array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Phonetics and Spelling',
@@ -111,7 +112,7 @@
 		) );
 
 		/* Create  text field Texts and functions */
-		x_add_metadata_field( 	'texts_functions_book', 'metadata', array(
+	/*	x_add_metadata_field( 	'texts_functions_book', 'metadata', array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Texts and Functions',
@@ -120,7 +121,7 @@
 		) );
 
 		/* Create  text field Cultural and Sociocultural*/
-		x_add_metadata_field( 'cultural_functions_book', 'metadata', array(
+	/*	x_add_metadata_field( 'cultural_functions_book', 'metadata', array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Cultural and Sociocultural',
@@ -128,7 +129,7 @@
 			'placeholder' 	=>	'http://site.com/'
 		) );
 		/* Create  text field Extra content */
-		x_add_metadata_field( 'extra_content_book', 'metadata', array(
+	/*	x_add_metadata_field( 'extra_content_book', 'metadata', array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Extra Content',
@@ -141,13 +142,13 @@
 
 		) );
 		/* Create  button */
-		x_add_metadata_field( 'button_Rc', 'part', array(
+	/*	x_add_metadata_field( 'button_Rc', 'part', array(
 			'group' => 'Related_Books_button',
 			'label' => 'Enable Related Books',
 			'field_type' => 'checkbox',
 		) );
 		/* Create  text field link based. This link will be the link of the book on which it is based*/
-		x_add_metadata_field( 'link_based', 'metadata', array(
+	/*	x_add_metadata_field( 'link_based', 'metadata', array(
 			'group' => 'Related_Books', // the group name
 			'description' => 'The URL of book based.',
 			'label' => ' Link of book based ', // field label
@@ -156,7 +157,7 @@
 
 	
 	}
-
+*/
 	/**
 	* This function return the instance of the class
 	* @since 0.2

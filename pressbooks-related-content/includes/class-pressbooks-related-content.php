@@ -176,9 +176,9 @@ class Pressbooks_Related_Content {
 
 		// The custom_metadata_manager_init_metadata hook, defines all the metaboxes and their fields 
 		// add metadata to chapter
-		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_chapter_metadata, 'add_metadata', 31 );
+		//$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_chapter_metadata, 'add_metadata', 31 );
 		//add metadata to book info
-		$this->loader->add_action('custom_metadata_manager_init_metadata',$plugin_related_books_metadata,'add_metadata', 31 );
+		//$this->loader->add_action('custom_metadata_manager_init_metadata',$plugin_related_books_metadata,'add_metadata', 31 );
 
 		
 	}
@@ -197,7 +197,10 @@ class Pressbooks_Related_Content {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_new_option' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'options_checkbox' );
+		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_admin, 'add_related_metabox', 31 );
+		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_admin, 'resources_in_post_type', 31 );
 
 	}
 
