@@ -11,25 +11,6 @@ If you want to display the data entered in the fields. Copy the following code w
 	* **Only show audios**: `[related_content type="rc_audios"]`
 
 
-## HOW TO ADD SHORTCODES IN YOUR THEME
-
-A shortcode is a WordPress-specific code that lets you do nifty things with very little effort. 
-
-To create a shortcode the first thing to do is to create a function with the functionality that you want. This function may or may not contain parameters.The function must contain parameters if it performs several functions depending on the parameter that is passed to it. If the shortcode only implements a function the function does not need any parameter. 
-
-Once we have the function implemented. What we should do is add our shortcode to our plugin. This is done as follows:
-
-`<?php add_shortcode('example', 'get_example'); ?>`
-
-Where example would be the name of the shortcode and get_example would be the function that would implement it. The shortcodes usually is implemented in functions.php
-
-`<?php echo do_shortcode("[example]"); ?>`
-
-
-Then to call the shortcode and perform its functionality simply put the next line where you want to be implemented. In this case in one site of your theme.
-For example in your footer.
-
-
 ## HOW TO SHOW THE FIELDS IN TEMPLATE FILE
 
 The first thing that you have to do is download the plugin and installed in your wordpress. Then you have to activated it. 
