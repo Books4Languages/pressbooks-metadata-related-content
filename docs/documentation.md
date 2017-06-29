@@ -10,11 +10,10 @@ Once we have the function implemented. What we should do is add our shortcode to
 
 `<?php add_shortcode('example', 'get_example'); ?>`
 
-![add_example](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/docs/add_ex.JPG)
-
 Where example would be the name of the shortcode and get_example would be the function that would implement it. The shortcodes usually is implemented in functions.php
 
-![echo_example](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/docs/echo_ex.JPG)
+`<?php echo do_shortcode("[example]"); ?>`
+
 
 Then to call the shortcode and perform its functionality simply put the next line where you want to be implemented. In this case in one site of your theme.
 For example in your footer.
@@ -29,7 +28,7 @@ The second thing that you have to do  is copy this code in the part that you wan
 ### Shortcode for resources. 
 This shortcode have 1 parameter called type. The types can be: all, rc_videos, rc_audios, rc_biblio, rc_exercises, rc_activities.
 
-![Resources](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/docs/resources.JPG)
+`<?php echo do_shortcode('[related_content type="all"]'); ?>`
 
 This shortcode is responsible for displaying the content of the resources fields. According to the value of type all fields are shown or only one of them
 
@@ -37,13 +36,14 @@ This shortcode is responsible for displaying the content of the resources fields
 
 This shortcode is responsible for displaying a link in the form of link and flag. This link contains the information to the book on which the book in which we are based is based. This shortcode collects information from the languages and link-based fields in book info
 
-![Link based](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/docs/related_based.JPG)
+`<?php echo do_shortcode('[related_based]'); ?>`
 
 ### Shortcode for related books
 
 This shortcode is responsible for relating the books. Shows relationships based on information collected from the metabox called Related Book.
 
-![Related books](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/docs/related_books.JPG)
+`<?php echo do_shortcode('[related_books]'); ?>`
+
 
 
 ### 0.1
