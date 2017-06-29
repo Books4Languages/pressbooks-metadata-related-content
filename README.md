@@ -55,32 +55,30 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 			* **Cultural and Sociocultural**
 			* **Extra content**
 			* **Link of book based**
-		* New class: **Pb_Rc_Books** that contains the functions **add_metadata**, **get_instance**, **print_link_based**, **are_related_books_enable** and **print_related_books_fields**. This class is in include/class-pressbooks-related-books-metadata.php
-		* New function: **add_metadata** that produce the Related books metabox and the texts fields to Related Books metabox in Book Info. 
-		* New function: **get_instance** that return the instance of Pb_Rc_Chapter class. This function is called in pressbooks-related-content.php and in class-presbooks-related-functions.php
-		* New function: **print_link_based**. The function displays a link and the image of the language flag in the footer of frontend. This function is called by a shortcode in **class-pressbooks-related-functions.php**.
-		* New function: **print_related_books_fields** that prints the links to related books for the public part of the book. This fucntion is called by shortcode in **clas-pressbooks-related-functions.php**
+		* New class: **Pb_Rc_Books**. 
+			* New function: **get_instance** that return the instance of Pb_Rc_Chapter class.
+			* New function: **print_link_based**. Displays a link and the image of the language flag in the footer. 
+			* New function: **print_related_books_fieldprints the links to related books for the theme. 
+
+	* New custom metabox called **Related Books** create a checkbox that enables or disables the functions of related books.
 
 
-	* New custom metabox called **Related Books** with checkbox field in Parts. This button enables or disables the functions of related books.
-
-
-		* New php file: **class-presbooks-related-functions.php**. This file contains the **shortcodes** of the plugin. Contains the shortcodes: **related_content**, **related_books**, and **related_based**.
-		* New function: **are_related_books_enabled**. This function checks if the related book checkbox is enabled.Receive with parameter the post_id and returns true if the checkbox is enabled, false otherwise.
-		* New function: **print_related_content($type)**. Shortcode that calls the function **print_chapter_r_fields** with a parameter. Depending on the type you pass one parameter or another.
-		* New function: **print_related_books** is a shortcode that calls the **print_related_books_fields** function.
-		* New function: **print_links_based** is a shortcode  that calls the **print_link_based** function.
+		* New functionality: **shortcodes**: **related_content**, **related_books**, and **related_based**.
+		* New function: **are_related_books_enabled**. Checks if the related book checkbox is enabled.
+		* New function: **print_related_content($type)**. Depending on the type you pass one parameter or another.
+		* New function: **print_related_books** is a shortcode that print the information of related book.
+		* New function: **print_links_based** is a shortcode that print the information of the book on which it is based.
 
 
 
 	* In pressbooks related content class
 
-		* New action:**custom_metadata_manager_init_metadata** that call add_metadata function of **Pb_Rc_Books** class.
+		* New action:**custom_metadata_manager_init_metadata** that call one function of **Pb_Rc_Books** class.
 
 * **ENHANCEMENTS**
 	
-	* We replace the call of **print_ in_chapter_r_field** function in functions theme with a shortcode called **are_related_books_enabled**.
-	* The **print_chapter_r_fields($cont)** function now receives a parameter that serves to know what information to display. For example if receives "video" only display the video values in frontend. 
+	* We replace the call of **print_ in_chapter_r_field** function by shortcode called **are_related_books_enabled**.
+	* The **print_chapter_r_fields($cont)** function now receives a parameter that serves to know what information to display. 
 	* Documentation 
 
 * **List of files revised**
@@ -102,10 +100,10 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 		* New multiple field: **exercises**: Exercises link
 		* New multiple field: **activities**: Activities link
 		* New multiple field: **bibliography**: Bibliography link
-		* New class: **Pb_Rc_Chapter** that contains the functions **add_metadata**, **print_chapter_r_fields** and **get_instance**. This class is in includes/class-external-content.php.
-		* New function: **add_metadata** that produce the resources links to Resource metabox in custom post Chapter.
-		* New function: **print_chapter_r_fields** that create a table that contains the chapter links and print this in frontend. This function is called in functions.php that is in pressbooks-books4languages-child(theme).
-		* New function: **get_instance** that return the instance of Pb_Rc_Chapter class. This function is called in pressbooks-related-content.php and functions.php that is in pressbooks-books4languages-child(theme).
+		* New class: **Pb_Rc_Chapter** 
+			* New function: **add_metadata** : add resources links to Resource metabox in custom post Chapter.
+			* New function: **print_chapter_r_fields** creates a table that contains the chapter links and print this in frontend.
+			* New function: **get_instance** that return the instance of Pb_Rc_Chapter class. 
 
 	* In pressbooks related content class	
 
