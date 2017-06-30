@@ -94,7 +94,10 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 
 	* In pressbooks related content class
 
-		* New action:**custom_metadata_manager_init_metadata** that call one function of **Pb_Rc_Books** class.
+		* New admin action:**custom_metadata_manager_init_metadata** that call **add_related_metabox**.
+		* New admin action:**custom_metadata_manager_init_metadata** that call **resources_in_post_type**.
+		* New admin action:**admin_init** calls **options_checkbox**.
+		* New admin action:**admin_menu** calls **add_new_option**.
 
 * **ENHANCEMENTS**
 	
