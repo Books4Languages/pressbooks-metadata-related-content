@@ -58,18 +58,39 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 		* New class: **Pb_Rc_Books**. 
 			* New function: **get_instance** that return the instance of Pb_Rc_Chapter class.
 			* New function: **print_link_based**. Displays a link and the image of the language flag in the footer. 
-			* New function: **print_related_books_field** prints the links to related books for the theme. 
+			* New function: **print_related_books_field** prints the links to related books in the footer. 
 
 	* New custom metabox called **Related Books** create a checkbox that enables or disables the functions of related books.
 
+	* New functionality: **shortcodes**
 
-		* New functionality: **shortcodes**: **related_content**, **related_books**, and **related_based**.
-		* New function: **are_related_books_enabled**. Checks if the related book checkbox is enabled.
-		* New function: **print_related_content($type)**. Depending on the type you pass one parameter or another.
-		* New function: **print_related_books** is a shortcode that print the information of related book.
-		* New function: **print_links_based** is a shortcode that print the information of the book on which it is based.
+		* **related_content**
+		* **related_books**
+		* **related_based**.
+		* New functions for **shortcodes**
+			* **are_related_books_enabled**. Checks if the related book checkbox is enabled.
+			* **print_related_content($type)**. Depending on the type you pass one parameter or another.
+			* **print_related_books** is a shortcode that print the information of related book.
+			* **print_links_based** is a shortcode that print the information of the book on which it is based.
 
+	* New sections of PB Metadata setting page:
 
+		*  **options resources**
+		*  **show info**
+		*  **related op**
+		*  **button op**
+
+	* New functions for new sections:
+
+		* **option_checkbox** creates sections and registers all setting. 
+		* **RESOURCES_callback** creates the checkboxs in resources section.
+		* **related_callback** creates the checkboxs in related section.
+		* **button_callback** creates the checkboxs in button section.
+		* **show_info_callback** creates the checkboxs in show info section.
+		* **resources_in_post_type** knows that checkbox of show info section has ben selected and call **add_resources_metabox($posttype)**.
+		* **add_resources_metabox($posttype)** Knows that checkbox of resources section  has been selected and create the metabox and fields in posttype.  
+		* **add_related_metabox** knows that checkboxs of related and button section has been selected and create the metabox and fields in Book info and call **add_button_in($posttype)**.
+		* **add_button_in($posttype)** creates metabox and fields in posttype.
 
 	* In pressbooks related content class
 
@@ -79,6 +100,7 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 	
 	* We replace the call of **print_ in_chapter_r_field** function by shortcode called **are_related_books_enabled**.
 	* The **print_chapter_r_fields($cont)** function now receives a parameter that serves to know what information to display. 
+	* Replace the **add_metadata** functions by others functions in admin class.
 	* Documentation 
 
 * **List of files revised**
@@ -88,6 +110,7 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 	* includes/class-pressbooks-related-books-metadata.php
 	* includes/class-pressbooks-related-functions.php
 	* includes/class-pressbooks-related-content.php
+	* admin/class-pressbooks-related-contnet-admin.php
 
 
 ### 0.1
@@ -107,8 +130,8 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 
 	* In pressbooks related content class	
 
-		* New function:  **define_metadata_changes** that create a instance of Pb_Rc_Chapter and defines all the metaboxes and their fields. This function is in include/pressbooks-related-content.php.
-		* New action : **custom_metadata_manager_init_metadata** that call add_metadata function of Pb_Rc_Chapter class.
+		* New function:  **define_metadata_changes** creates a instance of Pb_Rc_Chapter and defines all the metaboxes and their fields. 
+		* New action : **custom_metadata_manager_init_metadata** calls add_metadata function of Pb_Rc_Chapter class.
 
 * **List of files revised**
 
