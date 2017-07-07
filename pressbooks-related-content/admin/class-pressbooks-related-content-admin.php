@@ -80,13 +80,13 @@ class Pressbooks_Related_Content_Admin {
 		
 	}
 
-	/*
+	/**
 	*
 	* This function is responsible for creating sections and recording all settings
 	* This function is called from the Pressbooks_Related_Content class in the
 	* define_admin_hooks function. 
 	*
-	*
+	* @since    0.2
 	*/
 	
 	public function options_checkbox(){
@@ -153,10 +153,11 @@ class Pressbooks_Related_Content_Admin {
 
     }
  
- 	/*
+ 	/**
  	* This function is a options_resources section callback
  	* This function is started to create the section
  	*
+ 	* @since    0.2
  	*/
 
     function RESOURCES_callback($args) { // Section Callback
@@ -177,10 +178,11 @@ class Pressbooks_Related_Content_Admin {
 		echo'<li>'. $biblio . '</li>';  
 	}
 
-	/*
+	/**
 	* This function is a related_op section 
 	* This function is started when create the section
 	*
+	* @since    0.2
 	*/
 	function related_callback() { // Section Callback
 		//We make a small introduction of the section
@@ -206,10 +208,11 @@ class Pressbooks_Related_Content_Admin {
 
 	}
 
-	/*
+	/**
 	* This function is a button_op section callback
 	* This function is started to create a section
 	*
+	* @since    0.2
 	*/
 	function button_callback($args){// Section Callback
 		//We make a small introduction of the section
@@ -227,10 +230,11 @@ class Pressbooks_Related_Content_Admin {
 		echo '<li>' . $back_b . '</li>';
 	}
 
-	/*
+	/**
 	* This function is a show info section callback
 	* This function is started to create the section
 	*
+	* @since    0.2
 	*/
     function show_info_callback($args) { // Section Callback
     	//We make a small introduction of the section
@@ -255,12 +259,13 @@ class Pressbooks_Related_Content_Admin {
 		echo '</ul>'; 
 	}
 
-	/*
+	/**
 	* This function is responsible for collecting the data of the post types of the database.
 	* With this information we know that checkbox has been selected so that we can call the
 	* function add_resouces_metabox ($ post_type) which is passed as an argument the post type 
 	* selected in the checkbox.
 	*
+	* @since    0.2
 	*/
     public function resources_in_post_type(){
     	//We create the DB variable
@@ -289,12 +294,14 @@ class Pressbooks_Related_Content_Admin {
 			
 	}
 
-	/*
+	/**
 	* This function is responsible for obtaining information from the database on the fields of 
 	* video, audio, activities, exercises and bibliography.
 	* With this information you know if the field has been selected or not. 
 	*Receive as parameter the post type where you want to display the selected fields
 	*
+	* 
+	* @since    0.2
 	*/
 	 public function add_resources_metabox($posttype){
 
@@ -419,13 +426,14 @@ class Pressbooks_Related_Content_Admin {
 		
  	}
  	
- 	/*
+ 	/**
  	* This function is responsible for obtaining information about the related 
  	* settings to the database.
  	* With this information we can know which settings have been selected and 
  	* this to be able to create or not the fields in the metabox Related books in Book info. 
  	* Also look at where to show the enable button
  	*
+ 	* @since    0.2
  	*
  	*/
 
@@ -549,7 +557,7 @@ class Pressbooks_Related_Content_Admin {
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Vocabulary',
-			'description'	=>	'The URL of vocabulary.',
+			'description'	=>	'The URL of vocabulary. You can insert a word (name of the book) or a link to vocabulary Book.',
 			'placeholder' 	=>	'http://site.com/'
 		) );
 		}
@@ -559,7 +567,7 @@ class Pressbooks_Related_Content_Admin {
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Grammar',
-			'description'	=>	'The URL of grammar.',
+			'description'	=>	'The URL of grammar. You can insert a word (name of the book) or a link to grammar Book',
 			'placeholder' 	=>	'http://site.com/'
 		) );
 		}
@@ -569,7 +577,7 @@ class Pressbooks_Related_Content_Admin {
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Phonetics and Spelling',
-			'description'	=>	'The URL of phonetics.',
+			'description'	=>	'The URL of phonetics. You can insert a word (name of the book) or a link to phonetics and spelling Book',
 			'placeholder' 	=>	'http://site.com/'
 		) );
 		}
@@ -579,7 +587,7 @@ class Pressbooks_Related_Content_Admin {
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Texts and Functions',
-			'description'	=>	'The URL of texts and functions.',
+			'description'	=>	'The URL of texts and functions. You can insert a word (name of the book) or a link to Texts and Functions',
 			'placeholder' 	=>	'http://site.com/'
 		) );
 		}
@@ -589,7 +597,7 @@ class Pressbooks_Related_Content_Admin {
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Cultural and Sociocultural',
-			'description'	=>	'The URL of Cultutal and Sociocultural.',
+			'description'	=>	'The URL of Cultutal and Sociocultural. You can insert a word (name of the book) or a link to Cultutal and Sociocultural Book',
 			'placeholder' 	=>	'http://site.com/'
 		) );
 		}
@@ -599,7 +607,7 @@ class Pressbooks_Related_Content_Admin {
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Extra Content',
-			'description'	=>	'The URL of Extra Content.',
+			'description'	=>	'The URL of Extra Content. You can insert a word (name of the book) or link to other Book',
 			'placeholder' 	=>	'http://site.com/'
 		) );
 		}
@@ -608,18 +616,19 @@ class Pressbooks_Related_Content_Admin {
 		/* Create  text field link based. This link will be the link of the book on which it is based*/
 		x_add_metadata_field( 'link_based', 'metadata', array(
 			'group' => 'Related_Books', // the group name
-			'description' => 'The URL of book based.',
+			'description' => 'The URL of book based. You can insert a word (name of the book)  or the link on which it is based',
 			'label' => ' Link of book based ', // field label
 			'field_type' => 'text',
 		) );
 		}
 	}
 
-	/*
+	/**
 	*
 	*This function is responsible for displaying the enable button 
 	*in the posttype that is passed as parameter
 	*
+	* @since    0.2
 	*/
 	public function add_button_in($posttype){
 		//We create a metabox Related books button where will be the button that 

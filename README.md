@@ -66,19 +66,39 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 
 		* **related_content**
 		* **related_books**
-		* **related_based**.
+		* **related_based**
+		* **show_metadata**
 		* New functions for **shortcodes**
 			* **are_related_books_enabled**. Checks if the related book checkbox is enabled.
-			* **print_related_content($type)**. Depending on the type you pass one parameter or another.
+			* **print_related_content($type)**. Depending on the type you pass one parameter or another, print related content.
 			* **print_related_books** is a shortcode that print the information of related book.
 			* **print_links_based** is a shortcode that print the information of the book on which it is based.
+			* **info_field**.displaying all information of Educational Information metabox.
+
+	* New pending Funcionality: **Widgets**
+
+		* **link_based_widget**
+		* **related_widget**
+		* **resources_widget**
+		* New class: 
+			* **link_based_widget**
+				* New function: **__construct** Create a link based widget.
+				* New funcion: **widget** show information widget in front-end.
+			* **related_widget**
+				* New function: **__construct** Create a related widget.
+				* New funcion: **widget** show information widget in front-end.
+			* **resources_widget**
+				* New function: **__construct** Create a resources widget.
+				* New funcion: **widget** show information widget in front-end.
+				* New function: **form** create a form in backend.
+				* New function: **update** replace old instance with the new information.
 
 	* New sections of PB Metadata setting page:
 
-		*  **options resources**
-		*  **show info**
-		*  **related op**
-		*  **button op**
+		*  **resources options**
+		*  **isced options**
+		*  **related options**
+		*  **button option**
 
 	* New functions for new sections:
 
@@ -113,6 +133,9 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 	* includes/class-pressbooks-related-books-metadata.php
 	* includes/class-pressbooks-related-functions.php
 	* includes/class-pressbooks-related-content.php
+	* includes/class-resources_widget.php
+	* include/class-related_widget.php
+	* înclude/class-link-based_widget.php
 	* admin/class-pressbooks-related-contnet-admin.php
 
 

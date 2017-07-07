@@ -173,13 +173,6 @@ class Pressbooks_Related_Content {
 		$plugin_chapter_metadata = new Pb_Rc_Chapter( $this->get_plugin_name(), $this->get_version() );
 		//create a instance of Pressbooks_Metadata_Related_Books_Metadata
 		$plugin_related_books_metadata = new Pb_Rc_Books($this->get_plugin_name(), $this->get_version());
-
-		// The custom_metadata_manager_init_metadata hook, defines all the metaboxes and their fields 
-		// add metadata to chapter
-		//$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_chapter_metadata, 'add_metadata', 31 );
-		//add metadata to book info
-		//$this->loader->add_action('custom_metadata_manager_init_metadata',$plugin_related_books_metadata,'add_metadata', 31 );
-
 		
 	}
 	
@@ -197,9 +190,12 @@ class Pressbooks_Related_Content {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_new_option' );
+		// call the function options_checkbox that create a sections in admin page
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'options_checkbox' );
+		// call the add_related_metabox function that know which settings have been selected 
+		//and this to be able to create or not the fields in the metabox Related books
 		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_admin, 'add_related_metabox', 31 );
+		// call the resourceS_in_post_type function that knows that checkbox has been selected and call other fucntion
 		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_admin, 'resources_in_post_type', 31 );
 
 	}

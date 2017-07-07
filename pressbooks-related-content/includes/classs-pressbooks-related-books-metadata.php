@@ -12,6 +12,7 @@
  * @subpackage Pressbooks-related-content/includes
  * @author     Nicole <nicoleacuna95@gmail.com>
  */
+
 /**
 	* Initialize the class and set its properties.
 	*
@@ -62,102 +63,7 @@
 	
 	}
 
-	/**
-	* The function which produces the metafields to 
-	* Book info metabox with custom metadata of Pressbooks
-	*
-	* @since 0.2
-	*/
-	/*
-	public function add_metadata(){
-
-		//We add a brief explanation
-		 $explaination= 'The books (one per content type) that are meant to '
-			. 'be linked with this one.<br/>';
-               
-               $add='For <span style="color:red;">Books4Languages</span> books you can write just the book name you want to relate! <b>Mybook</b> <br/>';
-               $add.='You can also enter external links! <b>mybook.com</b>';
-        //We create a metabox Related books
-		x_add_metadata_group( 'Related_Books', 'metadata', array(
-			'label' => 'Related Books',
-			'description'=>$explaination.$add
-
-		) );
-       
-		/* Create  text field Vocabulary */
-	/*	x_add_metadata_field( 	'vocabulary_book', 'metadata', array(
-			'group' 		=>	'Related_Books',
-			'field_type'	=> 	'text',
-			'label' 		=>	'Vocabulary',
-			'description'	=>	'The URL of vocabulary.',
-			'placeholder' 	=>	'http://site.com/'
-		) );
-
-		/* Create  text field Grammar */
-	/*	x_add_metadata_field( 	'grammar_book', 'metadata', array(
-			'group' 		=>	'Related_Books',
-			'field_type'	=> 	'text',
-			'label' 		=>	'Grammar',
-			'description'	=>	'The URL of grammar.',
-			'placeholder' 	=>	'http://site.com/'
-		) );
-
-		/* Create  text field Phonetics and Spelling */
-		/*x_add_metadata_field( 	'phonetics_spelling_book', 'metadata', array(
-			'group' 		=>	'Related_Books',
-			'field_type'	=> 	'text',
-			'label' 		=>	'Phonetics and Spelling',
-			'description'	=>	'The URL of phonetics.',
-			'placeholder' 	=>	'http://site.com/'
-		) );
-
-		/* Create  text field Texts and functions */
-	/*	x_add_metadata_field( 	'texts_functions_book', 'metadata', array(
-			'group' 		=>	'Related_Books',
-			'field_type'	=> 	'text',
-			'label' 		=>	'Texts and Functions',
-			'description'	=>	'The URL of texts and functions.',
-			'placeholder' 	=>	'http://site.com/'
-		) );
-
-		/* Create  text field Cultural and Sociocultural*/
-	/*	x_add_metadata_field( 'cultural_functions_book', 'metadata', array(
-			'group' 		=>	'Related_Books',
-			'field_type'	=> 	'text',
-			'label' 		=>	'Cultural and Sociocultural',
-			'description'	=>	'The URL of Cultutal and Sociocultural.',
-			'placeholder' 	=>	'http://site.com/'
-		) );
-		/* Create  text field Extra content */
-	/*	x_add_metadata_field( 'extra_content_book', 'metadata', array(
-			'group' 		=>	'Related_Books',
-			'field_type'	=> 	'text',
-			'label' 		=>	'Extra Content',
-			'description'	=>	'The URL of Extra Content.',
-			'placeholder' 	=>	'http://site.com/'
-		) );
-		//We create a metabox Related books button where will be the button that will make you see or not the information. This button will be only in the parts.
-		x_add_metadata_group( 'Related_Books_button', 'part', array(
-			'label' => 'Related Books'
-
-		) );
-		/* Create  button */
-	/*	x_add_metadata_field( 'button_Rc', 'part', array(
-			'group' => 'Related_Books_button',
-			'label' => 'Enable Related Books',
-			'field_type' => 'checkbox',
-		) );
-		/* Create  text field link based. This link will be the link of the book on which it is based*/
-	/*	x_add_metadata_field( 'link_based', 'metadata', array(
-			'group' => 'Related_Books', // the group name
-			'description' => 'The URL of book based.',
-			'label' => ' Link of book based ', // field label
-			'field_type' => 'text',
-		) );
-
 	
-	}
-*/
 	/**
 	* This function return the instance of the class
 	* @since 0.2
@@ -172,24 +78,28 @@
 		return Pb_Rc_Books::$instance;
 	}
 
-	/*
+	/**
 	*
-	*This function takes information from the link_based field and languages field. 
-	*This information is shown in the footer. Display a link and the image of the language flag	
-	*This function is called by a shortcode in class-pressbooks-related-functions.php.
+	* This function takes information from the fields field_based field and 
+	* languages and it does it through the database. (These fields are created in admin class in admin fileof this plugin) . 
+	* To create the new link, we divide in three parts the url (a, b, c) and change the part b by the value of the field_based.
+	* This information is shown in the footer. Display a link and the image of the language flag.	
+	* This function is called by a shortcode in class-pressbooks-related-functions.php.
+	*
 	* @since 0.2
 	*
 	*/
 	public function print_link_based() {
+		// globals variables of database and post
 		global $wpdb;
 		global $post;
 		//Variable that serves to know if it's a link
 		$findme  = '.com';
-		//We take the domain of our site
+		//We take the domain of our site , part A
 		$domain= get_blog_details()->domain;
-		//We take the url from our site
+		//We take the url from our site 
 		$page_base_uri = $_SERVER['REQUEST_URI'];
-		//We take the part that interests us
+		//We take the part that interests us, part C
 		$page_uri=strstr(substr($page_base_uri, 1), '/'); 
 		//This variable serves to show or not show the title
 		$first=false;
@@ -264,6 +174,7 @@
 	/**
 	 * Checks if the related book option is enabled for the current page.
 	 * Receive with parameter the post_id
+	 *
 	 * @since 0.2
 	 * @return boolean true if the option is enabled, false otherwise.
 	 */
@@ -279,29 +190,31 @@
 		if($button_count!=0){
 			return true;
 		}
-
 		return false;
 
 	}
 	
 
 	/**
+	 *
 	 * Prints the links (HTML code) to related books for the public part of
-	 * the book.
+	 * the book. (theme)
+	 * Get information about resource fields in database and print the table created with the information.
+	 * To create the new link, we divide in three parts the url (a, b, c) and change the part b by the value of the field.
 	 * This fucntion is called by shortcode in clas-pressbooks-related-functions.php
+	 * 
 	 * @since 0.2
 	 */
 	public function print_related_books_fields() {
-		
+		// global database variable
 		global $wpdb;
-		global $post;
 		//Variable that serves to know if it's a link
 		$findme  = '.com';
-		//We take the domain of our site
+		//We take the domain of our site, part A
 		$domain= get_blog_details()->domain;
 		//We take the url from our site
 		$page_base_uri = $_SERVER['REQUEST_URI'];
-		//We take the part that interests us
+		//We take the part that interests us, part C
 		$page_uri=strstr(substr($page_base_uri, 1), '/'); 
 		//We take from the database the data of the  vocabulary, grammar, phonetics, cultural, extra fields
        	$table2=$wpdb->prefix.'postmeta';
