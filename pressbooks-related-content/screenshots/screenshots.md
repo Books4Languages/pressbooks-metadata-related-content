@@ -35,6 +35,8 @@ Link Based in frontend in footer.
 
 ![Link Based Frontend](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/pressbooks-related-content/screenshots/Link_based_footer.JPG)
 
+Setting Menu with tabs
+
 ![Setting Tabs](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/pressbooks-related-content/screenshots/tabs.JPG)
 ### 0.1
 ![Resources in dashboard-1](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/pressbooks-related-content/screenshots/Dashboard.JPG)
