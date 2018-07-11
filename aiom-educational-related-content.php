@@ -10,18 +10,18 @@
  *
  * @link              Nicole
  * @since             0.1
- * @package           Pressbooks_Related_Content
+ * @package           aiom-related-content
  *
  * @wordpress-plugin
- * Plugin Name:       Pressbooks-related-content
+ * Plugin Name:       AIOM Educational Related Content
  * Plugin URI:        Pb-rc
  * Description:       This plugin creates links fields in  new chapter metabox and shot this information in frontend
  * Version:           0.1
- * Author:            Nicole
+ * Author:            Daniil Zhitnitskii (My Language Skills)
  * Author URI:        Nicole
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       pressbooks-related-content
+ * Text Domain:       aiom-related-content
  * Domain Path:       /languages
  */
 
