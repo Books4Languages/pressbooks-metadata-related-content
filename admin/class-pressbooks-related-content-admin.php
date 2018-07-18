@@ -65,6 +65,41 @@ class Pressbooks_Related_Content_Admin {
 			array($this, 'render_options_page_rc'), 'dashicons-search');
 		add_meta_box('edu_rel_content', 'Settings', array($this, 'render_opt_metabox'), 'pressbooks-related-content_resources_options_page',
             'normal', 'core');
+
+		if(!is_plugin_active('all-in-one-metadata/all-in-one-metadata.php')){
+		    if (!\adminFunctions\Pressbooks_Metadata_Site_Cpt::pressbooks_identify()) {
+			    //Used to remove the default menu for the cpt we created
+			    remove_menu_page( 'edit.php?post_type=site-meta' );
+			    remove_meta_box( 'submitdiv', 'site-meta', 'side' );
+			    add_meta_box( 'metadata-save', __( 'Save Site Metadata Information', 'all-in-one-metadata' ), array(
+				    $this,
+				    'metadata_save_box'
+			    ), 'site-meta', 'side', 'high' );
+			    $meta = \adminFunctions\Pressbooks_Metadata_Site_Cpt::get_site_meta_post();
+			    if ( ! empty( $meta ) ) {
+				    $site_meta_url = 'post.php?post=' . absint( $meta->ID ) . '&action=edit';
+			    } else {
+				    $site_meta_url = 'post-new.php?post_type=site-meta';
+			    }
+			    //adding Site-Meta page under main plugin page
+			    add_submenu_page( 'tools.php', 'Site-Meta', 'Site-Meta', 'edit_posts', $site_meta_url );
+		    }
+		}
+	}
+
+	/**
+	 * A function that manipulates the inputs for saving the new cpt data
+	 * @since    0.1
+	 */
+	function metadata_save_box( $post ) {
+		if ( 'publish' === $post->post_status ) { ?>
+            <input name="original_publish" type="hidden" id="original_publish" value="Update"/>
+            <input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="<?=__('Save', 'all-in-one-metadata')?>"/>
+		<?php } else { ?>
+            <input name="original_publish" type="hidden" id="original_publish" value="Publish"/>
+            <input name="publish" id="publish" type="submit" class="button button-primary button-large" value="<?=__('Save', 'all-in-one-metadata')?>" tabindex="5" accesskey="p"/>
+			<?php
+		}
 	}
 
 
@@ -201,7 +236,7 @@ class Pressbooks_Related_Content_Admin {
 		//create a new section for location of educational metadata
 		add_settings_section(
 			'edu_locations', // Section ID
-			'WHERE SHOW EDUCATIONAL METADATA', // Section Title
+			'EDUCATIONAL METADATA', // Section Title
 			array( $this, 'show_edu_info_callback'), // Callback
 			'pressbooks-related-content_resources_options_page' // What Page?
 		);
@@ -233,6 +268,8 @@ class Pressbooks_Related_Content_Admin {
 		foreach ( $post_types as $post_type ) {
 			register_setting( 'pressbooks-related-content_resources_options_page',  $post_type . '_op' );
 			register_setting( 'pressbooks-related-content_resources_options_page',  $post_type . '_edu_op' );
+			register_setting( 'pressbooks-related-content_resources_options_page',  $post_type . '_edu_dublin_op' );
+			register_setting( 'pressbooks-related-content_resources_options_page',  $post_type . '_edu_coins_op' );
 		}
 		register_setting( 'pressbooks-related-content_resources_options_page',  'metadata_edu_op' );
 
@@ -327,7 +364,7 @@ class Pressbooks_Related_Content_Admin {
 	    echo '<p> Choose the post types of the following post types. In the post type that you choose will be shown the previously chosen fields.</p>';
 	    //We create a variable for each post type. Each variable contains html code that creates a checkbox. 
 	    $post_types = get_post_types( ['public' => true], 'names' );
-		 
+
 		echo '<ul>';
 		//If pressbooks is installed then we only show 4 post types: part, chapter, front-matter and back-matter
 		if ( @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
@@ -352,9 +389,11 @@ class Pressbooks_Related_Content_Admin {
 	 */
 	function show_edu_info_callback($args) { // Section Callback
 		//We make a small introduction of the section
-		echo '<p> Choose the post types to show educational metadata.</p>';
+		echo '<p> Choose type(s) of educational metadata you would like to use and desired locations for it.</p>';
 		//We create a variable for each post type. Each variable contains html code that creates a checkbox.
 		$post_types = get_post_types( ['public' => true], 'names' );
+
+		echo '<h3>LRMI Metadata</h3>';
 
 		echo '<ul>';
 		//If pressbooks is installed then we only show 4 post types: part, chapter, front-matter and back-matter
@@ -369,6 +408,44 @@ class Pressbooks_Related_Content_Admin {
 			foreach ( $post_types as $post_type ) {
 
 				echo '<li>' .'<input type="checkbox"  name='. $post_type . '_edu_op' .' value="1" ' . checked(1, get_option($post_type . '_edu_op'), false) . '/>' . $post_type  . '</li>';
+			}
+		}
+		echo '</ul>';
+
+		echo '<h3>COinS Metadata</h3>';
+
+		echo '<ul>';
+		//If pressbooks is installed then we only show 4 post types: part, chapter, front-matter and back-matter
+		if ( @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+			foreach ( $post_types as $post_type ) {
+				if($post_type=='part' || $post_type=='chapter' || $post_type=='front-matter' || $post_type=='back-matter' )
+					echo '<li>' .'<input type="checkbox"  name='. $post_type . '_edu_coins_op' .' value="1" ' . checked(1, get_option($post_type . '_edu_coins_op'), false) . '/>' . $post_type  . '</li>';
+			}
+			echo '<li>' .'<input type="checkbox"  name="metadata_edu_coins_op"  value="1" ' . checked(1, get_option('metadata_edu_coins_op'), false) . '/>Book Info</li>';
+		}else{
+			//Otherwise we show all
+			foreach ( $post_types as $post_type ) {
+
+				echo '<li>' .'<input type="checkbox"  name='. $post_type . '_edu_coins_op' .' value="1" ' . checked(1, get_option($post_type . '_edu_coins_op'), false) . '/>' . $post_type  . '</li>';
+			}
+		}
+		echo '</ul>';
+
+		echo '<h3>Dublin Core Metadata</h3>';
+
+		echo '<ul>';
+		//If pressbooks is installed then we only show 4 post types: part, chapter, front-matter and back-matter
+		if ( @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+			foreach ( $post_types as $post_type ) {
+				if($post_type=='part' || $post_type=='chapter' || $post_type=='front-matter' || $post_type=='back-matter' )
+					echo '<li>' .'<input type="checkbox"  name='. $post_type . '_edu_dublin_op' .' value="1" ' . checked(1, get_option($post_type . '_edu_dublin_op'), false) . '/>' . $post_type  . '</li>';
+			}
+			echo '<li>' .'<input type="checkbox"  name="metadata_edu_dublin_op"  value="1" ' . checked(1, get_option('metadata_edu_dublin_op'), false) . '/>Book Info</li>';
+		}else{
+			//Otherwise we show all
+			foreach ( $post_types as $post_type ) {
+
+				echo '<li>' .'<input type="checkbox"  name='. $post_type . '_edu_dublin_op' .' value="1" ' . checked(1, get_option($post_type . '_edu_dublin_op'), false) . '/>' . $post_type  . '</li>';
 			}
 		}
 		echo '</ul>';
@@ -659,6 +736,8 @@ class Pressbooks_Related_Content_Admin {
                
       	$add='For <span style="color:red;">Books4Languages</span> books you can write just the book name you want to relate! <b>Mybook</b> <br/>';
        	$add.='You can also enter external links! <b>mybook.com</b>';
+
+       	$post_type = \adminFunctions\Pressbooks_Metadata_Site_Cpt::pressbooks_identify() ? 'metadata' : 'site-meta';
         
         //We create a metabox Related books
 		x_add_metadata_group( 'Related_Books', 'metadata', array(
@@ -669,7 +748,7 @@ class Pressbooks_Related_Content_Admin {
 	   //Only if the variable is true we create the field
        if($voc==true){
 		/* Create  text field Vocabulary */
-		x_add_metadata_field( 	'vocabulary_book', 'metadata', array(
+		x_add_metadata_field( 	'vocabulary_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Vocabulary',
@@ -679,7 +758,7 @@ class Pressbooks_Related_Content_Admin {
 		}
 		if($gra==true){
 		/* Create  text field Grammar */
-		x_add_metadata_field( 	'grammar_book', 'metadata', array(
+		x_add_metadata_field( 	'grammar_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Grammar',
@@ -689,7 +768,7 @@ class Pressbooks_Related_Content_Admin {
 		}
 		if($pho==true){
 		/* Create  text field Phonetics and Spelling */
-		x_add_metadata_field( 	'phonetics_spelling_book', 'metadata', array(
+		x_add_metadata_field( 	'phonetics_spelling_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Phonetics and Spelling',
@@ -699,7 +778,7 @@ class Pressbooks_Related_Content_Admin {
 		}
 		if($text==true){
 		/* Create  text field Texts and functions */
-		x_add_metadata_field( 	'texts_functions_book', 'metadata', array(
+		x_add_metadata_field( 	'texts_functions_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Texts and Functions',
@@ -709,7 +788,7 @@ class Pressbooks_Related_Content_Admin {
 		}
 		if($cul==true){
 		/* Create  text field Cultural and Sociocultural*/
-		x_add_metadata_field( 'cultural_functions_book', 'metadata', array(
+		x_add_metadata_field( 'cultural_functions_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Cultural and Sociocultural',
@@ -719,7 +798,7 @@ class Pressbooks_Related_Content_Admin {
 		}
 		if($extra==true){
 		/* Create  text field Extra content */
-		x_add_metadata_field( 'extra_content_book', 'metadata', array(
+		x_add_metadata_field( 'extra_content_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Extra Content',
@@ -730,7 +809,7 @@ class Pressbooks_Related_Content_Admin {
 		
 		if($link==true){
 		/* Create  text field link based. This link will be the link of the book on which it is based*/
-		x_add_metadata_field( 'link_based', 'metadata', array(
+		x_add_metadata_field( 'link_based', $post_type, array(
 			'group' => 'Related_Books', // the group name
 			'description' => 'The URL of book based. You can insert a word (name of the book)  or the link on which it is based',
 			'label' => ' Link of book based ', // field label
@@ -772,15 +851,41 @@ class Pressbooks_Related_Content_Admin {
 		//If pressbooks is installed then we only show 4 post types: part, chapter, front-matter and back-matter
 		if ( @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
 			foreach ( $post_types as $post_type ) {
-				if ( get_option( $post_type . '_edu_op' ) && ( $post_type == 'part' || $post_type == 'chapter' || $post_type == 'front-matter' || $post_type == 'back-matter' || $post_type='metadata') ) {
-					new \educa\Pressbooks_Metadata_Educational( $post_type );
+				if ( $post_type == 'part' || $post_type == 'chapter' || $post_type == 'front-matter' || $post_type == 'back-matter' || $post_type=='metadata') {
+
+				    if (get_option( $post_type . '_edu_op' )) {
+					    new \educa\Pressbooks_Metadata_Educational( $post_type );
+				    }
+
+				    if (get_option( $post_type . '_edu_dublin_op' )) {
+
+				        new \educa\Pressbooks_Metadata_Dublin( $post_type );
+				    }
+
+					if (get_option( $post_type . '_edu_coins_op' )) {
+
+						new \educa\Pressbooks_Metadata_Coins( $post_type );
+					}
+
 				}
 			}
 		}else{
 			foreach ( $post_types as $post_type ) {
+
 				if ( get_option( $post_type . '_edu_op' )){
+
 				    new \educa\Pressbooks_Metadata_Educational( $post_type );
 			    }
+
+				if (get_option( $post_type . '_edu_dublin_op' )) {
+
+					new \educa\Pressbooks_Metadata_Dublin( $post_type );
+				}
+
+				if (get_option( $post_type . '_edu_coins_op' )) {
+
+					new \educa\Pressbooks_Metadata_Coins( $post_type );
+				}
             }
 		}
 
@@ -792,20 +897,20 @@ class Pressbooks_Related_Content_Admin {
      * @since 0.2
 	 */
 	public function trans_links(){
-		x_add_metadata_group( 'translations', 'metadata', array(
+
+		$post_type = \adminFunctions\Pressbooks_Metadata_Site_Cpt::pressbooks_identify() ? 'metadata' : 'site-meta';
+
+		x_add_metadata_group( 'translations', $post_type, array(
 			'label' => 'Translations'
 		) );
 		$languages = scandir(plugin_dir_path( dirname(__FILE__) ).'/includes/FLAGS' );
 		unset($languages[0], $languages[1]);
 		foreach ($languages as $language) {
 		    $language = explode('.',$language)[0];
-			x_add_metadata_field( 'pb_trans_'.$language, 'metadata', array(
+			x_add_metadata_field( 'pb_trans_'.$language, $post_type, array(
 				'group'      => 'translations',
 				'label'      => ucfirst($language),
 				'field_type' => 'text',
-                'display_callback' => function () use ($language){
-				    echo '<img src="'.plugin_dir_url('').'aiom-educational-related-content/includes/FLAGS/'.$language.'.png">';
-                }
 			) );
 		}
     }

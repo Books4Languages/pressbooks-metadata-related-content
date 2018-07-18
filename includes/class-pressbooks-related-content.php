@@ -97,6 +97,11 @@ class Pressbooks_Related_Content {
 	private function load_dependencies() {
 
 		/**
+		 * Functions related with plugins
+		 */
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
@@ -137,10 +142,21 @@ class Pressbooks_Related_Content {
 		require_once plugin_dir_path( dirname(__FILE__) ) . 'includes/class-pressbooks-related-functions.php';
 
 		/**
-		 * File with educational metadata
+		 * Files with educational metadata
 		 */
 		require_once plugin_dir_path( dirname(__FILE__) ) . 'admin/class-pressbooks-metadata-educational.php';
+		require_once plugin_dir_path( dirname(__FILE__) ) . 'admin/class-pressbooks-metadata-dublin.php';
+		require_once plugin_dir_path( dirname(__FILE__) ) . 'admin/class-pressbooks-metadata-coins.php';
 
+
+
+		/**
+		 * Registering Site-Meta post type if AIOM not installed and add custom-metadata functionality
+		 */
+		if (!is_plugin_active('all-in-one-metadata/all-in-one-metadata.php')){
+			require_once plugin_dir_path( dirname(__FILE__) ) . 'admin/class-pressbooks-metadata-site-cpt.php';
+			require_once plugin_dir_path( dirname(__FILE__) ) . 'symbionts/custom-metadata/custom_metadata.php';
+		}
 
 		$this->loader = new Pressbooks_Related_Content_Loader();
 
@@ -208,6 +224,14 @@ class Pressbooks_Related_Content {
 		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_admin, 'edu_in_post_type', 33 );
 		//adds metabox for links with translations
 		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_admin, 'trans_links', 34 );
+
+		//Creating a custom post for site level metadata - only when pressbooks is not present
+		if (!is_plugin_active('all-in-one-metadata/all-in-one-metadata.php')) {
+			if (!\adminFunctions\Pressbooks_Metadata_Site_Cpt::pressbooks_identify()) {
+				$this->loader->add_action( 'init', new \adminFunctions\Pressbooks_Metadata_Site_Cpt(), 'init' );
+				$this->loader->add_action( 'post_updated_messages', new \adminFunctions\Pressbooks_Metadata_Site_Cpt(), 'change_custom_post_mess' );
+			}
+		}
 	}
 
 	/**

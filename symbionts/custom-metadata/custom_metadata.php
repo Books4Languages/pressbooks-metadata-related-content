@@ -127,7 +127,7 @@ class custom_metadata_manager {
 		define( 'CUSTOM_METADATA_MANAGER_SELECT2_VERSION', '3.2' ); // version for included select2.js
 		define( 'CUSTOM_METADATA_MANAGER_TIMEPICKER_VERSION', '1.2' ); // version for included timepicker
 		define( 'CUSTOM_METADATA_MANAGER_VERSION', '0.8-dev' );
-		define( 'CUSTOM_METADATA_MANAGER_URL' , apply_filters( 'custom_metadata_manager_url', trailingslashit( plugins_url( 'pressbooks/symbionts/custom-metadata' ) ) ) );
+		define( 'CUSTOM_METADATA_MANAGER_URL' , apply_filters( 'custom_metadata_manager_url', trailingslashit( plugins_url( '', __FILE__ ) ) ) );
 
 		$this->init_object_types();
 
@@ -219,10 +219,7 @@ class custom_metadata_manager {
 	}
 
 	function enqueue_scripts() {
-		$post = get_post();
-		wp_enqueue_media( array(
-			'post' => $post
-		) );
+		wp_enqueue_media();
 		wp_enqueue_script( 'wplink' );
 		wp_enqueue_script( 'wpdialogs-popup' );
 		wp_enqueue_style( 'wp-jquery-ui-dialog' );
@@ -1181,14 +1178,7 @@ class custom_metadata_manager {
 		$readonly_str = ( ! empty( $field->readonly ) ) ? ' readonly="readonly"' : '';
 		$placeholder_str = ( in_array( $field->field_type, $this->_field_types_that_support_placeholder ) && ! empty( $field->placeholder ) ) ? ' placeholder="' . esc_attr( $field->placeholder ) . '"' : '';
 
-		$label_str = sprintf( '<label for="%s">%s</label>', esc_attr( $field_slug ), esc_html( $field->label ) );
-
-		// Define an array of field types that need the <label> AFTER the <input>
-		$label_after_field_types = array( 'checkbox' );
-
-		// Show the label now if the current field_type is not on the list
-		if ( ! in_array( $field->field_type, $label_after_field_types ) )
-			echo $label_str;
+		printf( '<label for="%s">%s</label>', esc_attr( $field_slug ), esc_html( $field->label ) );
 
 		// check if there is a default value and set it if no value currently set
 		if ( empty( $value ) && in_array( $field->field_type, $this->_field_types_that_support_default_value ) && ! empty( $field->default_value ) )
@@ -1320,10 +1310,6 @@ class custom_metadata_manager {
 			$count++;
 
 			echo '</div>';
-
-			// Now show the <label> for any field_type that needs it to come after
-			if ( in_array( $field->field_type, $label_after_field_types ) )
-				echo $label_str;
 
 		endforeach;
 
