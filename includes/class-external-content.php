@@ -161,7 +161,7 @@
 				//If the field is not empty the link will be displayed
 				if($value!='' || $value != null){
 					?>
-					<tr><td><p><?php echo '<a target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$value.'"> >>GO>> </a>';?></p></td></tr>
+					<tr><td><p><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$value.'"> >>GO>> </a>';?></p></td></tr>
 					<?php 
 				}
 				?>
@@ -187,7 +187,7 @@
 				//If the field is not empty the link will be displayed
 				if($value!='' || $value != null){
 				?>
-				<tr><td><p><?php echo '<a target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
+				<tr><td><p><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
 				<?php 
 				}
 				?>
@@ -215,7 +215,7 @@
 				//If the field is not empty the link will be displayed
 				if($value!='' || $value != null){
 				?>
-				<tr><td><p><?php echo '<a target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
+				<tr><td><p><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
 				<?php 
 				}
 				?>
@@ -244,7 +244,7 @@
 				//If the field is not empty the link will be displayed
 				if($value!='' || $value != null){
 				?>
-				<tr><td><p><?php echo '<a target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
+				<tr><td><p><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
 				<?php 
 				}
 				?>
@@ -272,7 +272,7 @@
 				//If the field is not empty the link will be displayed
 				if($value!='' || $value != null){
 				?>
-				<tr><td><p><?php echo '<a target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
+				<tr><td><p><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
 				
 				<?php 
 				}
