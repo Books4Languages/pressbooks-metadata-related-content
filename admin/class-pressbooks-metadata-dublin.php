@@ -51,9 +51,30 @@ class Pressbooks_Metadata_Dublin {
 		//For all the properties on external vocabularies we use the true paramenter
 		//We do this because we dont select properties for other vocabularies except from schema
 		//Without the true parameter the fields will not render
-		'dublin_illustrator' => array( true, 'Illustrator', '' ),
+		'dublin_title' => array(true, 'Title', ''),
+		'dublin_contributor' => array( true, 'Contributor', '' ),
 		'dublin_edition' => array( true, 'Edition', '' ),
 		'dublin_provider' => array( true, 'Provider', '' ),
+		'dublin_creator' => array(true, 'Creator', ''),
+		'dublin_date' => array(true, 'Creation Date', '', 'datepicker'),
+		'dublin_description' => array(true, 'Description', '', 'textarea'),
+		'dublin_language' => array(true, 'Language', 'Language of the content in ISO639-1 standard'),
+		'dublin_source' => array(true, 'Source', 'Source material URL'),
+		'dublin_subject' => array(true, 'Subject', 'Subject of the material'),
+		'dublin_type' => array(true, 'Type', '', array(
+			'Collection'            => 'Collection',
+			'Dataset'               => 'Dataset',
+			'Event'                 => 'Event',
+			'Image'                 => 'Image',
+			'InteractiveResource'   => 'Interactive Resource',
+			'MovingImage'           => 'Moving Image',
+			'PhysicalObject'        => 'Physical Object',
+			'Service'               => 'Service',
+			'Software'              => 'Software',
+			'Sound'                 => 'Sound',
+			'StillImage'            => 'Still Image',
+			'Text'                  => 'Text'
+		)),
 		'dublin_age_range' => array( true, 'Audience Age Range', '', array(
 			'18-' 		=> 	'Adults',
 			'17-18'		=> 	'17-18 years',
@@ -100,6 +121,7 @@ class Pressbooks_Metadata_Dublin {
 	 * @since 0.10
 	 */
 	public function pmdt_add_metabox( $meta_position ) {
+
 		x_add_metadata_group( 	$this->groupId,$meta_position, array(
 			'label' 		=>	'Dublin Core Metadata',
 			'priority' 		=>	'high'
@@ -122,6 +144,22 @@ class Pressbooks_Metadata_Dublin {
 					x_add_metadata_field( $fieldId, $meta_position, array(
 						'group'            => $this->groupId,
 						'field_type'       => 'number',
+						'label'            => $details[1],
+						'description'      => $details[2],
+						'display_callback' => null
+					) );
+				} elseif($details[3] == 'datepicker') {
+					x_add_metadata_field( $fieldId, $meta_position, array(
+						'group'            => $this->groupId,
+						'field_type'       => 'datepicker',
+						'label'            => $details[1],
+						'description'      => $details[2],
+						'display_callback' => null
+					) );
+				} elseif($details[3] == 'textarea') {
+					x_add_metadata_field( $fieldId, $meta_position, array(
+						'group'            => $this->groupId,
+						'field_type'       => 'textarea',
 						'label'            => $details[1],
 						'description'      => $details[2],
 						'display_callback' => null
@@ -194,8 +232,12 @@ class Pressbooks_Metadata_Dublin {
 			if(!isset($val) || empty($val)){
 				continue;
 			}
+			//title
+			if ( $key == 'dublin_title' ) {
+				$html .= "<meta name='DC.title' content='" . $val . "'/>";
+			}
 			//contributor
-			if ( $key == 'dublin_illustrator' ) {
+			if ( $key == 'dublin_contributor' ) {
 				$html .= "<meta name='DC.contributor' content='" . $val . "'/>";
 			}
 			//coverage
@@ -233,6 +275,38 @@ class Pressbooks_Metadata_Dublin {
 			//identifier
 			if ( $key == 'dublin_questions_answers' ) {
 				$html .= "<meta name='DC.identifier' content='" . $val . "' />";
+			}
+			//creator
+			if ( $key == 'dublin_creator' ) {
+				$html .= "<meta name='DC.creator' content='" . $val . "' />";
+			}
+			//date
+			if ( $key == 'dublin_date' ) {
+				$html .= "<meta name='DCTERMS.created' scheme='ISO8601' content='" . date('c', $val) . "' />";
+			}
+			//description
+			if ( $key == 'dublin_description' ) {
+				$html .= "<meta name='DC.description' content='" . $val . "' />";
+			}
+
+			//format
+			$html .= "<meta name='DC.format' content='html' />";
+
+			//language
+			if ( $key == 'dublin_language' ) {
+				$html .= "<meta name='DC.language' scheme='ISO639-1' content='" . $val . "' />";
+			}
+			//source
+			if ( $key == 'dublin_source' ) {
+				$html .= "<meta name='DC.source' content='" . $val . "' />";
+			}
+			//subject
+			if ( $key == 'dublin_subject' ) {
+				$html .= "<meta name='DC.subject' content='" . $val . "' />";
+			}
+			//type
+			if ( $key == 'dublin_type' ) {
+				$html .= "<meta name='DC.type' scheme='DCMITYPE' content='http://purl.org/dc/dcmitype/" . $val . "' />";
 			}
 		}
 		return $html;
