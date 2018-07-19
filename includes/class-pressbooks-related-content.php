@@ -155,7 +155,10 @@ class Pressbooks_Related_Content {
 		 */
 		if (!is_plugin_active('all-in-one-metadata/all-in-one-metadata.php')){
 			require_once plugin_dir_path( dirname(__FILE__) ) . 'admin/class-pressbooks-metadata-site-cpt.php';
-			require_once plugin_dir_path( dirname(__FILE__) ) . 'symbionts/custom-metadata/custom_metadata.php';
+			if (!is_plugin_active('pressbooks/pressbooks.php')){	
+
+				include_once plugin_dir_path( dirname( __FILE__ ) ) . 'symbionts/custom-metadata/custom_metadata.php';
+			}
 		}
 
 		$this->loader = new Pressbooks_Related_Content_Loader();
