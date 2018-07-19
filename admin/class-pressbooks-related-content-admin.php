@@ -263,7 +263,8 @@ class Pressbooks_Related_Content_Admin {
 		register_setting( 'pressbooks-related-content_resources_options_page', 'back_button' );
 		//register the settings for show info section
 		//take all the post types of the site
-		$post_types = get_post_types( ['public' => true], 'names' );
+		$post_types = \adminFunctions\Pressbooks_Metadata_Site_Cpt::pressbooks_identify() ? get_post_types( ['public' => true, '_builtin' => false], 'names' ) : get_post_types( ['public' => true], 'names' );
+
 		// for each post types we create one setting
 		foreach ( $post_types as $post_type ) {
 			register_setting( 'pressbooks-related-content_resources_options_page',  $post_type . '_op' );
