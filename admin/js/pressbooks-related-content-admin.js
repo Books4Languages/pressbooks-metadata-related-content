@@ -6,4 +6,7 @@ jQuery(document).ready(function () {
     if(txt == 'Add New Site Metadata'){
         jQuery('.page-title-action').hide();
     }
+
+    jQuery("[data-slug = pb_dublin_coverage_dublin_vocab_metadata]").after("<hr>");
+    jQuery("[data-slug = pb_dublin_coverage_dublin_vocab_site-meta]").after("<hr>");
 });
