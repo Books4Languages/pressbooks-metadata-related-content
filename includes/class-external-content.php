@@ -133,7 +133,7 @@
 		<?php
 		// If there is some field occupied then the title will appear on the frontend
 		if($emptys==false){ ?>
-			<tr><td> RESOURCES </td></tr>
+			<tr><td> LINKS </td></tr>
 		<?php 
 		}
 		//These variables serve to know if the title of each field should appear in the frontend
