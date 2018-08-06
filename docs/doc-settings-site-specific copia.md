@@ -11,6 +11,7 @@ Is a method to embed educational metadata on the homepage or in the Post (chapte
 The [LRMI specification](http://dublincore.org/dcx/lrmi-terms/1.1) is a collection of classes and properties for markup and description of educational resources. The specification builds on the extensive vocabulary provided by Schema.org and other standards. [LRMI terms](http://dublincore.org/dcx/lrmi-terms/) not included in schema.org may nevertheless be used to augment and enrich Schema.org markup.
 
 Index of Terms in the /lrmi-terms/ Namespace
+
   Classes
   AlignmentObject
   EducationalAudience
