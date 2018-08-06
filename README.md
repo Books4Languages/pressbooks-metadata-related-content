@@ -32,6 +32,8 @@ Plugin works with:
 
 - This plugin requires having the pressbooks-isced-fields plugin enabled.
 
+http://www2.cs.arizona.edu/~collberg/Teaching/07.231/BibTeX/bibtex.html
+
 
 ## Disclaimers
 The Pressbooks plugin is supplied "as is" and all use is at your own risk.
