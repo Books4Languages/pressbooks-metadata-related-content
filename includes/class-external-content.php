@@ -129,12 +129,13 @@
     	
        /* Create a table that contains the chapter metadata. Then with shortcode print this table in frontend */
 		?>
-		<table class="metadata_questtions_answers">
 		<?php
-		// If there is some field occupied then the title will appear on the frontend
-		if($emptys==false){ ?>
-			<tr><td> LINKS </td></tr>
-		<?php 
+		// If there are no resources, do nothing
+		if($emptys){
+			?>
+			<li class="dropdown-item">No resources found...</li>
+			<?php
+			return;
 		}
 		//These variables serve to know if the title of each field should appear in the frontend
 		$tituloAc=true; 
@@ -144,6 +145,7 @@
 		$titulo_biblio=true;
 		//We see if the content is equal to all or if it is equal to the field name. If so we show the information of the field
 		if($cont=="all" || $cont=="Activities"){
+			$flagAc = false;
 			foreach($meta_act as $meta_key) {
 				// we see the value of the field
 				$value=$meta_key->meta_value;
@@ -153,23 +155,31 @@
 				}
 				//Only if the title is true will be shown. And the title will become false to only show once
 				if($tituloAc){
+					$flagAc = true;
 					$tituloAc=false;
 					?>
-					<tr><td> Activities </td></tr>
+					<li class="dropdown-item"><div class="dropdown">
+						<p>Activities</p>
+							<ul>
 				<?php 
 				}
 				//If the field is not empty the link will be displayed
 				if($value!='' || $value != null){
 					?>
-					<tr><td><p><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$value.'"> >>GO>> </a>';?></p></td></tr>
+					<li class="dropdown-item"><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$value.'"> >>GO>> </a></div>';?></li>
 					<?php 
 				}
-				?>
+			}
+			if ($flagAc){
+			?>
+				</ul>
+			</div></li>	
 			<?php
 			}
 		}
 		//We see if the content is equal to all or if it is equal to the field name. If so we show the information of the field
 		if($cont=="all" || $cont=="Video"){
+			$flagVi = false;
 			foreach($meta_video as $meta_key) {
 				// we see the value of the field
 				$value=$meta_key->meta_value;
@@ -179,25 +189,32 @@
 				}
 				//Only if the title is true will be shown. And the title will become false to only show once
 				if($tituloVi){
+					$flagVi = true;
 					$tituloVi=false;
 					?>
-					<tr><td> Videos </td></tr>
+					<li class="dropdown-item"><div class="dropdown">
+						<p>Video</p>
+							<ul>
 				<?php 
 				}
 				//If the field is not empty the link will be displayed
 				if($value!='' || $value != null){
 				?>
-				<tr><td><p><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
+				<li class="dropdown-item"><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a></div>';?></li>
 				<?php 
 				}
-				?>
-
+			}
+			if ($flagVi){
+			?>
+				</ul>
+			    </div></li>
 			<?php
 			}
 		}
 		
 		//We see if the content is equal to all or if it is equal to the field name. If so we show the information of the field
 		if($cont=="all" || $cont=="Audio"){
+			$flagAu = false;
 			foreach($meta_audio as $meta_key) {
 		 		// we see the value of the field
 				$value=$meta_key->meta_value;
@@ -207,19 +224,25 @@
 				}
 				//Only if the title is true will be shown. And the title will become false to only show once
 				if($tituloAu){
+					$flagAu = true;
 					$tituloAu=false;
 					?>
-					<tr><td> Audio </td></tr>
+					<li class="dropdown-item"><div class="dropdown">
+						<p>Audio</p>
+							<ul>
 				<?php 
 				}
 				//If the field is not empty the link will be displayed
 				if($value!='' || $value != null){
 				?>
-				<tr><td><p><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
+				<li class="dropdown-item"><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a></div>';?></li>
 				<?php 
 				}
-				?>
-
+			}
+			if ($flagAu){
+			?>
+				</ul>
+			    </div></li>
 			<?php
 			}
 		}
@@ -227,6 +250,7 @@
 		<?php
 		//We see if the content is equal to all or if it is equal to the field name. If so we show the information of the field
 		if($cont=="all" || $cont=="Exercises"){
+			$flagExe = false;
 			foreach($meta_exer as $meta_key) {
 				// we see the value of the field
 				$value=$meta_key->meta_value;
@@ -236,25 +260,32 @@
 				}
 				//Only if the title is true will be shown. And the title will become false to only show once
 				if($tituloExe){
+					$flagExe = true;
 					$tituloExe=false;
 					?>
-					<tr><td> Exercises </td></tr>
+					<li class="dropdown-item"><div class="dropdown">
+						<p>Exercises</p>
+							<ul>
 				<?php 
 				}
 				//If the field is not empty the link will be displayed
 				if($value!='' || $value != null){
 				?>
-				<tr><td><p><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
+				<li class="dropdown-item"><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a></div>';?></li>
 				<?php 
 				}
-				?>
-
+			}
+			if ($flagExe){
+			?>
+				</ul>
+			    </div></li>
 			<?php
 			}
 		}
 		
 		//We see if the content is equal to all or if it is equal to the field name. If so we show the information of the field
 		if($cont=="all" || $cont=="Biblio"){
+			$flagBib = false;
 			foreach($meta_biblio as $meta_key) {
 				// we see the value of the field
 				$value=$meta_key->meta_value;
@@ -264,28 +295,29 @@
 				}
 				//Only if the title is true will be shown. And the title will become false to only show once
 				if($titulo_biblio){
+					$flagBib = true;
 					$titulo_biblio=false;
 					?>
-					<tr><td> Bibliography </td></tr>
+					<li class="dropdown-item"><div class="dropdown">
+						<p>Bibliography</p>
+							<ul>
 				<?php 
 				}
 				//If the field is not empty the link will be displayed
 				if($value!='' || $value != null){
 				?>
-				<tr><td><p><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a>';?></p></td></tr>
+				<li class="dropdown-item"><?php echo '<div itemscope itemtype="http://schema.org/CreativeWork"><a itemprop="citation" target="_blank" style="font-size:1em; color:blue;" href="'.'http://'.$meta_key->meta_value.'"> >>GO>> </a></div>';?></li>
 				
 				<?php 
 				}
-				?>
-
+			}
+			if ($flagBib){
+			?>
+				</ul>
+			    </div></li>
 			<?php
 			}
-		}
-		?>
-		</table>
-		<?php 
-		
+		} 	
 	}
-
 }
 
