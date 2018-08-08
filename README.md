@@ -1,4 +1,4 @@
-## Presbooks-related-content
+## All In One Metadata - Educational related content
 
 Contributors: @colomet,  @nicoleacuna
 
