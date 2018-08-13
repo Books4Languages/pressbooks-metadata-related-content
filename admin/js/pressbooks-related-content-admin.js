@@ -10,3 +10,4 @@ jQuery(document).ready(function () {
     jQuery("[data-slug = pb_dublin_coverage_dublin_vocab_metadata]").after("<hr>");
     jQuery("[data-slug = pb_dublin_coverage_dublin_vocab_site-meta]").after("<hr>");
 });
+

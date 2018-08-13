@@ -136,6 +136,7 @@
 			<li class="dropdown-item">No resources found...</li>
 			<?php
 			return;
+
 		}
 		//These variables serve to know if the title of each field should appear in the frontend
 		$tituloAc=true; 
@@ -146,6 +147,7 @@
 		//We see if the content is equal to all or if it is equal to the field name. If so we show the information of the field
 		if($cont=="all" || $cont=="Activities"){
 			$flagAc = false;
+
 			foreach($meta_act as $meta_key) {
 				// we see the value of the field
 				$value=$meta_key->meta_value;
@@ -174,6 +176,7 @@
 			?>
 				</ul>
 			</div></li>	
+
 			<?php
 			}
 		}

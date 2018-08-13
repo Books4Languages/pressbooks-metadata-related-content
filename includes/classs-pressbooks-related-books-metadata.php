@@ -210,7 +210,6 @@
 		global $wpdb;
 		//Variable that serves to know if it's a link
 		$findme  = '.com';
-
 		//We take the domain of our site, part A
 		$domain= get_blog_details()->domain;
 		//We take the url from our site

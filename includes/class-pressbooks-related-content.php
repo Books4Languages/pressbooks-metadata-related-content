@@ -211,7 +211,6 @@ class Pressbooks_Related_Content {
 
 		$plugin_admin = new Pressbooks_Related_Content_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		//Load the options page
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'rc_add_option_pages' );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );

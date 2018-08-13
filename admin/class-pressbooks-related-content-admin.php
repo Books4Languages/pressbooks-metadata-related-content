@@ -363,7 +363,7 @@ class Pressbooks_Related_Content_Admin {
     function show_info_callback($args) { // Section Callback
     	//We make a small introduction of the section
 	    echo '<p> Choose the post types of the following post types. In the post type that you choose will be shown the previously chosen fields.</p>';
-	    //We create a variable for each post type. Each variable contains html code that creates a checkbox. 
+	    //We create a variable for each post type. Each variable contains html code that creates a checkbox. <<<<<<< developer
 	    $post_types = get_post_types( ['public' => true], 'names' );
 
 		echo '<ul>';
@@ -915,5 +915,4 @@ class Pressbooks_Related_Content_Admin {
 			) );
 		}
     }
-
 }

@@ -82,6 +82,5 @@ function print_links_based(){
 //Adding the shortcode
 add_shortcode('related_based', 'print_links_based');
 
-
 ?>
 
