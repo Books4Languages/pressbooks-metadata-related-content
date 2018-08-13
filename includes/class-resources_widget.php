@@ -49,7 +49,7 @@ class resources_widget extends WP_Widget {
 		if( 'on' == $instance[ 'all' ] ) {
 			//echo __('has seleccionado all', 'wpb_widget_domain' );
 			//the shortcode would go here
-			echo do_shortcode('[related_content type="all"]')
+			echo do_shortcode('[related_content type="all"]');
 			echo "</br>";
 		}if('on' == $instance[ 'videos' ]){
       		//echo __('has seleccionado videos', 'wpb_widget_domain' );

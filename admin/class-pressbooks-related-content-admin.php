@@ -57,6 +57,93 @@ class Pressbooks_Related_Content_Admin {
 
 	}
 
+	public function rc_add_option_pages(){
+
+
+		add_menu_page(__('Related Content', 'aiom-educational-related-content'),
+			"RC", 'manage_options', 'pressbooks-related-content_resources_options_page',
+			array($this, 'render_options_page_rc'), 'dashicons-search');
+		add_meta_box('edu_rel_content', 'Settings', array($this, 'render_opt_metabox'), 'pressbooks-related-content_resources_options_page',
+            'normal', 'core');
+
+		if(!is_plugin_active('all-in-one-metadata/all-in-one-metadata.php')){
+		    if (!\adminFunctions\Pressbooks_Metadata_Site_Cpt::pressbooks_identify()) {
+			    //Used to remove the default menu for the cpt we created
+			    remove_menu_page( 'edit.php?post_type=site-meta' );
+			    remove_meta_box( 'submitdiv', 'site-meta', 'side' );
+			    add_meta_box( 'metadata-save', __( 'Save Site Metadata Information', 'all-in-one-metadata' ), array(
+				    $this,
+				    'metadata_save_box'
+			    ), 'site-meta', 'side', 'high' );
+			    $meta = \adminFunctions\Pressbooks_Metadata_Site_Cpt::get_site_meta_post();
+			    if ( ! empty( $meta ) ) {
+				    $site_meta_url = 'post.php?post=' . absint( $meta->ID ) . '&action=edit';
+			    } else {
+				    $site_meta_url = 'post-new.php?post_type=site-meta';
+			    }
+			    //adding Site-Meta page under main plugin page
+			    add_submenu_page( 'tools.php', 'Site-Meta', 'Site-Meta', 'edit_posts', $site_meta_url );
+		    }
+		}
+	}
+
+	/**
+	 * A function that manipulates the inputs for saving the new cpt data
+	 * @since    0.1
+	 */
+	function metadata_save_box( $post ) {
+		if ( 'publish' === $post->post_status ) { ?>
+            <input name="original_publish" type="hidden" id="original_publish" value="Update"/>
+            <input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="<?=__('Save', 'all-in-one-metadata')?>"/>
+		<?php } else { ?>
+            <input name="original_publish" type="hidden" id="original_publish" value="Publish"/>
+            <input name="publish" id="publish" type="submit" class="button button-primary button-large" value="<?=__('Save', 'all-in-one-metadata')?>" tabindex="5" accesskey="p"/>
+			<?php
+		}
+	}
+
+
+	/**
+	 * Function for rendering options page of a plugin
+	 */
+	public function render_options_page_rc(){
+		wp_enqueue_script('common');
+		wp_enqueue_script('wp-lists');
+		wp_enqueue_script('postbox');
+		?>
+		<div class="wrap">
+			<div class="metabox-holder">
+				<?php do_meta_boxes('pressbooks-related-content_resources_options_page', 'normal', ''); ?>
+			</div>
+		</div>
+		<script type="text/javascript">
+            //<![CDATA[
+            jQuery(document).ready( function($) {
+                // close postboxes that should be closed
+                $('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+                // postboxes setup
+                postboxes.add_postbox_toggles('<?php echo 'pressbooks-related-content_resources_options_page'; ?>');
+            });
+            //]]>
+		</script>
+		<?php
+	}
+
+	/**
+	 * Function for rendering metabox in settings page
+	 */
+	public function render_opt_metabox(){
+	    ?>
+        <form action="options.php" method="post">
+	        <?php
+	        settings_fields('pressbooks-related-content_resources_options_page');
+	        do_settings_sections('pressbooks-related-content_resources_options_page');
+	        submit_button();
+	        ?>
+            <br></form> <?php
+    }
+
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
@@ -76,8 +163,31 @@ class Pressbooks_Related_Content_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/pressbooks-related-content-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/checkbox.css', array(), $this->version, 'all' );
 		
+	}
+
+	/**
+	 * Register the stylesheets for the admin area.
+	 *
+	 * @since    0.1
+	 */
+	public function enqueue_scripts() {
+
+		/**
+		 * This function is provided for demonstration purposes only.
+		 *
+		 * An instance of this class should be passed to the run() function
+		 * defined in Pressbooks_Related_Content_Loader as all of the hooks are defined
+		 * in that particular class.
+		 *
+		 * The Pressbooks_Related_Content_Loader will then create the relationship
+		 * between the defined hooks and the functions defined in this
+		 * class.
+		 */
+
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/pressbooks-related-content-admin.js', array(), $this->version, 'all' );
+
 	}
 
 	/**
@@ -112,7 +222,7 @@ class Pressbooks_Related_Content_Admin {
 		    'related_op', // Section ID 
 		    'OPTIONS FOR RELATED BOOKS', // Section Title
 		    array( $this, 'related_callback'), // Callback
-		    'pressbooks-related-content_related_books_options_page' // What Page?  
+		    'pressbooks-related-content_resources_options_page' // What Page?
 	    );
 
 	    //create a new section called button_op
@@ -120,8 +230,16 @@ class Pressbooks_Related_Content_Admin {
 		    'button_op', // Section ID 
 		    'WHERE SHOW THE ENABLE BUTTON', // Section Title
 		    array( $this, 'button_callback'), // Callback
-		    'pressbooks-related-content_related_books_options_page' // What Page?  
+		    'pressbooks-related-content_resources_options_page' // What Page?
 	    );
+
+		//create a new section for location of educational metadata
+		add_settings_section(
+			'edu_locations', // Section ID
+			'EDUCATIONAL METADATA', // Section Title
+			array( $this, 'show_edu_info_callback'), // Callback
+			'pressbooks-related-content_resources_options_page' // What Page?
+		);
 		
 	    //register the settings  for options_resoources section
 	    register_setting( 'pressbooks-related-content_resources_options_page', 'video_op' );
@@ -130,26 +248,31 @@ class Pressbooks_Related_Content_Admin {
 	    register_setting('pressbooks-related-content_resources_options_page', 'exer_op');
 	    register_setting('pressbooks-related-content_resources_options_page', 'biblio_op');
 	    //register the settings  for related_op section
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'options_related' );
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'voculary_op' );
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'grammar_op' );
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'phonetics_op' );
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'texts_op' );
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'cultural_op' );
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'extra_op' );
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'link_based_op' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'options_related' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'voculary_op' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'grammar_op' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'phonetics_op' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'texts_op' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'cultural_op' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'extra_op' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'link_based_op' );
 		//register the settings for button_op section
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'part_button' );
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'chapter_button' );
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'front_button' );
-		register_setting( 'pressbooks-related-content_related_books_options_page', 'back_button' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'part_button' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'chapter_button' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'front_button' );
+		register_setting( 'pressbooks-related-content_resources_options_page', 'back_button' );
 		//register the settings for show info section
 		//take all the post types of the site
-		$post_types = get_post_types( '', 'names' ); 
+		$post_types = \adminFunctions\Pressbooks_Metadata_Site_Cpt::pressbooks_identify() ? get_post_types( ['public' => true, '_builtin' => false], 'names' ) : get_post_types( ['public' => true], 'names' );
+
 		// for each post types we create one setting
 		foreach ( $post_types as $post_type ) {
 			register_setting( 'pressbooks-related-content_resources_options_page',  $post_type . '_op' );
+			register_setting( 'pressbooks-related-content_resources_options_page',  $post_type . '_edu_op' );
+			register_setting( 'pressbooks-related-content_resources_options_page',  $post_type . '_edu_dublin_op' );
+			register_setting( 'pressbooks-related-content_resources_options_page',  $post_type . '_edu_coins_op' );
 		}
+		register_setting( 'pressbooks-related-content_resources_options_page',  'metadata_edu_op' );
 
     }
  
@@ -175,7 +298,8 @@ class Pressbooks_Related_Content_Admin {
 		echo '<li>'. $audio. '</li>';
 		echo  '<li>'. $act . '</li>' ;
 		echo '<li>'. $exer . '</li>';
-		echo'<li>'. $biblio . '</li>';  
+		echo'<li>'. $biblio . '</li>';
+		echo '</ul>';
 	}
 
 	/**
@@ -239,9 +363,9 @@ class Pressbooks_Related_Content_Admin {
     function show_info_callback($args) { // Section Callback
     	//We make a small introduction of the section
 	    echo '<p> Choose the post types of the following post types. In the post type that you choose will be shown the previously chosen fields.</p>';
-	    //We create a variable for each post type. Each variable contains html code that creates a checkbox. 
-	    $post_types = get_post_types( '', 'names' ); 
-		 
+	    //We create a variable for each post type. Each variable contains html code that creates a checkbox. <<<<<<< developer
+	    $post_types = get_post_types( ['public' => true], 'names' );
+
 		echo '<ul>';
 		//If pressbooks is installed then we only show 4 post types: part, chapter, front-matter and back-matter
 		if ( @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
@@ -260,6 +384,75 @@ class Pressbooks_Related_Content_Admin {
 	}
 
 	/**
+	 * Rendering section for educational metadata locations
+	 *
+	 * @since    0.2
+	 */
+	function show_edu_info_callback($args) { // Section Callback
+		//We make a small introduction of the section
+		echo '<p> Choose type(s) of educational metadata you would like to use and desired locations for it.</p>';
+		//We create a variable for each post type. Each variable contains html code that creates a checkbox.
+		$post_types = get_post_types( ['public' => true], 'names' );
+
+		echo '<h3>LRMI Metadata</h3>';
+
+		echo '<ul>';
+		//If pressbooks is installed then we only show 4 post types: part, chapter, front-matter and back-matter
+		if ( @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+			foreach ( $post_types as $post_type ) {
+				if($post_type=='part' || $post_type=='chapter' || $post_type=='front-matter' || $post_type=='back-matter' )
+					echo '<li>' .'<input type="checkbox"  name='. $post_type . '_edu_op' .' value="1" ' . checked(1, get_option($post_type . '_edu_op'), false) . '/>' . $post_type  . '</li>';
+			}
+			echo '<li>' .'<input type="checkbox"  name="metadata_edu_op"  value="1" ' . checked(1, get_option('metadata_edu_op'), false) . '/>Book Info</li>';
+		}else{
+			//Otherwise we show all
+			foreach ( $post_types as $post_type ) {
+
+				echo '<li>' .'<input type="checkbox"  name='. $post_type . '_edu_op' .' value="1" ' . checked(1, get_option($post_type . '_edu_op'), false) . '/>' . $post_type  . '</li>';
+			}
+		}
+		echo '</ul>';
+
+		echo '<h3>COinS Metadata</h3>';
+
+		echo '<ul>';
+		//If pressbooks is installed then we only show 4 post types: part, chapter, front-matter and back-matter
+		if ( @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+			foreach ( $post_types as $post_type ) {
+				if($post_type=='part' || $post_type=='chapter' || $post_type=='front-matter' || $post_type=='back-matter' )
+					echo '<li>' .'<input type="checkbox"  name='. $post_type . '_edu_coins_op' .' value="1" ' . checked(1, get_option($post_type . '_edu_coins_op'), false) . '/>' . $post_type  . '</li>';
+			}
+			echo '<li>' .'<input type="checkbox"  name="metadata_edu_coins_op"  value="1" ' . checked(1, get_option('metadata_edu_coins_op'), false) . '/>Book Info</li>';
+		}else{
+			//Otherwise we show all
+			foreach ( $post_types as $post_type ) {
+
+				echo '<li>' .'<input type="checkbox"  name='. $post_type . '_edu_coins_op' .' value="1" ' . checked(1, get_option($post_type . '_edu_coins_op'), false) . '/>' . $post_type  . '</li>';
+			}
+		}
+		echo '</ul>';
+
+		echo '<h3>Dublin Core Metadata</h3>';
+
+		echo '<ul>';
+		//If pressbooks is installed then we only show 4 post types: part, chapter, front-matter and back-matter
+		if ( @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+			foreach ( $post_types as $post_type ) {
+				if($post_type=='part' || $post_type=='chapter' || $post_type=='front-matter' || $post_type=='back-matter' )
+					echo '<li>' .'<input type="checkbox"  name='. $post_type . '_edu_dublin_op' .' value="1" ' . checked(1, get_option($post_type . '_edu_dublin_op'), false) . '/>' . $post_type  . '</li>';
+			}
+			echo '<li>' .'<input type="checkbox"  name="metadata_edu_dublin_op"  value="1" ' . checked(1, get_option('metadata_edu_dublin_op'), false) . '/>Book Info</li>';
+		}else{
+			//Otherwise we show all
+			foreach ( $post_types as $post_type ) {
+
+				echo '<li>' .'<input type="checkbox"  name='. $post_type . '_edu_dublin_op' .' value="1" ' . checked(1, get_option($post_type . '_edu_dublin_op'), false) . '/>' . $post_type  . '</li>';
+			}
+		}
+		echo '</ul>';
+	}
+
+	/**
 	* This function is responsible for collecting the data of the post types of the database.
 	* With this information we know that checkbox has been selected so that we can call the
 	* function add_resouces_metabox ($ post_type) which is passed as an argument the post type 
@@ -273,7 +466,7 @@ class Pressbooks_Related_Content_Admin {
     	//We take the table in which the prefix is 'options'
     	$table_po= $wpdb->prefix .'options';
     	//We get all the names of the post types
-		$post_types = get_post_types( '', 'names' ); 
+		$post_types = get_post_types( ['public' => true], 'names' );
 	 	//For each post type we create a variable that contains the information of each post type in the database
 		foreach ( $post_types as $post_type ){
 			$value=$post_type . '_op';
@@ -364,7 +557,8 @@ class Pressbooks_Related_Content_Admin {
 
 		// create a new group to the Chapter post type
 		x_add_metadata_group( 'resources_metadata',$posttype, array(
-			'label' => 'Resources'
+			'label' => 'Resources',
+            'description' => 'IMPORTANT! Input URLs without protocol prefix, like instead of <i>http://mysite.com</i> always write just <i>mysite.com</i>, otherwise it can lead to linking errors.'
 			
 		) );
 
@@ -375,7 +569,7 @@ class Pressbooks_Related_Content_Admin {
 			'field_type'	=> 	'text',
 			'label' 		=>	'Activities',
 			'description'	=>	'The URL of activities.',
-			'placeholder' 	=>	'http://site.com/',
+			'placeholder' 	=>	'site.com',
 			'multiple'      =>  'true'
 		) );
 		}
@@ -387,7 +581,7 @@ class Pressbooks_Related_Content_Admin {
 			'label' 		=> 	'Exercises',
 			'multiple'      =>  'true',
 			'description' 	=> 	'The URL of exercises',
-			'placeholder' 	=>	'http://site.com/'
+			'placeholder' 	=>	'site.com'
 		) );
 		}
 		if($video==true){
@@ -398,7 +592,7 @@ class Pressbooks_Related_Content_Admin {
 			'label' 		=> 	'Video',
 			'description' 	=> 	'The URL of video',
 			'multiple'      =>  'true',
-			'placeholder' 	=>	'http://site.com/'
+			'placeholder' 	=>	'site.com'
 		) );
 		}
 		if($audio==true){
@@ -409,7 +603,7 @@ class Pressbooks_Related_Content_Admin {
 			'label' 		=> 	'Audio',
 			'multiple'      =>  'true',
 			'description' 	=> 	'The URL of audio',
-			'placeholder' 	=>	'http://site.com/'
+			'placeholder' 	=>	'site.com'
 		) );
 		}
 		if($biblio==true){
@@ -420,7 +614,7 @@ class Pressbooks_Related_Content_Admin {
 			'label' 		=> 	'Bibliography',
 			'multiple'      =>  'true',
 			'description' 	=> 	'The URL of bibliography',
-			'placeholder' 	=>	'http://site.com/'
+			'placeholder' 	=>	'site.com'
 		) );
 		}
 		
@@ -543,6 +737,8 @@ class Pressbooks_Related_Content_Admin {
                
       	$add='For <span style="color:red;">Books4Languages</span> books you can write just the book name you want to relate! <b>Mybook</b> <br/>';
        	$add.='You can also enter external links! <b>mybook.com</b>';
+
+       	$post_type = \adminFunctions\Pressbooks_Metadata_Site_Cpt::pressbooks_identify() ? 'metadata' : 'site-meta';
         
         //We create a metabox Related books
 		x_add_metadata_group( 'Related_Books', 'metadata', array(
@@ -553,7 +749,7 @@ class Pressbooks_Related_Content_Admin {
 	   //Only if the variable is true we create the field
        if($voc==true){
 		/* Create  text field Vocabulary */
-		x_add_metadata_field( 	'vocabulary_book', 'metadata', array(
+		x_add_metadata_field( 	'vocabulary_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Vocabulary',
@@ -563,7 +759,7 @@ class Pressbooks_Related_Content_Admin {
 		}
 		if($gra==true){
 		/* Create  text field Grammar */
-		x_add_metadata_field( 	'grammar_book', 'metadata', array(
+		x_add_metadata_field( 	'grammar_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Grammar',
@@ -573,7 +769,7 @@ class Pressbooks_Related_Content_Admin {
 		}
 		if($pho==true){
 		/* Create  text field Phonetics and Spelling */
-		x_add_metadata_field( 	'phonetics_spelling_book', 'metadata', array(
+		x_add_metadata_field( 	'phonetics_spelling_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Phonetics and Spelling',
@@ -583,7 +779,7 @@ class Pressbooks_Related_Content_Admin {
 		}
 		if($text==true){
 		/* Create  text field Texts and functions */
-		x_add_metadata_field( 	'texts_functions_book', 'metadata', array(
+		x_add_metadata_field( 	'texts_functions_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Texts and Functions',
@@ -593,7 +789,7 @@ class Pressbooks_Related_Content_Admin {
 		}
 		if($cul==true){
 		/* Create  text field Cultural and Sociocultural*/
-		x_add_metadata_field( 'cultural_functions_book', 'metadata', array(
+		x_add_metadata_field( 'cultural_functions_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Cultural and Sociocultural',
@@ -603,7 +799,7 @@ class Pressbooks_Related_Content_Admin {
 		}
 		if($extra==true){
 		/* Create  text field Extra content */
-		x_add_metadata_field( 'extra_content_book', 'metadata', array(
+		x_add_metadata_field( 'extra_content_book', $post_type, array(
 			'group' 		=>	'Related_Books',
 			'field_type'	=> 	'text',
 			'label' 		=>	'Extra Content',
@@ -614,7 +810,7 @@ class Pressbooks_Related_Content_Admin {
 		
 		if($link==true){
 		/* Create  text field link based. This link will be the link of the book on which it is based*/
-		x_add_metadata_field( 'link_based', 'metadata', array(
+		x_add_metadata_field( 'link_based', $post_type, array(
 			'group' => 'Related_Books', // the group name
 			'description' => 'The URL of book based. You can insert a word (name of the book)  or the link on which it is based',
 			'label' => ' Link of book based ', // field label
@@ -636,7 +832,6 @@ class Pressbooks_Related_Content_Admin {
 		//This button will be only in the parts.
 		x_add_metadata_group( 'Related_Books_button', $posttype, array(
 			'label' => 'Related Books'
-
 		) );
 		/* Create  button */
 		x_add_metadata_field( 'button_Rc', $posttype, array(
@@ -646,7 +841,78 @@ class Pressbooks_Related_Content_Admin {
 		) );
 	}
 
-   
+	/**
+	 * Function for providing educational metaboxes
+     *
+     * @since 0.2
+	 */
+	public function edu_in_post_type () {
 
+		$post_types = get_post_types( [ 'public' => true ], 'names' );
+		//If pressbooks is installed then we only show 4 post types: part, chapter, front-matter and back-matter
+		if ( @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+			foreach ( $post_types as $post_type ) {
+				if ( $post_type == 'part' || $post_type == 'chapter' || $post_type == 'front-matter' || $post_type == 'back-matter' || $post_type=='metadata') {
 
+				    if (get_option( $post_type . '_edu_op' )) {
+					    new \educa\Pressbooks_Metadata_Educational( $post_type );
+				    }
+
+				    if (get_option( $post_type . '_edu_dublin_op' )) {
+
+				        new \educa\Pressbooks_Metadata_Dublin( $post_type );
+				    }
+
+					if (get_option( $post_type . '_edu_coins_op' )) {
+
+						new \educa\Pressbooks_Metadata_Coins( $post_type );
+					}
+
+				}
+			}
+		}else{
+			foreach ( $post_types as $post_type ) {
+
+				if ( get_option( $post_type . '_edu_op' )){
+
+				    new \educa\Pressbooks_Metadata_Educational( $post_type );
+			    }
+
+				if (get_option( $post_type . '_edu_dublin_op' )) {
+
+					new \educa\Pressbooks_Metadata_Dublin( $post_type );
+				}
+
+				if (get_option( $post_type . '_edu_coins_op' )) {
+
+					new \educa\Pressbooks_Metadata_Coins( $post_type );
+				}
+            }
+		}
+
+	}
+
+	/**
+	 * Function for creation of metabox for links to translations
+     *
+     * @since 0.2
+	 */
+	public function trans_links(){
+
+		$post_type = \adminFunctions\Pressbooks_Metadata_Site_Cpt::pressbooks_identify() ? 'metadata' : 'site-meta';
+
+		x_add_metadata_group( 'translations', $post_type, array(
+			'label' => 'Translations'
+		) );
+		$languages = scandir(plugin_dir_path( dirname(__FILE__) ).'/includes/FLAGS' );
+		unset($languages[0], $languages[1]);
+		foreach ($languages as $language) {
+		    $language = explode('.',$language)[0];
+			x_add_metadata_field( 'pb_trans_'.$language, $post_type, array(
+				'group'      => 'translations',
+				'label'      => ucfirst($language),
+				'field_type' => 'text',
+			) );
+		}
+    }
 }

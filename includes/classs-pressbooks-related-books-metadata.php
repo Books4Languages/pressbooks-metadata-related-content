@@ -59,7 +59,7 @@
 		
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$allempty=true;
+		$this->allempty=true;
 	
 	}
 
@@ -81,7 +81,7 @@
 	/**
 	*
 	* This function takes information from the fields field_based field and 
-	* languages and it does it through the database. (These fields are created in admin class in admin fileof this plugin) . 
+	* languages and it does it through the database. (These fields are created in admin class in admin file of this plugin) .
 	* To create the new link, we divide in three parts the url (a, b, c) and change the part b by the value of the field_based.
 	* This information is shown in the footer. Display a link and the image of the language flag.	
 	* This function is called by a shortcode in class-pressbooks-related-functions.php.
@@ -215,7 +215,8 @@
 		//We take the url from our site
 		$page_base_uri = $_SERVER['REQUEST_URI'];
 		//We take the part that interests us, part C
-		$page_uri=strstr(substr($page_base_uri, 1), '/'); 
+		$data = explode('/', $page_base_uri);
+		$page_uri = '/'.$data[3].'/'.$data[4].'/';
 		//We take from the database the data of the  vocabulary, grammar, phonetics, cultural, extra fields
        	$table2=$wpdb->prefix.'postmeta';
         $meta_voc = $wpdb->get_results("SELECT meta_value FROM $table2 WHERE  meta_key='vocabulary_book' ");
