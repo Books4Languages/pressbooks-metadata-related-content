@@ -10,10 +10,10 @@
  *
  * @link              Nicole
  * @since             0.1
- * @package           aiom-educational-related-content
+ * @package           aiom-education-related-content
  *
  * @wordpress-plugin
- * Plugin Name:       AIOM Educational Related Content
+ * Plugin Name:       AIOM Education Related Content
  * Plugin URI:        Pb-rc
  * Description:       This plugin creates links fields in  new chapter metabox and shot this information in frontend
  * Version:           0.1
@@ -21,7 +21,7 @@
  * Author URI:        
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       aiom-educational-related-content
+ * Text Domain:       aiom-education-related-content
  * Domain Path:       /languages
  */
 
