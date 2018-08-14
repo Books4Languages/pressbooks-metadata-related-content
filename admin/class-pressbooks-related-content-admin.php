@@ -892,27 +892,4 @@ class Pressbooks_Related_Content_Admin {
 
 	}
 
-	/**
-	 * Function for creation of metabox for links to translations
-     *
-     * @since 0.2
-	 */
-	public function trans_links(){
-
-		$post_type = \adminFunctions\Pressbooks_Metadata_Site_Cpt::pressbooks_identify() ? 'metadata' : 'site-meta';
-
-		x_add_metadata_group( 'translations', $post_type, array(
-			'label' => 'Translations'
-		) );
-		$languages = scandir(plugin_dir_path( dirname(__FILE__) ).'/includes/FLAGS' );
-		unset($languages[0], $languages[1]);
-		foreach ($languages as $language) {
-		    $language = explode('.',$language)[0];
-			x_add_metadata_field( 'pb_trans_'.$language, $post_type, array(
-				'group'      => 'translations',
-				'label'      => ucfirst($language),
-				'field_type' => 'text',
-			) );
-		}
-    }
 }
