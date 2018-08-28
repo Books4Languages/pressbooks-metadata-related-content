@@ -224,8 +224,6 @@ class Pressbooks_Related_Content {
 		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_admin, 'resources_in_post_type', 32 );
 		// adds educational metadata metaboxes in desired locations
 		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_admin, 'edu_in_post_type', 33 );
-		//adds metabox for links with translations
-		$this->loader->add_action( 'custom_metadata_manager_init_metadata', $plugin_admin, 'trans_links', 34 );
 
 		//Creating a custom post for site level metadata - only when pressbooks is not present
 		if (!is_plugin_active('all-in-one-metadata/all-in-one-metadata.php')) {
