@@ -31,7 +31,7 @@ Plugin works with:
 - [![Pressbooks](https://img.shields.io/badge/Pressbooks-V%205.4.7-red.svg)](https://github.com/pressbooks/pressbooks/releases/tag/5.4.7)
 
 In order to make creation of educational metadata markup available:
-- [![All In One Metadata](https://img.shields.io/badge/All-In-One-Metadata-1.0.0-blue.svg)](https://github.com/my-language-skills/all-in-one-metadata/releases/tag/1.0.0)
+- [![All-In-One-Metadata](https://img.shields.io/badge/All-In-One-Metadata-V%201.0.0-blue.svg)](https://github.com/my-language-skills/all-in-one-metadata/releases/tag/1.0.0)
 
 http://www2.cs.arizona.edu/~collberg/Teaching/07.231/BibTeX/bibtex.html
 
