@@ -7,7 +7,26 @@ Dublin Core have just one checkbox (for Site level or Home page activation) but 
 # Dublin Core
 
 Is a small set of vocabulary terms that can be used to describe web resources on the homepage by going to its tab checking the checkbox and clicking Save Changes. As before, all metadata related to our homepage can be edited under the Tools tab by selecting Site Metadata (or Book info for PressBooks users).
-The original set of 15 classic metadata terms, known as the Dublin Core Metadata Element Set.
+The original set of 15 classic metadata terms, known as the [Dublin Core Metadata Element Set](http://dublincore.org/documents/dces/).
+
+| From | Property | Type | Description | Vocabulary | Settings place |
+| ---- | -------- |----- | ----------- | ----------   --------------
+| -- | [contributor](http://purl.org/dc/elements/1.1/contributor) | []() | 	An entity responsible for making contributions to the resource. | NA | NA
+| -- | [coverage](http://purl.org/dc/elements/1.1/coverage) | []() | 	The spatial or temporal topic of the resource, the spatial applicability of the resource, or the jurisdiction under which the resource is relevant. | [TGN](http://www.getty.edu/research/tools/vocabularies/tgn/) | NA
+| -- | [creator](http://purl.org/dc/elements/1.1/creator) | []() | 	An entity primarily responsible for making the resource. | NA | NA
+| -- | [date](http://purl.org/dc/elements/1.1/date) | []() | 	A point or period of time associated with an event in the lifecycle of the resource. | NA | NA
+| -- | [description](http://purl.org/dc/elements/1.1/description) | []() | 	An account of the resource. | NA | NA
+| -- | [format](http://purl.org/dc/elements/1.1/format) | []() | 	The file format, physical medium, or dimensions of the resource. | NA | NA
+| -- | [identifier](http://purl.org/dc/elements/1.1/identifier) | []() | 	An unambiguous reference to the resource within a given context. | NA | NA
+| -- | [language](http://purl.org/dc/elements/1.1/language) | []() | 	A language of the resource. | [ISO 639 Code](https://www.loc.gov/standards/iso639-2/php/code_list.php) | NA
+| -- | [publisher](http://purl.org/dc/elements/1.1/publisher) | []() | 	An entity responsible for making the resource available. | NA | NA
+| -- | [relation](http://purl.org/dc/elements/1.1/relation) | []() | 	A related resource. | NA | NA
+| -- | [rights](http://purl.org/dc/elements/1.1/rights) | []() | 	Information about rights held in and over the resource. | NA | NA
+| -- | [source]( http://purl.org/dc/elements/1.1/source ) | []() | 	A related resource from which the described resource is derived. | NA | NA
+| -- | [subject](http://purl.org/dc/elements/1.1/subject) | []() | 	The topic of the resource. | NA | NA
+| -- | [title](http://purl.org/dc/elements/1.1/title) | []() | 	A name given to the resource. | NA | NA
+| -- | [type](http://purl.org/dc/elements/1.1/type) | []() | 	The nature or genre of the resource. |  	Collection , Dataset , Event , Image , InteractiveResource , MovingImage , PhysicalObject , Service , Software , Sound , StillImage , Text | NA
+
 
     Title
     Creator
