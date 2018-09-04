@@ -1,16 +1,124 @@
-# Coins metadata
-
-![Coins metadata](images/specific_metadata_coins.png)
 
 
-Coins have just one checkbox (for Site level or Home page activation) but Educational have two checkboxes. One for Site level and the second one for Post level
+## General
+This category groups the general information that describes this learning object as a whole.
 
-# Coins
+| LOM          | LOM         | LRMI | DC
+| ------------ | ----------- | ----
+| Identifier   | Identifier  | NA
+| └Catalog     | catalog     | NA
+| └Entry       | entry       | NA
+| Title        | title       | NA
+| Language     | language    | NA
+| Description  | description | NA
+| Keyword      | keyword     | NA
+| Coverage     | NA          | NA
+| Structure    | NA          | NA
+| Aggregation Level | aggregationLevel | NA
 
-Is a method to embed bibliographic metadata on the homepage by going to its tab checking the checkbox and clicking Save Changes. As before, all metadata related to our homepage can be edited under the Tools tab by selecting Site Metadata (or Book info for PressBooks users).
+## Life Cycle
+This category describes the history and current state of this learning object and those entities that have affected this learning object during its evolution.
 
-![Coins vocabulary](images/vocabularies_coins.png)
+| LOM         | LOM     | LRMI | DC
+| ----------- | ------- | ----
+| Version     | version | NA
+| Status      | status  | NA
+| Contribute  | NA      | NA
+| └Role       | role    | NA
+| └Entity     | entity  | NA
+| └Date       | date    | NA
 
----
+## Meta-Metadata
+This category describes this metadata record itself.
+This category describes how the metadata instance can be identified, who created this metadata instance, how, when, and with what references.
 
-[Readme](/Readme.md)
+| LOM             | LOM            | LRMI | DC
+| --------------- | -------------- | ----
+| Identifier      | NA             | NA
+| └Catalog        | catalog        | NA
+| └Entry          | entry          | NA
+| Contribute      | NA             | NA
+| └Role           | NA             | NA
+| └entity??       | ??             | ??
+| └Date           | date           | NA
+| Metadata Schema | metadataSchema | NA
+| Language        | language       | NA
+
+## Technical
+This category describes the technical requirements and characteristics of this learning object.
+
+| LOM              | LOM | LRMI | DC
+| ---------------- | -- | ----
+| Format           | format         | NA
+| Size             | size           | NA
+| Location         | location       | NA
+| Explanation      | NA             | NA
+| └Type            | type           | NA
+| └Name            | name           | NA
+| └Minimum Version | minimumVersion | NA
+| └Maximum Version | maximumVersion | NA
+| Installation Remarks        | installationRemarks | NA
+| Other Platform Requirements | otherPlatformRequirements | NA
+| Duration         | duration       | NA
+
+## Educational
+
+| LOM                    | LOM                  | LRMI | DC
+| ---------------------- | -------------------- | ----
+| Interactivity Type     | interactivityType    | NA
+| Learning Resource Type | learningResourceType | NA
+| Interactivity Level    | interactivityLevel   | NA
+| Semantic Density       | semanticDensity      | NA
+| Intended End User Role | intendedEndUserRole  | NA
+| Context                | context              | NA
+| Typical Age Range      | typicalAgeRange      | NA
+| Difficulty             | difficulty           | NA
+| Typical Learning Time  | typicalLearningTime  | NA
+| Description            | description          | NA
+| Language               | language             | NA
+
+
+## Rights
+This category describes the intellectual property rights and conditions of use for this learning object.
+
+| LOM                              | LOM                           | LRMI | DC
+| -------------------------------- | ----------------------------- | ----
+| Cost                             | cost                          | NA
+| Copyright and Other Restrictions | copyrightAndOtherRestrictions | NA
+| Description                      | description                   | NA
+
+## Relation
+This category defines the relationship between this learning object and other learning objects, if any.
+
+| LOM          | LOM         | LRMI | DC
+| ------------ | ----------- | ----
+| Kind         | kind        | NA
+| Resource     | NA          | NA
+| Identifier   | NA          | NA
+| └Catalog     | catalog     | NA
+| Entry        | entry       | NA
+| Description  | description | NA
+
+## Annotation
+This category provides comments on the educational use of this learning object, and information on when and by whom the comments were created.
+
+| LOM         | LOM         | LRMI | DC
+| ----------- | ----------- | ----
+| Entity      | entity      | NA
+| Date        | date        | NA
+| Description | description | NA
+
+
+## Classification
+This category describes where this learning object falls within a particular classification system.
+
+| LOM          | LOM         | LRMI | DC
+| ------------ | ----------- | ----
+|  Purpose     | purpose     | NA
+|  Taxon Path  | NA          | NA
+|  └Source     | source      | NA
+|  Taxon       | NA          | NA
+|  └Id         | id          | NA
+|  └Entry      | entry       | NA
+|  Description | description | NA
+|  Keyword     | keyword     | NA
