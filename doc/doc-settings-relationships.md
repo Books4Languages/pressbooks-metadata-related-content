@@ -8,10 +8,10 @@ This category groups the general information that describes this learning object
 | Identifier   | Identifier  | NA
 | └Catalog     | catalog     | NA
 | └Entry       | entry       | NA
-| Title        | title       | NA
-| Language     | language    | NA
+| Title        | title       | title
+| Language     | language    | language
 | Description  | description | NA
-| Keyword      | keyword     | NA
+| Keyword      | keyword     | topic
 | Coverage     | NA          | NA
 | Structure    | NA          | NA
 | Aggregation Level | aggregationLevel | NA
@@ -25,8 +25,8 @@ This category describes the history and current state of this learning object an
 | Status      | status  | NA
 | Contribute  | NA      | NA
 | └Role       | role    | NA
-| └Entity     | entity  | NA
-| └Date       | date    | NA
+| └Entity     | entity  | creator   ?? publisher ??
+| └Date       | date    | created
 
 ## Meta-Metadata
 This category describes this metadata record itself.
@@ -65,15 +65,15 @@ This category describes the technical requirements and characteristics of this l
 
 | LOM                    | LOM                  | LRMI | DC
 | ---------------------- | -------------------- | ----
-| Interactivity Type     | interactivityType    | NA
-| Learning Resource Type | learningResourceType | NA
+| Interactivity Type     | interactivityType    | interactivityType
+| Learning Resource Type | learningResourceType | learningResourceType
 | Interactivity Level    | interactivityLevel   | NA
 | Semantic Density       | semanticDensity      | NA
-| Intended End User Role | intendedEndUserRole  | NA
+| Intended End User Role | intendedEndUserRole  | **intendedEndUserRole**
 | Context                | context              | NA
-| Typical Age Range      | typicalAgeRange      | NA
+| Typical Age Range      | typicalAgeRange      | NOTE:typicalAgeRange
 | Difficulty             | difficulty           | NA
-| Typical Learning Time  | typicalLearningTime  | NA
+| Typical Learning Time  | typicalLearningTime  | NOTE:timeRequired
 | Description            | description          | NA
 | Language               | language             | NA
 
@@ -84,7 +84,7 @@ This category describes the intellectual property rights and conditions of use f
 | LOM                              | LOM                           | LRMI | DC
 | -------------------------------- | ----------------------------- | ----
 | Cost                             | cost                          | NA
-| Copyright and Other Restrictions | copyrightAndOtherRestrictions | NA
+| Copyright and Other Restrictions | copyrightAndOtherRestrictions | NOTE:useRightsUrl
 | Description                      | description                   | NA
 
 ## Relation
@@ -93,7 +93,7 @@ This category defines the relationship between this learning object and other le
 | LOM          | LOM         | LRMI | DC
 | ------------ | ----------- | ----
 | Kind         | kind        | NA
-| Resource     | NA          | NA
+| Resource     | NA          | NOTE:isBasedOnUrl
 | Identifier   | NA          | NA
 | └Catalog     | catalog     | NA
 | Entry        | entry       | NA
@@ -122,3 +122,16 @@ This category describes where this learning object falls within a particular cla
 |  └Entry      | entry       | NA
 |  Description | description | NA
 |  Keyword     | keyword     | NA
+
+
+
+
+
+targetUrl
+targetName
+targetDescription
+educationalUse
+educationalRole
+educationalFramework
+educationalAlignment
+alignmentType
