@@ -1,10 +1,11 @@
 ## About Simple metadata education
 
-This is a plugin extend All in one metadata plugin functionality with a detailed description of the schema metadata with educational vocabularies:
+This is a plugin extend Simple metadata plugin functionality with a detailed description of the schema metadata with educational vocabularies:
  * Educational metadata (LRMI) trough schema
  * Dublin Core
  * Google schoolar
-  * Coins
+ * Coins
+ * LOM
 
 This plugin is unbranded! This means that we don’t even put the name “Simple metadata education” anywhere within the WordPress interface, aside from the plugin activation page.
 This plugin makes great use of the default WordPress interface elements, like as if this plugin is part of WordPress. No ads, no nags.
