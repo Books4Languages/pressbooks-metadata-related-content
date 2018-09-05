@@ -1,0 +1,3 @@
+<?php
+
+//network settigns functionality
