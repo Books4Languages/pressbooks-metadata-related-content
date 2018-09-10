@@ -26,4 +26,6 @@ include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-lrmi-vocabul
 include_once plugin_dir_path( __FILE__ ) . "admin/smde-admin-settings.php";
 include_once plugin_dir_path( __FILE__ ) . "admin/smde-output.php";
 include_once plugin_dir_path( __FILE__ ) . "admin/smde-init-metaboxes.php";
-include_once plugin_dir_path( __FILE__ ) . "network-admin/smde-network-admin-settings.php";
+if (is_multisite()){
+	include_once plugin_dir_path( __FILE__ ) . "network-admin/smde-network-admin-settings.php";
+}

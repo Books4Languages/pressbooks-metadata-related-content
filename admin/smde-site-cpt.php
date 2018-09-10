@@ -64,8 +64,10 @@ function smde_reorganize_dash () {
 	} else {
 		$site_meta_url = 'post-new.php?post_type=site-meta';
 	}
-	//adding Site-Meta page under main plugin page
-	add_submenu_page('smd_set_page','Site-Meta', 'Site-Meta', 'manage_options', $site_meta_url);
+	//adding Site-Meta page under main plugin page, not for root blog
+	if (1 != get_current_blog_id()){
+		add_submenu_page('smd_set_page','Site-Meta', 'Site-Meta', 'manage_options', $site_meta_url);
+	}
 }
 
 function smde_get_site_meta_post() {

@@ -41,14 +41,14 @@ class SMDE_Metadata_Educational{
 		//For all the properties on external vocabularies we use the true paramenter
 		//We do this because we dont select properties for other vocabularies except from schema
 		//Without the true parameter the fields will not render
-        'educationalType' => array(true,'Educational Metadata Type','Choose the type of data your educational data best describes',
+        /*'educationalType' => array(true,'Educational Metadata Type','Choose the type of data your educational data best describes',
         array('Default'=>'Default',
             'WebPage'=>'WebPage',
-            'Article'=>'Article',
-            'Course'=>'Course',
-            'WebSite'=>'WebSite',
-            'Book' => 'Book')),
-		'isced_field' => array(true,'ISCED field of education','Broad field of education according to ISCED-F 2013.'. '<br><a target="_blank" href="http://alliance4universities.eu/wp-content/uploads/2017/03/ISCED-2013-Fields-of-education.pdf">Click Here for more information</a>',
+            'Article' =>'Article',
+            'Chapter' => 'Chapter',
+            
+        	)),*/
+		'iscedField' => array(true,'ISCED field of education','Broad field of education according to ISCED-F 2013.'. '<br><a target="_blank" href="http://alliance4universities.eu/wp-content/uploads/2017/03/ISCED-2013-Fields-of-education.pdf">Click Here for more information</a>',
 			array(
 				'--Select--'										=> '--Select--',
 				'Generic programmes and qualifications' 			=>	'Generic programmes and qualifications',
@@ -62,7 +62,7 @@ class SMDE_Metadata_Educational{
 				'Agriculture, forestry, fisheries and veterinary' => 	'Agriculture, forestry, fisheries and veterinary',
 				'Health and welfare' 								=> 	'Health and welfare',
 				'Services' 										=> 	'Services',)),
-		'isced_level'=>array(true,'ISCED level of education','Level of education according to ISCED-P 2011'.'<br><a target="_blank" href="http://www.uis.unesco.org/Education/Documents/isced-2011-en.pdf">Click Here for more information</a>',
+		'iscedLevel'=>array(true,'ISCED level of education','Level of education according to ISCED-P 2011'.'<br><a target="_blank" href="http://www.uis.unesco.org/Education/Documents/isced-2011-en.pdf">Click Here for more information</a>',
 			array(
 				'' => '--Select--',
 				'10' => 'Early Childhood Education',
@@ -90,8 +90,8 @@ class SMDE_Metadata_Educational{
 			      '7-8'  		=> 	  '7-8 years',
 			      '6-7'  		=> 	  '6-7 years',
 			      '3-5'	  	=> 	  '3-5 years')),
-		'edu_level'=>array(true,'Educational Level','The level of this subject. For ex. B1 for an English Course, or Grade 2 for a Physics Course.'),
-		'edu_frame'=>array(true,'Educational Framework','The Framework that the educational level belongs to. Example: CEFR, Common Core, European Baccalaureate'),
+		'eduLevel'=>array(true,'Educational Level','The level of this subject. For ex. B1 for an English Course, or Grade 2 for a Physics Course.'),
+		'eduFrame'=>array(true,'Educational Framework','The Framework that the educational level belongs to. Example: CEFR, Common Core, European Baccalaureate'),
 		'learningResourceType'=>array(true,'Learning Resource Type','The kind of resource this book represents',
 			array('course'	=> 	'Course',
 			      'exam'		=> 	'Examination',
@@ -101,17 +101,17 @@ class SMDE_Metadata_Educational{
 			      'mixed' 	=> 	'Mixed',
 			      'active' 	=> 	'Active')),
 		'timeRequired'=>array(true,'Class Learning Time (hours)','The study time required for the book','number'),
-		'edu_role'=>array(true,'Educational Role','An educationalRole of an EducationalAudience.',
+		'eduRole'=>array(true,'Educational Role','An educationalRole of an EducationalAudience.',
 			array('Students'	=> 	'Students',
 			      'Teachers'  => 	'Teachers')),
 		'educationalUse'=>array(true,'Educational Use','The purpose of a work in the context of education; for example, \'assignment\', \'group work\'.'),
-		'trg_desc'=>array(true,'Target Description','The description of a node in an established educational framework. <a href="https://ceds.ed.gov/element/001408">Find more here</a>',
+		'trgDesc'=>array(true,'Target Description','The description of a node in an established educational framework. <a href="https://ceds.ed.gov/element/001408">Find more here</a>',
 			array('General'	      =>'General',
 			      'Mobility'      =>'Mobility',
 			      'Communication' =>'Communication',
 			      'Hearing'       =>'Hearing',
 			      'Vision'        =>'Vision')),
-		'trg_url'=>array(true,'Target Url','The URL of a node in an established educational framework. http://example.com')
+		'trgUrl'=>array(true,'Target Url','The URL of a node in an established educational framework. http://example.com')
 	);
 
 	public function __construct($typeLevelInput) {
@@ -125,6 +125,33 @@ class SMDE_Metadata_Educational{
 		$this->smde_add_metabox( $this->type_level );
 	}
 
+
+	public function render_frozen_field ($field_slug, $field, $value) {
+		global $post;
+
+		//Getting the origin for overwritten data
+        $dataFrom = is_plugin_active('pressbooks/pressbooks.php') ? 'Book-Info' : 'Site-Meta';
+      
+	    //getting value of post meta
+        $meta_value = get_post_meta($post->ID, $field_slug, true);
+
+        $property = explode('_', $field_slug)[1];
+        if ($property == 'iscedlevel'){
+        	$meta_value = $this->get_isced_level($meta_value);
+        }
+
+        foreach (self::$lrmi_properties as $key => $value) {
+        	if (strtolower($key) == $property){
+        		$property = $value[1];
+        	}
+        }
+		?>
+        <hr />
+        <p><strong><?=$property?></strong> is overwritten by <?=$dataFrom?>. The value is"<?=$meta_value?>"</p>
+        <input type="hidden" name="<?=$field_slug?>" value="<?=$value?>" />
+        <hr />
+        <?php
+	}
 
 	/**
 	 * The function which produces the metaboxes for the vocabulary
@@ -141,6 +168,14 @@ class SMDE_Metadata_Educational{
 
 		foreach ( self::$lrmi_properties as $property => $details ) {
 
+			$callback = null;
+
+			$freezes_lrmi = get_option('smde_lrmi_freezes');
+			if ($meta_position != 'site-meta' && $meta_position!= 'metadata' && isset($freezes_lrmi[$property]) && $freezes_lrmi[$property]){
+				$callback = 'render_frozen_field';
+			}
+
+
 			$fieldId = strtolower('smde_' . $property . '_' .$this->groupId. '_' .$meta_position);
 			//Checking if we need a dropdown field
 			if(!isset($details[3])){
@@ -148,7 +183,7 @@ class SMDE_Metadata_Educational{
 						'group'       => $this->groupId,
 						'label'       => $details[1],
 						'description' => $details[2],
-						'display_callback' => null
+						'display_callback' => array($this, $callback)
 					) );
 
 			}else {
@@ -158,7 +193,7 @@ class SMDE_Metadata_Educational{
 							'field_type'       => 'number',
 							'label'            => $details[1],
 							'description'      => $details[2],
-							'display_callback' => null
+							'display_callback' => array($this, $callback)
 						) );
 				} else {
 						x_add_metadata_field( $fieldId, $meta_position, array(
@@ -167,7 +202,7 @@ class SMDE_Metadata_Educational{
 							'values'           => $details[3],
 							'label'            => $details[1],
 							'description'      => $details[2],
-							'display_callback' => null
+							'display_callback' => array($this, $callback)
 						) );
 				}
 			}
@@ -343,51 +378,51 @@ class SMDE_Metadata_Educational{
 			         ."	<meta itemprop = 'targetName' content = '" .$this->metadata['pb_title']. "'>\n"
 			         ."</span>\n";
 		}
-		if ( isset($partTwoMetadata['isced_field']) ) {
+		if ( isset($partTwoMetadata['iscedField']) ) {
 			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
 			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n"
 			         ."	<meta itemprop = 'educationalFramework' content = 'ISCED-2013'/>\n"
-			         ."	<meta itemprop = 'targetName' content = '" .$partTwoMetadata['isced_field']. "'>\n"
+			         ."	<meta itemprop = 'targetName' content = '" .$partTwoMetadata['iscedField']. "'>\n"
 			         ."</span>\n";
 		}
-		if ( isset($partTwoMetadata['isced_level']) && !empty($partTwoMetadata['isced_level']) ) {
+		if ( isset($partTwoMetadata['iscedLevel']) && !empty($partTwoMetadata['iscedLevel']) ) {
 			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
 			         ."	<meta itemprop = 'alignmentType' content = 'educationalLevel'/>\n"
 			         ."	<meta itemprop = 'educationalFramework' content = 'ISCED-2011'/>\n"
-			         ."	<meta itemprop = 'targetName' content = '" .$this->get_isced_level($partTwoMetadata['isced_level']). "'>\n"
-			         ."	<meta itemprop = 'alternateName' content = 'ISCED 2011, Level  " .$partTwoMetadata['isced_level']. "' />"
+			         ."	<meta itemprop = 'targetName' content = '" .$this->get_isced_level($partTwoMetadata['iscedLevel']). "'>\n"
+			         ."	<meta itemprop = 'alternateName' content = 'ISCED 2011, Level  " .$partTwoMetadata['iscedLevel']. "' />"
 			         ."</span>\n";
 		}
 
-		if ( isset( $partTwoMetadata['edu_level'] ) && isset( $partTwoMetadata['edu_frame'] )) {
+		if ( isset( $partTwoMetadata['eduLevel'] ) && isset( $partTwoMetadata['eduFrame'] )) {
 			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
 			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n"
-			         ."	<meta itemprop = 'educationalFramework' content = '" .$partTwoMetadata['edu_frame']. "'>\n"
-			         ."	<meta itemprop = 'targetName' content = '" .$partTwoMetadata['edu_level']. "'>\n"
+			         ."	<meta itemprop = 'educationalFramework' content = '" .$partTwoMetadata['eduFrame']. "'>\n"
+			         ."	<meta itemprop = 'targetName' content = '" .$partTwoMetadata['eduLevel']. "'>\n"
 			         ."</span>\n";
 
-		} elseif ( isset( $partTwoMetadata['edu_level'] ) && !isset( $partTwoMetadata['edu_frame'] )) {
+		} elseif ( isset( $partTwoMetadata['eduLevel'] ) && !isset( $partTwoMetadata['eduFrame'] )) {
 			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
 			         ."	<meta itemprop = 'alignmentType' content = 'educationalLevel'/>\n"
-			         ."	<meta itemprop = 'targetName' content = '" .$partTwoMetadata['edu_level']. "'>\n"
+			         ."	<meta itemprop = 'targetName' content = '" .$partTwoMetadata['eduLevel']. "'>\n"
 			         ."</span>\n";
 		}
 
-		if(isset( $partTwoMetadata['trg_url'] ) || isset( $partTwoMetadata['trg_desc'] )){
+		if(isset( $partTwoMetadata['trgUrl'] ) || isset( $partTwoMetadata['trgDesc'] )){
 			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
 			         ."	<meta itemprop = 'alignmentType' content = 'educationalLevel'/>\n";
-			if(isset( $partTwoMetadata['trg_url'] )){
-				$html .= "	<link itemprop='targetUrl' href='".$partTwoMetadata['trg_url']."' />\n";
+			if(isset( $partTwoMetadata['trgUrl'] )){
+				$html .= "	<link itemprop='targetUrl' href='".$partTwoMetadata['trgUrl']."' />\n";
 			}
-			if(isset( $partTwoMetadata['trg_desc'] )){
-				$html .= "	<link itemprop='targetDescription' content='".$partTwoMetadata['trg_desc']."' />\n";
+			if(isset( $partTwoMetadata['trgDesc'] )){
+				$html .= "	<link itemprop='targetDescription' content='".$partTwoMetadata['trgDesc']."' />\n";
 			}
 			$html .= "</span>\n";
 		}
 
-		if(isset( $partTwoMetadata['edu_role'] )){
+		if(isset( $partTwoMetadata['eduRole'] )){
 			$html .= "<span itemprop = 'audience' itemscope itemtype = 'http://schema.org/EducationalAudience'>\n"
-			         ."	<meta itemprop = 'educationalRole' content = '$partTwoMetadata[edu_role]'/>\n"
+			         ."	<meta itemprop = 'educationalRole' content = '$partTwoMetadata[eduRole]'/>\n"
 			         ."</span>\n";
 		}
 		if($this->type_level != 'metadata'){
