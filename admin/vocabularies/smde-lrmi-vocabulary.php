@@ -320,30 +320,31 @@ class SMDE_Metadata_Educational{
         //Starting point of educational schema part 1
         $html  = "<!-- Educational Microtags -->\n";
         //If not Pressbooks Book Info we show the selected educationalType
-        if($this->type_level != 'metadata'){
-            //Constructing the key
-            $dataKey ='smde_educationaltype_' . $this->groupId .'_'. $this->type_level;
+        if($this->type_level != 'metadata' && $this->type_level != 'site-meta'){
             //Getting the data
-            $val = $this->smde_get_value($dataKey);
-            //Checking for default value
-            if(empty($val) || $val == 'Default'){
-                switch ($this->type_level){
-                    case 'post':
-                    	$val = 'Article';
-                    	break;
-                    case 'chapter':
-                    	$val = 'Chapter';
-                        break;
-                    case 'page':
-                        $val = 'WebPage';
-                        break;
-                    case 'site-meta':
-                        $val = 'WebSite';
-                        break;
-                }
+            $val = get_option('smd_website_blog_type');
+            switch ($val){
+                case 'Blog':
+                case 'Course':
+                	$val = 'Article';
+                	break;
+                case 'Book':
+                	$val = 'Chapter';
+                    break;
+                case 'WebSite':
+                    $val = 'WebPage';
+                    break;
+ 				default:
+ 					$val = 'WebPage';
+ 					break;
             }
-            $html .= '<div itemscope itemtype="http://schema.org/'.$val.'">';
+        } elseif($this->type_level == 'metadata') {
+        	$val = 'Book';
+        } else {
+        	$val = get_option('smd_website_blog_type') ?: 'WebSite';
         }
+
+        $html .= '<div itemscope itemtype="http://schema.org/'.$val.'">';
 
 		$partTwoMetadata = null;
 
