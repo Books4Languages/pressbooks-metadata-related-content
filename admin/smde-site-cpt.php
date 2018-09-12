@@ -2,13 +2,18 @@
 
 //Registring 'Site-Meta' post type if not registered and not pressbooks
 
+/**
+ * Function to register site-meta type if it doesn't exist ot not Pressbooks installation , wrapper for 'smde_register_cpt' function
+ */
 function smde_init_cpt(){
 	if(!post_type_exists('metadata') && !post_type_exists('site-meta')){
 		smde_register_cpt();
 	}
 }
 
-
+/**
+ * Defining 'site-meta' post type and registering it
+ */
 function smde_register_cpt(){
 
 	$labels = array(
@@ -37,6 +42,7 @@ function smde_register_cpt(){
 			'capability_type' => 'post',
 			'has_archive' => true,
 			'hierarchical' => false,
+			//capabilities are added to only give administrators right of site-meta modification
 			'capabilities' => array(
     			'edit_post'          => 'update_core',
     			'read_post'          => 'update_core',
@@ -53,6 +59,9 @@ function smde_register_cpt(){
 
 }
 
+/**
+ * Hiding site-meta post ype from default post editing/review pages of WP and creating custom page under pluggin settings
+ */
 function smde_reorganize_dash () {
 	//Used to remove the default menu for the cpt we created
 	remove_menu_page( 'edit.php?post_type=site-meta' );
@@ -70,6 +79,9 @@ function smde_reorganize_dash () {
 	}
 }
 
+/**
+ * Function for getting site-meta post WP_Post format
+ */
 function smde_get_site_meta_post() {
 
 	$args = array(
@@ -105,7 +117,9 @@ function smde_metadata_save_box( $post ) {
 
 
 
-
+/**
+ * Changing psot manipulations messages for site-meta post
+ */
 function smde_change_custom_post_mess($messages){
 		$messages['site-meta'] = array(
 			0 => '', // Unused. Messages start at index 1.
@@ -122,6 +136,9 @@ function smde_change_custom_post_mess($messages){
 		return $messages;
 }
 
+/**
+ * Enqueue js for admin area
+ */
 function smde_enqueue_script() {
 
 	wp_enqueue_script( 'smde_admin_script', plugin_dir_url( __FILE__ ) . 'assets/js/simple-metadata-education-admin.js', array( 'jquery' ));

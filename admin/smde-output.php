@@ -4,7 +4,9 @@
 
 use \vocabularies\SMDE_Metadata_Educational as lrmi_meta;
 
-
+/**
+ * Function for printing metatags in site front-end
+ */
 function smde_print_tags () {
 
 	$locations = get_option('smde_locations');
@@ -16,8 +18,10 @@ function smde_print_tags () {
 		$front_schema = 'metadata';
 	}
 
+	//recieving post type of current post
 	$post_schema = get_post_type();
 
+	//defining if page is post or front-page
 	if ( is_front_page() ) {
 		if (isset($locations[$front_schema]) && $locations[$front_schema]) {
 			$lrmi_meta = new lrmi_meta($front_schema);

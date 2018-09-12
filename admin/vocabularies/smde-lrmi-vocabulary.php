@@ -125,7 +125,9 @@ class SMDE_Metadata_Educational{
 		$this->smde_add_metabox( $this->type_level );
 	}
 
-
+	/**
+	 * Function to render fields, which are frozen by admin/network admin
+	 */
 	public function render_frozen_field ($field_slug, $field, $value) {
 		global $post;
 

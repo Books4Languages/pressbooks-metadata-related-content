@@ -6,7 +6,9 @@ use \vocabularies\SMDE_Metadata_Educational as lrmi_meta;
 
 defined ("ABSPATH") or die ("No script assholes!");
 
-
+/**
+ * Function for producing metaboxes in all active locations
+ */
 function smde_create_metaboxes() {
 
 	if (1 != get_current_blog_id()){
@@ -20,6 +22,9 @@ function smde_create_metaboxes() {
 
 }
 
+/**
+ * Function for removal default metaboxes of simple-metadata in posts and pages 
+ */
 function smde_remove_defaults() {
 	//removing default metaboxes of Simple Metadata from posts and pages
 	remove_meta_box( 'smd_post_type', 'post', 'side' );
