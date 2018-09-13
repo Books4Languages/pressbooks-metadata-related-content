@@ -29,7 +29,7 @@ function smde_add_network_settings() {
 	register_setting ('smde_network_meta_lrmi_properties', 'smde_net_lrmi_freezes');
 
 	// getting options values from DB
-	$post_types = smde_get_all_post_types();
+	$post_types = smd_get_all_post_types();
 	$locations = get_option('smde_net_locations');
 	$shares_lrmi = get_option('smde_net_lrmi_shares');
 	$freezes_lrmi = get_option('smde_net_lrmi_freezes');

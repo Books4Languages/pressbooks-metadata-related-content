@@ -29,7 +29,7 @@ function smde_add_education_settings() {
 
 		register_setting ('smde_meta_lrmi_properties', 'smde_lrmi_freezes');
 
-		$post_types = smde_get_all_post_types();
+		$post_types = smd_get_all_post_types();
 		$locations = get_option('smde_locations');
 		$shares_lrmi = get_option('smde_lrmi_shares');
 		$freezes_lrmi = get_option('smde_lrmi_freezes');
@@ -87,6 +87,9 @@ function smde_add_education_settings() {
  * Function for rendering settings subpage
  */
 function smde_render_settings() {
+	if(!current_user_can('manage_options')){
+		return;
+	}
 
 	wp_enqueue_script('common');
 	wp_enqueue_script('wp-lists');
@@ -161,20 +164,6 @@ function smde_render_metabox_lrmi_properties(){
 			<p style="color: red;">Activate <?=$label?> location in order to manage properties.</p>
 		<?php
 	}
-}
-
-/**
- * Function for getting all post types of installation
- */
-function smde_get_all_post_types(){
-	require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
-	//Gathering the post types that are public including the wordpress ones if pressbooks is disabled
-	if(!is_plugin_active('pressbooks/pressbooks.php')){
-		$postTypes = array_keys( get_post_types( array( 'public' => true )) );
-	}else{
-		$postTypes = array_keys( get_post_types( array( 'public' => true,'_builtin' => false )) );
-	}
-	return $postTypes;
 }
 
 /**

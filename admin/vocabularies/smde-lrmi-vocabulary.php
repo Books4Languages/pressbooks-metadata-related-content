@@ -135,11 +135,11 @@ class SMDE_Metadata_Educational{
         $dataFrom = is_plugin_active('pressbooks/pressbooks.php') ? 'Book-Info' : 'Site-Meta';
       
 	    //getting value of post meta
-        $meta_value = get_post_meta($post->ID, $field_slug, true);
+        $meta_value = $label = get_post_meta($post->ID, $field_slug, true);
 
         $property = explode('_', $field_slug)[1];
         if ($property == 'iscedlevel'){
-        	$meta_value = $this->get_isced_level($meta_value);
+        	$label = $this->get_isced_level($meta_value);
         }
 
         foreach (self::$lrmi_properties as $key => $value) {
@@ -149,8 +149,8 @@ class SMDE_Metadata_Educational{
         }
 		?>
         <hr />
-        <p><strong><?=$property?></strong> is overwritten by <?=$dataFrom?>. The value is"<?=$meta_value?>"</p>
-        <input type="hidden" name="<?=$field_slug?>" value="<?=$value?>" />
+        <p><strong><?=$property?></strong> is overwritten by <?=$dataFrom?>. The value is"<?=$label?>"</p>
+        <input type="hidden" name="<?=$field_slug?>" value="<?=$meta_value?>" />
         <hr />
         <?php
 	}
@@ -321,32 +321,48 @@ class SMDE_Metadata_Educational{
 
         //Starting point of educational schema part 1
         $html  = "<!-- Educational Microtags -->\n";
-        //If not Pressbooks Book Info we show the selected educationalType
+      
         if($this->type_level != 'metadata' && $this->type_level != 'site-meta'){
-            //Getting the data
-            $val = get_option('smd_website_blog_type');
-            switch ($val){
-                case 'Blog':
-                case 'Course':
-                	$val = 'Article';
-                	break;
-                case 'Book':
-                	$val = 'Chapter';
-                    break;
-                case 'WebSite':
-                    $val = 'WebPage';
-                    break;
- 				default:
- 					$val = 'WebPage';
- 					break;
-            }
+        	//checking if type for this pages was selected from metabox
+        	if ($this->type_level == 'post'){
+        		$val = esc_attr(get_post_meta (get_the_ID(), 'smd_post_type', true));
+        	} elseif ($this->type_level == 'page') {
+        		$val = esc_attr(get_post_meta (get_the_ID(), 'smd_page_type', true));
+        	}
+        	//if nothing was set, select depending on type of website
+        	if(!$val && $this->type_level != 'page'){
+            	//Getting the data
+            	$val = get_option('smd_website_blog_type');
+            	switch ($val){
+            	    case 'Blog':
+            	    	if ($this->type_level == 'post'){
+            	    		$val = 'BlogPosting';
+            	    	}
+            	    	break;
+            	    case 'Course':
+            	    	$val = 'Article';
+            	    	break;
+            	    case 'Book':
+            	    	$val = 'Chapter';
+            	        break;
+            	    case 'WebSite':
+            	        $val = 'WebPage';
+            	        break;
+ 					default:
+ 						$val = 'WebPage';
+ 						break;
+            	}
+        	}
         } elseif($this->type_level == 'metadata') {
         	$val = 'Book';
+        } elseif($this->type_level == 'page') {
+        	$val = 'WebPage';
         } else {
         	$val = get_option('smd_website_blog_type') ?: 'WebSite';
         }
 
         $html .= '<div itemscope itemtype="http://schema.org/'.$val.'">';
+        $html .= smd_get_general_tags($val);
 
 		$partTwoMetadata = null;
 
@@ -428,6 +444,7 @@ class SMDE_Metadata_Educational{
 			         ."	<meta itemprop = 'educationalRole' content = '$partTwoMetadata[eduRole]'/>\n"
 			         ."</span>\n";
 		}
+
 		if($this->type_level != 'metadata'){
             $html .= "</div>\n <!-- END OF EDUCATIONAL MICROTAGS-->";
         }
