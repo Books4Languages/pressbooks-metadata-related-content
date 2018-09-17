@@ -319,6 +319,9 @@ class SMDE_Metadata_Educational{
 			'educationalUse'
 		);
 
+		//initializing variable for schema type string
+		$val = '';
+
         //Starting point of educational schema part 1
         $html  = "<!-- Educational Microtags -->\n";
       
@@ -332,7 +335,12 @@ class SMDE_Metadata_Educational{
         	//if nothing was set, select depending on type of website
         	if(!$val && $this->type_level != 'page'){
             	//Getting the data
-            	$val = get_option('smd_website_blog_type');
+            	//In case of pressbooks installation, always applied Book -> Chapter
+            	if (!is_plugin_active('pressbooks/pressbooks.php')){
+            		$val = get_option('smd_website_blog_type');
+            	} else {
+            		$val = 'Book';
+            	}
             	switch ($val){
             	    case 'Blog':
             	    	if ($this->type_level == 'post'){

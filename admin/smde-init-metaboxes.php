@@ -11,9 +11,9 @@ defined ("ABSPATH") or die ("No script assholes!");
  */
 function smde_create_metaboxes() {
 
-	if (1 != get_current_blog_id()){
+	if (1 != get_current_blog_id() || !is_multisite()){
 
-		$active_locations = get_option('smde_locations');
+		$active_locations = get_option('smde_locations') ?: [];
 
 		foreach ($active_locations as $location => $val) {
 			new lrmi_meta($location);

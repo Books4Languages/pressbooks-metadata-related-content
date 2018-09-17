@@ -74,7 +74,7 @@ function smde_reorganize_dash () {
 		$site_meta_url = 'post-new.php?post_type=site-meta';
 	}
 	//adding Site-Meta page under main plugin page, not for root blog
-	if (1 != get_current_blog_id()){
+	if ((1 != get_current_blog_id() && !is_plugin_active('pressbooks/pressbooks.php')) || !is_multisite()){
 		add_submenu_page('smd_set_page','Site-Meta', 'Site-Meta', 'manage_options', $site_meta_url);
 	}
 }

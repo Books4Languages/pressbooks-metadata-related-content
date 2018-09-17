@@ -11,7 +11,7 @@ defined ("ABSPATH") or die ("No script assholes!");
  */
 function smde_add_education_settings() {
 	//we don't create settings page in blog 1 (not necessary)
-	if (1 != get_current_blog_id()){
+	if ((1 != get_current_blog_id() && is_multisite()) || !is_multisite()){
 
 		add_submenu_page('smd_set_page','Educational Metadata', 'Educational Metadata', 'manage_options', 'smde_set_page', 'smde_render_settings');
 
@@ -33,10 +33,16 @@ function smde_add_education_settings() {
 		$locations = get_option('smde_locations');
 		$shares_lrmi = get_option('smde_lrmi_shares');
 		$freezes_lrmi = get_option('smde_lrmi_freezes');
-		$network_locations = get_blog_option(1, 'smde_net_locations');
-		$network_shares_lrmi = get_blog_option(1, 'smde_net_lrmi_shares');
-		$network_freezes_lrmi = get_blog_option(1, 'smde_net_lrmi_freezes');
 
+		$network_locations = [];
+		$network_shares_lrmi = [];
+		$network_freezes_lrmi = [];
+
+		if (is_multisite()){
+			$network_locations = get_blog_option(1, 'smde_net_locations');
+			$network_shares_lrmi = get_blog_option(1, 'smde_net_lrmi_shares');
+			$network_freezes_lrmi = get_blog_option(1, 'smde_net_lrmi_freezes');
+		}
 
 		foreach ($post_types as $post_type) {
 			if ('metadata' == $post_type){
