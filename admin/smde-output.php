@@ -2,7 +2,7 @@
 
 //functionality for printing metatags
 
-use \vocabularies\SMDE_Metadata_Educational as lrmi_meta;
+use \vocabularies\SMDE_Metadata_Lrmi as lrmi_meta;
 
 /**
  * Function for printing metatags in site front-end

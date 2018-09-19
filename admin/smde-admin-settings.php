@@ -1,6 +1,7 @@
 <?php
 
-use \vocabularies\SMDE_Metadata_Educational as lrmi_meta;
+use \vocabularies\SMDE_Metadata_Educational as edu_meta;
+use \vocabularies\SMDE_Metadata_Classification as class_meta;
 
 //Creating settings subpage for Simple Metadata
 
@@ -19,29 +20,40 @@ function smde_add_education_settings() {
 
 		add_settings_section( 'smde_meta_locations', '', '', 'smde_meta_locations' );
 
-		add_meta_box('smde-metadata-lrmi-properties', 'LRMI Properties Management', 'smde_render_metabox_lrmi_properties', 'smde_set_page', 'normal', 'core');
+		add_meta_box('smde-metadata-edu-properties', 'Properties Management', 'smde_render_metabox_edu_properties', 'smde_set_page', 'normal', 'core');
 
-		add_settings_section( 'smde_meta_lrmi_properties', '', '', 'smde_meta_lrmi_properties' );
+		add_settings_section( 'smde_meta_edu_properties', 'Educational Properties', '', 'smde_meta_edu_properties' );
+		add_settings_section( 'smde_meta_class_properties', 'Classification Properties', '', 'smde_meta_edu_properties' );
 
 		register_setting('smde_meta_locations', 'smde_locations');
 
-		register_setting ('smde_meta_lrmi_properties', 'smde_lrmi_shares');
+		register_setting ('smde_meta_edu_properties', 'smde_edu_shares');
 
-		register_setting ('smde_meta_lrmi_properties', 'smde_lrmi_freezes');
+		register_setting ('smde_meta_edu_properties', 'smde_edu_freezes');
+
+		register_setting ('smde_meta_edu_properties', 'smde_class_shares');
+
+		register_setting ('smde_meta_edu_properties', 'smde_class_freezes');
 
 		$post_types = smd_get_all_post_types();
 		$locations = get_option('smde_locations');
-		$shares_lrmi = get_option('smde_lrmi_shares');
-		$freezes_lrmi = get_option('smde_lrmi_freezes');
+		$shares_edu = get_option('smde_edu_shares');
+		$freezes_edu = get_option('smde_edu_freezes');
+		$shares_class = get_option('smde_class_shares');
+		$freezes_class = get_option('smde_class_freezes');
 
 		$network_locations = [];
-		$network_shares_lrmi = [];
-		$network_freezes_lrmi = [];
+		$network_shares_edu = [];
+		$network_freezes_edu = [];
+		$network_shares_class = [];
+		$network_freezes_class = [];
 
 		if (is_multisite()){
 			$network_locations = get_blog_option(1, 'smde_net_locations');
-			$network_shares_lrmi = get_blog_option(1, 'smde_net_lrmi_shares');
-			$network_freezes_lrmi = get_blog_option(1, 'smde_net_lrmi_freezes');
+			$network_shares_edu = get_blog_option(1, 'smde_net_edu_shares');
+			$network_freezes_edu = get_blog_option(1, 'smde_net_edu_freezes');
+			$network_shares_class = get_blog_option(1, 'smde_net_class_shares');
+			$network_freezes_class = get_blog_option(1, 'smde_net_class_freezes');
 		}
 
 		foreach ($post_types as $post_type) {
@@ -64,27 +76,59 @@ function smde_add_education_settings() {
 			}, 'smde_meta_locations', 'smde_meta_locations');
 		}
 
-		foreach (lrmi_meta::$lrmi_properties as $key => $data) {
-			add_settings_field ('smde_lrmi_'.$key, ucfirst($data[1]), function () use ($key, $shares_lrmi, $freezes_lrmi, $network_shares_lrmi, $network_freezes_lrmi){
-				$checked_lrmi_share = isset($shares_lrmi[$key]) ? true : false;
-				$checked_lrmi_freeze = isset($freezes_lrmi[$key]) ? true : false;
-				$disabled_share = isset($network_shares_lrmi[$key]) && $network_shares_lrmi[$key] ? 'disabled' : '';
-				$disabled_freeze = isset($network_freezes_lrmi[$key]) && $network_freezes_lrmi[$key] ? 'disabled' : '';
+		foreach (edu_meta::$edu_properties as $key => $data) {
+
+			add_settings_field ('smde_edu_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_edu, $freezes_edu, $network_shares_edu, $network_freezes_edu){
+				$checked_edu_share = isset($shares_edu[$key]) ? true : false;
+				$checked_edu_freeze = isset($freezes_edu[$key]) ? true : false;
+				$disabled_share = isset($network_shares_edu[$key]) && $network_shares_edu[$key] ? 'disabled' : '';
+				$disabled_freeze = isset($network_freezes_edu[$key]) && $network_freezes_edu[$key] ? 'disabled' : '';
 				?>
-					<label for="smde_lrmi_shares[<?=$key?>]"><i>Share</i> <input type="checkbox" name="smde_lrmi_shares[<?=$key?>]" id="smde_lrmi_shares[<?=$key?>]" value="1" <?php checked(1, $checked_lrmi_share); echo $disabled_share?>></label>
-					<label for="smde_lrmi_freezes[<?=$key?>]"><i>Freeze</i> <input type="checkbox" name="smde_lrmi_freezes[<?=$key?>]" id="smde_lrmi_freezes[<?=$key?>]" value="1" <?php checked(1, $checked_lrmi_freeze); echo $disabled_freeze?>></label>
+					<label for="smde_edu_shares[<?=$key?>]"><i>Share</i> <input type="checkbox" name="smde_edu_shares[<?=$key?>]" id="smde_edu_shares[<?=$key?>]" value="1" <?php checked(1, $checked_edu_share); echo $disabled_share?>></label>
+					<label for="smde_edu_freezes[<?=$key?>]"><i>Freeze</i> <input type="checkbox" name="smde_edu_freezes[<?=$key?>]" id="smde_edu_freezes[<?=$key?>]" value="1" <?php checked(1, $checked_edu_freeze); echo $disabled_freeze?>></label>
+					<br><span class="description"><?=$data[1]?></span>
 				<?php
 				if ('disabled' == $disabled_share){
 					?>
-						<input type="hidden" name="smde_lrmi_shares[<?=$key?>]" value="1">
+						<input type="hidden" name="smde_edu_shares[<?=$key?>]" value="1">
 					<?php
 				}
 				if ('disabled' == $disabled_freeze){
 					?>
-						<input type="hidden" name="smde_lrmi_freezes[<?=$key?>]" value="1">
+						<input type="hidden" name="smde_edu_freezes[<?=$key?>]" value="1">
 					<?php
 				}
-			}, 'smde_meta_lrmi_properties', 'smde_meta_lrmi_properties');
+			}, 'smde_meta_edu_properties', 'smde_meta_edu_properties');
+		}
+
+		foreach (class_meta::$classification_properties_main as $key => $data) {
+
+			if ('additionalClass' == $key){
+				continue;
+			}
+
+			add_settings_field ('smde_class_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_class, $freezes_class, $network_shares_class, $network_freezes_class){
+				$checked_class_share = isset($shares_class[$key]) ? true : false;
+				$checked_class_freeze = isset($freezes_class[$key]) ? true : false;
+				$disabled_share = isset($network_shares_class[$key]) && $network_shares_class[$key] ? 'disabled' : '';
+				$disabled_freeze = isset($network_freezes_class[$key]) && $network_freezes_class[$key] ? 'disabled' : '';
+				?>
+					<label for="smde_class_shares[<?=$key?>]"><i>Share</i> <input type="checkbox" name="smde_class_shares[<?=$key?>]" id="smde_class_shares[<?=$key?>]" value="1" <?php checked(1, $checked_class_share); echo $disabled_share?>></label>
+					<label for="smde_class_freezes[<?=$key?>]"><i>Freeze</i> <input type="checkbox" name="smde_class_freezes[<?=$key?>]" id="smde_class_freezes[<?=$key?>]" value="1" <?php checked(1, $checked_class_freeze); echo $disabled_freeze?>></label>
+					<br><span class="description"><?=$data[1]?></span>
+				<?php
+				if ('disabled' == $disabled_share){
+					?>
+						<input type="hidden" name="smde_class_shares[<?=$key?>]" value="1">
+					<?php
+				}
+				if ('disabled' == $disabled_freeze){
+					?>
+						<input type="hidden" name="smde_class_freezes[<?=$key?>]" value="1">
+					<?php
+				}
+			}, 'smde_meta_edu_properties', 'smde_meta_class_properties');
+
 		}
 	}
 }
@@ -106,7 +150,7 @@ function smde_render_settings() {
         	<div class="notice notice-success is-dismissible"> 
 				<p><strong>Settings saved.</strong></p>
 			</div>
-			<?php smde_update_overwrites();}?>
+			<?php smde_update_overwrites(); }?>
             <h2>Simple Metadata Education Settings</h2>
             <div class="metabox-holder">
 					<?php
@@ -146,20 +190,20 @@ function smde_render_metabox_schema_locations(){
 }
 
 /**
- * Function for rendering 'LRMI properties' metabox
+ * Function for rendering 'edu properties' metabox
  */
-function smde_render_metabox_lrmi_properties(){
+function smde_render_metabox_edu_properties(){
 	$locations = get_option('smde_locations');
 	$level = is_plugin_active('pressbooks/pressbooks.php') ? 'metadata' : 'site-meta';
 	$label = $level == 'metadata' ? 'Book Info' : 'Site-Meta';
 	if (isset($locations[$level]) && $locations[$level]){
 	?>
-	<div id="smde_meta_lrmi_properties" class="smde_meta_lrmi_properties">
+	<div id="smde_meta_edu_properties" class="smde_meta_edu_properties">
 		<form method="post" action="options.php">
 			<?php
-			settings_fields( 'smde_meta_lrmi_properties' );
+			settings_fields( 'smde_meta_edu_properties' );
 			submit_button();
-			do_settings_sections( 'smde_meta_lrmi_properties' );
+			do_settings_sections( 'smde_meta_edu_properties' );
 			?>
 		</form>
 		<p></p>
@@ -178,11 +222,13 @@ function smde_render_metabox_lrmi_properties(){
 function smde_update_overwrites(){
 
 	$locations = get_option('smde_locations');
-	$shares_lrmi = get_option('smde_lrmi_shares');
-	$freezes_lrmi = get_option('smde_lrmi_freezes');
+	$shares_edu = get_option('smde_edu_shares');
+	$freezes_edu = get_option('smde_edu_freezes');
+	$shares_class = get_option('smde_class_shares');
+	$freezes_class = get_option('smde_class_freezes');
 
 	
-	if(empty($shares_lrmi) && empty($freezes_lrmi)){
+	if(empty($shares_edu) && empty($freezes_edu) && empty($freezes_class) && empty($shares_class)){
 		return;
 	}
 
@@ -229,8 +275,8 @@ function smde_update_overwrites(){
         return;
     }
 
-    //checking if there is somthing to share
-	if(!empty($shares_lrmi)){
+    //checking if there is somthing to share for educational properties
+	if(!empty($shares_edu)){
 
 		//looping through all active locations
 		foreach ($locations as $location => $val){
@@ -245,9 +291,9 @@ function smde_update_overwrites(){
         	foreach ($posts_ids as $post_id) {
         		$post_id = $post_id['ID'];
 
-        		foreach ($shares_lrmi as $key => $value) {
-        			$meta_key = 'smde_'.strtolower($key).'_lrmi_vocab_'.$location;
-        			$metadata_meta_key = 'smde_'.strtolower($key).'_lrmi_vocab_'.$meta_type;
+        		foreach ($shares_edu as $key => $value) {
+        			$meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$location;
+        			$metadata_meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$meta_type;
         			if(!get_post_meta($post_id, $meta_key)){
         				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
         			}
@@ -257,8 +303,8 @@ function smde_update_overwrites(){
 		}
 	}
 
-	//checking if there is somthing to share
-	if(!empty($freezes_lrmi)){
+	//checking if there is somthing to share for educational properties
+	if(!empty($freezes_edu)){
 
 		//looping through all active locations
 		foreach ($locations as $location => $val){
@@ -273,11 +319,79 @@ function smde_update_overwrites(){
         	foreach ($posts_ids as $post_id) {
         		$post_id = $post_id['ID'];
 
-        		foreach ($freezes_lrmi as $key => $value) {
-        			$meta_key = 'smde_'.strtolower($key).'_lrmi_vocab_'.$location;
-        			$metadata_meta_key = 'smde_'.strtolower($key).'_lrmi_vocab_'.$meta_type;
+        		foreach ($freezes_edu as $key => $value) {
+        			$meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$location;
+        			$metadata_meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$meta_type;
         			if(isset($metaData[$metadata_meta_key])){
         				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
+        			}
+        		}
+        	}
+
+		}
+	}
+
+	//checking if there is somthing to share for classification properties
+	if(!empty($shares_class)){
+
+		//looping through all active locations
+		foreach ($locations as $location => $val){
+			if ($location == $meta_type) {
+				continue;
+			}
+        	//Getting all posts of $location type
+        	$posts_ids = $wpdb->get_results($wpdb->prepare(" 
+        	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
+
+        	//looping through all posts of type $locations
+        	foreach ($posts_ids as $post_id) {
+        		$post_id = $post_id['ID'];
+
+        		foreach ($shares_class as $key => $value) {
+        			$meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$location;
+        			$meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$location;
+        			$meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$location;
+        			$metadata_meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$meta_type;
+        			$metadata_meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$meta_type;
+        			$metadata_meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$meta_type;
+        			if(!get_post_meta($post_id, $meta_key)){
+        				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
+        				update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
+        				update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
+        			}
+        		}
+        	}
+
+		}
+	}
+
+	//checking if there is somthing to share for classification properties
+	if(!empty($freezes_class)){
+
+		//looping through all active locations
+		foreach ($locations as $location => $val){
+			if ($location == $meta_type) {
+				continue;
+			}
+        	//Getting all posts of $location type
+        	$posts_ids = $wpdb->get_results($wpdb->prepare(" 
+        	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
+
+        	//looping through all posts of type $locations
+        	foreach ($posts_ids as $post_id) {
+        		$post_id = $post_id['ID'];
+
+        		foreach ($freezes_class as $key => $value) {
+        			$meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$location;
+        			$meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$location;
+        			$meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$location;
+        			$metadata_meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$meta_type;
+        			$metadata_meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$meta_type;
+        			$metadata_meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$meta_type;
+        			if(isset($metaData[$metadata_meta_key])){
+        				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
+        				update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
+        				update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
         			}
         		}
         	}

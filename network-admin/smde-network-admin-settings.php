@@ -2,7 +2,8 @@
 
 //network settings functionality
 
-use \vocabularies\SMDE_Metadata_Educational as lrmi_meta;
+use \vocabularies\SMDE_Metadata_Educational as edu_meta;
+use \vocabularies\SMDE_Metadata_Classification as class_meta;
 
 defined ("ABSPATH") or die ("No script assholes!");
 
@@ -17,22 +18,27 @@ function smde_add_network_settings() {
 
     //adding settings metaboxes and settigns sections
     add_meta_box('smde-metadata-network-location', 'Location Of Metadata', 'smde_network_render_metabox_schema_locations', 'smde_net_set_page', 'normal', 'core');
-    add_meta_box('smde-network-metadata-lrmi-properties', 'LRMI Properties Management', 'smde_network_render_metabox_lrmi_properties', 'smde_net_set_page', 'normal', 'core');
+    add_meta_box('smde-network-metadata-edu-properties', 'Educational Properties Management', 'smde_network_render_metabox_edu_properties', 'smde_net_set_page', 'normal', 'core');
 
     add_settings_section( 'smde_network_meta_locations', '', '', 'smde_network_meta_locations' );
 
-    add_settings_section( 'smde_network_meta_lrmi_properties', '', '', 'smde_network_meta_lrmi_properties' );
+    add_settings_section( 'smde_network_meta_edu_properties', 'Educational Properties', '', 'smde_network_meta_edu_properties' );
+    add_settings_section( 'smde_network_meta_class_properties', 'Classification Properties', '', 'smde_network_meta_edu_properties' );
 
     //registering settings
     register_setting('smde_network_meta_locations', 'smde_net_locations');
-	register_setting ('smde_network_meta_lrmi_properties', 'smde_net_lrmi_shares');
-	register_setting ('smde_network_meta_lrmi_properties', 'smde_net_lrmi_freezes');
+	register_setting ('smde_network_meta_edu_properties', 'smde_net_edu_shares');
+	register_setting ('smde_network_meta_edu_properties', 'smde_net_edu_freezes');
+	register_setting ('smde_network_meta_edu_properties', 'smde_net_class_shares');
+	register_setting ('smde_network_meta_edu_properties', 'smde_net_class_freezes');
 
 	// getting options values from DB
 	$post_types = smd_get_all_post_types();
 	$locations = get_option('smde_net_locations');
-	$shares_lrmi = get_option('smde_net_lrmi_shares');
-	$freezes_lrmi = get_option('smde_net_lrmi_freezes');
+	$shares_edu = get_option('smde_net_edu_shares');
+	$freezes_edu = get_option('smde_net_edu_freezes');
+	$shares_class = get_option('smde_net_class_shares');
+	$freezes_class = get_option('smde_net_class_freezes');
 
 	//adding settings for locations
 	foreach ($post_types as $post_type) {
@@ -49,16 +55,28 @@ function smde_add_network_settings() {
 		}, 'smde_network_meta_locations', 'smde_network_meta_locations');
 	}
 
-	//adding settings for properties management
-	foreach (lrmi_meta::$lrmi_properties as $key => $data) {
-		add_settings_field ('smde_net_lrmi_'.$key, ucfirst($data[1]), function () use ($key, $shares_lrmi, $freezes_lrmi){
-			$checked_lrmi_share = isset($shares_lrmi[$key]) ? true : false;
-			$checked_lrmi_freeze = isset($freezes_lrmi[$key]) ? true : false;
+	//adding settings for educational properties management
+	foreach (edu_meta::$edu_properties as $key => $data) {
+		add_settings_field ('smde_net_edu_'.$key, ucfirst($data[0]), function () use ($key, $shares_edu, $freezes_edu){
+			$checked_edu_share = isset($shares_edu[$key]) ? true : false;
+			$checked_edu_freeze = isset($freezes_edu[$key]) ? true : false;
 			?>
-				<label for="smde_net_lrmi_shares[<?=$key?>]"><i>Share</i> <input type="checkbox" name="smde_net_lrmi_shares[<?=$key?>]" id="smde_net_lrmi_shares[<?=$key?>]" value="1" <?php checked(1, $checked_lrmi_share);?>></label>
-				<label for="smde_net_lrmi_freezes[<?=$key?>]"><i>Freeze</i> <input type="checkbox" name="smde_net_lrmi_freezes[<?=$key?>]" id="smde_net_lrmi_freezes[<?=$key?>]" value="1" <?php checked(1, $checked_lrmi_freeze);?>></label>
+				<label for="smde_net_edu_shares[<?=$key?>]"><i>Share</i> <input type="checkbox" name="smde_net_edu_shares[<?=$key?>]" id="smde_net_edu_shares[<?=$key?>]" value="1" <?php checked(1, $checked_edu_share);?>></label>
+				<label for="smde_net_edu_freezes[<?=$key?>]"><i>Freeze</i> <input type="checkbox" name="smde_net_edu_freezes[<?=$key?>]" id="smde_net_edu_freezes[<?=$key?>]" value="1" <?php checked(1, $checked_edu_freeze);?>></label>
 			<?php
-		}, 'smde_network_meta_lrmi_properties', 'smde_network_meta_lrmi_properties');
+		}, 'smde_network_meta_edu_properties', 'smde_network_meta_edu_properties');
+	}
+
+	//adding settings for classification properties management
+	foreach (class_meta::$classification_properties_main as $key => $data) {
+		add_settings_field ('smde_net_class_'.$key, ucfirst($data[0]), function () use ($key, $shares_class, $freezes_class){
+			$checked_class_share = isset($shares_class[$key]) ? true : false;
+			$checked_class_freeze = isset($freezes_class[$key]) ? true : false;
+			?>
+				<label for="smde_net_class_shares[<?=$key?>]"><i>Share</i> <input type="checkbox" name="smde_net_class_shares[<?=$key?>]" id="smde_net_class_shares[<?=$key?>]" value="1" <?php checked(1, $checked_class_share);?>></label>
+				<label for="smde_net_class_freezes[<?=$key?>]"><i>Freeze</i> <input type="checkbox" name="smde_net_class_freezes[<?=$key?>]" id="smde_net_class_freezes[<?=$key?>]" value="1" <?php checked(1, $checked_class_freeze);?>></label>
+			<?php
+		}, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
 	}
 }
 
@@ -116,14 +134,14 @@ function smde_network_render_metabox_schema_locations(){
 /**
  * Function for rendering metabox for properties management
  */
-function smde_network_render_metabox_lrmi_properties(){
+function smde_network_render_metabox_edu_properties(){
 	?>
-	<div id="smde_network_meta_lrmi_properties" class="smde_network_meta_lrmi_properties">
+	<div id="smde_network_meta_edu_properties" class="smde_network_meta_edu_properties">
 		<form method="post" action="edit.php?action=smde_update_network_options">
 			<?php
-			settings_fields( 'smde_network_meta_lrmi_properties' );
+			settings_fields( 'smde_network_meta_edu_properties' );
 			submit_button();
-			do_settings_sections( 'smde_network_meta_lrmi_properties' );
+			do_settings_sections( 'smde_network_meta_edu_properties' );
 			?>
 		</form>
 		<p></p>
@@ -178,16 +196,20 @@ function smde_update_network_locations() {
  */
 function smde_update_network_options() {
 
-	check_admin_referer('smde_network_meta_lrmi_properties-options');
+	check_admin_referer('smde_network_meta_edu_properties-options');
 
 	//Wordpress Database variable for database operations
     global $wpdb;
 
-    $freezes = isset($_POST['smde_net_lrmi_freezes']) ? $_POST['smde_net_lrmi_freezes'] : array();
-    $shares = isset($_POST['smde_net_lrmi_shares']) ? $_POST['smde_net_lrmi_shares'] : array();
+    $freezes = isset($_POST['smde_net_edu_freezes']) ? $_POST['smde_net_edu_freezes'] : array();
+    $shares = isset($_POST['smde_net_edu_shares']) ? $_POST['smde_net_edu_shares'] : array();
+    $freezes_class = isset($_POST['smde_net_class_freezes']) ? $_POST['smde_net_class_freezes'] : array();
+    $shares_class = isset($_POST['smde_net_class_shares']) ? $_POST['smde_net_class_shares'] : array();
 
-	update_blog_option(1, 'smde_net_lrmi_freezes', $freezes);
-	update_blog_option(1, 'smde_net_lrmi_shares', $shares);
+	update_blog_option(1, 'smde_net_edu_freezes', $freezes);
+	update_blog_option(1, 'smde_net_edu_shares', $shares);
+	update_blog_option(1, 'smde_net_class_freezes', $freezes_class);
+	update_blog_option(1, 'smde_net_class_shares', $shares_class);
 
 	//Grabbing all the site IDs
     $siteids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
@@ -201,14 +223,22 @@ function smde_update_network_options() {
 
     	switch_to_blog($site_id);
 
-    	$freezes_local = get_option('smde_lrmi_freezes') ?: array();
+    	$freezes_local = get_option('smde_edu_freezes') ?: array();
     	$frezees_local = array_merge($freezes_local, $freezes);
 
-    	$shares_local = get_option('smde_lrmi_shares') ?: array();
+    	$shares_local = get_option('smde_edu_shares') ?: array();
     	$shares_local = array_merge($shares_local, $shares);
 
-    	update_option('smde_lrmi_freezes', $frezees_local);
-    	update_option('smde_lrmi_shares', $shares_local);
+		$freezes_local_class = get_option('smde_class_freezes') ?: array();
+    	$frezees_local_class = array_merge($freezes_local_class, $freezes_class);
+
+    	$shares_local_class = get_option('smde_class_shares') ?: array();
+    	$shares_local_class = array_merge($shares_local_class, $shares_class);    	
+
+    	update_option('smde_edu_freezes', $frezees_local);
+    	update_option('smde_edu_shares', $shares_local);
+    	update_option('smde_class_freezes', $frezees_local_class);
+    	update_option('smde_class_shares', $shares_local_class);
 
     	smde_update_overwrites();
     }

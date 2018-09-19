@@ -22,7 +22,9 @@ if (!is_plugin_active('pressbooks/pressbooks.php') && !function_exists('x_add_me
 }
 if(is_plugin_active('simple-metadata/simple-metadata.php')){
 	include_once plugin_dir_path( __FILE__ ) . "admin/smde-site-cpt.php";
+	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-vocabulary.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-lrmi-vocabulary.php";
+	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-classification-vocabulary.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/smde-admin-settings.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/smde-output.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/smde-init-metaboxes.php";

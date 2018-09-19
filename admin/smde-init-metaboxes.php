@@ -2,7 +2,8 @@
 
 //creating metaboxes for educational metadata
 
-use \vocabularies\SMDE_Metadata_Educational as lrmi_meta;
+use \vocabularies\SMDE_Metadata_Educational as edu_meta;
+use \vocabularies\SMDE_Metadata_Classification as class_meta;
 
 defined ("ABSPATH") or die ("No script assholes!");
 
@@ -16,8 +17,10 @@ function smde_create_metaboxes() {
 		$active_locations = get_option('smde_locations') ?: [];
 
 		foreach ($active_locations as $location => $val) {
-			new lrmi_meta($location);
+			new edu_meta($location);
+			new class_meta($location);
 		}
+		
 	}
 
 }
