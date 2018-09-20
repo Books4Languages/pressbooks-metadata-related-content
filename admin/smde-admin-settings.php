@@ -265,7 +265,7 @@ function smde_update_overwrites(){
             ,ARRAY_A);
     
  	//Array for storing metakey=>metavalue
-    $metaData = null;
+    $metaData = [];
     //unwrapping data from subarrays
     foreach($meta_post_meta as $meta){
         $metaData[$meta['meta_key']] = $meta['meta_value'];
@@ -356,8 +356,12 @@ function smde_update_overwrites(){
         			$metadata_meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$meta_type;
         			if(!get_post_meta($post_id, $meta_key)){
         				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
-        				update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
-        				update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
+        				if (isset($metaData[$metadata_meta_key_desc])){
+        					update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
+        				}
+        				if (isset($metaData[$metadata_meta_key_url])) {
+        					update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
+        				}
         			}
         		}
         	}
@@ -390,8 +394,12 @@ function smde_update_overwrites(){
         			$metadata_meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$meta_type;
         			if(isset($metaData[$metadata_meta_key])){
         				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
-        				update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
-        				update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
+        				if (isset($metaData[$metadata_meta_key_desc])){
+        					update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
+        				}
+        				if (isset($metaData[$metadata_meta_key_url])) {
+        					update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
+        				}
         			}
         		}
         	}
