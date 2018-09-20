@@ -294,7 +294,7 @@ function smde_update_overwrites(){
         		foreach ($shares_edu as $key => $value) {
         			$meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$location;
         			$metadata_meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$meta_type;
-        			if(!get_post_meta($post_id, $meta_key)){
+        			if(!get_post_meta($post_id, $meta_key) || '' == get_post_meta($post_id, $meta_key)){
         				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
         			}
         		}

@@ -69,6 +69,9 @@ function smde_add_network_settings() {
 
 	//adding settings for classification properties management
 	foreach (class_meta::$classification_properties_main as $key => $data) {
+		if ('additionalClass' == $key){
+				continue;
+			}
 		add_settings_field ('smde_net_class_'.$key, ucfirst($data[0]), function () use ($key, $shares_class, $freezes_class){
 			$checked_class_share = isset($shares_class[$key]) ? true : false;
 			$checked_class_freeze = isset($freezes_class[$key]) ? true : false;
