@@ -150,7 +150,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 		$class_meta = new class_meta($this->type_level);
 		$html .= $class_meta->smde_get_metatags();
 
-        $html .= "</div>\n <!-- END OF EDUCATIONAL MICROTAGS-->";
+        $html .= "</div>\n <!-- END OF LRMI MICROTAGS-->\n";
 		echo $html;
 	}
 }
