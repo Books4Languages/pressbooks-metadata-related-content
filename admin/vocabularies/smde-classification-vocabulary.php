@@ -38,10 +38,7 @@ class SMDE_Metadata_Classification{
 	 * @access   public
 	 */
 	public static $classification_properties_main = array(
-		//For all the properties on external vocabularies we use the true paramenter
-		//We do this because we dont select properties for other vocabularies except from schema
-		//Without the true parameter the fields will not render
-        
+	
         'iscedLevel'=>array( 'ISCED level of education','Level of education according to ISCED-P 2011'.'<br><a target="_blank" href="http://www.uis.unesco.org/Education/Documents/isced-2011-en.pdf">Click Here for more information</a>',
 			array(
 				'' => '--Select--',
