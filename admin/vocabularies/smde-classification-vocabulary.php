@@ -228,9 +228,9 @@ class SMDE_Metadata_Classification{
 	 */
 	private function smde_get_value( $propName ) {
 		$array = isset( $this->metadata[ $propName ] ) ? $this->metadata[ $propName ] : '';
-		if ( $this->type_level != 'metadata' && (!stripos($propName, 'additionalClass'))) {
+		if ( !stripos($propName, 'additionalClass')) {
 			$value = $this->smde_get_first( $array );
-		} elseif ($this->type_level != 'metadata' && (stripos($propName, 'url') || stripos($propName, 'desc'))) {
+		} elseif (stripos($propName, 'url') || stripos($propName, 'desc')) {
 			$value = $this->smde_get_first( $array );
 		} else {
 			//We always use the get_first function except if our level is metadata coming from pressbooks
@@ -270,8 +270,11 @@ class SMDE_Metadata_Classification{
 	 * This function will be mostly used when the plugin is on wordpress mode and not on pressbooks mode.
 	 */
 	public static function get_site_meta_metadata(){
+
+		$post_type = is_plugin_active ('pressbooks/pressbooks.php') ? 'metadata' : 'site-meta';
+
 		$args = array(
-			'post_type' => 'site-meta',
+			'post_type' => $post_type,
 			'posts_per_page' => 1,
 			'post_status' => 'publish',
 			'orderby' => 'modified',
@@ -298,17 +301,13 @@ class SMDE_Metadata_Classification{
 	public function smde_get_metatags() {
 		//Getting the information from the database
         if($this->type_level == 'metadata' || $this->type_level == 'site-meta'){
-        	if (!is_plugin_active ('pressbooks/pressbooks.php')){
-            	$this->metadata = self::get_site_meta_metadata();
-        	} else {
-        		$this->metadata = \Pressbooks\Book::getBookInformation();
-        	}
-        }else{
+            $this->metadata = self::get_site_meta_metadata();
+        } else {
             $this->metadata = get_post_meta( get_the_ID() );
         }
 
 
-		$cleanCollect = null;
+		$cleanCollect = [];
 
 		foreach ( self::$classification_properties_main as $key => $desc ) {
 			//Constructing the key for the data

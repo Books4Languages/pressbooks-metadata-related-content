@@ -204,12 +204,9 @@ class SMDE_Metadata_Educational{
 	 */
 	protected function smde_get_value( $propName ) {
 		$array = isset( $this->metadata[ $propName ] ) ? $this->metadata[ $propName ] : '';
-		if ( $this->type_level != 'metadata' ) {
-			$value = $this->smde_get_first( $array );
-		} else {
-			//We always use the get_first function except if our level is metadata coming from pressbooks
-			$value = $array;
-		}
+		
+		$value = $this->smde_get_first( $array );
+		
 
 		return $value;
 	}
@@ -223,8 +220,9 @@ class SMDE_Metadata_Educational{
 	 * This function will be mostly used when the plugin is on wordpress mode and not on pressbooks mode.
 	 */
 	public static function get_site_meta_metadata(){
+		$post_type = is_plugin_active ('pressbooks/pressbooks.php') ? 'metadata' : 'site-meta';
 		$args = array(
-			'post_type' => 'site-meta',
+			'post_type' => $post_type,
 			'posts_per_page' => 1,
 			'post_status' => 'publish',
 			'orderby' => 'modified',

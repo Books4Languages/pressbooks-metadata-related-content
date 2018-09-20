@@ -38,11 +38,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 	public function smde_get_metatags() {
 		//Getting the information from the database
         if($this->type_level == 'metadata' || $this->type_level == 'site-meta'){
-        	if (!is_plugin_active ('pressbooks/pressbooks.php')){
-            	$this->metadata = self::get_site_meta_metadata();
-        	} else {
-        		$this->metadata = \Pressbooks\Book::getBookInformation();
-        	}
+            $this->metadata = self::get_site_meta_metadata();
         }else{
             $this->metadata = get_post_meta( get_the_ID() );
         }
@@ -115,6 +111,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 			$dataKey = strtolower('smde_' . $desc . '_' . $this->groupId .'_'. $this->type_level);
 			//Getting the data
 			$val = $this->smde_get_value($dataKey);
+			
 			//Checking if the value exists and that the key is in the array for the schema
 			if(empty($val) || $val == '--Select--'){
 				continue;
@@ -135,6 +132,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 
 		//Starting point of educational schema part 2
 		if ( isset( $this->metadata['pb_title'] ) ) {
+			$this->metadata['pb_title'] = $this->metadata['pb_title'][0];
 			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
 			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n"
 			         ."	<meta itemprop = 'targetName' content = '" .$this->metadata['pb_title']. "'>\n"
