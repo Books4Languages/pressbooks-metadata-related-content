@@ -2,8 +2,8 @@
 namespace vocabularies;
 
 /**
- * The base class for the educational custom vocabulary including operations and metaboxes
- *
+ * The base class for the educational custom vocabulary including operations and metaboxes. 
+ * All specific vocabulary class should be extensions of this class.
  */
 class SMDE_Metadata_Educational{
 
@@ -40,46 +40,53 @@ class SMDE_Metadata_Educational{
 	public static $edu_properties = array(
 
 		'interactivityType' 	 		=> array ( 'Interactivity Type','Predominant mode of learning supported by this learning object.',
-			array ( 'expositive' 		=> 'Expositive',
+			array ( '' 					=> '--Select--',
+					'expositive' 		=> 'Expositive',
 			        'mixed' 	 		=> 'Mixed',
 			        'active' 	 		=> 'Active')),
 		'learningResourceType'	 		=>	array ( 'Learning Resource Type','Specific kind of learning object. The most dominant kind shall be first.',
-			array ( 'course'	 		=> 'Course',
+			array ( '' 					=> '--Select--',
+					'course'	 		=> 'Course',
 			        'exam'		 		=> 'Examination',
 			        'exercise'	 		=> 'Exercise')),
 		'interactivityLevel' 	 		=> array ( 'Interactivity Level', 'The degree of interactivity characterizing this learning object.',
-			array ( 'very low'	 		=> 'Very Low',
+			array ( '' 					=> '--Select--',
+					'very low'	 		=> 'Very Low',
 			        'low'		 		=> 'Low',
 			        'medium'	 		=> 'Medium',
 			   	    'high'		 		=>	'High',
 			   	    'very high'	 		=>	'Very High')),
 		'endUserRole'			 		=> array ( 'Intended End User Role', 'Principal user(s) for which this learning object was designed.',
-			array ( 'learner' 	 		=> 'Learner', 
+			array ( '' 					=> '--Select--',
+					'learner' 	 		=> 'Learner', 
 					'author'	 		=> 'Author',
 					'teacher'	 		=> 'Teacher', 
 					'manager'	 		=> 'Manager')),
 		'context'				 		=> array ( 'Context','The principal environment within which the learning and use of this learning object is intended to take place.',
-			array ( 'school'	 		=> 'School',
+			array ( '' 					=> '--Select--',
+					'school'	 		=> 'School',
 					'higher education'	=> 'Higher Education',
 					'training'			=> 'Training',
 					'other'				=> 'Other')),
 		'typicalAgeRange' 				=> array ( 'Age Range','Age of the typical intended user.',
-			array ( '18-' 				=> 'Adults',
-			      '17-18'				=> '17-18 years',
-			      '16-17' 				=> '16-17 years',
-			      '15-16' 				=> '15-16 years',
-			      '14-15' 				=> '14-15 years',
-			      '13-14' 				=> '13-14 years',
-			      '12-13' 				=> '12-13 years',
-			      '11-12' 				=> '11-12 years',
-			      '10-11' 				=> '10-11 years',
-			      '9-10'  				=> '9-10 years',
-			      '8-9'  				=> '8-9 years',
-			      '7-8'  				=> '7-8 years',
-			      '6-7'  				=> '6-7 years',
-			      '3-5'	  				=> '3-5 years')),
+			array ( '' 					=> '--Select--',
+					'18-' 				=> 'Adults',
+			      	'17-18'				=> '17-18 years',
+			      	'16-17' 			=> '16-17 years',
+			      	'15-16' 			=> '15-16 years',
+			      	'14-15' 			=> '14-15 years',
+			      	'13-14' 			=> '13-14 years',
+			      	'12-13' 			=> '12-13 years',
+			      	'11-12' 			=> '11-12 years',
+			      	'10-11' 			=> '10-11 years',
+			      	'9-10'  			=> '9-10 years',
+			      	'8-9'  				=> '8-9 years',
+			      	'7-8'  				=> '7-8 years',
+			      	'6-7'  				=> '6-7 years',
+			      	'3-5'	  			=> '3-5 years')),
 		'difficulty'					=> array ( 'Difficulty', 'How hard it is to work with or through this learning object for the typical intended target audience.',
-			array ( 'very easy'			=> 'Very Easy',
+			array ( '' 					=> '--Select--',
+					'very easy'			=> 'Very Easy',
 					'easy'				=> 'Easy',
 					'medium'			=> 'Medium',
 					'difficult'			=> 'Difficult',
@@ -111,8 +118,10 @@ class SMDE_Metadata_Educational{
 	    //getting value of post meta
         $meta_value = $label = get_post_meta($post->ID, $field_slug, true);
 
+        //gettign porperty name from field name
         $property = explode('_', $field_slug)[1];
 
+        //getting label of this property
         foreach (self::$edu_properties as $key => $value) {
         	if (strtolower($key) == $property){
         		$property = $value[0];
@@ -134,23 +143,29 @@ class SMDE_Metadata_Educational{
 	 * @since 0.x
 	 */
 	public function smde_add_metabox( $meta_position ) {
+		//adding metabox to desired location
 		x_add_metadata_group( $this->groupId, $meta_position, array(
 			'label' 		=>	'Educational Metadata',
 			'priority' 		=>	'high'
 		) );
 
+		//adding metafields for every property in this class
 		foreach ( self::$edu_properties as $property => $details ) {
 
 			$callback = null;
 
+			//retrieving names of prtoperties, which are frozen
 			$freezes_edu = get_option('smde_edu_freezes');
+
+			//if property is frozen, we render it as frozen
 			if ($meta_position != 'site-meta' && $meta_position!= 'metadata' && isset($freezes_edu[$property]) && $freezes_edu[$property]){
 				$callback = 'render_frozen_field';
 			}
 
-
+			//constructing name of field
 			$fieldId = strtolower('smde_' . $property . '_' .$this->groupId. '_' .$meta_position);
-			//Checking if we need a dropdown field
+			
+			//Checking if we need a dropdown field, or number selector
 			if(!isset($details[2])){
 					x_add_metadata_field( $fieldId, $meta_position, array(
 						'group'       => $this->groupId,

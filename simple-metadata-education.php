@@ -20,6 +20,8 @@ require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 if (!is_plugin_active('pressbooks/pressbooks.php') && !function_exists('x_add_metadata_field')){
 	require_once plugin_dir_path( dirname(__FILE__ ) ) . '/simple-metadata-education/symbionts/custom-metadata/custom_metadata.php';
 }
+
+//we enable plugin functionality only if main plugin - Simple Metadata - is installed
 if(is_plugin_active('simple-metadata/simple-metadata.php')){
 	include_once plugin_dir_path( __FILE__ ) . "admin/smde-site-cpt.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-vocabulary.php";
@@ -32,7 +34,8 @@ if(is_plugin_active('simple-metadata/simple-metadata.php')){
 	if (is_multisite()){
 		include_once plugin_dir_path( __FILE__ ) . "network-admin/smde-network-admin-settings.php";
 	}
-} else {
+} else { //in case Simple Metadata is not installed, we notify user about it and do not enable plugin functionality
+	//notification for multisite installation
 	if (is_multisite()){
 		add_action( 'network_admin_notices', function () {
 			?>
@@ -41,7 +44,7 @@ if(is_plugin_active('simple-metadata/simple-metadata.php')){
     		</div>
     	<?php
 		});
-	} else {
+	} else { //notification for single site installation
 		add_action( 'admin_notices', function () {
 			?>
     		<div class="notice notice-info is-dismissible">

@@ -55,7 +55,7 @@ class SMDE_Metadata_Classification{
         'eduFrame'=>array( 'Educational Framework','The Framework that the educational level belongs to. Example: CEFR, Common Core, European Baccalaureate'),
 		'iscedField' => array( 'ISCED field of education','Broad field of education according to ISCED-F 2013.'. '<br><a target="_blank" href="http://alliance4universities.eu/wp-content/uploads/2017/03/ISCED-2013-Fields-of-education.pdf">Click Here for more information</a>',
 			array(
-				'--Select--'										=> '--Select--',
+				''										=> '--Select--',
 				'Generic programmes and qualifications' 			=>	'Generic programmes and qualifications',
 				'Education' 										=>	'Education',
 				'Arts and humanities' 							=> 	'Arts and humanities',
@@ -68,7 +68,8 @@ class SMDE_Metadata_Classification{
 				'Health and welfare' 								=> 	'Health and welfare',
 				'Services' 										=> 	'Services',)),
 		'eduLevel'=>array( 'Educational Level','The level of this subject. For ex. B1 for an English Course, or Grade 2 for a Physics Course.'),
-		'additionalClass' => array( 'Additional Classification', 'More specified subject of current educational level. For ex. \'Grammar\' part of B1 English Course, \'Thermodynamics\' for Grade 7 of Physics Course', 'multiple')
+		'additionalClass' => array( 'Additional Classification', 'More specified subject of current educational level. For ex. \'Grammar\' part of B1 English Course, \'Thermodynamics\' for Grade 7 of Physics Course'),
+		'specificClass'	  => array('Specific Classification', 'Narrow definition of subject field. For ex. \'Verbs\' in \'Grammar\' materials, \'Thermodynamics Laws\' in Thermodynamics', 'multiple')
 	);
 
 	public function __construct($typeLevelInput) {
@@ -91,12 +92,15 @@ class SMDE_Metadata_Classification{
 	    //getting value of post meta
         $meta_value = $label = get_post_meta($post->ID, $field_slug, true);
 
+        //getting property name from name of field
         $property = explode('_', $field_slug)[1];
 
+        //for isced level we obtain readable name corresponding to set numeric value
         if ($property == 'iscedlevel' && !stripos($field_slug, 'url') && !stripos($field_slug, 'desc')){
         	$label = $this->get_isced_level($meta_value);
         } 
 
+        //getting label for property
         foreach (self::$classification_properties_main as $key => $value) {
 
         	if (strtolower($key) == $property && stripos($field_slug, 'desc')){
@@ -130,23 +134,30 @@ class SMDE_Metadata_Classification{
 	 * @since 0.x
 	 */
 	public function smde_add_metabox( $meta_position ) {
+
+		//adding metabox for calssification properties
 		x_add_metadata_group( $this->groupId,$meta_position, array(
 			'label' 		=>	'Classification Metadata',
 			'priority' 		=>	'high'
 		) );
 
+		//adiing metafields for exery property of this class
 		foreach ( self::$classification_properties_main as $property => $details ) {
 
 			$callback = null;
 
+			//retreiving list of frozen properties 
 			$freezes_class = get_option('smde_class_freezes');
+
+			//if this property is frozen, we render its metafield correspondingly
 			if ($meta_position != 'site-meta' && $meta_position!= 'metadata' && isset($freezes_class[$property]) && $freezes_class[$property]){
 				$callback = 'render_frozen_field';
 			}
 
-
+			//constructing field name
 			$fieldId = strtolower('smde_' . $property . '_' .$this->groupId. '_' .$meta_position);
-			//Checking if we need a dropdown field
+
+			//Checking if we need a dropdown field or number selector, or if field should have multiple values
 			if(!isset($details[2])){
 					x_add_metadata_field( $fieldId, $meta_position, array(
 						'group'       => $this->groupId,
@@ -184,21 +195,24 @@ class SMDE_Metadata_Classification{
 				}
 			}
 
-			$fieldId = strtolower('smde_' . $property . '_desc_' .$this->groupId. '_' .$meta_position);
-			x_add_metadata_field( $fieldId, $meta_position, array(
-							'group'            => $this->groupId,
-							'label'            => $details[0].' Description',
-							'description'      => 'The description of a node in an established educational framework. <a href="https://ceds.ed.gov/element/001408">Find more here</a>',
-							'display_callback' => array($this, $callback)
-						) );
+			//creating URL and description fields for all levels, except Specific Classification
+			if ($property != 'specificClass'){
+				$fieldId = strtolower('smde_' . $property . '_desc_' .$this->groupId. '_' .$meta_position);
+				x_add_metadata_field( $fieldId, $meta_position, array(
+								'group'            => $this->groupId,
+								'label'            => $details[0].' Description',
+								'description'      => 'The description of a node in an established educational framework. <a href="https://ceds.ed.gov/element/001408">Find more here</a>',
+								'display_callback' => array($this, $callback)
+							) );
 
-			$fieldId = strtolower('smde_' . $property . '_url_' .$this->groupId. '_' .$meta_position);
-			x_add_metadata_field( $fieldId, $meta_position, array(
-							'group'            => $this->groupId,
-							'label'            => $details[0].' URL',
-							'description'      => 'The URL of a node in an established educational framework. http://example.com',
-							'display_callback' => array($this, $callback)
-						) );
+				$fieldId = strtolower('smde_' . $property . '_url_' .$this->groupId. '_' .$meta_position);
+				x_add_metadata_field( $fieldId, $meta_position, array(
+								'group'            => $this->groupId,
+								'label'            => $details[0].' URL',
+								'description'      => 'The URL of a node in an established educational framework. http://example.com',
+								'display_callback' => array($this, $callback)
+							) );
+			}
 
 		}
 	}
@@ -225,12 +239,11 @@ class SMDE_Metadata_Classification{
 	 */
 	private function smde_get_value( $propName ) {
 		$array = isset( $this->metadata[ $propName ] ) ? $this->metadata[ $propName ] : '';
-		if ( !stripos($propName, 'additionalClass')) {
-			$value = $this->smde_get_first( $array );
-		} elseif (stripos($propName, 'url') || stripos($propName, 'desc')) {
+		//as all properties are singular, except Specific Classification, unwrap their value from array
+		if ( !stripos($propName, 'specificClass')) {
 			$value = $this->smde_get_first( $array );
 		} else {
-			//We always use the get_first function except if our level is metadata coming from pressbooks
+			//We always use the get_first function except if property is Specific Classification
 			$value = $array;
 		}
 
@@ -296,7 +309,8 @@ class SMDE_Metadata_Classification{
 	 * @access   public
 	 */
 	public function smde_get_metatags() {
-		//Getting the information from the database
+
+		//Getting post meta of metadata (Book Info) or site-meta post
         if($this->type_level == 'metadata' || $this->type_level == 'site-meta'){
             $this->metadata = self::get_site_meta_metadata();
         } else {
@@ -306,6 +320,7 @@ class SMDE_Metadata_Classification{
 
 		$cleanCollect = [];
 
+		//going thorugh all properties of this class and putting them into multidimensional array (with url and description)
 		foreach ( self::$classification_properties_main as $key => $desc ) {
 			//Constructing the key for the data
 			//Add strtolower in all vocabs remember
@@ -330,7 +345,7 @@ class SMDE_Metadata_Classification{
 			}
 		}
 
-		$html = '';
+		$html = '<!--CLASSIFICATION METATAGS-->';
 
 		//Starting point of classification schema
 		if ( array_key_exists('iscedLevel', $cleanCollect) ) {
@@ -391,8 +406,11 @@ class SMDE_Metadata_Classification{
 		if (array_key_exists('additionalClass', $cleanCollect)){
 			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
 			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n";
-			foreach($cleanCollect['additionalClass']['val'] as $additionalClass){
-			    $html .="	<meta itemprop = 'targetName' content = '" .$additionalClass. "'>\n";
+			$html .= "	<meta itemprop = 'targetName' content = '" .$cleanCollect['additionalClass']['val']. "'>\n";
+			if (array_key_exists('specificClass', $cleanCollect)){
+				foreach($cleanCollect['specificClass']['val'] as $specificClass){
+			    	$html .="	<meta itemprop = 'targetName' content = '" .$specificClass. "'>\n";
+				}
 			}
 			if (isset($cleanCollect['additionalClass']['desc'])){
 			    $html .="	<link itemprop='targetDescription' content ='".$cleanCollect['additionalClass']['desc']."' />\n";
@@ -402,6 +420,8 @@ class SMDE_Metadata_Classification{
 			}
 			$html .= "</span>\n";
 		}
+
+		$html .= '<!--END OF CLASSIFICATION METATAGS-->';
 
 		return $html;
 	}

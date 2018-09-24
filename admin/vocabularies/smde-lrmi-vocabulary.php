@@ -36,7 +36,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 	 * @access   public
 	 */
 	public function smde_get_metatags() {
-		//Getting the information from the database
+		//Getting post meta of site-meta of metadata (Book Info) post
         if($this->type_level == 'metadata' || $this->type_level == 'site-meta'){
             $this->metadata = self::get_site_meta_metadata();
         }else{
@@ -74,6 +74,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
             	} else {
             		$val = 'Book';
             	}
+            	//in case this psot type is not metadata (Book Info) or site-meta, we choose type of post corresponding to type of site
             	switch ($val){
             	    case 'Blog':
             	    	if ($this->type_level == 'post'){
@@ -94,17 +95,19 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
  						break;
             	}
         	}
-        } elseif($this->type_level == 'metadata') {
+        } elseif($this->type_level == 'metadata') { // for Pressbooks type of site is always Book
         	$val = 'Book';
-        } else {
+        } else { // for normal installation we get type of site option, by default WebSite
         	$val = get_option('smd_website_blog_type') ?: 'WebSite';
         }
 
         $html .= '<div itemscope itemtype="http://schema.org/'.$val.'">';
+        //getting fileds, generated from Wordpress Core information
         $html .= smd_get_general_tags($val);
 
 		$partTwoMetadata = null;
 
+		//going through all properties of class and ones, which don't require specific markup
 		foreach ( self::$lrmi_properties as $key => $desc ) {
 			//Constructing the key for the data
 			//Add strtolower in all vocabs remember
@@ -116,7 +119,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 			if(empty($val) || $val == '--Select--'){
 				continue;
 			}else{
-				if(in_array($key,$loop_keys)){
+				if(in_array($key,$loop_keys)){ // checking only for proerties which don't require specific markup
 					//if the schema is timeRequired, we are using a specific format to display it,
 					//like the example here: https://schema.org/timeRequired
 					if ( 'timeRequired' == $key ) {
@@ -145,6 +148,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 			         ."</span>\n";
 		}
 
+		//initilizing instance of classification vocabulary class and calling its method for prinitng metatags
 		$class_meta = new class_meta($this->type_level);
 		$html .= $class_meta->smde_get_metatags();
 

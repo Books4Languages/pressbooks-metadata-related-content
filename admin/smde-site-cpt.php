@@ -63,9 +63,11 @@ function smde_register_cpt(){
  * Hiding site-meta post ype from default post editing/review pages of WP and creating custom page under pluggin settings
  */
 function smde_reorganize_dash () {
+
 	//Used to remove the default menu for the cpt we created
 	remove_menu_page( 'edit.php?post_type=site-meta' );
 	remove_meta_box( 'submitdiv', 'site-meta', 'side' );
+	//adding custom metabox to save site-meta information
 	add_meta_box( 'metadata-save', 'Save Site Metadata Information', 'smde_metadata_save_box', 'site-meta', 'side', 'high' );
 	$meta = smde_get_site_meta_post();
 	if ( ! empty( $meta ) ) {
@@ -102,7 +104,7 @@ function smde_get_site_meta_post() {
 
 /**
 	 * A function that manipulates the inputs for saving the new cpt data
-	 * @since    0.9
+	 * @since    0.1
 	 */
 function smde_metadata_save_box( $post ) {
 	if ( 'publish' === $post->post_status ) { ?>

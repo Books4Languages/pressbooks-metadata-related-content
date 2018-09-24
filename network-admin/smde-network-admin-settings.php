@@ -42,11 +42,14 @@ function smde_add_network_settings() {
 
 	//adding settings for locations
 	foreach ($post_types as $post_type) {
+
+		//creating labels for settings
 		if ('metadata' == $post_type){
 			$label = 'Book Info';
 		} else {
 			$label = ucfirst($post_type);
 		}
+
 		add_settings_field ('smde_net_locations['.$post_type.']', $label, function () use ($post_type, $locations){
 			$checked = isset($locations[$post_type]) ? true : false;
 			?>
@@ -69,7 +72,9 @@ function smde_add_network_settings() {
 
 	//adding settings for classification properties management
 	foreach (class_meta::$classification_properties_main as $key => $data) {
-		if ('additionalClass' == $key){
+
+		//we do not add option for 'specificClass' property (no need to control it)
+		if ('specificClass' == $key){
 				continue;
 			}
 		add_settings_field ('smde_net_class_'.$key, ucfirst($data[0]), function () use ($key, $shares_class, $freezes_class){
@@ -84,7 +89,7 @@ function smde_add_network_settings() {
 }
 
 /**
- * Function for rendering settings page
+ * Function for rendering network settings page
  */
 function smde_render_network_settings(){
 	wp_enqueue_script('common');
@@ -92,7 +97,7 @@ function smde_render_network_settings(){
 		wp_enqueue_script('postbox');
 	    ?>
 	    <div class="wrap">
-	    	<?php if (isset($_GET['settings-updated']) && $_GET['settings-updated']) { ?>
+	    	<?php if (isset($_GET['settings-updated']) && $_GET['settings-updated']) { //in case settings were saved, we show notice?>
         	<div class="notice notice-success is-dismissible"> 
 				<p><strong>Settings saved.</strong></p>
 			</div>
@@ -157,19 +162,22 @@ function smde_network_render_metabox_edu_properties(){
  */
 function smde_update_network_locations() {
 
+	//checking admin reffer to prevent direct access to this function
 	check_admin_referer('smde_network_meta_locations-options');
 
 	//Wordpress Database variable for database operations
     global $wpdb;
 
+    //collecting locations accumulative option from POST request
 	$locations = isset($_POST['smde_net_locations']) ? $_POST['smde_net_locations'] : array();
 
+	//updating network location option
 	update_blog_option(1, 'smde_net_locations', $locations);
 
 	//Grabbing all the site IDs
     $siteids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
 
-    //Going through the sites
+    //Going through the sites and updating active locations site-by-site
     foreach ($siteids as $site_id) {
     	if (1 == $site_id){
     		continue;
@@ -177,8 +185,10 @@ function smde_update_network_locations() {
 
     	switch_to_blog($site_id);
 
+    	//getting blog active lcoations
     	$locations_local = get_option('smde_locations') ?: array();
 
+    	//we merge active locations of blog with active locations from network settings
     	$locations_local = array_merge($locations_local, $locations);
 
     	update_option('smde_locations', $locations_local);
@@ -199,16 +209,19 @@ function smde_update_network_locations() {
  */
 function smde_update_network_options() {
 
+	//checking admin reffer to prevent direct access to this function
 	check_admin_referer('smde_network_meta_edu_properties-options');
 
 	//Wordpress Database variable for database operations
     global $wpdb;
 
+    //collecting sharing and freezeing options for educational propertis and classification form POST request
     $freezes = isset($_POST['smde_net_edu_freezes']) ? $_POST['smde_net_edu_freezes'] : array();
     $shares = isset($_POST['smde_net_edu_shares']) ? $_POST['smde_net_edu_shares'] : array();
     $freezes_class = isset($_POST['smde_net_class_freezes']) ? $_POST['smde_net_class_freezes'] : array();
     $shares_class = isset($_POST['smde_net_class_shares']) ? $_POST['smde_net_class_shares'] : array();
 
+    //updating network options
 	update_blog_option(1, 'smde_net_edu_freezes', $freezes);
 	update_blog_option(1, 'smde_net_edu_shares', $shares);
 	update_blog_option(1, 'smde_net_class_freezes', $freezes_class);
@@ -226,6 +239,7 @@ function smde_update_network_options() {
 
     	switch_to_blog($site_id);
 
+    	//collecting local blog options values and merge them with ones from network settings
     	$freezes_local = get_option('smde_edu_freezes') ?: array();
     	$frezees_local = array_merge($freezes_local, $freezes);
 
@@ -238,6 +252,7 @@ function smde_update_network_options() {
     	$shares_local_class = get_option('smde_class_shares') ?: array();
     	$shares_local_class = array_merge($shares_local_class, $shares_class);    	
 
+    	//updating local options
     	update_option('smde_edu_freezes', $frezees_local);
     	update_option('smde_edu_shares', $shares_local);
     	update_option('smde_class_freezes', $frezees_local_class);
