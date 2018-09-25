@@ -11,14 +11,10 @@ defined ("ABSPATH") or die ("No script assholes!");
  * Function for adding network settings page
  */
 function smde_add_network_settings() {
-	// Create our options page.
-    add_submenu_page( 'settings.php', 'Simple Metadata Network Settings',
-    'Metadata', 'manage_network_options',
-    'smde_net_set_page', 'smde_render_network_settings');
 
     //adding settings metaboxes and settigns sections
-    add_meta_box('smde-metadata-network-location', 'Location Of Metadata', 'smde_network_render_metabox_schema_locations', 'smde_net_set_page', 'normal', 'core');
-    add_meta_box('smde-network-metadata-edu-properties', 'Educational Properties Management', 'smde_network_render_metabox_edu_properties', 'smde_net_set_page', 'normal', 'core');
+    add_meta_box('smde-metadata-network-location', 'Educational Metadata', 'smde_network_render_metabox_schema_locations', 'smd_net_set_page', 'normal', 'core');
+    add_meta_box('smde-network-metadata-edu-properties', 'Educational Properties Management', 'smde_network_render_metabox_edu_properties', 'smd_net_set_page', 'normal', 'core');
 
     add_settings_section( 'smde_network_meta_locations', '', '', 'smde_network_meta_locations' );
 
@@ -198,7 +194,7 @@ function smde_update_network_locations() {
     restore_current_blog();
 
 	// At the end we redirect back to our options page.
-    wp_redirect(add_query_arg(array('page' => 'smde_net_set_page',
+    wp_redirect(add_query_arg(array('page' => 'smd_net_set_page',
     'settings-updated' => 'true'), network_admin_url('settings.php')));
 
     exit;
@@ -240,7 +236,7 @@ function smde_update_network_options() {
     	switch_to_blog($site_id);
 
     	//collecting local blog options values and merge them with ones from network settings
-    	$freezes_local = get_option('smde_edu_freezes') ?: array();
+    	$freezes_local = get_option('smd_edu_freezes') ?: array();
     	$frezees_local = array_merge($freezes_local, $freezes);
 
     	$shares_local = get_option('smde_edu_shares') ?: array();
@@ -264,13 +260,13 @@ function smde_update_network_options() {
     restore_current_blog();
 
 	// At the end we redirect back to our options page.
-    wp_redirect(add_query_arg(array('page' => 'smde_net_set_page',
+    wp_redirect(add_query_arg(array('page' => 'smd_net_set_page',
     'settings-updated' => 'true'), network_admin_url('settings.php')));
 
     exit;
 }
 
 
-add_action( 'network_admin_menu', 'smde_add_network_settings');
+add_action( 'network_admin_menu', 'smde_add_network_settings', 1000);
 add_action( 'network_admin_edit_smde_update_network_locations', 'smde_update_network_locations');
 add_action( 'network_admin_edit_smde_update_network_options', 'smde_update_network_options');

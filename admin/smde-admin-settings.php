@@ -18,7 +18,7 @@ function smde_add_education_settings() {
 		add_submenu_page('smd_set_page','Educational Metadata', 'Educational Metadata', 'manage_options', 'smde_set_page', 'smde_render_settings');
 
 		//adding active locations metabox and settings section
-		add_meta_box('smde-metadata-location', 'Location Of Metadata', 'smde_render_metabox_schema_locations', 'smde_set_page', 'normal', 'core');
+		add_meta_box('smde-metadata-location', 'Educational Metadata', 'smde_render_metabox_schema_locations', 'smd_set_page', 'normal', 'core');
 
 		add_settings_section( 'smde_meta_locations', '', '', 'smde_meta_locations' );
 
@@ -377,7 +377,7 @@ function smde_update_overwrites(){
         			$metadata_meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$meta_type;
 
 					//we share value only in case no value existed for this field before
-        			if(!get_post_meta($post_id, $meta_key) || '' == get_post_meta($post_id, $meta_key)){
+        			if((!get_post_meta($post_id, $meta_key) || '' == get_post_meta($post_id, $meta_key)) && isset($metaData[$metadata_meta_key])){
         				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
 
         				//if description and url were provided, we also share them

@@ -199,9 +199,10 @@ class SMDE_Metadata_Classification{
 			if ($property != 'specificClass'){
 				$fieldId = strtolower('smde_' . $property . '_desc_' .$this->groupId. '_' .$meta_position);
 				x_add_metadata_field( $fieldId, $meta_position, array(
+								'field_type'			   => 'textarea',
 								'group'            => $this->groupId,
 								'label'            => $details[0].' Description',
-								'description'      => 'The description of a node in an established educational framework. <a href="https://ceds.ed.gov/element/001408">Find more here</a>',
+								'description'      => 'The description of a node in an established educational framework. <a target="_blank" href="https://ceds.ed.gov/element/001408">Find more here</a>',
 								'display_callback' => array($this, $callback)
 							) );
 
@@ -210,6 +211,7 @@ class SMDE_Metadata_Classification{
 								'group'            => $this->groupId,
 								'label'            => $details[0].' URL',
 								'description'      => 'The URL of a node in an established educational framework. http://example.com',
+								'placeholder'	   => 'https://www.example.com',
 								'display_callback' => array($this, $callback)
 							) );
 			}
@@ -345,7 +347,7 @@ class SMDE_Metadata_Classification{
 			}
 		}
 
-		$html = '<!--CLASSIFICATION METATAGS-->';
+		$html = "\n<!--CLASSIFICATION METATAGS-->\n";
 
 		//Starting point of classification schema
 		if ( array_key_exists('iscedLevel', $cleanCollect) ) {
@@ -409,7 +411,9 @@ class SMDE_Metadata_Classification{
 			$html .= "	<meta itemprop = 'targetName' content = '" .$cleanCollect['additionalClass']['val']. "'>\n";
 			if (array_key_exists('specificClass', $cleanCollect)){
 				foreach($cleanCollect['specificClass']['val'] as $specificClass){
-			    	$html .="	<meta itemprop = 'targetName' content = '" .$specificClass. "'>\n";
+					if (!empty($specificClass)){
+			    		$html .="	<meta itemprop = 'targetName' content = '" .$specificClass. "'>\n";
+			    	}
 				}
 			}
 			if (isset($cleanCollect['additionalClass']['desc'])){
@@ -421,7 +425,7 @@ class SMDE_Metadata_Classification{
 			$html .= "</span>\n";
 		}
 
-		$html .= '<!--END OF CLASSIFICATION METATAGS-->';
+		$html .= "<!--END OF CLASSIFICATION METATAGS-->\n";
 
 		return $html;
 	}

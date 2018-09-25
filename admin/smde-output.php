@@ -42,5 +42,3 @@ function smde_print_tags () {
 	}
 
 }
-
-add_action ('wp_head', 'smde_print_tags');

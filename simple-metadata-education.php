@@ -23,7 +23,6 @@ if (!is_plugin_active('pressbooks/pressbooks.php') && !function_exists('x_add_me
 
 //we enable plugin functionality only if main plugin - Simple Metadata - is installed
 if(is_plugin_active('simple-metadata/simple-metadata.php')){
-	include_once plugin_dir_path( __FILE__ ) . "admin/smde-site-cpt.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-vocabulary.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-lrmi-vocabulary.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-classification-vocabulary.php";

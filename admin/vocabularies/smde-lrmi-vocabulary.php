@@ -56,54 +56,8 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 		$val = '';
 
         //Starting point of educational schema part 1
-        $html  = "<!-- LRMI Microtags -->\n";
-      
-        if($this->type_level != 'metadata' && $this->type_level != 'site-meta'){
-        	//checking if type for this pages was selected from metabox
-        	if ($this->type_level == 'post'){
-        		$val = esc_attr(get_post_meta (get_the_ID(), 'smd_post_type', true));
-        	} elseif ($this->type_level == 'page') {
-        		$val = esc_attr(get_post_meta (get_the_ID(), 'smd_page_type', true));
-        	}
-        	//if nothing was set, select depending on type of website
-        	if(!$val && $this->type_level != 'page'){
-            	//Getting the data
-            	//In case of pressbooks installation, always applied Book -> Chapter
-            	if (!is_plugin_active('pressbooks/pressbooks.php')){
-            		$val = get_option('smd_website_blog_type');
-            	} else {
-            		$val = 'Book';
-            	}
-            	//in case this psot type is not metadata (Book Info) or site-meta, we choose type of post corresponding to type of site
-            	switch ($val){
-            	    case 'Blog':
-            	    	if ($this->type_level == 'post'){
-            	    		$val = 'BlogPosting';
-            	    	}
-            	    	break;
-            	    case 'Course':
-            	    	$val = 'Article';
-            	    	break;
-            	    case 'Book':
-            	    	$val = 'Chapter';
-            	        break;
-            	    case 'WebSite':
-            	        $val = 'WebPage';
-            	        break;
- 					default:
- 						$val = 'WebPage';
- 						break;
-            	}
-        	}
-        } elseif($this->type_level == 'metadata') { // for Pressbooks type of site is always Book
-        	$val = 'Book';
-        } else { // for normal installation we get type of site option, by default WebSite
-        	$val = get_option('smd_website_blog_type') ?: 'WebSite';
-        }
+        $html  = "\n<!-- LRMI Microtags -->\n";
 
-        $html .= '<div itemscope itemtype="http://schema.org/'.$val.'">';
-        //getting fileds, generated from Wordpress Core information
-        $html .= smd_get_general_tags($val);
 
 		$partTwoMetadata = null;
 
@@ -152,7 +106,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 		$class_meta = new class_meta($this->type_level);
 		$html .= $class_meta->smde_get_metatags();
 
-        $html .= "</div>\n <!-- END OF LRMI MICROTAGS-->\n";
+        $html .= "<!-- END OF LRMI MICROTAGS-->\n";
 		echo $html;
 	}
 }
