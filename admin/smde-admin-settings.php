@@ -123,6 +123,10 @@ function smde_add_education_settings() {
 				continue;
 			}
 
+			if (get_blog_option(1, 'smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
+				continue;
+			}
+
 			add_settings_field ('smde_class_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_class, $freezes_class, $network_shares_class, $network_freezes_class){
 				$checked_class_share = isset($shares_class[$key]) ? true : false;
 				$checked_class_freeze = isset($freezes_class[$key]) ? true : false;
@@ -147,6 +151,20 @@ function smde_add_education_settings() {
 				}
 			}, 'smde_meta_edu_properties', 'smde_meta_class_properties');
 
+		}
+
+		if (get_blog_option(1, 'smde_net_for_lang')){
+			add_settings_field ('smde_class_eduLang', 'Studying content', function () use ($key, $shares_class, $freezes_class, $network_shares_class, $network_freezes_class){
+				$checked_class_share = isset($shares_class['eduLang']) ? true : false;
+				$checked_class_freeze = isset($freezes_class['eduLang']) ? true : false;
+				//in case share or freeze is network enabled, checkbox becomes disabled to prevent changes
+				$disabled_share = isset($network_shares_class['eduLang']) && $network_shares_class['eduLang'] ? 'disabled' : '';
+				$disabled_freeze = isset($network_freezes_class['eduLang']) && $network_freezes_class['eduLang'] ? 'disabled' : '';
+				?>
+					<label for="smde_class_shares[eduLang]"><i>Share</i> <input type="checkbox" name="smde_class_shares[eduLang]" id="smde_class_shares[eduLang]" value="1" <?php checked(1, $checked_class_share);  echo $disabled_share?>></label>
+					<label for="smde_class_freezes[eduLang]"><i>Freeze</i> <input type="checkbox" name="smde_class_freezes[eduLang]" id="smde_class_freezes[eduLang]" value="1" <?php checked(1, $checked_class_freeze);  echo $disabled_freeze?>></label>
+				<?php
+			}, 'smde_meta_edu_properties', 'smde_meta_class_properties');
 		}
 	}
 }
@@ -195,6 +213,7 @@ function smde_render_settings() {
 function smde_render_metabox_schema_locations(){
 	?>
 	<div id="smde_meta_locations" class="smde_meta_locations">
+		<span class="description">Description for educational locations metabox</span>
 		<form method="post" action="options.php">
 			<?php
 			settings_fields( 'smde_meta_locations' );
@@ -217,6 +236,7 @@ function smde_render_metabox_edu_properties(){
 	if (isset($locations[$level]) && $locations[$level]){
 	?>
 	<div id="smde_meta_edu_properties" class="smde_meta_edu_properties">
+		<span class="description">Description for educational properties metabox</span>
 		<form method="post" action="options.php">
 			<?php
 			settings_fields( 'smde_meta_edu_properties' );
@@ -378,19 +398,21 @@ function smde_update_overwrites(){
 
 					//we share value only in case no value existed for this field before
         			if((!get_post_meta($post_id, $meta_key) || '' == get_post_meta($post_id, $meta_key)) && isset($metaData[$metadata_meta_key])){
+
         				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
 
-        				//if description and url were provided, we also share them
-        				if (isset($metaData[$metadata_meta_key_desc])){
-        					update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
-        				}
-        				if (isset($metaData[$metadata_meta_key_url])) {
-        					update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
+        				if (!get_blog_option(1, 'smde_net_for_lang')){
+        					//if description and url were provided, we also share them
+        					if (isset($metaData[$metadata_meta_key_desc])){
+        						update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
+        					}
+        					if (isset($metaData[$metadata_meta_key_url])) {
+        						update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
+        					}
         				}
         			}
         		}
         	}
-
 		}
 	}
 
@@ -420,21 +442,37 @@ function smde_update_overwrites(){
 
         			//we overwrite value only if it is defined in Book Info - Site Meta
         			if(isset($metaData[$metadata_meta_key])){
+
         				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
 
-        				//in case description and url were provided, we also share them
-        				if (isset($metaData[$metadata_meta_key_desc])){
-        					update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
-        				}
-        				if (isset($metaData[$metadata_meta_key_url])) {
-        					update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
+        				if (!get_blog_option(1, 'smde_net_for_lang')){
+        					//in case description and url were provided, we also share them
+        					if (isset($metaData[$metadata_meta_key_desc])){
+        						update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
+        					}
+        					if (isset($metaData[$metadata_meta_key_url])) {
+        						update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
+        					}
         				}
         			}
         		}
         	}
-
 		}
 	}
 }
 
 add_action('admin_menu', 'smde_add_education_settings', 100);
+add_action('updated_option', function( $option_name, $old_value, $value ){
+	if ('smde_edu_freezes' == $option_name){
+		$shares = get_option('smde_edu_shares') ?: [];
+		$value = empty($value) ? [] : $value;
+		$shares = array_merge($shares, $value);
+		update_option('smde_edu_shares', $shares);
+	}
+	if ('smde_class_freezes' == $option_name){
+		$shares = get_option('smde_class_shares') ?: [];
+		$value = empty($value) ? [] : $value;
+		$shares = array_merge($shares, $value);
+		update_option('smde_class_shares', $shares);
+	}
+}, 10, 3);
