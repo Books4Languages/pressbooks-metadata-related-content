@@ -86,12 +86,13 @@ function smde_add_network_settings() {
 				continue;
 		}
 
-		add_settings_field ('smde_net_class_'.$key, ucfirst($data[0]), function () use ($key, $shares_class, $freezes_class){
+		add_settings_field ('smde_net_class_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_class, $freezes_class){
 			$checked_class_share = isset($shares_class[$key]) ? true : false;
 			$checked_class_freeze = isset($freezes_class[$key]) ? true : false;
 			?>
 				<label for="smde_net_class_shares[<?=$key?>]"><i>Share</i> <input type="checkbox" name="smde_net_class_shares[<?=$key?>]" id="smde_net_class_shares[<?=$key?>]" value="1" <?php checked(1, $checked_class_share);?>></label>
 				<label for="smde_net_class_freezes[<?=$key?>]"><i>Freeze</i> <input type="checkbox" name="smde_net_class_freezes[<?=$key?>]" id="smde_net_class_freezes[<?=$key?>]" value="1" <?php checked(1, $checked_class_freeze);?>></label>
+				<br><span class="description"><?=$data[1]?></span>
 			<?php
 		}, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
 	}
