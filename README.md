@@ -55,6 +55,10 @@ The Simple Metadata Education plugin is supplied "as is" and all use is at your 
 
 ## Changelog
 
+Take a look at detailed changelog [here](/doc/CHANGELOG.md)
+
+# 1.0
+* Initial release
 
 ## Upgrade Notice
 ### 0.2
