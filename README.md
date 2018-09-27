@@ -83,6 +83,7 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
         * Overwriting of properties (Freeze)
         * Seeding properties values (Share, affects only if desired field is empty in active post level)
         * Language Education Mode (on/off)
+        
       *Network settings overwrite all site settings and block ability to change them!*
       * **Site Settings**
         * **Simple Metadata Settings Page**
@@ -90,9 +91,11 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
         * **Educational Metadata Settings** (subpage under Simple Metadata Settings)  
           * Overwriting of properties (Freeze)
           * Seeding properties values (Share, affects only if desired field is empty in active post level)
+          
       *If overwriting for some property is activated, seeding is also marked active in order to avoid misunderstanding for user*
         * **Site Meta**
           This is a place where you enter metadata infromation, which will be shown in front-page of a site.
+          
       *Overwriting and seeding applies information, stored in Site-Meta/Book Info to all active post types*
       
 
