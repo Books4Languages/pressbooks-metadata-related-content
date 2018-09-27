@@ -176,6 +176,7 @@ class SMDE_Metadata_Educational{
 				} elseif (!post_type_supports($meta_position, 'excerpt')){
 					x_add_metadata_field( $fieldId, $meta_position, array(
 						'group'       => $this->groupId,
+						'field_type'  => 'textarea',
 						'label'       => $details[0],
 						'description' => $details[1],
 						'display_callback' => array($this, $callback)

@@ -93,9 +93,9 @@ class SMDE_Metadata_Classification{
 
 			self::$classification_properties_main['additionalClass'] = array( 'Additional Classification','More specified subject of current educational level.', 
 				array( '' 			=> '--Select--',
-					   'Cultural' 	=> 'Cultural',
+					   'Culture' 	=> 'Culture',
 					   'Grammar'  	=> 'Grammar',
-					   'Phonetics' 	=> 'Phonetics',
+					   'Orthography' 	=> 'Orthography',
 					   'Vocabulary' => 'Vocabulary'
 				));
 
@@ -866,7 +866,7 @@ class SMDE_Metadata_Classification{
 			
 			switch ($cleanCollect['additionalClass']['val']) {
 
-				case 'Cultural':
+				case 'Culture':
 					
 					$cleanCollect['additionalClass']['desc'] = 'smth';
 					break;
@@ -876,7 +876,7 @@ class SMDE_Metadata_Classification{
 					$cleanCollect['additionalClass']['desc'] = 'smth';
 					break;
 
-				case 'Phonetics':
+				case 'Orthography':
 					
 					$cleanCollect['additionalClass']['desc'] = 'smth';
 					break;
