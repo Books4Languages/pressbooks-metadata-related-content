@@ -104,10 +104,10 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 
 		//initilizing instance of classification vocabulary class and calling its method for prinitng metatags
 		$class_meta = new class_meta($this->type_level);
-		if (!get_blog_option(1, 'smde_net_for_lang')){
-			$html .= $class_meta->smde_get_metatags();
-		} else {
+		if (is_multisite() && get_blog_option(1, 'smde_net_for_lang')){
 			$html .= $class_meta->smde_get_metatags_lang();
+		} else {
+			$html .= $class_meta->smde_get_metatags();
 		}
 
         $html .= "<!-- END OF LRMI MICROTAGS-->\n";
