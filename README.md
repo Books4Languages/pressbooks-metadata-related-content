@@ -6,7 +6,7 @@ Requires Simple Metadata (1.0 version)
 * Donate link: https://opencollective.com/mylanguageskills
 * Tags: pressbooks, links, metadata, education
 * Requires at least: 4.9.6
-* Tested up to: 4.9.6
+* Tested up to: 4.9.8
 * Requires PHP: 7.2.0
 * Stable tag: 1.0
 * License: GNU 3.0
