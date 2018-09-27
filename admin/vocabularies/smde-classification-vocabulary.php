@@ -82,7 +82,8 @@ class SMDE_Metadata_Classification{
 			unset(self::$classification_properties_main['iscedField']);
 
 			self::$classification_properties_main['eduLevel'] = array( 'Educational Level','The level of this subject.', 
-				array( 'A1' => 'A1',
+				array( '' 	=> '--Select--',
+					   'A1' => 'A1',
 					   'A2' => 'A2',
 					   'B1' => 'B1',
 					   'B2' => 'B2',
@@ -91,7 +92,8 @@ class SMDE_Metadata_Classification{
 				));
 
 			self::$classification_properties_main['additionalClass'] = array( 'Additional Classification','More specified subject of current educational level.', 
-				array( 'Cultural' 	=> 'Cultural',
+				array( '' 			=> '--Select--',
+					   'Cultural' 	=> 'Cultural',
 					   'Grammar'  	=> 'Grammar',
 					   'Phonetics' 	=> 'Phonetics',
 					   'Vocabulary' => 'Vocabulary'
