@@ -1,17 +1,17 @@
-## All In One Metadata - Educational related content
+## Simple Metadata Education
 
-Contributors: @colomet,  @nicoleacuna, @danzhik
+Contributors: @colomet, @danzhik
 
-Tags: pressbooks, links
+Tags: pressbooks, links, metadata, education
 
 Tested up to: [![WordPress](https://img.shields.io/wordpress/v/akismet.svg)](https://wordpress.org/download/)
 
 
-Stable tag: [![Current Release](https://img.shields.io/github/release/Books4Languages/pressbooks-metadata-related_content.svg)](https://github.com/Books4Languages/pressbooks-metadata-related_content/releases/latest/)
+Stable tag: [![Current Release](https://img.shields.io/github/release/my-language-skills/simple-metadata-education.svg)](https://github.com/my-language-skills/simple-metadata-education/releases/latest/)
 
 License:  [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/license.txt)
 
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Description  
 With this plugin you can create new links in chapter posttype and show them in a frontend. You can also create relationships between books (using words or links) and will be displayed in the frontend. Moreover, you can add educational metadata, like COinS, Dublin Core and Dublin Extended vocabularies, and also with pre-installed set of metdata of this plugin, based on [!Schema.org](https://schema.org/) standards. And finally, you can relate your book to the book on which it is based.  We use boilerplate 3.0 version to create this plugin.
