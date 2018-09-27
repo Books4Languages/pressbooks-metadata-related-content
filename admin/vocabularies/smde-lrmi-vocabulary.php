@@ -23,7 +23,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
       	'interactivityType'		=> 'interactivityType',
       	'learningResourceType'	=> 'learningResourceType',
 		'educationalRole'		=> 'endUserRole',
-		'educationalUse'		=> 'interactivityType',
+		'educationalUse'		=> 'educationalUse',
 		'typicalAgeRange' 		=> 'typicalAgeRange',
 		'timeRequired'			=> 'typicalLearningTime'
 	);
