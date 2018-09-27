@@ -9,7 +9,7 @@ Tested up to: [![WordPress](https://img.shields.io/wordpress/v/akismet.svg)](htt
 
 Stable tag: [![Current Release](https://img.shields.io/github/release/my-language-skills/simple-metadata-education.svg)](https://github.com/my-language-skills/simple-metadata-education/releases/latest/)
 
-License:  [![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg)](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/license.txt)
+License:  [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/license.txt)
 
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
