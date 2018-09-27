@@ -475,4 +475,18 @@ add_action('updated_option', function( $option_name, $old_value, $value ){
 		$shares = array_merge($shares, $value);
 		update_option('smde_class_shares', $shares);
 	}
+	if ('smde_locations' == $option_name){
+		$locations_general = get_option('smd_locations') ?: [];
+		$value = empty($value) ? [] : $value;
+		$locations_general = array_merge($locations_general, $value);
+
+		if (isset($locations_general['metadata'])){
+			unset($locations_general['metadata']);
+		}
+		if (isset($locations_general['site-meta'])){
+			unset($locations_general['site-meta']);
+		}
+		
+		update_option('smd_locations', $locations_general);
+	}
 }, 10, 3);

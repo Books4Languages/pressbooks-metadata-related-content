@@ -221,8 +221,21 @@ function smde_update_network_locations() {
     //collecting locations accumulative option from POST request
 	$locations = isset($_POST['smde_net_locations']) ? $_POST['smde_net_locations'] : array();
 
-	//updating network location option
+	 //collecting locations of general meta accumulative option from POST request
+	$locations_general = get_blog_option(1, 'smd_net_locations') ?: array();
+
+	$locations_general = array_merge($locations_general, $locations);
+
+	if (isset($locations_general['metadata'])){
+		unset($locations_general['metadata']);
+	}
+	if (isset($locations_general['site-meta'])){
+		unset($locations_general['site-meta']);
+	}
+
+	//updating network locations option
 	update_blog_option(1, 'smde_net_locations', $locations);
+	update_blog_option(1, 'smd_net_locations', $locations_general);
 
 	//Grabbing all the site IDs
     $siteids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
@@ -237,11 +250,14 @@ function smde_update_network_locations() {
 
     	//getting blog active lcoations
     	$locations_local = get_option('smde_locations') ?: array();
+    	$locations_local_general = get_option('smd_locations') ?: array();
 
     	//we merge active locations of blog with active locations from network settings
     	$locations_local = array_merge($locations_local, $locations);
+    	$locations_local_general = array_merge($locations_local_general, $locations_general);
 
     	update_option('smde_locations', $locations_local);
+    	update_option('smd_locations', $locations_local_general);
 
     }
 
