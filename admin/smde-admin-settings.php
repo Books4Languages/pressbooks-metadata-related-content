@@ -123,7 +123,7 @@ function smde_add_education_settings() {
 				continue;
 			}
 
-			if (get_blog_option(1, 'smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
+			if (is_multisite() && get_blog_option(1, 'smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
 				continue;
 			}
 
@@ -153,7 +153,7 @@ function smde_add_education_settings() {
 
 		}
 
-		if (get_blog_option(1, 'smde_net_for_lang')){
+		if (is_multisite() && get_blog_option(1, 'smde_net_for_lang')){
 			add_settings_field ('smde_class_eduLang', 'Studying content', function () use ($key, $shares_class, $freezes_class, $network_shares_class, $network_freezes_class){
 				$checked_class_share = isset($shares_class['eduLang']) ? true : false;
 				$checked_class_freeze = isset($freezes_class['eduLang']) ? true : false;

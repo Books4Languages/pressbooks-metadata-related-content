@@ -77,7 +77,7 @@ class SMDE_Metadata_Classification{
 		$this->groupId = 'class_vocab';
 		$this->type_level = $typeLevelInput;
 
-		if (get_blog_option(1, 'smde_net_for_lang')){
+		if (is_multisite() && get_blog_option(1, 'smde_net_for_lang')){
 			unset(self::$classification_properties_main['eduFrame']);
 			unset(self::$classification_properties_main['iscedField']);
 
@@ -378,10 +378,10 @@ class SMDE_Metadata_Classification{
 
 			//if this property is frozen, we render its metafield correspondingly
 			if ($meta_position != 'site-meta' && $meta_position!= 'metadata' && isset($freezes_class[$property]) && $freezes_class[$property]){
-				if (!get_blog_option(1, 'smde_net_for_lang')){
-					$callback = 'render_frozen_field';
-				} else {
+				if (is_multisite() && get_blog_option(1, 'smde_net_for_lang')){
 					$callback = 'render_frozen_field_lang';
+				} else {
+					$callback = 'render_frozen_field';
 				}
 			}
 
@@ -429,7 +429,7 @@ class SMDE_Metadata_Classification{
 			}
 
 			//creating URL and description fields for all levels, except Specific Classification
-			if ($property != 'specificClass' && !get_blog_option(1, 'smde_net_for_lang')) {
+			if ($property != 'specificClass' && ((is_multisite() && !get_blog_option(1, 'smde_net_for_lang')) || !is_multisite())) {
 
 			    $fieldId = strtolower('smde_' . $property . '_desc_' .$this->groupId. '_' .$meta_position);
 				x_add_metadata_field( $fieldId, $meta_position, array(
