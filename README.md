@@ -14,7 +14,7 @@ License:  [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)]
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Description  
-With this plugin you can create new links in chapter posttype and show them in a frontend. You can also create relationships between books (using words or links) and will be displayed in the frontend. Moreover, you can add educational metadata, like COinS, Dublin Core and Dublin Extended vocabularies, and also with pre-installed set of metdata of this plugin, based on [Schema.org](https://schema.org/) standards. And finally, you can relate your book to the book on which it is based.  We use boilerplate 3.0 version to create this plugin.
+Simple Metadata Education plugin is add-on for (Simple Metadata)[https://github.com/my-language-skills/simple-metadata/] plugin, aimed for educational purposes. With use of this plugin you will be able to provide relevant information on your educational content, following commonly accepted standards of educational metadata, like LRMI, LOM (coming soon) and Dublin Core (coming soon). 
 
 ## Installation
 1. Clone (or copy) this repository to the /wp-content/plugins/ directory.
@@ -27,6 +27,7 @@ With this plugin you can create new links in chapter posttype and show them in a
 Plugin works with:
 
 - ![PHP](https://img.shields.io/badge/PHP-7.2.X-blue.svg)
+- ![WordPress](https://img.shields.io/badge/WordPress-4.9.8-blue.svg)
 
 
 
@@ -37,7 +38,7 @@ http://www2.cs.arizona.edu/~collberg/Teaching/07.231/BibTeX/bibtex.html
 The Simple Metadata Education plugin is supplied "as is" and all use is at your own risk.
 
 ## Screenshots
-You can see all of the screenshots of the plugin [here](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/pressbooks-related-content/screenshots/screenshots.md).
+
 ## Roadmap
 
 
