@@ -14,7 +14,7 @@ License:  [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)]
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Description  
-With this plugin you can create new links in chapter posttype and show them in a frontend. You can also create relationships between books (using words or links) and will be displayed in the frontend. Moreover, you can add educational metadata, like COinS, Dublin Core and Dublin Extended vocabularies, and also with pre-installed set of metdata of this plugin, based on [!Schema.org](https://schema.org/) standards. And finally, you can relate your book to the book on which it is based.  We use boilerplate 3.0 version to create this plugin.
+With this plugin you can create new links in chapter posttype and show them in a frontend. You can also create relationships between books (using words or links) and will be displayed in the frontend. Moreover, you can add educational metadata, like COinS, Dublin Core and Dublin Extended vocabularies, and also with pre-installed set of metdata of this plugin, based on [Schema.org](https://schema.org/) standards. And finally, you can relate your book to the book on which it is based.  We use boilerplate 3.0 version to create this plugin.
 
 ## Installation
 1. Clone (or copy) this repository to the /wp-content/plugins/ directory.
