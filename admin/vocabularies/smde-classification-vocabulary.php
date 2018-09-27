@@ -92,11 +92,11 @@ class SMDE_Metadata_Classification{
 				));
 
 			self::$classification_properties_main['additionalClass'] = array( 'Additional Classification','More specified subject of current educational level.', 
-				array( '' 			=> '--Select--',
-					   'Culture' 	=> 'Culture',
-					   'Grammar'  	=> 'Grammar',
-					   'Orthography' 	=> 'Orthography',
-					   'Vocabulary' => 'Vocabulary'
+				array( '' 			 => '--Select--',
+					   'Culture' 	 => 'Culture',
+					   'Grammar'  	 => 'Grammar',
+					   'Orthography' => 'Orthography',
+					   'Vocabulary'  => 'Vocabulary'
 				));
 
 			self::$classification_properties_main['iscedLevel'] = array( 'ISCED level of education','Level of education according to ISCED-P 2011'.'<br><a target="_blank" href="http://www.uis.unesco.org/Education/Documents/isced-2011-en.pdf">Click Here for more information</a>',
