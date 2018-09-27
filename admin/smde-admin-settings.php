@@ -163,6 +163,7 @@ function smde_add_education_settings() {
 				?>
 					<label for="smde_class_shares[eduLang]"><i>Share</i> <input type="checkbox" name="smde_class_shares[eduLang]" id="smde_class_shares[eduLang]" value="1" <?php checked(1, $checked_class_share);  echo $disabled_share?>></label>
 					<label for="smde_class_freezes[eduLang]"><i>Freeze</i> <input type="checkbox" name="smde_class_freezes[eduLang]" id="smde_class_freezes[eduLang]" value="1" <?php checked(1, $checked_class_freeze);  echo $disabled_freeze?>></label>
+					<br><span class="description">Language which content is about</span>
 				<?php
 			}, 'smde_meta_edu_properties', 'smde_meta_class_properties');
 		}
@@ -486,7 +487,7 @@ add_action('updated_option', function( $option_name, $old_value, $value ){
 		if (isset($locations_general['site-meta'])){
 			unset($locations_general['site-meta']);
 		}
-		
+
 		update_option('smd_locations', $locations_general);
 	}
 }, 10, 3);

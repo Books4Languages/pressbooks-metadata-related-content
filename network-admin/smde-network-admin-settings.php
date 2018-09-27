@@ -104,6 +104,7 @@ function smde_add_network_settings() {
 			?>
 				<label for="smde_net_class_shares[eduLang]"><i>Share</i> <input type="checkbox" name="smde_net_class_shares[eduLang]" id="smde_net_class_shares[eduLang]" value="1" <?php checked(1, $checked_class_share);?>></label>
 				<label for="smde_net_class_freezes[eduLang]"><i>Freeze</i> <input type="checkbox" name="smde_net_class_freezes[eduLang]" id="smde_net_class_freezes[eduLang]" value="1" <?php checked(1, $checked_class_freeze);?>></label>
+				<br><span class="description">Language which content is about</span>
 			<?php
 		}, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
 	}

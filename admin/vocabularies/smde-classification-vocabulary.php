@@ -112,7 +112,7 @@ class SMDE_Metadata_Classification{
 				'7'  => 'Master’s or equivalent level',
 				'8'  => 'Doctoral or equivalent level'));
 
-			self::$classification_properties_main['eduLang'] = array('Studying content', 'Select languages which content is about', 
+			self::$classification_properties_main['eduLang'] = array('Studying content', 'Language which content is about', 
 				array ( '' 					=> '--Select--',
 						'aa'     			=> 'Afar',
 						'ab'     			=> 'Abkhazian',
