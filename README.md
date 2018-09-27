@@ -1,8 +1,19 @@
 ## Simple Metadata Education
 
-Contributors: @colomet, @danzhik
+Requires Simple Metadata (1.0 version)
 
-Tags: pressbooks, links, metadata, education
+* Contributors: @colomet, @danzhik
+* Donate link: https://opencollective.com/mylanguageskills
+* Tags: pressbooks, links, metadata, education
+* Requires at least: 4.9.6
+* Tested up to: 4.9.6
+* Requires PHP: 7.2.0
+* Stable tag: 1.0
+* License: GNU 3.0
+* License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
+
+Plugin for automatic generation of educational meta fields in web-pages.
+
 
 Tested up to: [![WordPress](https://img.shields.io/wordpress/v/akismet.svg)](https://wordpress.org/download/)
 
@@ -14,7 +25,7 @@ License:  [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)]
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Description  
-Simple Metadata Education plugin is add-on for (Simple Metadata)[https://github.com/my-language-skills/simple-metadata/] plugin, aimed for educational purposes. With use of this plugin you will be able to provide relevant information on your educational content, following commonly accepted standards of educational metadata, like LRMI, LOM (coming soon) and Dublin Core (coming soon). 
+Simple Metadata Education plugin is add-on for (Simple Metadata)[https://github.com/my-language-skills/simple-metadata/] plugin, aimed for educational purposes. With use of this plugin you will be able to provide relevant information on your educational content, following commonly accepted standards of educational metadata, like LRMI, LOM (coming soon) and Dublin Core (coming soon).
 
 ## Installation
 1. Clone (or copy) this repository to the /wp-content/plugins/ directory.
@@ -48,10 +59,10 @@ The Simple Metadata Education plugin is supplied "as is" and all use is at your 
   * **Types**
    * Book type
    * Course type
-  
+
   * **Properties**
     * **Education**
-    
+
       * **LOM** (not functional yet, just information storage)
         * Interactivity Type
         * Learning Resource Type
@@ -69,14 +80,14 @@ The Simple Metadata Education plugin is supplied "as is" and all use is at your 
         * Educational Use
         * Typical Age Range
         * Time Required (in hours)
-    
+
     * **Classification**
       * ISCED Level of Education
       * Educational Framework
       * ISCED Field of Education
       * Educational Level
       * Additional Classification
-  
+
   * **Administration**
    * **Settings**
       * **Network settings** (uses Simple-Metadata network settings page)
@@ -92,13 +103,13 @@ The Simple Metadata Education plugin is supplied "as is" and all use is at your 
         * **Educational Metadata Settings** (subpage under Simple Metadata Settings)  
           * Overwriting of properties (Freeze)
           * Seeding properties values (Share, affects only if desired field is empty in active post level)
-          
+
       *If overwriting for some property is activated, seeding is also marked active in order to avoid misunderstanding for user*
         * **Site Meta**
           This is a place where you enter metadata infromation, which will be shown in front-page of a site.
-          
+
       *Overwriting and seeding applies information, stored in Site-Meta/Book Info to all active post types*
-      
+
 
 ## Upgrade Notice
 ### 0.2
