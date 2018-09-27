@@ -13,9 +13,10 @@ defined ("ABSPATH") or die ("No script assholes!");
 function smde_add_network_settings() {
 
     //adding settings metaboxes and settigns sections
+    add_meta_box('smde-network-metadata-for-lang', 'Languages education', 'smde_network_render_metabox_for_lang', 'smd_net_set_page', 'normal', 'core');
     add_meta_box('smde-metadata-network-location', 'Educational Metadata', 'smde_network_render_metabox_schema_locations', 'smd_net_set_page', 'normal', 'core');
     add_meta_box('smde-network-metadata-edu-properties', 'Educational Properties Management', 'smde_network_render_metabox_edu_properties', 'smd_net_set_page', 'normal', 'core');
-    add_meta_box('smde-network-metadata-for-lang', 'Languages education', 'smde_network_render_metabox_for_lang', 'smd_net_set_page', 'normal', 'core');
+    
 
 
     add_settings_section( 'smde_network_meta_locations', '', '', 'smde_network_meta_locations' );
