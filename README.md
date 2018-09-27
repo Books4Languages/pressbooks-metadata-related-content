@@ -44,9 +44,60 @@ You can see all of the screenshots of the plugin [here](https://github.com/Books
 ## Roadmap
 
 
-## Changelogs
-### 0.3
-Next updates
+## Changelog
+### 1.0
+* **Additions**
+  * **Types**
+   * Book type
+   * Course type
+  
+  * **Properties**
+    * **Education**
+    
+      * **LOM** (not functional yet, just information storage)
+        * Interactivity Type
+        * Learning Resource Type
+        * Interactivity level
+        * Intended End User Role
+        * Context
+        * Typical Age Range
+        * Difficulty
+        * Typical Learning Time (in hours)
+        * Description (only in post types, which don't support excertps)
+      * **LRMI** (data for metatags content is taken from LOM storage)
+        * Interactivity Type
+        * Learning Resource Type
+        * Educational Audience
+        * Educational Use
+        * Typical Age Range
+        * Time Required (in hours)
+    
+    * **Classification**
+      * ISCED Level of Education
+      * Educational Framework
+      * ISCED Field of Education
+      * Educational Level
+      * Additional Classification
+  
+  * **Administration**
+   * **Settings**
+      * **Network settings** (uses Simple-Metadata network settings page)
+        * Post types active for Educational Metadata and CLassification Metadata (show/not show metatags in web-pages code and metaboxes to fill in information)
+        * Overwriting of properties (Freeze)
+        * Seeding properties values (Share, affects only if desired field is empty in active post level)
+        * Language Education Mode (on/off)
+      *Network settings overwrite all site settings and block ability to change them!*
+      * **Site Settings**
+        * **Simple Metadata Settings Page**
+          * Post types active for Educational Metadata and CLassification Metadata (show/not show metatags in web-pages code and metaboxes to fill in information)
+        * **Educational Metadata Settings** (subpage under Simple Metadata Settings)  
+          * Overwriting of properties (Freeze)
+          * Seeding properties values (Share, affects only if desired field is empty in active post level)
+      *If overwriting for some property is activated, seeding is also marked active in order to avoid misunderstanding for user*
+        * **Site Meta**
+          This is a place where you enter metadata infromation, which will be shown in front-page of a site.
+      *Overwriting and seeding applies information, stored in Site-Meta/Book Info to all active post types*
+      
 
 ## Upgrade Notice
 ### 0.2
