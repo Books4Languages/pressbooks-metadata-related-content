@@ -13,8 +13,8 @@ General structure of new vocabularies class should be following:
 Example file of new class:
 
 ---
-`
-<?php
+
+```<?php
 namespace vocabularies;
 
 use \vocabularies\SMDE_Metadata_Educational;
@@ -91,7 +91,7 @@ class SMDE_Metadata_{name_of_vocabulary} extends SMDE_Metadata_Educational {
         $html .= "<!-- END OF {name_of_vocabulary} MICROTAGS-->\n";
 		echo $html;
 	}
-}`
+}```
 
 ---
 
