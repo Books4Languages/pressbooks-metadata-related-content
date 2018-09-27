@@ -28,14 +28,13 @@ Plugin works with:
 
 - ![PHP](https://img.shields.io/badge/PHP-7.2.X-blue.svg)
 
-- [![Pressbooks](https://img.shields.io/badge/Pressbooks-V%205.4.7-red.svg)](https://github.com/pressbooks/pressbooks/releases/tag/5.4.7)
 
 
 http://www2.cs.arizona.edu/~collberg/Teaching/07.231/BibTeX/bibtex.html
 
 
 ## Disclaimers
-The Pressbooks plugin is supplied "as is" and all use is at your own risk.
+The Simple Metadata Education plugin is supplied "as is" and all use is at your own risk.
 
 ## Screenshots
 You can see all of the screenshots of the plugin [here](https://github.com/Books4Languages/pressbooks-metadata-related_content/blob/master/pressbooks-related-content/screenshots/screenshots.md).
