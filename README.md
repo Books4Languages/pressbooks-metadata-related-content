@@ -108,13 +108,10 @@ To use the first version of the plugin.
 
 
 ## Credits
-Here's a link to [WordPress Plugin Boilerplate](http://wppb.io/).
 
 Here's a link to [WordPress](https://wordpress.org/)
 
 Here's a llink to [PressBooks](https://pressbooks.org/get-involved/)
-
-Here's a link to [Pandao](https://pandao.github.io/editor.md/en.html)
 
 Here's a link to [Markdown's Syntax Documentation](https://daringfireball.net/projects/markdown/syntax)
 
