@@ -9,13 +9,14 @@
 | E3-0  | Interactivity Level    | interactivityLevel   | --                   | --         | --
 | E4-0  | Semantic Density       | semanticDensity      | --                   | --         | --
 | E5-0  | Intended End User Role | intendedEndUserRole  | EducationalAudience  | --         | --
-| E6-0  | Context                | context              | educationalUse       | --         | --
+| E6-0  | Context                | context              | ## Classification    | --         | --
 | E7-0  | Typical Age Range      | typicalAgeRange      | typicalAgeRange      | --         | --
 | E8-0  | Difficulty             | difficulty           | --                   | --         | --
 | E9-0  | Typical Learning Time  | typicalLearningTime  | timeRequired         | --         | --
 | E10-0 | Description            | description          | backstory (1)        | --         | --
 | E11-0 | Language               | language             | --                   | --         | --
 | E12-0 | Cognitive Process      | cognitiveProcess (ES)| --                   | --         | --
+| E13-0 | Educational Use        | --                   | educationalUse       | --         | --
 
 * 1 Article
 
