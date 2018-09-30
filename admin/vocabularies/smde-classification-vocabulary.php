@@ -38,7 +38,7 @@ class SMDE_Metadata_Classification{
 	 * @access   public
 	 */
 	public static $classification_properties_main = array(
-	
+
         'iscedLevel'=>array( 'ISCED level of education','Level of education according to ISCED-P 2011'.'<br><a target="_blank" href="http://www.uis.unesco.org/Education/Documents/isced-2011-en.pdf">Click Here for more information</a>',
 			array(
 				'' => '--Select--',
@@ -81,7 +81,7 @@ class SMDE_Metadata_Classification{
 			unset(self::$classification_properties_main['eduFrame']);
 			unset(self::$classification_properties_main['iscedField']);
 
-			self::$classification_properties_main['eduLevel'] = array( 'Educational Level','The level of this subject.', 
+			self::$classification_properties_main['eduLevel'] = array( 'Educational Level','The level of this subject.',
 				array( '' 	=> '--Select--',
 					   'A1' => 'A1',
 					   'A2' => 'A2',
@@ -91,7 +91,7 @@ class SMDE_Metadata_Classification{
 					   'C2' => 'C2'
 				));
 
-			self::$classification_properties_main['additionalClass'] = array( 'Additional Classification','More specified subject of current educational level.', 
+			self::$classification_properties_main['additionalClass'] = array( 'Additional Classification','More specified subject of current educational level.',
 				array( '' 			 => '--Select--',
 					   'Culture' 	 => 'Culture',
 					   'Grammar'  	 => 'Grammar',
@@ -112,7 +112,7 @@ class SMDE_Metadata_Classification{
 				'7'  => 'Master’s or equivalent level',
 				'8'  => 'Doctoral or equivalent level'));
 
-			self::$classification_properties_main['eduLang'] = array('Studying content', 'Language which content is about', 
+			self::$classification_properties_main['eduLang'] = array('Studying content', 'Language which content is about',
 				array ( '' 					=> '--Select--',
 						'aa'     			=> 'Afar',
 						'ab'     			=> 'Abkhazian',
@@ -298,7 +298,7 @@ class SMDE_Metadata_Classification{
 						'zh'     			=> 'Chinese',
 						'zu'     			=> 'Zulu'));
 		}
-		
+
 		$this->smde_add_metabox( $this->type_level );
 	}
 
@@ -310,7 +310,7 @@ class SMDE_Metadata_Classification{
 
 		//Getting the origin for overwritten data
         $dataFrom = is_plugin_active('pressbooks/pressbooks.php') ? 'Book-Info' : 'Site-Meta';
-      
+
 	    //getting value of post meta
         $meta_value = $label = get_post_meta($post->ID, $field_slug, true);
 
@@ -320,7 +320,7 @@ class SMDE_Metadata_Classification{
         //for isced level we obtain readable name corresponding to set numeric value
         if ($property == 'iscedlevel' && !stripos($field_slug, 'url') && !stripos($field_slug, 'desc')){
         	$label = $this->get_isced_level($meta_value);
-        } 
+        }
 
         //getting label for property
         foreach (self::$classification_properties_main as $key => $value) {
@@ -373,7 +373,7 @@ class SMDE_Metadata_Classification{
 
 			$callback = null;
 
-			//retreiving list of frozen properties 
+			//retreiving list of frozen properties
 			$freezes_class = get_option('smde_class_freezes');
 
 			//if this property is frozen, we render its metafield correspondingly
@@ -711,63 +711,63 @@ class SMDE_Metadata_Classification{
 			switch ($cleanCollect['iscedLevel']['val']) {
 
 				case '9':
-						
-					$cleanCollect['iscedLevel']['desc'] = 'smth';
+
+					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 9 are Not elsewhere classified.';
 					break;
 
 				case '10':
-						
-					$cleanCollect['iscedLevel']['desc'] = 'smth';
+
+					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 0, or early childhood education, are typically designed with a holistic approach to support children’s early cognitive, physical, social and emotional development and introduce young children to organized instruction outside of the family context. ISCED level 0 refers to early childhood programmes that have an intentional education component. These programmes aim to develop socio-emotional skills necessary for participation in school and society. They also develop some of the skills needed for academic readiness and prepare children for entry into primary education.';
 					break;
 
 				case '1':
-						
-					$cleanCollect['iscedLevel']['desc'] = 'smth';
+
+					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 1, or primary education, are typically designed to provide students with fundamental skills in reading, writing and mathematics (i.e. literacy and numeracy) and establish a solid foundation for learning and understanding core areas of knowledge, personal and social development, in preparation for lower secondary education. It focuses on learning at a basic level of complexity with little, if any, specialisation.';
 					break;
 
 				case '2':
-						
-					$cleanCollect['iscedLevel']['desc'] = 'smth';
+
+					$cleanCollect['iscedLevel']['desc'] = '  Programmes at ISCED level 2, or lower secondary education, are typically designed to build on the learning outcomes from ISCED level 1. Usually, the aim is to lay the foundation for lifelong learning and human development upon which education systems may then expand further educational opportunities. Some education systems may already offer vocational education programmes at ISCED level 2 to provide individuals with skills relevant to employment';
 					break;
 
 				case '3':
-						
-					$cleanCollect['iscedLevel']['desc'] = 'smth';
+
+					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 3, or upper secondary education, are typically designed to complete secondary education in preparation for tertiary education or provide skills relevant to employment, or both.';
 					break;
 
 				case '4':
-						
-					$cleanCollect['iscedLevel']['desc'] = 'smth';
+
+					$cleanCollect['iscedLevel']['desc'] = 'Post-secondary non-tertiary education provides learning experiences building on secondary education, preparing for labour market entry as well as tertiary education. It aims at the individual acquisition of knowledge, skills and competencies lower than the level of complexity characteristic of tertiary education. Programmes at ISCED level 4, or post-secondary non-tertiary education, are typically designed to provide individuals who completed ISCED level 3 with non-tertiary qualifications required for progression to tertiary education or for employment when their ISCED level 3 qualification does not grant such access. For example, graduates from general ISCED level 3 programmes may choose to complete a non-tertiary vocational qualification; or graduates from vocational ISCED level 3 programmes may choose to increase their level of qualifications or specialise further. The content of ISCED level 4 programmes is not sufficiently complex to be regarded as tertiary education, although it is clearly post-secondary.';
 					break;
 
 				case '5':
-						
-					$cleanCollect['iscedLevel']['desc'] = 'smth';
+
+					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 5, or short-cycle tertiary education, are often designed to provide participants with professional knowledge, skills and competencies. Typically, they are practically-based, occupationally-specific and prepare students to enter the labour market. However, these programmes may also provide a pathway to other tertiary education programmes. Academic tertiary education programmes below the level of a Bachelor’s programme or equivalent are also classified as ISCED level 5.';
 					break;
 
 				case '6':
-						
-					$cleanCollect['iscedLevel']['desc'] = 'smth';
+
+					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 6, or Bachelor’s or equivalent level, are often designed to provide participants with intermediate academic and/or professional knowledge, skills and competencies, leading to a first degree or equivalent qualification. Programmes at this level are typically theoretically-based but may include practical components and are informed by state of the art research and/or best professional practice. They are traditionally offered by universities and equivalent tertiary educational institutions.';
 					break;
 
 				case '7':
-						
-					$cleanCollect['iscedLevel']['desc'] = 'smth';
+
+					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 7, or Master’s or equivalent level, are often designed to provide participants with advanced academic and/or professional knowledge, skills and competencies, leading to a second degree or equivalent qualification. Programmes at this level may have a substantial research component but do not yet lead to the award of a doctoral qualification. Typically, programmes at this level are theoretically-based but may include practical components and are informed by state of the art research and/or best professional practice. They are traditionally offered by universities and other tertiary educational institutions.';
 					break;
 
 				case '8':
-						
-					$cleanCollect['iscedLevel']['desc'] = 'smth';
+
+					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 8, or doctoral or equivalent level, are designed primarily to lead to an advanced research qualification. Programmes at this ISCED level are devoted to advanced study and original research and are typically offered only by research-oriented tertiary educational institutions such as universities. Doctoral programmes exist in both academic and professional fields.';
 					break;
 
-					
+
 				default:
-					$cleanCollect['iscedLevel']['desc'] = 'smth';
+					$cleanCollect['iscedLevel']['desc'] = 'The International Standard Classification of Education (ISCED) belongs to the United Nations International Family of Economic and Social Classifications, which are applied in statistics worldwide with the purpose of assembling, compiling and analysing cross-nationally comparable data. ISCED is the reference classification for organizing education programmes and related qualifications by education levels and fields. ISCED is a product of international agreement and adopted formally by the General Conference of UNESCO Member States. ISCED is designed to serve as a framework to classify educational activities as defined in programmes and the resulting qualifications into internationally agreed categories. The basic concepts and definitions of ISCED are therefore intended to be internationally valid and comprehensive of the full range of education systems.';
 					break;
 				}
 
-			$cleanCollect['iscedLevel']['url'] = 'url';
-			
+			$cleanCollect['iscedLevel']['url'] = 'http://uis.unesco.org/en/topic/international-standard-classification-education-isced';
+
 			$html .= "</span>\n";
 		}
 
@@ -777,17 +777,17 @@ class SMDE_Metadata_Classification{
 			         ."	<meta itemprop = 'targetName' content = 'Arts and Humanities'>\n"
 			         ."	<meta itemprop = 'targetName' content = 'Languages'>\n"
 			         ."	<meta itemprop = 'targetName' content = 'Language Acquisition'>\n"
-			         ."		<link itemprop='targetDescription' content ='smth' />\n"
-			         ."		<link itemprop='targetUrl' content ='url' />\n"
+			         ."		<link itemprop='targetDescription' content ='The International Standard Classification of Education (ISCED) belongs to the United Nations International Family of Economic and Social Classifications, which are applied in statistics worldwide with the purpose of assembling, compiling and analysing cross-nationally comparable data. ISCED is the reference classification for organizing education programmes and related qualifications by education levels and fields. ISCED is a product of international agreement and adopted formally by the General Conference of UNESCO Member States. ISCED is designed to serve as a framework to classify educational activities as defined in programmes and the resulting qualifications into internationally agreed categories. The basic concepts and definitions of ISCED are therefore intended to be internationally valid and comprehensive of the full range of education systems.' />\n"
+			         ."		<link itemprop='targetUrl' content ='http://uis.unesco.org/en/topic/international-standard-classification-education-isced' />\n"
 			         ."</span>\n";
 
 		if (array_key_exists('eduLang', $cleanCollect)){
 			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
 			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n"
 			         ."	<meta itemprop = 'targetName' content = '".$cleanCollect['eduLang']['val']."'>\n";
-			
-			$cleanCollect['eduLang']['desc'] = 'smth';
-			$cleanCollect['eduLang']['url'] = 'url';
+
+			$cleanCollect['eduLang']['desc'] = 'The International Standard Classification of Education (ISCED) belongs to the United Nations International Family of Economic and Social Classifications, which are applied in statistics worldwide with the purpose of assembling, compiling and analysing cross-nationally comparable data. ISCED is the reference classification for organizing education programmes and related qualifications by education levels and fields. ISCED is a product of international agreement and adopted formally by the General Conference of UNESCO Member States. ISCED is designed to serve as a framework to classify educational activities as defined in programmes and the resulting qualifications into internationally agreed categories. The basic concepts and definitions of ISCED are therefore intended to be internationally valid and comprehensive of the full range of education systems.';
+			$cleanCollect['eduLang']['url'] = 'http://uis.unesco.org/en/topic/international-standard-classification-education-isced';
 
 			$html .="	<link itemprop='targetDescription' content ='".$cleanCollect['eduLang']['desc']."' />\n";
 			$html .="	<link itemprop='targetUrl' href='".$cleanCollect['eduLang']['url']."' />\n";
@@ -805,49 +805,49 @@ class SMDE_Metadata_Classification{
 
 				case 'A1':
 
-					$cleanCollect['eduLevel']['desc'] = 'smth';
+					$cleanCollect['eduLevel']['desc'] = 'Can understand and use familiar everyday expressions and very basic phrases aimed at the satisfaction of needs of a concrete type. Can introduce him/herself and others and can ask and answer questions about personal details such as where he/she lives, people he/she knows and things he/she has. Can interact in a simple way provided the other person talks slowly and clearly and is prepared to help.';
 					break;
 
 				case 'A2':
 
-					$cleanCollect['eduLevel']['desc'] = 'smth';
+					$cleanCollect['eduLevel']['desc'] = 'Can understand sentences and frequently used expressions related to areas of most immediate relevance (e.g. very basic personal and family information, shopping, local geography, employment). Can communicate in simple and routine tasks requiring a simple and direct exchange of information on familiar and routine matters.  Can describe in simple terms aspects of his/her background, immediate environment and matters in areas of immediate need.';
 					break;
 
 				case 'B1':
 
-					$cleanCollect['eduLevel']['desc'] = 'smth';
+					$cleanCollect['eduLevel']['desc'] = 'Can understand the main points of clear standard input on familiar matters regularly encountered in work, school, leisure, etc. Can deal with most situations likely to arise whilst travelling in an area where the language is spoken.  Can produce simple connected text on topics which are familiar or of personal interest. Can describe experiences and events, dreams, hopes & ambitions and briefly give reasons and explanations for opinions and plans.';
 					break;
 
 				case 'B2':
 
-					$cleanCollect['eduLevel']['desc'] = 'smth';
+					$cleanCollect['eduLevel']['desc'] = 'Can understand the main ideas of complex text on both concrete and abstract topics, including technical discussions in his/her field of specialisation. Can interact with a degree of fluency and spontaneity that makes regular interaction with native speakers quite possible without strain for either party. Can produce clear, detailed text on a wide range of subjects and explain a viewpoint on a topical issue giving the advantages and disadvantages of various options.';
 					break;
 
 				case 'C1':
 
-					$cleanCollect['eduLevel']['desc'] = 'smth';
+					$cleanCollect['eduLevel']['desc'] = 'Can understand a wide range of demanding, longer texts, and recognise implicit meaning. Can express him/herself fluently and spontaneously without much obvious searching for expressions. Can use language flexibly and effectively for social, academic and professional purposes. Can produce clear, well-structured, detailed text on complex subjects, showing controlled use of organisational patterns, connectors and cohesive devices.';
 					break;
 
 				case 'C2':
 
-					$cleanCollect['eduLevel']['desc'] = 'smth';
+					$cleanCollect['eduLevel']['desc'] = 'Can understand with ease virtually everything heard or read. Can summarise information from different spoken and written sources, reconstructing arguments and accounts in a coherent presentation. Can express him/herself spontaneously, very fluently and precisely, differentiating finer shades of meaning even in more complex situations.';
 					break;
-				
+
 				default:
 
-					$cleanCollect['eduLevel']['desc'] = 'smth';
+					$cleanCollect['eduLevel']['desc'] = 'The CEFR organises language proficiency in six levels, A1 to C2, which can be regrouped into three broad levels: Basic User, Independent User and Proficient User, and that can be further subdivided according to the needs of the local context. The levels are defined through ‘can-do’ descriptors';
 					break;
 
 			}
-			
-			$cleanCollect['eduLevel']['url'] = 'url';
+
+			$cleanCollect['eduLevel']['url'] = 'https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions';
 
 			$html .="	<link itemprop='targetDescription' content ='".$cleanCollect['eduLevel']['desc']."' />\n";
 			$html .="	<link itemprop='targetUrl' href='".$cleanCollect['eduLevel']['url']."' />\n";
 
 			$html .= "</span>\n";
 
-		} 
+		}
 
 		if (array_key_exists('additionalClass', $cleanCollect)){
 
@@ -861,36 +861,37 @@ class SMDE_Metadata_Classification{
 			    	}
 				}
 			}
-			
+
 			switch ($cleanCollect['additionalClass']['val']) {
 
 				case 'Culture':
-					
-					$cleanCollect['additionalClass']['desc'] = 'smth';
+
+					$cleanCollect['additionalClass']['desc'] = 'Sociolinguistic  competences refer  to  the  sociocultural  conditions  of  language  use. Through its sensitivity to social conventions (rules of politeness, norms governing relations  between  generations,  sexes,  classes  and  social  groups,  linguistic  codification  of certain fundamental rituals in the functioning of a community), the sociolinguistic component strictly affects all language communication between representatives of different cultures, even though participants may often be unaware of its influence.';
 					break;
 
 				case 'Grammar':
-					
-					$cleanCollect['additionalClass']['desc'] = 'smth';
+
+					$cleanCollect['additionalClass']['desc'] = 'Grammatical competence may be defined as knowledge of, and ability to use, the grammatical resources of a language. Formally, the grammar of a language may be seen as the set of principles governing the  assembly  of  elements  into  meaningful  labelled  and  bracketed  strings  (sentences). Grammatical competence is the ability to understand and express meaning by producing and recognising well-formed phrases and sentences in accordance with these principles (as opposed to memorising and reproducing them as fixed formulae).';
 					break;
 
 				case 'Orthography':
-					
-					$cleanCollect['additionalClass']['desc'] = 'smth';
+
+					$cleanCollect['additionalClass']['desc'] = 'Orthographic competence involves a knowledge of and skill in the perception and production of the symbols of which written texts are composed. The writing systems of all European languages are based on the alphabetic principle, though those of some other languages follow an ideographic (logographic) principle (e.g. Chinese) or a consonantal principle (e.g. Arabic). For alphabetic systems, learners should know and be able to perceive and produce';
 					break;
 
 				case 'Vocabulary':
-					
-					$cleanCollect['additionalClass']['desc'] = 'smth';
+
+					$cleanCollect['additionalClass']['desc'] = 'Lexical  competence,  knowledge  of,  and  ability  to  use,  the  vocabulary  of  a  language, consists of lexical elements and grammatical elements. Lexical elements
+include: Fixed expressions (consisting of several words, which are used and learnt as wholes), and Single word forms (a particular single word form may have several distinct meanings)';
 					break;
-				
+
 				default:
-					
-					$cleanCollect['additionalClass']['desc'] = 'smth';
+
+					$cleanCollect['additionalClass']['desc'] = 'CEFR not only provides a scaling of overall language proficiency in a given language, but also a breakdown of language use and language competences which will make it easier for practitioners to specify objectives and describe achievements of the most diverse kinds in accordance with the varying needs, characteristics and resources of learners';
 					break;
 			}
 
-			$cleanCollect['additionalClass']['url'] = 'url';
+			$cleanCollect['additionalClass']['url'] = 'https://www.coe.int/en/web/common-european-framework-reference-languages';
 
 			$html .="	<link itemprop='targetDescription' content ='".$cleanCollect['additionalClass']['desc']."' />\n";
 			$html .="	<link itemprop='targetUrl' href='".$cleanCollect['additionalClass']['url']."' />\n";
