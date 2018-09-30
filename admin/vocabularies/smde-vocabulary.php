@@ -2,12 +2,12 @@
 namespace vocabularies;
 
 /**
- * The base class for the educational custom vocabulary including operations and metaboxes. 
+ * The base class for the educational custom vocabulary including operations and metaboxes.
  * All specific vocabulary class should be extensions of this class.
  */
 class SMDE_Metadata_Educational{
 
-	/** 
+	/**
 	 * The type level that identifies where these metaboxes will be created
 	 *
 	 * @since    0.x
@@ -44,21 +44,21 @@ class SMDE_Metadata_Educational{
 					'course'	 		=> 'Course',
 			        'exam'		 		=> 'Examination',
 			        'exercise'	 		=> 'Exercise')),
-		'context'				 		=> array ( 'Context','The principal environment within which the learning and use of this learning object is intended to take place.',
+		/*'context'				 		=> array ( 'Context','The principal environment within which the learning and use of this learning object is intended to take place.',
 			array ( '' 					=> '--Select--',
 					'school'	 		=> 'School',
 					'higher education'	=> 'Higher Education',
 					'training'			=> 'Training',
-					'other'				=> 'Other')),
-		'educationalUse'				=> array( 'Educational Use', 'The purpose of a work in the context of education.', 
+					'other'				=> 'Other')), */
+		'educationalUse'				=> array( 'Educational Use', 'The purpose of a work in the context of education.',
 			array(	'' 					=> '--Select--',
 					'assignement'		=> 'Assignement',
 					'group work'		=> 'Group Work')),
 		'endUserRole'			 		=> array ( 'Intended End User Role', 'Principal user(s) for which this learning object was designed.',
 			array ( '' 					=> '--Select--',
-					'learner' 	 		=> 'Learner', 
+					'learner' 	 		=> 'Learner',
 					'author'	 		=> 'Author',
-					'teacher'	 		=> 'Teacher', 
+					'teacher'	 		=> 'Teacher',
 					'manager'	 		=> 'Manager')),
 		'typicalAgeRange' 				=> array ( 'Age Range','Age of the typical intended user.',
 			array ( '' 					=> '--Select--',
@@ -117,7 +117,7 @@ class SMDE_Metadata_Educational{
 
 		//Getting the origin for overwritten data
         $dataFrom = is_plugin_active('pressbooks/pressbooks.php') ? 'Book-Info' : 'Site-Meta';
-      
+
 	    //getting value of post meta
         $meta_value = $label = get_post_meta($post->ID, $field_slug, true);
 
@@ -165,7 +165,7 @@ class SMDE_Metadata_Educational{
 
 			//constructing name of field
 			$fieldId = strtolower('smde_' . $property . '_' .$this->groupId. '_' .$meta_position);
-			
+
 			//Checking if we need a dropdown field, or number selector
 			if(!isset($details[2])){
 				if ('description' != $property){
@@ -230,9 +230,9 @@ class SMDE_Metadata_Educational{
 	 */
 	protected function smde_get_value( $propName ) {
 		$array = isset( $this->metadata[ $propName ] ) ? $this->metadata[ $propName ] : '';
-		
+
 		$value = $this->smde_get_first( $array );
-		
+
 
 		return $value;
 	}
