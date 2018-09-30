@@ -10,7 +10,7 @@ use \vocabularies\SMDE_Metadata_Classification as class_meta;
  */
 class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 
-	
+
 
 	/**
 	 * The variable that holds the relations between LRMI properties names and LOM
@@ -27,7 +27,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 		'typicalAgeRange' 		=> 'typicalAgeRange',
 		'timeRequired'			=> 'typicalLearningTime'
 	);
-	
+
 
 	/**
 	 * Function that creates the vocabulary metatags
@@ -68,7 +68,7 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 			$dataKey = strtolower('smde_' . $desc . '_' . $this->groupId .'_'. $this->type_level);
 			//Getting the data
 			$val = $this->smde_get_value($dataKey);
-			
+
 			//Checking if the value exists and that the key is in the array for the schema
 			if(empty($val) || $val == '--Select--'){
 				continue;

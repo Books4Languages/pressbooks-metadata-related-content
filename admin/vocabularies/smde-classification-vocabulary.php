@@ -777,7 +777,7 @@ class SMDE_Metadata_Classification{
 			         ."	<meta itemprop = 'targetName' content = 'Arts and Humanities'>\n"
 			         ."	<meta itemprop = 'targetName' content = 'Languages'>\n"
 			         ."	<meta itemprop = 'targetName' content = 'Language Acquisition'>\n"
-			         ."		<link itemprop='targetDescription' content ='The International Standard Classification of Education (ISCED) belongs to the United Nations International Family of Economic and Social Classifications, which are applied in statistics worldwide with the purpose of assembling, compiling and analysing cross-nationally comparable data. ISCED is the reference classification for organizing education programmes and related qualifications by education levels and fields. ISCED is a product of international agreement and adopted formally by the General Conference of UNESCO Member States. ISCED is designed to serve as a framework to classify educational activities as defined in programmes and the resulting qualifications into internationally agreed categories. The basic concepts and definitions of ISCED are therefore intended to be internationally valid and comprehensive of the full range of education systems.' />\n"
+			         ."		<link itemprop='targetDescription' content ='Language acquisition is the  study  of  the  structure  and  composition  of  languages taught as second or foreign languages (i.e. that are intended for non-native or non-fluent speakers of the language). It includes the study of related cultures, literature, linguistics and phonetics if related to the specific language being acquired and forms part of the same programme or qualification. Classical or dead languages are included here as it is assumed there are no native speakers of the  language  and  hence  the  manner  of  teaching  and  the  content  of  the  curriculum are more similar to the teaching of foreign languages.' />\n"
 			         ."		<link itemprop='targetUrl' content ='http://uis.unesco.org/en/topic/international-standard-classification-education-isced' />\n"
 			         ."</span>\n";
 
@@ -786,7 +786,7 @@ class SMDE_Metadata_Classification{
 			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n"
 			         ."	<meta itemprop = 'targetName' content = '".$cleanCollect['eduLang']['val']."'>\n";
 
-			$cleanCollect['eduLang']['desc'] = 'The International Standard Classification of Education (ISCED) belongs to the United Nations International Family of Economic and Social Classifications, which are applied in statistics worldwide with the purpose of assembling, compiling and analysing cross-nationally comparable data. ISCED is the reference classification for organizing education programmes and related qualifications by education levels and fields. ISCED is a product of international agreement and adopted formally by the General Conference of UNESCO Member States. ISCED is designed to serve as a framework to classify educational activities as defined in programmes and the resulting qualifications into internationally agreed categories. The basic concepts and definitions of ISCED are therefore intended to be internationally valid and comprehensive of the full range of education systems.';
+			$cleanCollect['eduLang']['desc'] = 'Second language.';
 			$cleanCollect['eduLang']['url'] = 'http://uis.unesco.org/en/topic/international-standard-classification-education-isced';
 
 			$html .="	<link itemprop='targetDescription' content ='".$cleanCollect['eduLang']['desc']."' />\n";
