@@ -1,6 +1,6 @@
 ## Simple Metadata Education
 
-Requires Simple Metadata (1.0 version)
+Requires Simple Metadata (1.1 version)
 
 * Contributors: @colomet, @danzhik
 * Donate link: https://opencollective.com/mylanguageskills
@@ -59,10 +59,12 @@ Take a look at detailed changelog [here](/doc/CHANGELOG.md)
 
 # 1.0
 * Initial release
+* Requires Simple Metadata 1.1
 
 ## Upgrade Notice
 ### 0.2
-To use the last version of the plugin.
+To use the last version of the plugin. Requires Simple Metadata 1.1
+
 ### 0.1
 To use the first version of the plugin.
 

@@ -797,7 +797,7 @@ class SMDE_Metadata_Classification{
 
 		if ( array_key_exists( 'eduLevel', $cleanCollect )) {
 			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n"
+			         ."	<meta itemprop = 'alignmentType' content = 'educationalLevel'/>\n"
 			         ."	<meta itemprop = 'educationalFramework' content = 'CEFR'>\n"
 			         ."	<meta itemprop = 'targetName' content = '" .$cleanCollect['eduLevel']['val']. "'>\n";
 

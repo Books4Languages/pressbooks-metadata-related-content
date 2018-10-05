@@ -2,211 +2,198 @@
 
 ##  Educational
 
-| Cod   | Field                  | LOM                  | LRMI                 | Schema.org | DC
-| ----- | ---------------------- | -------------------- | -------------------- | ---------- | --
-| E1-0  | Interactivity Type     | interactivityType    | interactivityType    | --         | --
-| E2-0  | Learning Resource Type | learningResourceType | learningResourceType | --         | DC.type
-| E3-0  | Interactivity Level    | interactivityLevel   | --                   | --         | --
-| E4-0  | Semantic Density       | semanticDensity      | --                   | --         | --
-| E5-0  | Intended End User Role | intendedEndUserRole  | EducationalAudience  | --         | --
-| E6-0  | Context                | context              | ## Classification    | --         | --
-| E7-0  | Typical Age Range      | typicalAgeRange      | typicalAgeRange      | --         | --
-| E8-0  | Difficulty             | difficulty           | --                   | --         | --
-| E9-0  | Typical Learning Time  | typicalLearningTime  | timeRequired         | --         | --
-| E10-0 | Description            | description          | backstory (1)        | --         | --
-| E11-0 | Language               | language             | --                   | --         | --
-| E12-0 | Cognitive Process      | cognitiveProcess (ES)| --                   | --         | --
-| E13-0 | Educational Use        | --                   | educationalUse       | --         | --
+| Cod   | Key                    | LOM                  | LRMI                    | Schema.org                                                      | LOM                  | DC
+| ----- | ---------------------- | -------------------- | ----------------------- | --------------------------------------------------------------- | -------------------- | -----------
+| E1-0  | Interactivity Type     | interactivityType    | interactivityType       | [interactivityType](https://schema.org/interactivityType)       | interactivityType    | --
+| E2-0  | Learning Resource Type | learningResourceType | learningResourceType    | [learningResourceType](https://schema.org/learningResourceType) | learningResourceType | DC.type
+| E3-0  | Interactivity Level    | interactivityLevel   | --                      | --                                                              | interactivityLevel   | --
+| E4-0  | Semantic Density (no)  | semanticDensity      | --                      | --                                                              | semanticDensity      | --
+| E5-0  | Intended End User Role | intendedEndUserRole  | EducationalAudience (1) | [EducationalAudience](https://schema.org/EducationalAudience)   | intendedEndUserRole  | --
+| E6-0  | Context (no)           | context              | ## Classification       | --                                                              | context              | --
+| E7-0  | Typical Age Range      | typicalAgeRange      | typicalAgeRange         | [typicalAgeRange](https://schema.org/typicalAgeRange)           | typicalAgeRange      | --
+| E8-0  | Difficulty             | difficulty           | --                      | --                                                              | difficulty           | --
+| E9-0  | Typical Learning Time  | typicalLearningTime  | timeRequired            | [timeRequired](https://schema.org/timeRequired)                 | typicalLearningTime  | --
+| E10-0 | Description            | description          | ## Annotation (soon)    | [backstory](https://schema.org/backstory) (2)                   | description          | --
+| E11-0 | Original Language      | language             | --                      | [translationOfWork ](https://schema.org/translationOfWork)      | language             | --
+| E12-0 | Cognitive Process (no) | cognitiveProcess (ES)| --                      | --                                                              | cognitiveProcess (ES)| --
+| E13-0 | Educational Use        | --                   | educationalUse          | [educationalUse](https://schema.org/educationalUse)             | --                   | --
+| E14-0 | About == SUBJECT??  == THE PAGE NAME          | --                      | [About](https://schema.org/About)                               | --                   | --                   
 
-* 1 Article
-
+* 1 EducationalAudience
+     └educationalRole
+* 2 Article
 
 ## Classification
 This category describes where this learning object falls within a particular classification system.
 
-| Cod      | Field                          | LOM         | LRMI                   | Schema.org      | DC
-| -------- | ------------------------------ | ----------- | ---------------------- | --------------- | --
-| I1-1     | Purpose: discipline            | purpose     | --                     | --              | --
-| I2-1     | Taxon Path                     | taxonpath   | educationalAlignment   | AlignmentObject | NA
-| I2.1-1   |  └Source                       | source      | --                     | --              | --
-| I2.2-1   |  └Taxon                        | taxon       | NA                     | NA              | NA
-| I2.2.1-1 |    └Id                         | id          | --                     | --              | --
-| I2.2.2-1 |    └Entry                      | entry       | --                     | --              | --
-| I3-1     | Description                    | description | --                     | --              | --
-| I4-1     | Keyword                        | keyword     | --                     | --              | --
-| I1-2     | Purpose: prerequisite          | purpose     | --                     | --              | --
-| I2-2     | Taxon Path                     | taxonpath   | educationalAlignment   | AlignmentObject | NA
-| I2.1-2   |  └Source                       | source      | --                     | --              | --
-| I2.2-2   |  └Taxon                        | taxon       | NA                     | NA              | NA
-| I2.2.1-2 |    └Id                         | id          | --                     | --              | --
-| I2.2.2-2 |    └Entry                      | entry       | --                     | --              | --
-| I3-2     | Description                    | description | --                     | --              | --
-| I4-2     | Keyword                        | keyword     | --                     | --              | --
-| I1-3     | Purpose: educational objective | purpose     | --                     | --              | --
-| I2-3     | Taxon Path                     | taxonpath   | educationalAlignment   | AlignmentObject | NA
-| I2.1-3   |  └Source                       | source      | --                     | --              | --
-| I2.2-3   |  └Taxon                        | taxon       | NA                     | NA              | NA
-| I2.2.1-3 |    └Id                         | id          | --                     | --              | --
-| I2.2.2-3 |    └Entry                      | entry       | --                     | --              | --
-| I3-3     | Description                    | description | --                     | --              | --
-| I4-3     | Keyword                        | keyword     | --                     | --              | --
-| I1-4     | Purpose: accessibility restrictions | purpose     | --                     | --              | --
-| I2-4     | Taxon Path                     | taxonpath   | educationalAlignment   | AlignmentObject | NA
-| I2.1-4   |  └Source                       | source      | --                     | --              | --
-| I2.2-4   |  └Taxon                        | taxon       | NA                     | NA              | NA
-| I2.2.1-4 |    └Id                         | id          | --                     | --              | --
-| I2.2.2-4 |    └Entry                      | entry       | --                     | --              | --
-| I3-4     | Description                    | description | --                     | --              | --
-| I4-4     | Keyword                        | keyword     | --                     | --              | --
-| I1-5     | Purpose: educational level     | purpose     | --                     | --              | --
-| I2-5     | Taxon Path                     | taxonpath   | educationalAlignment   | AlignmentObject | NA
-| I2.1-5   |  └Source                       | source      | --                     | --              | --
-| I2.2-5   |  └Taxon                        | taxon       | NA                     | NA              | NA
-| I2.2.1-5 |    └Id                         | id          | --                     | --              | --
-| I2.2.2-5 |    └Entry                      | entry       | --                     | --              | --
-| I3-5     | Description                    | description | --                     | --              | --
-| I4-5     | Keyword                        | keyword     | --                     | --              | --
-| I1-6     | Purpose: skill level           | purpose     | --                     | --              | --
-| I2-6     | Taxon Path                     | taxonpath   | educationalAlignment   | AlignmentObject | NA
-| I2.1-6   |  └Source                       | source      | --                     | --              | --
-| I2.2-6   |  └Taxon                        | taxon       | NA                     | NA              | NA
-| I2.2.1-6 |    └Id                         | id          | --                     | --              | --
-| I2.2.2-6 |    └Entry                      | entry       | --                     | --              | --
-| I3-6     | Description                    | description | --                     | --              | --
-| I4-6     | Keyword                        | keyword     | --                     | --              | --
-| I1-7     | Purpose: security level        | purpose     | --                     | --              | --
-| I2-7     | Taxon Path                     | taxonpath   | educationalAlignment   | AlignmentObject | NA
-| I2.1-7   |  └Source                       | source      | --                     | --              | --
-| I2.2-7   |  └Taxon                        | taxon       | NA                     | NA              | NA
-| I2.2.1-7 |    └Id                         | id          | --                     | --              | --
-| I2.2.2-7 |    └Entry                      | entry       | --                     | --              | --
-| I3-7     | Description                    | description | --                     | --              | --
-| I4-7     | Keyword                        | keyword     | --                     | --              | --
-| I1-8     | Purpose: competency            | purpose     | --                     | --              | --
-| I2-8     | Taxon Path                     | taxonpath   | educationalAlignment   | AlignmentObject | NA
-| I2.1-8   |  └Source                       | source      | --                     | --              | --
-| I2.2-8   |  └Taxon                        | taxon       | NA                     | NA              | NA
-| I2.2.1-8 |    └Id                         | id          | --                     | --              | --
-| I2.2.2-8 |    └Entry                      | entry       | --                     | --              | --
-| I3-8     | Description                    | description | --                     | --              | --
-| I4-8     | Keyword                        | keyword     | --                     | --              | --
+| Cod      | Key                                         | LOM                   | LRMI                   | Schema.org           | DC
+| -------- | ------------------------------------------- | --------------------- | ---------------------- | -------------------- | --
+| I1-0     | ISCED level of education                    | educational level     | `educationalLevel`     | AlignmentObject      | --
+| I1-1     |  Alignment Type                             | --                    |                        | alignmentType        | --
+| I1-2     |  ISCED Educational Framework                | --                    |                        | educationalFramework | --
+| I1-3     |  ISCED level of education Description       | --                    |                        | targetDescription    | --
+| I1-4     |  ISCED level of education                   | --                    |                        | targetName           | --
+| I1-5     |  ISCED URL                                  | --                    |                        | targetUrl            | --
+| I1-6     |  ISCED Level alias name                     | --                    |                        | alternateName        | --
+| I2-0     | Educational Subject                         | educational objective | `educationalSubject`   | AlignmentObject      | --
+| I2-1     |  Alignment Type                             | --                    |                        | alignmentType        | --
+| I2-2     |  Educational Framework                      | --                    |                        | educationalFramework | --
+| I2-3     |  Educational Objective description          | --                    |                        | targetDescription    | --
+| I2-4     |  Educational Objective name                 | --                    |                        | targetName           | --
+| I2-5     |  Educational Objective URL                  | --                    |                        | targetUrl            | --
+| I3-0     | Detailed Educational Subject                | educational objective | `educationalSubject`   | AlignmentObject      | --
+| I3-1     |  Alignment Type                             | --                    |                        | alignmentType        | --
+| I3-2     |  Educational Framework                      | --                    |                        | educationalFramework | --
+| I3-3     |  Detailed Educational Objective description | --                    |                        | targetDescription    | --
+| I3-4     |  Detailed Educational Objective name        | --                    |                        | targetName           | --
+| I3-5     |  Detailed Educational Objective URL         | --                    |                        | targetUrl            | --
+| I4-0     | Educational Level                           | educational level     | `educationalLevel`     | AlignmentObject      | --
+| I4-1     |  Alignment Type                             | --                    |                        | alignmentType        | --
+| I4-2     |  Educational Framework                      | --                    |                        | educationalFramework | --
+| I4-3     |  Educational Level description              | --                    |                        | targetDescription    | --
+| I4-4     |  Educational level name                     | --                    |                        | targetName           | --
+| I4-5     |  Educational Level URL                      | --                    |                        | targetUrl            | --
+| I4-6     |  Educational Level other name               | --                    |                        | alternateName        | --
+| I4-7     |  Educational level image                    | --                    |                        | image                | --
+| I5-0     | Teaches                                     | --                    | `teaches`              | AlignmentObject      | --
+| I5-1     |  Alignment Type                             | --                    |                        | alignmentType        | --
+| I5-2     |  Educational Framework                      | --                    |                        | educationalFramework | --
+| I5-3     |  Current resource description               | --                    |                        | targetDescription    | --
+| I5-4     |  Current resource name                      | --                    |                        | targetName           | --
+| I5-5     |  Current resource URL                       | --                    |                        | targetUrl            | --
+| I6-0     | Requires                                    | prerequisite          | `requires`             | AlignmentObject      | --
+| I6-1     |  Alignment Type                             | --                    |                        | alignmentType        | --
+| I6-2     |  Educational Framework                      | --                    |                        | educationalFramework | --
+| I6-3     |  Required resource description              | --                    |                        | targetDescription    | --
+| I6-4     |  Required resource name                     | --                    |                        | targetName           | --
+| I6-5     |  Required resource URL                      | --                    |                        | targetUrl            | --
+| I7-0     | Assesses                                    |                       | `assesses`             | AlignmentObject      | --
+| I7-1     |  Alignment Type                             | --                    |                        | alignmentType        | --
+| I7-2     |  Educational Framework                      | --                    |                        | educationalFramework | --
+| I7-3     |  Evaluated resource description             | --                    |                        | targetDescription    | --
+| I7-4     |  Evaluated resource name                    | --                    |                        | targetName           | --
+| I7-5     |  Evaluated resource URL                     | --                    |                        | targetUrl            | --
 
- 'assesses', 'teaches', 'requires', 'textComplexity', 'readingLevel', 'educationalSubject', and 'educationalLevel'.
+Soon
 
-== lrmi ==
+| Cod      | Key                                         | LOM                   | LRMI                   | Schema.org           | DC
+| -------- | ------------------------------------------- | --------------------- | ---------------------- | -------------------- | --
+| I8-0     | Text Complexity                             | --                    | `textComplexity`       | AlignmentObject      | --
+| I8-1     |  Alignment Type                             | --                    |                        | alignmentType        | --
+| I8-2     |  Educational Framework                      | --                    |                        | educationalFramework | --
+| I8-3     |  └targetDescription                         | --                    |                        | targetDescription    | --
+| I8-4     |  └targetName                                | --                    |                        | targetName           | --
+| I8-5     |  └targetUrl                                 | --                    |                        | targetUrl            | --
+| I9-0     | Reading Level                               | --                    | `readingLevel`         | AlignmentObject      | --
+| I9-1     |  Alignment Type                             | --                    |                        | alignmentType        | --
+| I9-2     |  Educational Framework                      | --                    |                        | educationalFramework | --
+| I9-3     |  └targetDescription                         | --                    |                        | targetDescription    | --
+| I9-4     |  └targetName                                | --                    |                        | targetName           | --
+| I9-5     |  └targetUrl                                 | --                    |                        | targetUrl            | --
 
-    AlignmentObject
-     └alignmentType
-     └educationalFramework
-     └targetDescription
-     └targetName
-     └targetUrl
+LOM: discipline,  accessibility restrictions (https://schema.org/accessMode), skill level, security level and competency.
 
-    EducationalAudience
-     └educationalRole
+* AlignmentObject
+  └alignmentType
+  └educationalFramework
+  └targetDescription
+  └targetName
+  └targetUrl  
 
-     OLD: intendedEndUserRole
-
-
+https://blogs.pjjk.net/phil/explaining-the-lrmi-alignment-object/
 
 # Fields Definitions
 
 ## Educational
-
-| Source  | Field                  | Definitions | --
-| ------- | ---------------------- | ----------- | --
-| ------- | Interactivity Type     | Predominant mode of learning supported by this learning object. | active, expositive, mixed
-| ------- | Learning Resource Type | Specific kind of learning object. The most dominant kind shall be first. | exercise, diagram, figure, index, slide, problem statement, lecture, narrative text, table, graph, experiment, simulation, questionnaire, exam, self assessment (Spanish version have much more options)
-| ------- | Interactivity Level    | The degree of interactivity characterizing this learning object. Interactivity in this context refers to the degree to which the learner can influence the aspect or behavior of the learning object. | very low, low, medium, high, very high
-| ------- | Semantic Density       | The degree of conciseness of a learning object. The semantic density of a learning object may be estimated in terms of its size, span, or—in the case of self-timed resources such as audio or video— duration. | very low, low, medium, high, very high (NO UTILIZAR)
-| ------- | Intended End User Role | Principal user(s) for which this learning object was designed, most dominant first. | learner, author, teacher, manager (Spanish version have much more options)
-| ------- | Context (# Classification) | The principal environment within which the learning and use of this learning object is intended to take place. | school, higher education, training, other 
-| ------- | Typical Age Range      | Age of the typical intended user. This data element shall refer to developmental age, if that would be different from chronological age. | --
-| ------- | Difficulty             | How hard it is to work with or through this learning object for the typical intended target audience. | very easy, easy, medium, difficult, very difficult
-| ------- | Typical Learning Time  | Approximate or typical time it takes to work with or through this learning object for the typical intended target audience. | --
-| ------- | Description            | Comments on how this learning object is to be used. | --
-| ------- | Language               | The human language used by the typical intended user of this learning object. | ISO 639
-| ------- | Cognitive Process      | -- | (Spanish version have options)
+| Cod   | Key                         | Definitions                                                                                                                              | Values
+| ----- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------
+| E1-0  | Interactivity Type          | Predominant mode of learning supported by this learning object.                                                                          | active, expositive, mixed
+| E2-0  | Learning Resource Type      | Specific kind of learning object. The most dominant kind shall be first.                                                                 | activities, articles, assignments, courses, examination, exercise, glosaries, lectures, lessons, lessons plans, papers, quizes (more in Spanish version)
+| E3-0  | Interactivity Level         | The degree of interactivity characterizing this L.O.(The degree to which the learner can influence the aspect or behavior of the L.O.)   | very low, low, medium, high, very high
+| E4-0  | Semantic Density            | The degree of conciseness of a learning object. (In terms of its size, span, or—in the case of audio or video— duration.)                | very low, low, medium, high, very high (NO UTILIZAR)
+| E5-0  | Intended End User Role      | Principal user(s) for which this learning object was designed, most dominant first.                                                      | learner, author, teacher, manager (more in Spanish versions)
+| E6-0  | Context (## Classification) | The principal environment within which the learning and use of this learning object is intended to take place.                           | school, higher education, training, other
+| E7-0  | Typical Age Range           | Age of the typical intended user. This data element shall refer to developmental age, if that would be different from chronological age. | --
+| E8-0  | Difficulty                  | How hard it is to work with or through this learning object for the typical intended target audience.                                    | very easy, easy, medium, difficult, very difficult
+| E9-0  | Typical Learning Time       | Approximate or typical time it takes to work with or through this learning object for the typical intended target audience.              | --
+| E10-0 | Description                 | Comments on how this learning object is to be used.                                                                                      | --
+| E11-0 | Language                    | Language which content is about.                                                                                                         | ISO 639
+| E12-0 | Cognitive Process           | --                                                                                                                                       | (Spanish version have options)
+| E13-0 | Educational Use             | --                                                                                                                                       |
+| E14-0 | About? (subject?)           | --                                                                                                                                       |  Grammar, Orthography, Vocabulary, Culture ??        (in language books books and/or to duplicate it, maybe)
 
 ## Classification
 This category describes where this learning object falls within a particular classification system.
 
-| Source  | Field       | Definitions | --
-| ------- | ----------- | ----------- | --
-| ------- | Purpose     | The purpose of classifying this learning object. | `discipline`
-| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term. | --
-| ------- |  └Source    | The name of the classification system. | --
-| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms that can be used to describe the learning resource. | --
-| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
-| ------- |    └Entry   | The textual label of the taxon. | --
-| ------- | Description | Description of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Purpose     | The purpose of classifying this learning object. | `prerequisite`
-| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term. | --
-| ------- |  └Source    | The name of the classification system. | --
-| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms that can be used to describe the learning resource. | --
-| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
-| ------- |    └Entry   | The textual label of the taxon. | --
-| ------- | Description | Description of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Purpose     | The purpose of classifying this learning object. | `educational objective`
-| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term. | --
-| ------- |  └Source    | The name of the classification system. | --
-| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms that can be used to describe the learning resource. | --
-| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
-| ------- |    └Entry   | The textual label of the taxon. | --
-| ------- | Description | Description of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Purpose     | The purpose of classifying this learning object. | `accessibility restrictions`
-| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term. | --
-| ------- |  └Source    | The name of the classification system. | --
-| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms that can be used to describe the learning resource. | --
-| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
-| ------- |    └Entry   | The textual label of the taxon. | --
-| ------- | Description | Description of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Purpose     | The purpose of classifying this learning object. | `educational level`
-| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term. | --
-| ------- |  └Source    | The name of the classification system. | --
-| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms that can be used to describe the learning resource. | --
-| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
-| ------- |    └Entry   | The textual label of the taxon. | --
-| ------- | Description | Description of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Purpose     | The purpose of classifying this learning object. | `skill level`
-| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term. | --
-| ------- |  └Source    | The name of the classification system. | --
-| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms that can be used to describe the learning resource. | --
-| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
-| ------- |    └Entry   | The textual label of the taxon. | --
-| ------- | Description | Description of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Purpose     | The purpose of classifying this learning object. | `competency`
-| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term. | --
-| ------- |  └Source    | The name of the classification system. | --
-| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms that can be used to describe the learning resource. | --
-| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
-| ------- |    └Entry   | The textual label of the taxon. | --
-| ------- | Description | Description of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification. | --
+| Cod      | Key                          | Definitions                                                          | Values
+| -------- | ----------------------       | -------------------------------------------------------------------- | --------------------------------------------------------------
+| I1-0     | Level of Education           | ISCED level of education.                                            | NA
+| I1-1     |  └alignmentType              | Alignment Type.                                                      | `educationalLevel`
+| I1-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
+| I1-3     |  └targetDescription          | The description of a node in an established educational framework.   |
+| I1-4     |  └targetName                 | The name of a node in an established educational framework.          |
+| I1-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
+| I1-6     |  └alternateName *            | An alias for the level.                                              |
+| I1-7     |  └image *                    | An image of the level. This can be a URL                             |
+| I2-0     | Educational Subject          | educational objective                                                | NA
+| I2-1     |  └alignmentType              | Alignment Type.                                                      | `educationalSubject`
+| I2-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
+| I2-3     |  └targetDescription          | The description of a node in an established educational framework.   |
+| I2-4     |  └targetName                 | The name of a node in an established educational framework.          |
+| I2-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
+| I2-6     |  └alternateName *            | An alias for the item.                                               |
+| I3-0     | Detailed Educational Subject | educational objective                                                | NA
+| I3-1     |  └alignmentType              | Alignment Type.                                                      | `educationalSubject`
+| I3-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
+| I3-3     |  └targetDescription          | The description of a node in an established educational framework.   |
+| I3-4     |  └targetName                 | The name of a node in an established educational framework.          |
+| I3-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
+| I3-6     |  └alternateName *            | An alias for the item.                                               |
+| I4-0     | Educational Level            | The educational level                                                | NA
+| I4-1     |  └alignmentType              | Alignment Type.                                                      | `educationalLevel`
+| I4-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
+| I4-3     |  └targetDescription          | The description of a node in an established educational framework.   |
+| I4-4     |  └targetName                 | The name of a node in an established educational framework.          |
+| I4-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
+| I4-6     |  └alternateName *            | An alias for the level.                                              |
+| I4-7     |  └image *                    | An image of the level. This can be a URL                             |
+| I5-0     | Teaches                      | Lesson or Subject.                                                   | NA
+| I5-1     |  └alignmentType              | Alignment Type.                                                      | `teaches`
+| I5-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
+| I5-3     |  └targetDescription          | The description of a node in an established educational framework.   |
+| I5-4     |  └targetName                 | The name of a node in an established educational framework.          |
+| I5-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
+| I5-6     |  └ --                        | --                                                                   |
+| I6-0     | Requires                     | The name of the required Lesson, Subject or Course.                  | NA
+| I6-1     |  └alignmentType              | Alignment Type.                                                      |`requires`
+| I6-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
+| I6-3     |  └targetDescription          | The description of a node in an established educational framework.   |
+| I6-4     |  └targetName                 | The name of a node in an established educational framework.          |
+| I6-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
+| I6-6     |  └ --                        | --                                                                   |
+| I7-0     | Assesses                     | Evaluates Lesson/Subject or Courses.                                 | NA
+| I7-1     |  └alignmentType              | Alignment Type                                                       | `assesses`
+| I7-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
+| I7-3     |  └targetDescription          | The description of a node in an established educational framework.   |
+| I7-4     |  └targetName                 | The name of a node in an established educational framework.          |
+| I7-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
+| I7-6     |  └ --                        | --                                                                   |
+| I8-0     | Text Complexity              | --                                                                   | NA
+| I8-1     |  └alignmentType              | Alignment Type.                                                      |`textComplexity`
+| I8-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
+| I8-3     |  └targetDescription          | The description of a node in an established educational framework.   |
+| I8-4     |  └targetName                 | The name of a node in an established educational framework.          |
+| I8-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
+| I8-6     |  └ --                        | --                                                                   |
+| I9-0     | Reading Level                | --                                                                   | NA
+| I9-1     |  └alignmentType              | Alignment Type.                                                      |`readingLevel`
+| I9-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
+| I9-3     |  └targetDescription          | The description of a node in an established educational framework.   |
+| I9-4     |  └targetName                 | The name of a node in an established educational framework.          |
+| I9-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
+| I9-6     |  └ --                        | --                                                                   |
 
-| ------- | Purpose     | The purpose of classifying this learning object. | discipline, idea, prerequisite, educational objective, accessibility restrictions, educational level, skill level, security level, competency
-| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term. | --
-| ------- |  └Source    | The name of the classification system. | --
-| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms that can be used to describe the learning resource. | --
-| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
-| ------- |    └Entry   | The textual label of the taxon. | --
-| ------- | Description | Description of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification. | --
-
-| ------- | Purpose     | The purpose of classifying this learning object. | discipline, idea, prerequisite, educational objective, accessibility restrictions, educational level, skill level, security level, competency
-| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term. | --
-| ------- |  └Source    | The name of the classification system. | --
-| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms that can be used to describe the learning resource. | --
-| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
-| ------- |    └Entry   | The textual label of the taxon. | --
-| ------- | Description | Description of the learning object relative to the stated 9.1:Classification. | --
-| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification. | --
+* Thing type
 
 # Vocabulary recommendations
 
@@ -287,6 +274,142 @@ Use for any audio or sound recording.
 * **school**: A school is "an establishment in which boys or girls, or both, receive instruction" (OED).
 * **higher education** Higher education refers to "education at universities or similar educational establishments, especially to degree level" (OCED).
 * **training**: Training refers to "systematic instruction and exercise in some art, profession, or occupation, with a view to proficiency in it" (OED).
+
+LRMI - old: intendedEndUserRole
+
+
+Metadata Properties relationships
+
+future integration with LOM (discotinued for now)
+
+| Cod      | Info                                | LOM         | LRMI                   | Schema.org      | DC
+| -------- | ----------------------------------- | ----------- | ---------------------- | --------------- | --
+| I1-1     | Purpose: discipline                 | purpose     | --                     | --              | --
+| I2-1     | Taxon Path                          | taxonpath   | NA                     | NA              | NA
+| I2.1-1   |  └Source                            | source      | --                     | --              | --
+| I2.2-1   |  └Taxon                             | taxon       | NA                     | NA              | NA
+| I2.2.1-1 |    └Id                              | id          | --                     | --              | --
+| I2.2.2-1 |    └Entry                           | entry       | --                     | --              | --
+| I3-1     | Description                         | description | --                     | --              | --
+| I4-1     | Keyword                             | keyword     | --                     | --              | --
+| I1-2     | Purpose: prerequisite               | purpose     | --                     | --              | --
+| I2-2     | Taxon Path                          | taxonpath   | NA                     | NA              | NA
+| I2.1-2   |  └Source                            | source      | --                     | --              | --
+| I2.2-2   |  └Taxon                             | taxon       | NA                     | NA              | NA
+| I2.2.1-2 |    └Id                              | id          | --                     | --              | --
+| I2.2.2-2 |    └Entry                           | entry       | --                     | --              | --
+| I3-2     | Description                         | description | --                     | --              | --
+| I4-2     | Keyword                             | keyword     | --                     | --              | --
+| I1-3     | Purpose: educational objective      | purpose     | NA                     | --              | --
+| I2-3     | Taxon Path                          | taxonpath   | --                     | NA              | NA
+| I2.1-3   |  └Source                            | source      | --                     | --              | --
+| I2.2-3   |  └Taxon                             | taxon       | NA                     | NA              | NA
+| I2.2.1-3 |    └Id                              | id          | --                     | --              | --
+| I2.2.2-3 |    └Entry                           | entry       | --                     | --              | --
+| I3-3     | Description                         | description | --                     | --              | --
+| I4-3     | Keyword                             | keyword     | --                     | --              | --
+| I1-4     | Purpose: accessibility restrictions | purpose     | --                     | --              | --
+| I2-4     | Taxon Path                          | taxonpath   | NA                     | NA              | NA
+| I2.1-4   |  └Source                            | source      | --                     | --              | --
+| I2.2-4   |  └Taxon                             | taxon       | NA                     | NA              | NA
+| I2.2.1-4 |    └Id                              | id          | --                     | --              | --
+| I2.2.2-4 |    └Entry                           | entry       | --                     | --              | --
+| I3-4     | Description                         | description | --                     | --              | --
+| I4-4     | Keyword                             | keyword     | --                     | --              | --
+| I1-5     | Purpose: educational level          | purpose     | --                     | --              | --
+| I2-5     | Taxon Path                          | taxonpath   | NA                     | NA              | NA
+| I2.1-5   |  └Source                            | source      | --                     | --              | --
+| I2.2-5   |  └Taxon                             | taxon       | NA                     | NA              | NA
+| I2.2.1-5 |    └Id                              | id          | --                     | --              | --
+| I2.2.2-5 |    └Entry                           | entry       | --                     | --              | --
+| I3-5     | Description                         | description | --                     | --              | --
+| I4-5     | Keyword                             | keyword     | --                     | --              | --
+| I1-6     | Purpose: skill level                | purpose     | --                     | --              | --
+| I2-6     | Taxon Path                          | taxonpath   | NA                     | NA              | NA
+| I2.1-6   |  └Source                            | source      | --                     | --              | --
+| I2.2-6   |  └Taxon                             | taxon       | NA                     | NA              | NA
+| I2.2.1-6 |    └Id                              | id          | --                     | --              | --
+| I2.2.2-6 |    └Entry                           | entry       | --                     | --              | --
+| I3-6     | Description                         | description | --                     | --              | --
+| I4-6     | Keyword                             | keyword     | --                     | --              | --
+| I1-7     | Purpose: security level             | purpose     | --                     | --              | --
+| I2-7     | Taxon Path                          | taxonpath   | NA                     | NA              | NA
+| I2.1-7   |  └Source                            | source      | --                     | --              | --
+| I2.2-7   |  └Taxon                             | taxon       | NA                     | NA              | NA
+| I2.2.1-7 |    └Id                              | id          | --                     | --              | --
+| I2.2.2-7 |    └Entry                           | entry       | --                     | --              | --
+| I3-7     | Description                         | description | --                     | --              | --
+| I4-7     | Keyword                             | keyword     | --                     | --              | --
+| I1-8     | Purpose: competency                 | purpose     | --                     | --              | --
+| I2-8     | Taxon Path                          | taxonpath   | NA                     | NA              | NA
+| I2.1-8   |  └Source                            | source      | --                     | --              | --
+| I2.2-8   |  └Taxon                             | taxon       | NA                     | NA              | NA
+| I2.2.1-8 |    └Id                              | id          | --                     | --              | --
+| I2.2.2-8 |    └Entry                           | entry       | --                     | --              | --
+| I3-8     | Description                         | description | --                     | --              | --
+| I4-8     | Keyword                             | keyword     | --                     | --              | --
+
+Fields Definitions
+
+| Source  | Info        | Definitions                                                                                                 | --
+| ------- | ----------- | ----------------------------------------------------------------------------------------------------------- | Values
+| ------- | Purpose     | The purpose of classifying this learning object.                                                            | `discipline`
+| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term.           | --
+| ------- |  └Source    | The name of the classification system.                                                                      | --
+| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms.              | --
+| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
+| ------- |    └Entry   | The textual label of the taxon.                                                                             | --
+| ------- | Description | Description of the learning object relative to the stated 9.1:Classification.                               | --
+| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification.          | --
+| ------- | Purpose     | The purpose of classifying this learning object.                                                            | `prerequisite`
+| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term.           | --
+| ------- |  └Source    | The name of the classification system.                                                                      | --
+| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms.              | --
+| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
+| ------- |    └Entry   | The textual label of the taxon.                                                                             | --
+| ------- | Description | Description of the learning object relative to the stated 9.1:Classification.                               | --
+| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification.          | --
+| ------- | Purpose     | The purpose of classifying this learning object.                                                            | `educational objective`
+| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term.           | --
+| ------- |  └Source    | The name of the classification system.                                                                      | --
+| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms.              | --
+| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
+| ------- |    └Entry   | The textual label of the taxon.                                                                             | --
+| ------- | Description | Description of the learning object relative to the stated 9.1:Classification.                               | --
+| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification.          | --
+| ------- | Purpose     | The purpose of classifying this learning object.                                                            | `accessibility restrictions`
+| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term.           | --
+| ------- |  └Source    | The name of the classification system.                                                                      | --
+| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms.              | --
+| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
+| ------- |    └Entry   | The textual label of the taxon.                                                                             | --
+| ------- | Description | Description of the learning object relative to the stated 9.1:Classification.                               | --
+| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification.          | --
+| ------- | Purpose     | The purpose of classifying this learning object.                                                            | `educational level`
+| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term.           | --
+| ------- |  └Source    | The name of the classification system.                                                                      | --
+| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms.              | --
+| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
+| ------- |    └Entry   | The textual label of the taxon.                                                                             | --
+| ------- | Description | Description of the learning object relative to the stated 9.1:Classification.                               | --
+| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification.          | --
+| ------- | Purpose     | The purpose of classifying this learning object.                                                            | `skill level`
+| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term.           | --
+| ------- |  └Source    | The name of the classification system.                                                                      | --
+| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms.              | --
+| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
+| ------- |    └Entry   | The textual label of the taxon.                                                                             | --
+| ------- | Description | Description of the learning object relative to the stated 9.1:Classification.                               | --
+| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification.          | --
+| ------- | Purpose     | The purpose of classifying this learning object.                                                            | `competency`
+| ------- | Taxon Path  | Use this element aggregate to trace the path set out in a structured taxonomy for any given term.           | --
+| ------- |  └Source    | The name of the classification system.                                                                      | --
+| ------- |  └Taxon     | Taxon and its sub-elements to indicate a taxon term or the hierarchical series of taxon terms.              | --
+| ------- |    └Id      | The identifier of the taxon, such as a number or letter combination provided by the source of the taxonomy. | --
+| ------- |    └Entry   | The textual label of the taxon.                                                                             | --
+| ------- | Description | Description of the learning object relative to the stated 9.1:Classification.                               | --
+| ------- | Keyword     | Keywords and phrases descriptive of the learning object relative to the stated 9.1:Classification.          | --
+
 
 ---
 

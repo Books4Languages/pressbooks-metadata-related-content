@@ -9,7 +9,7 @@ For upgrades, download the las stable version from github, delete from FTP the o
 
 ## Main plugin
 
-Simple metadata education requires Simple Metadata v1.0 or greater.
+Simple Metadata Education requires Simple Metadata v1.1 or greater.
 
 You can find more add-ons (both free and commercial) from www.
 
