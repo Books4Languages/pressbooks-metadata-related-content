@@ -133,7 +133,7 @@ This category describes where this learning object falls within a particular cla
 | I1-3     |  └targetDescription          | The description of a node in an established educational framework.   |
 | I1-4     |  └targetName                 | The name of a node in an established educational framework.          |
 | I1-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I1-6     |  └alternateName *            | An alias for the level.                                              |
+| I1-6     |  └alternateName *            | An alias for the item.                                              |
 | I1-7     |  └image *                    | An image of the level. This can be a URL                             |
 | I2-0     | Educational Subject          | educational objective                                                | NA
 | I2-1     |  └alignmentType              | Alignment Type.                                                      | `educationalSubject`
@@ -155,7 +155,7 @@ This category describes where this learning object falls within a particular cla
 | I4-3     |  └targetDescription          | The description of a node in an established educational framework.   |
 | I4-4     |  └targetName                 | The name of a node in an established educational framework.          |
 | I4-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I4-6     |  └alternateName *            | An alias for the level.                                              |
+| I4-6     |  └alternateName *            | An alias for the item.                                               |
 | I4-7     |  └image *                    | An image of the level. This can be a URL                             |
 | I5-0     | Teaches                      | Lesson or Subject.                                                   | NA
 | I5-1     |  └alignmentType              | Alignment Type.                                                      | `teaches`
