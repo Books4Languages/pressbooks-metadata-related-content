@@ -39,7 +39,7 @@ class SMDE_Metadata_Classification{
 	 */
 	public static $classification_properties_main = array(
 
-        'iscedLevel'=>array( 'ISCED level of education','Level of education according to ISCED-P 2011'.'<br><a target="_blank" href="http://www.uis.unesco.org/Education/Documents/isced-2011-en.pdf">Click Here for more information</a>',
+        'iscedLevel'=>array( 'ISCED level of education','Level of education according to ISCED-P 2011'.'<br><a target="_blank" href="http://uis.unesco.org/en/topic/international-standard-classification-education-isced">Click Here for more information</a>',
 			array(
 				'' => '--Select--',
 				'10' => 'Early Childhood Education',
@@ -53,7 +53,7 @@ class SMDE_Metadata_Classification{
 				'8' => 'Doctoral or equivalent level',
 				'9' => 'Not elsewhere classified')),
         'eduFrame'=>array( 'Educational Framework','The Framework that the educational level belongs to. Example: CEFR, Common Core, European Baccalaureate'),
-		'iscedField' => array( 'ISCED field of education','Broad field of education according to ISCED-F 2013.'. '<br><a target="_blank" href="http://alliance4universities.eu/wp-content/uploads/2017/03/ISCED-2013-Fields-of-education.pdf">Click Here for more information</a>',
+		'iscedField' => array( 'ISCED field of education','Broad field of education according to ISCED-F 2013.'. '<br><a target="_blank" href="http://uis.unesco.org/en/topic/international-standard-classification-education-isced">Click Here for more information</a>',
 			array(
 				''										=> '--Select--',
 				'Generic programmes and qualifications' 			=>	'Generic programmes and qualifications',
