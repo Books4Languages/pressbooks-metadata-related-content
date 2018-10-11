@@ -120,153 +120,151 @@ https://blogs.pjjk.net/phil/explaining-the-lrmi-alignment-object/
 ## Classification
 This category describes where this learning object falls within a particular classification system.
 
-| Cod      | Key                          | Definitions                                                          | Values
-| -------- | ----------------------       | -------------------------------------------------------------------- | --------------------------------------------------------------
-| I1-0     | Level of Education           | ISCED level of education.                                            | NA
-| I1-1     |  └alignmentType              | Alignment Type.                                                      | `educationalLevel`
-| I1-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      | `ISCED`
-| I1-3     |  └targetDescription          | The description of a node in an established educational framework.   | see: http://uis.unesco.org/sites/default/files/documents/international-standard-classification-of-education-fields-of-education-and-training-2013-detailed-field-descriptions-2015-en.pdf
-| I1-4     |  └targetName                 | The name of a node in an established educational framework.          | Early childhood education - Primary education - Lower secondary education - Upper secondary education - Post-secondary non-tertiary education - Short-cycle tertiary education - Bachelor’s or equivalent level - Master’s or equivalent level - Doctoral or equivalent level - Not elsewhere classified
-| I1-5     |  └targetUrl                  | The URL of a node in an established educational framework.           | `http://uis.unesco.org/en/topic/international-standard-classification-education-isced`
-| I1-6     |  └alternateName *            | An alias for the item.                                               | 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 0
-| I1-7     |  └image *                    | An image of the level.                                               |
-| I2-0     | Educational Subject          | educational objective                                                | NA
-| I2-1     |  └alignmentType              | Alignment Type.                                                      | `educationalSubject`
-| I2-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      | `ISCED-2013`
-| I2-3     |  └targetDescription          | The description of a node in an established educational framework.   | see: http://uis.unesco.org/sites/default/files/documents/international-standard-classification-of-education-fields-of-education-and-training-2013-detailed-field-descriptions-2015-en.pdf
-| I2-4     |  └targetName                 | The name of a node in an established educational framework.          | Generic programmes and qualifications - Education - Arts and humanities - Social sciences and journalism and information - Business, admin
+| Cod      | Key                                         | Definitions                                                          | Values
+| -------- | ------------------------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------
+| I1-0     | ISCED level of education                    | ISCED level of education.                                            | NA
+| I1-1     |  Alignment Type                             | Alignment Type.                                                      | `educationalLevel`
+| I1-2     |  ISCED Educational Framework                | The framework to which the resource being described is aligned.      | `ISCED`
+| I1-3     |  ISCED level of education Description       | The description of a node in an established educational framework.   | see: http://uis.unesco.org/sites/default/files/documents/international-standard-classification-of-education-fields-of-education-and-training-2013-detailed-field-descriptions-2015-en.pdf
+| I1-4     |  ISCED level of education                   | The name of a node in an established educational framework.          | Early childhood education - Primary education - Lower secondary education - Upper secondary education - Post-secondary non-tertiary education - Short-cycle tertiary education - Bachelor’s or equivalent level - Master’s or equivalent level - Doctoral or equivalent level - Not elsewhere classified
+| I1-5     |  ISCED URL                                  | The URL of a node in an established educational framework.           | `http://uis.unesco.org/en/topic/international-standard-classification-education-isced`
+| I1-6     |  ISCED Level alias name *                   | An alias for the item.                                               | 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 0
+| I1-7     |  └image *                                   | An image of the level.                                               |
+| I2-0     | Educational Subject                         | educational objective                                                | NA
+| I2-1     |  Alignment Type                             | Alignment Type.                                                      | `educationalSubject`
+| I2-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      | `ISCED-2013`
+| I2-3     |  Educational Objective description          | The description of a node in an established educational framework.   | see: http://uis.unesco.org/sites/default/files/documents/international-standard-classification-of-education-fields-of-education-and-training-2013-detailed-field-descriptions-2015-en.pdf
+| I2-4     |  Educational Objective name                 | The name of a node in an established educational framework.          | Generic programmes and qualifications - Education - Arts and humanities - Social sciences and journalism and information - Business, admin
 istration and law - Natural sciences, mathematics and statistics - Information and Communication Technologies - Engineering, manufacturing and construction - Agriculture, forestry
-| I2-5     |  └targetUrl                  | The URL of a node in an established educational framework.           | `http://uis.unesco.org/en/topic/international-standard-classification-education-isced`
-| I2-6     |  └alternateName *            | An alias for the item.                                               | 00 - 01 - 02 - 03 - 04 - 05 - 06 - 07 - 08 - 09 - 10
-| I3-0     | Detailed Educational Subject | educational objective                                                | NA
-| I3-1     |  └alignmentType              | Alignment Type.                                                      | `educationalSubject`
-| I3-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I3-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I3-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I3-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I3-6     |  └alternateName *            | An alias for the item.                                               |
-| I4-0     | Educational Level            | The educational level                                                | NA
-| I4-1     |  └alignmentType              | Alignment Type.                                                      | `educationalLevel`
-| I4-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I4-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I4-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I4-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I4-6     |  └alternateName *            | An alias for the item.                                               |
-| I4-7     |  └image *                    | An image of the level.                                               |
-| I5-0     | Teaches                      | Lesson or Subject.                                                   | NA
-| I5-1     |  └alignmentType              | Alignment Type.                                                      | `teaches`
-| I5-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I5-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I5-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I5-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I5-6     |  └ --                        | --                                                                   |
-| I6-0     | Requires                     | The name of the required Lesson, Subject or Course.                  | NA
-| I6-1     |  └alignmentType              | Alignment Type.                                                      |`requires`
-| I6-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I6-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I6-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I6-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I6-6     |  └ --                        | --                                                                   |
-| I7-0     | Assesses                     | Evaluates Lesson/Subject or Courses.                                 | NA
-| I7-1     |  └alignmentType              | Alignment Type                                                       | `assesses`
-| I7-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I7-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I7-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I7-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I7-6     |  └ --                        | --                                                                   |
-| I8-0     | Text Complexity              | --                                                                   | NA
-| I8-1     |  └alignmentType              | Alignment Type.                                                      |`textComplexity`
-| I8-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I8-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I8-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I8-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I8-6     |  └ --                        | --                                                                   |
-| I9-0     | Reading Level                | --                                                                   | NA
-| I9-1     |  └alignmentType              | Alignment Type.                                                      |`readingLevel`
-| I9-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I9-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I9-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I9-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I9-6     |  └ --                        | --                                                                   |
+| I2-5     |  Educational Objective URL                  | The URL of a node in an established educational framework.           | `http://uis.unesco.org/en/topic/international-standard-classification-education-isced`
+| I2-6     |  └alternateName *                           | An alias for the item.                                               | 00 - 01 - 02 - 03 - 04 - 05 - 06 - 07 - 08 - 09 - 10
+| I3-0     | Detailed Educational Subject                | educational objective                                                | NA
+| I3-1     |  Alignment Type                             | Alignment Type.                                                      | `educationalSubject`
+| I3-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I3-3     |  Detailed Educational Objective description | The description of a node in an established educational framework.   |
+| I3-4     |  Detailed Educational Objective name        | The name of a node in an established educational framework.          |
+| I3-5     |  Detailed Educational Objective URL         | The URL of a node in an established educational framework.           |
+| I3-6     |  └alternateName *                           | An alias for the item.                                               |
+| I4-0     | Educational Level                           | The educational level                                                | NA
+| I4-1     |  Alignment Type                             | Alignment Type.                                                      | `educationalLevel`
+| I4-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I4-3     |  Educational Level description              | The description of a node in an established educational framework.   |
+| I4-4     |  Educational level name                     | The name of a node in an established educational framework.          |
+| I4-5     |  Educational Level URL                      | The URL of a node in an established educational framework.           |
+| I4-6     |  Educational Level other name *             | An alias for the item.                                               |
+| I4-7     |  └image *                                   | An image of the level.                                               |
+| I5-0     | Teaches                                     | Lesson or Subject.                                                   | NA
+| I5-1     |  Alignment Type                             | Alignment Type.                                                      | `teaches`
+| I5-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I5-3     |  Current resource description               | The description of a node in an established educational framework.   |
+| I5-4     |  Current resource name                      | The name of a node in an established educational framework.          |
+| I5-5     |  Current resource URL                       | The URL of a node in an established educational framework.           |
+| I5-6     |  └ --                                       | --                                                                   |
+| I6-0     | Requires                                    | The name of the required Lesson, Subject or Course.                  | NA
+| I6-1     |  Alignment Type                             | Alignment Type.                                                      |`requires`
+| I6-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I6-3     |  Required resource description              | The description of a node in an established educational framework.   |
+| I6-4     |  Required resource name                     | The name of a node in an established educational framework.          |
+| I6-5     |  Required resource URL                      | The URL of a node in an established educational framework.           |
+| I6-6     |  └ --                                       | --                                                                   |
+| I7-0     | Assesses                                    | Evaluates Lesson/Subject or Courses.                                 | NA
+| I7-1     |  Alignment Type                             | Alignment Type                                                       | `assesses`
+| I7-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I7-3     |  Evaluated resource description             | The description of a node in an established educational framework.   |
+| I7-4     |  Evaluated resource name                    | The name of a node in an established educational framework.          |
+| I7-5     |  Evaluated resource URL                     | The URL of a node in an established educational framework.           |
+| I7-6     |  └ --                                       | --                                                                   |
+| I8-0     | Text Complexity                             | --                                                                   | NA
+| I8-1     |  Alignment Type                             | Alignment Type.                                                      |`textComplexity`
+| I8-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I8-3     |  Required resource description              | The description of a node in an established educational framework.   |
+| I8-4     |  Required resource name                     | The name of a node in an established educational framework.          |
+| I8-5     |  Required resource URL                      | The URL of a node in an established educational framework.           |
+| I8-6     |  └ --                                       | --                                                                   |
+| I9-0     | Reading Level                               | --                                                                   | NA
+| I9-1     |  Alignment Type                             | Alignment Type.                                                      |`readingLevel`
+| I9-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I9-3     |  Evaluated resource description             | The description of a node in an established educational framework.   |
+| I9-4     |  Evaluated resource name                    | The name of a node in an established educational framework.          |
+| I9-5     |  Evaluated resource URL                     | The URL of a node in an established educational framework.           |
+| I9-6     |  └ --                                       | --                                                                   |
 
 * Thing type
 
 ## Classification if the Content is for languages education
 This category automatizes some of the fields with language values.
-| Cod      | Key                          | Definitions                                                          | Values
-| -------- | ----------------------       | -------------------------------------------------------------------- | --------------------------------------------------------------
-| I1-0     | Level of Education           | ISCED level of education.                                            | NA
-| I1-1     |  └alignmentType              | Alignment Type.                                                      | `educationalLevel`
-| I1-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      | `ISCED`
-| I1-3     |  └targetDescription          | The description of a node in an established educational framework.   | The International Standard Classification of Education (ISCED 2011) provides a comprehensive framework for organising education programmes and qualification by applying uniform and internationally agreed definitions to facilitate comparisons of education systems across countries.
-| I1-4     |  └targetName                 | The name of a node in an established educational framework.          | Early childhood education - Primary education - Lower secondary education - Upper secondary education - Post-secondary non-tertiary education - Short-cycle tertiary education - Bachelor’s or equivalent level - Master’s or equivalent level - Doctoral or equivalent level - Not elsewhere classified
-| I1-5     |  └targetUrl                  | The URL of a node in an established educational framework.           | `http://uis.unesco.org/en/topic/international-standard-classification-education-isced`
-| I1-6     |  └alternateName *            | An alias for the item.                                               | 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8
-| I1-7     |  └image *                    | An image of the level.                                               |
-| I2-0     | Educational Subject          | educational objective                                                | NA
-| I2-1     |  └alignmentType              | Alignment Type.                                                      | `educationalSubject`
-| I2-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      | `ISCED-2013`
-| I2-3     |  └targetDescription          | The description of a node in an established educational framework.   | `Language acquisition is the  study  of  the  structure  and  composition  of  languages taught as second or foreign languages (i.e. that are intended for non-native or non-fluent speakers of the language). It includes the study of related cultures, literature, linguistics and phonetics if related to the specific language being acquired and forms part of the same programme or qualification. Classical or dead languages are included here as it is assumed there are no native speakers of the  language  and  hence  the  manner  of  teaching  and  the  content  of  the  curriculum are more similar to the teaching of foreign languages.`
-| I2-4     |  └targetName                 | The name of a node in an established educational framework.          | `Arts and humanities`
-| I2-6     |  └alternateName *            | An alias for the item.                                               | `00`
-| I2-4     |  └targetName                 | The name of a node in an established educational framework.          | `Languages`
-| I2-6     |  └alternateName *            | An alias for the item.                                               | `01`
-| I2-4     |  └targetName                 | The name of a node in an established educational framework.          | `Language acquisition`
-| I2-6     |  └alternateName *            | An alias for the item.                                               | `02`
-| I2-5     |  └targetUrl                  | The URL of a node in an established educational framework.           | `http://uis.unesco.org/en/topic/international-standard-classification-education-isced`
-| I2-4     |  └targetName                 | The name of a node in an established educational framework.          | Languages Name
-| I2-6     |  └alternateName *            | An alias for the item.                                               | Languages Codes
-| I3-0     | Detailed Educational Subject | educational objective                                                | NA
-| I3-1     |  └alignmentType              | Alignment Type.                                                      | `educationalSubject`
-| I3-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      | `Common European Framework of Reference for Languages`
-| I3-3     |  └targetDescription          | The description of a node in an established educational framework.   | "Integrated with about"
-| I3-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I3-5     |  └targetName                 | The name of a node in an established educational framework.          |
-| I3-6     |  └targetName                 | The name of a node in an established educational framework.          |
-| I3-7     |  └targetUrl                  | The URL of a node in an established educational framework.           | `https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions`
-| I4-0     | Educational Level            | The educational level                                                | NA
-| I4-1     |  └alignmentType              | Alignment Type.                                                      | `educationalLevel`
-| I4-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      | `Common European Framework of Reference for Languages`
-| I4-3     |  └targetDescription          | The description of a node in an established educational framework.   | see: https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions
-| I4-4     |  └targetName                 | The name of a node in an established educational framework.          | A1 - A2 - B1 - B2 - C1 - C2
-| I4-6     |  └alternateName *            | An alias for the item.                                               | Breakthrough - Waystage - Threshold - Vantage - Effective Operational Proficiency - Mastery
-| I4-5     |  └targetUrl                  | The URL of a node in an established educational framework.           | `https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions`
-| I4-7     |  └image *                    | An image of the level.                                               |
-| I5-0     | Teaches                      | Lesson or Subject.                                                   | NA
-| I5-1     |  └alignmentType              | Alignment Type.                                                      | `teaches`
-| I5-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I5-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I5-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I5-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I5-6     |  └ --                        | --                                                                   |
-| I6-0     | Requires                     | The name of the required Lesson, Subject or Course.                  | NA
-| I6-1     |  └alignmentType              | Alignment Type.                                                      |`requires`
-| I6-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I6-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I6-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I6-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I6-6     |  └ --                        | --                                                                   |
-| I7-0     | Assesses                     | Evaluates Lesson/Subject or Courses.                                 | NA
-| I7-1     |  └alignmentType              | Alignment Type                                                       | `assesses`
-| I7-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I7-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I7-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I7-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I7-6     |  └ --                        | --                                                                   |
-| I8-0     | Text Complexity              | --                                                                   | NA
-| I8-1     |  └alignmentType              | Alignment Type.                                                      |`textComplexity`
-| I8-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I8-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I8-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I8-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I8-6     |  └ --                        | --                                                                   |
-| I9-0     | Reading Level                | --                                                                   | NA
-| I9-1     |  └alignmentType              | Alignment Type.                                                      |`readingLevel`
-| I9-2     |  └educationalFramework       | The framework to which the resource being described is aligned.      |
-| I9-3     |  └targetDescription          | The description of a node in an established educational framework.   |
-| I9-4     |  └targetName                 | The name of a node in an established educational framework.          |
-| I9-5     |  └targetUrl                  | The URL of a node in an established educational framework.           |
-| I9-6     |  └ --                        | --                                                                   |
+| Cod      | Key                                         | Definitions                                                          | Values
+| -------- | ------------------------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------
+| I1-0     | ISCED level of education                    | ISCED level of education.                                            | NA
+| I1-1     |  Alignment Type                             | Alignment Type.                                                      | `educationalLevel`
+| I1-2     |  ISCED Educational Framework                | The framework to which the resource being described is aligned.      | `ISCED`
+| I1-3     |   ISCED level of education Description      | The description of a node in an established educational framework.   | The International Standard Classification of Education (ISCED 2011) provides a comprehensive framework for organising education programmes and qualification by applying uniform and internationally agreed definitions to facilitate comparisons of education systems across countries.
+| I1-4     |  ISCED level of education                   | The name of a node in an established educational framework.          | Early childhood education - Primary education - Lower secondary education - Upper secondary education - Post-secondary non-tertiary education - Short-cycle tertiary education - Bachelor’s or equivalent level - Master’s or equivalent level - Doctoral or equivalent level - Not elsewhere classified
+| I1-5     |  ISCED URL                                  | The URL of a node in an established educational framework.           | `http://uis.unesco.org/en/topic/international-standard-classification-education-isced`
+| I1-6     |  ISCED Level alias name  *                  | An alias for the item.                                               | 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8
+| I1-7     |  └image *                                   | An image of the level.                                               |
+| I2-0     | Educational Subject                         | educational objective                                                | NA
+| I2-1     |  Alignment Type                             | Alignment Type.                                                      | `educationalSubject`
+| I2-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      | `ISCED-2013`
+| I2-3     |  Educational Objective description          | The description of a node in an established educational framework.   | `Language acquisition is the  study  of  the  structure  and  composition  of  languages taught as second or foreign languages (i.e. that are intended for non-native or non-fluent speakers of the language). It includes the study of related cultures, literature, linguistics and phonetics if related to the specific language being acquired and forms part of the same programme or qualification. Classical or dead languages are included here as it is assumed there are no native speakers of the  language  and  hence  the  manner  of  teaching  and  the  content  of  the  curriculum are more similar to the teaching of foreign languages.`
+| I2-4     |  Educational Objective name                 | The name of a node in an established educational framework.          | `Arts and humanities`
+| I2-6     |  └alternateName *                           | An alias for the item.                                               | `00`
+| I2-4     |  Educational Objective name                 | The name of a node in an established educational framework.          | `Languages`
+| I2-6     |  └alternateName *                           | An alias for the item.                                               | `01`
+| I2-4     |  Educational Objective name                 | The name of a node in an established educational framework.          | `Language acquisition`
+| I2-6     |  └alternateName *                           | An alias for the item.                                               | `02`
+| I2-5     |  Educational Objective URL                  | The URL of a node in an established educational framework.           | `http://uis.unesco.org/en/topic/international-standard-classification-education-isced`
+| I2-4     |  └targetName                                | The name of a node in an established educational framework.          | Languages Name
+| I2-6     |  └alternateName *                           | An alias for the item.                                               | Languages Codes
+| I3-0     | Detailed Educational Subject                | educational objective                                                | NA
+| I3-1     |  Alignment Type                             | Alignment Type.                                                      | `educationalSubject`
+| I3-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      | `Common European Framework of Reference for Languages`
+| I3-3     |  Detailed Educational Objective description | The description of a node in an established educational framework.   | "Integrated with about"
+| I3-4     |  Detailed Educational Objective name        | The name of a node in an established educational framework.          |
+| I3-5     |  Detailed Educational Objective URL         | The URL of a node in an established educational framework.           | `https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions`
+| I4-0     | Educational Level                           | The educational level                                                | NA
+| I4-1     |  Alignment Type                             | Alignment Type.                                                      | `educationalLevel`
+| I4-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      | `Common European Framework of Reference for Languages`
+| I4-3     |  Educational Level description              | The description of a node in an established educational framework.   | see: https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions
+| I4-4     |  Educational level name                     | The name of a node in an established educational framework.          | A1 - A2 - B1 - B2 - C1 - C2
+| I4-6     |  Educational Level other name *             | An alias for the item.                                               | Breakthrough - Waystage - Threshold - Vantage - Effective Operational Proficiency - Mastery
+| I4-5     |  Educational Level URL                      | The URL of a node in an established educational framework.           | `https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions`
+| I4-7     |  └image *                                   | An image of the level.                                               |
+| I5-0     | Teaches                                     | Lesson or Subject.                                                   | NA
+| I5-1     |  Alignment Type                             | Alignment Type.                                                      | `teaches`
+| I5-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I5-3     |  Current resource description               | The description of a node in an established educational framework.   |
+| I5-4     |  Current resource name                      | The name of a node in an established educational framework.          |
+| I5-5     |  Current resource URL                       | The URL of a node in an established educational framework.           |
+| I5-6     |  └ --                                       | --                                                                   |
+| I6-0     | Requires                                    | The name of the required Lesson, Subject or Course.                  | NA
+| I6-1     |  Alignment Type                             | Alignment Type.                                                      |`requires`
+| I6-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I6-3     |  Required resource description              | The description of a node in an established educational framework.   |
+| I6-4     |  Required resource name                     | The name of a node in an established educational framework.          |
+| I6-5     |  Required resource URL                      | The URL of a node in an established educational framework.           |
+| I6-6     |  └ --                                       | --                                                                   |
+| I7-0     | Assesses                                    | Evaluates Lesson/Subject or Courses.                                 | NA
+| I7-1     |  Alignment Type                             | Alignment Type                                                       | `assesses`
+| I7-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I7-3     |  Evaluated resource description             | The description of a node in an established educational framework.   |
+| I7-4     |  Evaluated resource name                    | The name of a node in an established educational framework.          |
+| I7-5     |  Evaluated resource URL                     | The URL of a node in an established educational framework.           |
+| I7-6     |  └ --                                       | --                                                                   |
+| I8-0     | Text Complexity                             | --                                                                   | NA
+| I8-1     |  Alignment Type                             | Alignment Type.                                                      |`textComplexity`
+| I8-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I8-3     |  Required resource description              | The description of a node in an established educational framework.   |
+| I8-4     |  Required resource name                     | The name of a node in an established educational framework.          |
+| I8-5     |  Required resource URL                      | The URL of a node in an established educational framework.           |
+| I8-6     |  └ --                                       | --                                                                   |
+| I9-0     | Reading Level                               | --                                                                   | NA
+| I9-1     |  Alignment Type                             | Alignment Type.                                                      |`readingLevel`
+| I9-2     |  Educational Framework                      | The framework to which the resource being described is aligned.      |
+| I9-3     |  Evaluated resource description             | The description of a node in an established educational framework.   |
+| I9-4     |  Evaluated resource name                    | The name of a node in an established educational framework.          |
+| I9-5     |  Evaluated resource URL                     | The URL of a node in an established educational framework.           |
+| I9-6     |  └ --                                       | --                                                                   |
 
 https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions
 

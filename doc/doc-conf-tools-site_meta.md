@@ -18,6 +18,7 @@ The related properties from the [Creative Work](https://schema.org/CreativeWork 
 | E9  | Class Learning Time    | typicalLearningTime  | Approximate or typical time it takes to work with or through this learning object for the typical intended target audience. |
 | E10 | Description            | Description          | Comments on how this learning object is to be used. (soon as annotation plugin)                                             |
 | E11 | Language               | translationOfWork    | Original language of the content.                                                                                           |
+| E14 | About                  | About                | The subject of the book.
 
 The related properties from the [Thing](https://schema.org/Thing "https://schema.org/Thing") type that matters to the project are:
 
@@ -47,15 +48,6 @@ educationalAlignment = AlignmentObject
 | I2-3     | Educational Objective description          |  └targetDescription          | The description of the Subject.                                      |
 | I2-4     | Educational Objective name                 |  └targetName                 | The name of the Subject.                                             |
 | I2-5     | Educational Objective URL                  |  └targetUrl                  | The URL which extended information about the Subject.                |
-| I3-0     | SME                                        | AlignmentObject              | Detailed Educational Subject                                         |
-| I3-1     | SME                                        |  └alignmentType              | Alignment Type.                                                      |
-| I3-2     | Educational Framework                      |  └educationalFramework       | The curriculum name.                                                 |
-| I3-3     | Detailed Educational Objective description |  └targetDescription          | The description of the Subject.                                      |
-| I3-4     | Detailed Educational Objective name        |  └targetName                 | The name of the Subject.                                             |
-| I3-4     | Detailed Educational Objective name        |  └targetName                 | The name of the Subject.                                             |
-| I3-4     | Detailed Educational Objective name        |  └targetName                 | The name of the Subject.                                             |
-| I3-4     | Detailed Educational Objective name        |  └targetName                 | The name of the Subject.                                             |
-| I3-5     | Detailed Educational Objective URL         |  └targetUrl                  | The URL which extended information about the Subject.                |
 | I4-0     | SME                                        | AlignmentObject              | Educational level                                                    |
 | I4-1     | SME                                        |  └alignmentType              | Alignment Type.                                                      |
 | I4-2     | Educational Framework                      |  └educationalFramework       | The curriculum name.                                                 |
