@@ -55,18 +55,18 @@ class SMDE_Metadata_Classification{
         'eduFrame'=>array( 'Educational Framework','The Framework that the educational level belongs to. Example: CEFR, Common Core, European Baccalaureate'),
 		'iscedField' => array( 'ISCED field of education','Broad field of education according to ISCED-F 2013.'. '<br><a target="_blank" href="http://uis.unesco.org/en/topic/international-standard-classification-education-isced">Click Here for more information</a>',
 			array(
-				''										=> '--Select--',
-				'Generic programmes and qualifications' 			=>	'Generic programmes and qualifications',
-				'Education' 										=>	'Education',
-				'Arts and humanities' 							=> 	'Arts and humanities',
+				''						=> '--Select--',
+				'Generic programmes and qualifications' 	=>	'Generic programmes and qualifications',
+				'Education' 					=>	'Education',
+				'Arts and humanities' 				=> 	'Arts and humanities',
 				'Social sciences, journalism and information' 	=> 	'Social sciences, journalism and information',
-				'Business, administration and law' 				=> 	'Business, administration and law',
+				'Business, administration and law' 		=> 	'Business, administration and law',
 				'Natural sciences, mathematics and statistics' 	=> 	'Natural sciences, mathematics and statistics',
-				'Information and Communication Technologies' 		=> 	'Information and Communication Technologies',
+				'Information and Communication Technologies' 	=> 	'Information and Communication Technologies',
 				'Engineering, manufacturing and construction' 	=> 	'Engineering, manufacturing and construction',
 				'Agriculture, forestry, fisheries and veterinary' => 	'Agriculture, forestry, fisheries and veterinary',
-				'Health and welfare' 								=> 	'Health and welfare',
-				'Services' 										=> 	'Services',)),
+				'Health and welfare' 				=> 	'Health and welfare',
+				'Services' 					=> 	'Services',)),
 		'eduLevel'=>array( 'Educational Level','The level of this subject. For ex. B1 for an English Course, or Grade 2 for a Physics Course.'),
 		'additionalClass' => array( 'Additional Classification', 'More specified subject of current educational level. For ex. \'Grammar\' part of B1 English Course, \'Thermodynamics\' for Grade 7 of Physics Course'),
 		'specificClass'	  => array('Specific Classification', 'Narrow definition of subject field. For ex. \'Verbs\' in \'Grammar\' materials, \'Thermodynamics Laws\' in Thermodynamics', 'multiple')
@@ -100,17 +100,17 @@ class SMDE_Metadata_Classification{
 				));
 
 			self::$classification_properties_main['iscedLevel'] = array( 'ISCED level of education','Level of education according to ISCED-P 2011'.'<br><a target="_blank" href="http://www.uis.unesco.org/Education/Documents/isced-2011-en.pdf">Click Here for more information</a>',
-			array(
-				'9'  => 'Not elsewhere classified',
-				'10' => 'Early Childhood Education',
-				'1'  => 'Primary education',
-				'2'  => 'Lower secondary education',
-				'3'  => 'Upper secondary education',
-				'4'  => 'Post-secondary non-tertiary education',
-				'5'  => 'Short-cycle tertiary education',
-				'6'  => 'Bachelor’s or equivalent level',
-				'7'  => 'Master’s or equivalent level',
-				'8'  => 'Doctoral or equivalent level'));
+				array(
+					'9'  => 'Not elsewhere classified',
+					'10' => 'Early Childhood Education',
+					'1'  => 'Primary education',
+					'2'  => 'Lower secondary education',
+					'3'  => 'Upper secondary education',
+					'4'  => 'Post-secondary non-tertiary education',
+					'5'  => 'Short-cycle tertiary education',
+					'6'  => 'Bachelor’s or equivalent level',
+					'7'  => 'Master’s or equivalent level',
+					'8'  => 'Doctoral or equivalent level'));
 
 			self::$classification_properties_main['eduLang'] = array('Studying content', 'Language which content is about',
 				array ( '' 					=> '--Select--',
