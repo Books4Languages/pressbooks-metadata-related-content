@@ -3,7 +3,7 @@
 /*
 Plugin Name: Simple Metadata Education
 Plugin URI: https://github.com/my-language-skills/simple-metadata-education
-Description: Simple Metadata add-on for educational purposes. 
+Description: Simple Metadata add-on for educational purposes.
 Version: 1.0
 Author: My Language Skills team
 Author URI: https://github.com/my-language-skills
@@ -48,3 +48,14 @@ if(is_plugin_active('simple-metadata/simple-metadata.php')){
 		});
 	}
 }
+/*
+* Auto update from github
+*
+* @since 1.0
+*/
+require 'vendor/plugin-update-checker/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+		'https://github.com/my-language-skills/simple-metadata-education/',
+		__FILE__,
+		'simple-metadata-education'
+);
