@@ -27,6 +27,18 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 ## Description  
 Simple Metadata Education plugin is add-on for (Simple Metadata)[https://github.com/my-language-skills/simple-metadata/] plugin, aimed for educational purposes. With use of this plugin you will be able to provide relevant information on your educational content, following commonly accepted standards of educational metadata, like LRMI, LOM (coming soon) and Dublin Core (coming soon).
 
+General Metadata
+
+Simple Metadata Education will extend the general metadata with a new collection of options.
+Educational Metadata
+
+From Metadata Settings we can activate the educational metadata in home page (site-meta) and public post types (Post, Pages, CPTs).
+
+Soon Attachments.
+
+
+
+
 ## Installation
 1. Clone (or copy) this repository to the /wp-content/plugins/ directory.
 2. Activate the plugin through the  'Plugins' screen in WordPress.
