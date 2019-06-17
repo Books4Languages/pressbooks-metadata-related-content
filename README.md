@@ -68,10 +68,19 @@ The Simple Metadata Education plugin is supplied "as is" and all use is at your 
 ## Changelog
 
 Take a look at detailed changelog [here](/doc/CHANGELOG.md)
-# 1.1
+
+
+### 1.1.X
+* **ENHANCEMENTS***
+		* Make in corect order the admin panel. Change name site-meta in home page
+* **List of Files revised**
+   * smd-admin-settings.php
+
+
+### 1.1
 * add plguin updtade cheker
 
-# 1.0
+### 1.0
 * Initial release
 * Requires Simple Metadata 1.1
 

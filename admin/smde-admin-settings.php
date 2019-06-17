@@ -47,7 +47,7 @@ function smde_add_education_settings() {
 		$shares_class = get_option('smde_class_shares');
 		$freezes_class = get_option('smde_class_freezes');
 
-		//initializing variables for network settings in case installation is not multisite to avoid notices and warnings 
+		//initializing variables for network settings in case installation is not multisite to avoid notices and warnings
 		$network_locations = [];
 		$network_shares_edu = [];
 		$network_freezes_edu = [];
@@ -67,6 +67,9 @@ function smde_add_education_settings() {
 		foreach ($post_types as $post_type) {
 			if ('metadata' == $post_type){
 				$label = 'Book Info';
+			}
+			if ('site-meta' == $post_type){
+				$label = 'Home Page';
 			} else {
 				$label = ucfirst($post_type);
 			}
@@ -184,7 +187,7 @@ function smde_render_settings() {
 	?>
         <div class="wrap">
         	<?php if (isset($_GET['settings-updated']) && $_GET['settings-updated']) { //in case settings were saved we show notice and fire overwriting?>
-        	<div class="notice notice-success is-dismissible"> 
+        	<div class="notice notice-success is-dismissible">
 				<p><strong>Settings saved.</strong></p>
 			</div>
 			<?php smde_update_overwrites(); }?>
@@ -283,8 +286,8 @@ function smde_update_overwrites(){
     $meta_type = is_plugin_active('pressbooks/pressbooks.php') ? 'metadata' : 'site-meta';
 
     //fetching site-meta/book info post
-    $meta_post = $wpdb->get_results($wpdb->prepare(" 
-        SELECT ID FROM $postsTable WHERE post_type LIKE %s AND 
+    $meta_post = $wpdb->get_results($wpdb->prepare("
+        SELECT ID FROM $postsTable WHERE post_type LIKE %s AND
         post_status LIKE %s",$meta_type,'publish'),ARRAY_A);
 
     //If we have more than one or 0 ids in the array then return and stop operation
@@ -298,12 +301,12 @@ function smde_update_overwrites(){
 
 
     //getting metadata of site-meta/books info post
-    $meta_post_meta = $wpdb->get_results($wpdb->prepare(" 
+    $meta_post_meta = $wpdb->get_results($wpdb->prepare("
         SELECT `meta_key`, `meta_value` FROM $postMetaTable WHERE `post_id` LIKE %s
         AND `meta_key` LIKE %s AND `meta_key` LIKE %s
         AND `meta_value` <>''",$meta_post_id,'%%smde_%%','%%_vocab%%'.$meta_type.'%%')
             ,ARRAY_A);
-    
+
  	//Array for storing metakey=>metavalue
     $metaData = [];
     //unwrapping data from subarrays
@@ -324,7 +327,7 @@ function smde_update_overwrites(){
 				continue;
 			}
         	//Getting all posts of $location type
-        	$posts_ids = $wpdb->get_results($wpdb->prepare(" 
+        	$posts_ids = $wpdb->get_results($wpdb->prepare("
         	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
 
         	//looping through all posts of type $locations
@@ -353,7 +356,7 @@ function smde_update_overwrites(){
 				continue;
 			}
         	//Getting all posts of $location type
-        	$posts_ids = $wpdb->get_results($wpdb->prepare(" 
+        	$posts_ids = $wpdb->get_results($wpdb->prepare("
         	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
 
         	//looping through all posts of type $locations
@@ -382,7 +385,7 @@ function smde_update_overwrites(){
 				continue;
 			}
         	//Getting all posts of $location type
-        	$posts_ids = $wpdb->get_results($wpdb->prepare(" 
+        	$posts_ids = $wpdb->get_results($wpdb->prepare("
         	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
 
         	//looping through all posts of type $locations
@@ -426,7 +429,7 @@ function smde_update_overwrites(){
 				continue;
 			}
         	//Getting all posts of $location type
-        	$posts_ids = $wpdb->get_results($wpdb->prepare(" 
+        	$posts_ids = $wpdb->get_results($wpdb->prepare("
         	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
 
         	//looping through all posts of type $locations
