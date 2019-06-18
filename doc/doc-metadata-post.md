@@ -1,16 +1,7 @@
-# Post metadata
-
-Simple Metadata Education will use Simple Metadata Post Type options in Posts (metabox).
-
-Simple Metadata Education have two new metaboxes (education and classification) with new metadata fields.
-
-## Settings
-
-Post type uses the Simple Metadata options. Remember a type is always activated by default upon the site configuration.
-Simple Metadata Education with extend the options with the Chapter type, which is *Activated by default* if book type is selected in home page or in a PressBooks installation
-
 ## Post types and properties
 Simple Metadata Education uses the default Simple Metadata Properties on Post but it extends with a new type (Chapter).
+
+[Post settings](/doc/doc-conf-post.md).
 
 ### Article
 The related properties from the [Article](https://schema.org/Article "https://schema.org/Article") type that matters to the project are:
@@ -115,17 +106,6 @@ The related properties from the [Thing](https://schema.org/Thing "https://schema
 | A30 | WP-Core | image    | Featured image of the Post*  |
 
 * If no Featured image in the Post, user avatar will be the Post image.
-
-# Post types and properties
-
-[Site metadata](/doc/doc-metadata-post.md).
-
-# Screenshots
-Settings site
-![settings-post](/doc/images/settings-post.png)
-
-Structured data
-![structured-data-post](/doc/images/structured-data-post.png)
 
 ---
 

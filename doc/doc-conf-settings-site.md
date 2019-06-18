@@ -1,1 +1,0 @@
-Is a method to embed educational metadata on the homepage or in the Post (chapter for PressBooks users) by going to its tab checking the checkbox and clicking Save Changes. As before, all metadata related to our homepage can be edited under the Tools tab by selecting Site Metadata (or Book info for PressBooks users) for Site level or in the Post (chapter) for Post level.

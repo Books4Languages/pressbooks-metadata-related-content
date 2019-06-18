@@ -7,7 +7,7 @@ Requires Simple Metadata (1.1 version)
 * Tags: pressbooks, links, metadata, education
 * Requires at least: 4.9.6
 * Tested up to: 5.2.1
-* Requires PHP: 7.2.0
+* Requires PHP: 5.3
 * Stable tag: 1.0
 * License: GNU 3.0
 * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
@@ -49,14 +49,14 @@ Soon Attachments.
 ## Frequently Asked Questions
 1. If i don't need to use all the fields of the plugin, can i leave them empty? Yes, you can leaves them empty. If one field is empty the link will not appear in the frontend.
 2. More information (here)[https://github.com/my-language-skills/simple-metadata/].
-
+3. Developer information can be find in the [developer documentation](doc/dev-doc.md/) and the [developer guide](doc/dev-guide.md/)
 
 ## Requirements
 Plugin works with:
 
-- PHP 7.0
-- WordPress (5.1)[https://make.wordpress.org/core/2019/01/28/multisite-support-for-site-metadata-in-5-1/]
-- (Simple Metadata)[https://github.com/my-language-skills/simple-metadata/]
+- PHP 5.3 and higher.
+- WordPress (5.1)[https://make.wordpress.org/core/2019/01/28/multisite-support-for-site-metadata-in-5-1/] and higher.
+- (Simple Metadata 1.1)[https://github.com/my-language-skills/simple-metadata/releases/tag/1.1]
 
 ## Disclaimers
 The Simple Metadata Education plugin is supplied "as is" and all use is at your own risk.

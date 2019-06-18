@@ -1,4 +1,8 @@
-#abc-xyz
+# General
+
+## Main plugin
+
+Simple Metadata Education requires [Simple Metadata](https://github.com/my-language-skills/simple-metadata/tags).
 
 ## Installation and Upgrades
 
@@ -6,12 +10,6 @@
 * Activate the plugin through the 'Plugins' screen in WordPress
 
 For upgrades, download the las stable version from github, delete from FTP the old plugin and install the new one.
-
-## Main plugin
-
-Simple Metadata Education requires Simple Metadata v1.1 or greater.
-
-You can find more add-ons (both free and commercial) from www.
 
 ## Integrations
 
@@ -23,12 +21,10 @@ Any theme can work with All in one metadata.
 
 ## This plugin supports:
 
-* PHP 5.3 and higher.
-* WordPress 4.8 and higher.
-* Internationalization through WordPress.org.
 * MultiSite.
-* Translation plugins WPML, Polylang and qTranslate X.
 * Custom Post Types.
+* Internationalization through WordPress.org.
+* Translation plugins WPML, Polylang and qTranslate X.
 
 ---
 
