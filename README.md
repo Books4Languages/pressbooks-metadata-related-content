@@ -6,23 +6,13 @@ Requires Simple Metadata (1.1 version)
 * Donate link: https://opencollective.com/mylanguageskills
 * Tags: pressbooks, links, metadata, education
 * Requires at least: 4.9.6
-* Tested up to: 4.9.8
-* Requires PHP: 7.0
+* Tested up to: 5.2.1
+* Requires PHP: 7.2.0
 * Stable tag: 1.0
 * License: GNU 3.0
 * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Plugin for automatic generation of educational meta fields in web-pages.
-
-
-Tested up to: [![WordPress](https://img.shields.io/wordpress/v/akismet.svg)](https://wordpress.org/download/)
-
-
-Stable tag: [![Current Release](https://img.shields.io/github/release/my-language-skills/simple-metadata-education.svg)](https://github.com/my-language-skills/simple-metadata-education/releases/latest/)
-
-License:  [![License](https://img.shields.io/badge/license-GPL--3.0%2B-red.svg)](https://github.com/my-language-skills/simple-metadata-education/blob/master/license.txt)
-
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 ## Description  
 Simple Metadata Education plugin is add-on for (Simple Metadata)[https://github.com/my-language-skills/simple-metadata/] plugin, aimed for educational purposes. With use of this plugin you will be able to provide relevant information on your educational content, following commonly accepted standards of educational metadata, like LRMI, LOM (coming soon) and Dublin Core (coming soon).
@@ -36,7 +26,20 @@ From Metadata Settings we can activate the educational metadata in home page (si
 
 Soon Attachments.
 
-
+* General
+	* [Introduction](/doc/doc-intro.md)
+	* [Installation, Integrations and Compatibilities](/doc/doc-general.md)
+	* [Metadata fields](/doc/doc-fields.md)
+* Settings
+	* [Site settings](/doc/doc-settings-site.md)
+	* [MU settings](/doc/doc-settings-mu.md)
+* Configuration
+	* [Site configuration](/doc/doc-conf-site.md)
+		* [Site metadata](/doc/doc-metadata-site.md)
+	* [Page configuration](/doc/doc-conf-page.md)
+		* [Page metadata](/doc/doc-metadata-page.md)
+	* [Post configuration](/doc/doc-conf-post.md)
+		* [Post metadata](/doc/doc-metadata-post.md)
 
 
 ## Installation
@@ -45,17 +48,15 @@ Soon Attachments.
 
 ## Frequently Asked Questions
 1. If i don't need to use all the fields of the plugin, can i leave them empty? Yes, you can leaves them empty. If one field is empty the link will not appear in the frontend.
+2. More information (here)[https://github.com/my-language-skills/simple-metadata/].
+
 
 ## Requirements
 Plugin works with:
 
-- ![PHP](https://img.shields.io/badge/PHP-7.2.X-blue.svg)
-- ![WordPress](https://img.shields.io/badge/WordPress-4.9.8-blue.svg)
-
-
-
-http://www2.cs.arizona.edu/~collberg/Teaching/07.231/BibTeX/bibtex.html
-
+- PHP 7.0
+- WordPress (5.1)[https://make.wordpress.org/core/2019/01/28/multisite-support-for-site-metadata-in-5-1/]
+- (Simple Metadata)[https://github.com/my-language-skills/simple-metadata/]
 
 ## Disclaimers
 The Simple Metadata Education plugin is supplied "as is" and all use is at your own risk.
@@ -67,7 +68,7 @@ The Simple Metadata Education plugin is supplied "as is" and all use is at your 
 
 ## Changelog
 
-Take a look at detailed changelog [here](/doc/CHANGELOG.md)
+Take a look at detailed changelog [here](/CHANGELOG.md)
 
 
 ### 1.1.X
@@ -99,6 +100,8 @@ Here's a link to [WordPress](https://wordpress.org/)
 Here's a llink to [PressBooks](https://pressbooks.org/get-involved/)
 
 Here's a link to [Markdown's Syntax Documentation](https://daringfireball.net/projects/markdown/syntax)
+
+http://www2.cs.arizona.edu/~collberg/Teaching/07.231/BibTeX/bibtex.html
 
 ---
 [Up](/README.md)
