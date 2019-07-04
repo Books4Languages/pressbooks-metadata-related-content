@@ -8,7 +8,7 @@ Requires Simple Metadata (1.1 version)
 * Requires at least: 4.9.6
 * Tested up to: 5.2.1
 * Requires PHP: 5.3
-* Stable tag: 1.0
+* Stable tag: 1.2
 * License: GNU 3.0
 * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -71,7 +71,9 @@ The Simple Metadata Education plugin is supplied "as is" and all use is at your 
 Take a look at detailed changelog [here](/CHANGELOG.md)
 
 
-### 1.1.X
+### 1.2
+* **REMOVED**
+    *  Auto update from github
 * **ENHANCEMENTS***
 		* Make in corect order the admin panel. Change name site-meta in home page
 * **List of Files revised**
