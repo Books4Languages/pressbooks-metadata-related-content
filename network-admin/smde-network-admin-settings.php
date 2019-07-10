@@ -16,7 +16,7 @@ function smde_add_network_settings() {
     add_meta_box('smde-network-metadata-for-lang', 'Languages education', 'smde_network_render_metabox_for_lang', 'smd_net_set_page', 'normal', 'core');
     add_meta_box('smde-metadata-network-location', 'Educational Metadata', 'smde_network_render_metabox_schema_locations', 'smd_net_set_page', 'normal', 'core');
     add_meta_box('smde-network-metadata-edu-properties', 'Educational Properties Management', 'smde_network_render_metabox_edu_properties', 'smd_net_set_page', 'normal', 'core');
-    
+
 
 
     add_settings_section( 'smde_network_meta_locations', '', '', 'smde_network_meta_locations' );
@@ -34,14 +34,22 @@ function smde_add_network_settings() {
 	register_setting ('smde_network_meta_edu_properties', 'smde_net_class_freezes');
 	register_setting ('smde_network_meta_for_lang', 'smde_net_for_lang');
 
+
+  register_setting ('smde_network_meta_edu_properties', 'smde_net_edu_');
+  register_setting ('smde_network_meta_class_properties', 'smde_net_class_');
+
 	// getting options values from DB
 	$post_types = smd_get_all_post_types();
 	$locations = get_option('smde_net_locations');
-	$shares_edu = get_option('smde_net_edu_shares');
+	$shares_edu1 = get_option('smde_net_edu_shares');
 	$freezes_edu = get_option('smde_net_edu_freezes');
-	$shares_class = get_option('smde_net_class_shares');
+	$shares_class1 = get_option('smde_net_class_shares');
 	$freezes_class = get_option('smde_net_class_freezes');
 	$is_for_lang = get_option('smde_net_for_lang');
+
+
+  $shares_edu = get_option('smde_net_edu_');
+  $shares_class = get_option('smde_net_class_');
 
 	//adding settings for locations
 	foreach ($post_types as $post_type) {
@@ -63,15 +71,26 @@ function smde_add_network_settings() {
 
 	//adding settings for educational properties management
 	foreach (edu_meta::$edu_properties as $key => $data) {
+
 		add_settings_field ('smde_net_edu_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_edu, $freezes_edu){
-			$checked_edu_share = isset($shares_edu[$key]) ? true : false;
+      $checked_edu_share = isset($shares_edu[$key]) ? true : false;
 			$checked_edu_freeze = isset($freezes_edu[$key]) ? true : false;
+
+      $shares_edu[$key] = !empty($shares_edu[$key]) ? $shares_edu[$key] : '0';
+
 			?>
-				<label for="smde_net_edu_shares[<?=$key?>]"><i>Share</i> <input type="checkbox" name="smde_net_edu_shares[<?=$key?>]" id="smde_net_edu_shares[<?=$key?>]" value="1" <?php checked(1, $checked_edu_share);?>></label>
-				<label for="smde_net_edu_freezes[<?=$key?>]"><i>Freeze</i> <input type="checkbox" name="smde_net_edu_freezes[<?=$key?>]" id="smde_net_edu_freezes[<?=$key?>]" value="1" <?php checked(1, $checked_edu_freeze);?>></label>
-				<br><span class="description"><?=$data[1]?></span>
-			<?php
-		}, 'smde_network_meta_edu_properties', 'smde_network_meta_edu_properties');
+      <label for="smde_net_edu_disable[<?=$key?>]">Disable <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="1" id="smde_net_edu_disable[<?=$key?>]" <?php if ($shares_edu[$key]=='1') { echo "checked='checked'"; }
+      ?> <?php checked('disable', get_option('smde_net_edu_'.$key)); ?> ></label>
+      <label for="smde_net_edu_local_value[<?=$key?>]">Local value <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="0" id="smde_net_edu_local_value[<?=$key?>]" <?php if ($shares_edu[$key]=='0') { echo "checked='checked'"; }
+      ?>  <?php checked('0', get_option('smde_net_edu_'.$key)); ?> ></label>
+      <label  for="smde_net_edu_share[<?=$key?>]">Share <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="2" id="smde_net_edu_share[<?=$key?>]" <?php if ($shares_edu[$key]=='2') { echo "checked='checked'"; }
+      ?> <?php checked('share', get_option($shares_edu[$key])); ?>></label>
+      <label for="smde_net_edu_freeze[<?=$key?>]">Freeze <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="3" id="smde_net_edu_freeze[<?=$key?>]"  <?php if ($shares_edu[$key]=='3') { echo "checked='checked'"; }
+      ?>  <?php checked('freeze', get_option('smde_net_edu_'.$key)); ?>></label>
+        <br><span class="description"><?=$data[1]?></span>
+      <?php
+      //if checkboxes are disabled, we add hidden field to store value of option
+    }, 'smde_network_meta_edu_properties', 'smde_network_meta_edu_properties');
 	}
 
 	//adding settings for classification properties management
@@ -89,11 +108,20 @@ function smde_add_network_settings() {
 		add_settings_field ('smde_net_class_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_class, $freezes_class){
 			$checked_class_share = isset($shares_class[$key]) ? true : false;
 			$checked_class_freeze = isset($freezes_class[$key]) ? true : false;
-			?>
-				<label for="smde_net_class_shares[<?=$key?>]"><i>Share</i> <input type="checkbox" name="smde_net_class_shares[<?=$key?>]" id="smde_net_class_shares[<?=$key?>]" value="1" <?php checked(1, $checked_class_share);?>></label>
-				<label for="smde_net_class_freezes[<?=$key?>]"><i>Freeze</i> <input type="checkbox" name="smde_net_class_freezes[<?=$key?>]" id="smde_net_class_freezes[<?=$key?>]" value="1" <?php checked(1, $checked_class_freeze);?>></label>
-				<br><span class="description"><?=$data[1]?></span>
-			<?php
+
+      $shares_class[$key] = !empty($shares_class[$key]) ? $shares_class[$key] : '0';
+
+	?>
+      <label for="smde_net_class_disable[<?=$key?>]">Dissable <input type="radio"  name="smde_net_class_[<?=$key?>]" value="1" id="smde_net_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }
+      ?> <?php checked('disable', get_option('smde_net_class_'.$key)); ?> ></label>
+      <label for="smde_net_class_local_value[<?=$key?>]">Local value <input type="radio"  name="smde_net_class_[<?=$key?>]" value="0" id="smde_net_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0') { echo "checked='checked'"; }
+      ?>  <?php checked('0', get_option('smde_net_class_'.$key)); ?> ></label>
+      <label  for="smde_net_class_share[<?=$key?>]">Share <input type="radio"  name="smde_net_class_[<?=$key?>]" value="2" id="smde_net_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }
+      ?> <?php checked('share', get_option($shares_class[$key])); ?>></label>
+      <label for="smde_net_class_freeze[<?=$key?>]">Freeze <input type="radio"  name="smde_net_class_[<?=$key?>]" value="3" id="smde_net_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }
+      ?>  <?php checked('freeze', get_option('smde_net_class_'.$key)); ?>></label>
+        <br><span class="description"><?=$data[1]?></span>
+      <?php
 		}, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
 	}
 
@@ -101,9 +129,18 @@ function smde_add_network_settings() {
 		add_settings_field ('smde_net_class_shares[eduLang]', 'Studying content', function () use ($key, $shares_class, $freezes_class){
 			$checked_class_share = isset($shares_class['eduLang']) ? true : false;
 			$checked_class_freeze = isset($freezes_class['eduLang']) ? true : false;
+      $key = 'eduLang';
+      $shares_class[$key] = !empty($shares_class[$key]) ? $shares_class[$key] : '0';
+
 			?>
-				<label for="smde_net_class_shares[eduLang]"><i>Share</i> <input type="checkbox" name="smde_net_class_shares[eduLang]" id="smde_net_class_shares[eduLang]" value="1" <?php checked(1, $checked_class_share);?>></label>
-				<label for="smde_net_class_freezes[eduLang]"><i>Freeze</i> <input type="checkbox" name="smde_net_class_freezes[eduLang]" id="smde_net_class_freezes[eduLang]" value="1" <?php checked(1, $checked_class_freeze);?>></label>
+      <label for="smde_net_class_disable[<?=$key?>]">Dissable <input type="radio"  name="smde_net_class_[<?=$key?>]" value="1" id="smde_net_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }
+      ?> <?php checked('disable', get_option('smde_net_class_'.$key)); ?> ></label>
+      <label for="smde_net_class_local_value[<?=$key?>]">Local value <input type="radio"  name="smde_net_class_[<?=$key?>]" value="0" id="smde_net_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0') { echo "checked='checked'"; }
+      ?>  <?php checked('0', get_option('smde_net_class_'.$key)); ?> ></label>
+      <label  for="smde_net_class_share[<?=$key?>]">Share <input type="radio"  name="smde_net_class_[<?=$key?>]" value="2" id="smde_net_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }
+      ?> <?php checked('share', get_option($shares_class[$key])); ?>></label>
+      <label for="smde_net_class_freeze[<?=$key?>]">Freeze <input type="radio"  name="smde_net_class_[<?=$key?>]" value="3" id="smde_net_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }
+      ?>  <?php checked('freeze', get_option('smde_net_class_'.$key)); ?>></label>
 				<br><span class="description">Language which content is about</span>
 			<?php
 		}, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
@@ -128,7 +165,7 @@ function smde_render_network_settings(){
 	    ?>
 	    <div class="wrap">
 	    	<?php if (isset($_GET['settings-updated']) && $_GET['settings-updated']) { //in case settings were saved, we show notice?>
-        	<div class="notice notice-success is-dismissible"> 
+        	<div class="notice notice-success is-dismissible">
 				<p><strong>Settings saved.</strong></p>
 			</div>
 			<?php } ?>
@@ -283,20 +320,13 @@ function smde_update_network_options() {
     global $wpdb;
 
     //collecting sharing and freezeing options for educational propertis and classification form POST request
-    $freezes = isset($_POST['smde_net_edu_freezes']) ? $_POST['smde_net_edu_freezes'] : array();
-    $shares = isset($_POST['smde_net_edu_shares']) ? $_POST['smde_net_edu_shares'] : array();
+    $shares_edu = isset($_POST['smde_net_edu_']) ? $_POST['smde_net_edu_'] : array();
     //if property is frozen, it's automatically shared
-    $shares = array_merge($shares, $freezes);
+    $shares_class = isset($_POST['smde_net_class_']) ? $_POST['smde_net_class_'] : array();
 
-    $freezes_class = isset($_POST['smde_net_class_freezes']) ? $_POST['smde_net_class_freezes'] : array();
-    $shares_class = isset($_POST['smde_net_class_shares']) ? $_POST['smde_net_class_shares'] : array();
-    //if property is frozen, it's automatically shared
-    $shares_class = array_merge($shares_class, $freezes_class);
     //updating network options
-	update_blog_option(1, 'smde_net_edu_freezes', $freezes);
-	update_blog_option(1, 'smde_net_edu_shares', $shares);
-	update_blog_option(1, 'smde_net_class_freezes', $freezes_class);
-	update_blog_option(1, 'smde_net_class_shares', $shares_class);
+	update_blog_option(1, 'smde_net_edu_', $shares_edu);
+	update_blog_option(1, 'smde_net_class_', $shares_class);
 
 	//Grabbing all the site IDs
     $siteids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
@@ -311,23 +341,18 @@ function smde_update_network_options() {
     	switch_to_blog($site_id);
 
     	//collecting local blog options values and merge them with ones from network settings
-    	$freezes_local = get_option('smde_edu_freezes') ?: array();
-    	$freezes_local = array_merge($freezes_local, $freezes);
 
-    	$shares_local = get_option('smde_edu_shares') ?: array();
-    	$shares_local = array_merge($shares_local, $shares);
+    	$shares_local = get_option('smde_edu_') ?: array();
+    	$shares_local = array_merge($shares_local, $shares_edu);
 
-		$freezes_local_class = get_option('smde_class_freezes') ?: array();
-    	$freezes_local_class = array_merge($freezes_local_class, $freezes_class);
 
-    	$shares_local_class = get_option('smde_class_shares') ?: array();
-    	$shares_local_class = array_merge($shares_local_class, $shares_class);    	
+
+    	$shares_local_class = get_option('smde_class_') ?: array();
+    	$shares_local_class = array_merge($shares_local_class, $shares_class);
 
     	//updating local options
-    	update_option('smde_edu_freezes', $freezes_local);
-    	update_option('smde_edu_shares', $shares_local);
-    	update_option('smde_class_freezes', $freezes_local_class);
-    	update_option('smde_class_shares', $shares_local_class);
+    	update_option('smde_edu_', $shares_local);
+    	update_option('smde_class_', $shares_local_class);
 
     	smde_update_overwrites();
     }

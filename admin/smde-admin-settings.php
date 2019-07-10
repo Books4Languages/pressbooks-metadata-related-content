@@ -31,7 +31,12 @@ function smde_add_education_settings() {
 		//registering setings to corresponding sections
 		register_setting('smde_meta_locations', 'smde_locations');
 
+		register_setting ('smde_meta_edu_properties', 'smde_edu_');
+
+		register_setting ('smde_meta_edu_properties', 'smde_class_');
+
 		register_setting ('smde_meta_edu_properties', 'smde_edu_shares');
+
 
 		register_setting ('smde_meta_edu_properties', 'smde_edu_freezes');
 
@@ -39,12 +44,14 @@ function smde_add_education_settings() {
 
 		register_setting ('smde_meta_edu_properties', 'smde_class_freezes');
 
-		//receiving current options values and all registered post types
+
 		$post_types = smd_get_all_post_types();
 		$locations = get_option('smde_locations');
-		$shares_edu = get_option('smde_edu_shares');
+		$shares_edu = get_option('smde_edu_');
+		$shares_edu1 = get_option('smde_net_edu_shares');
+
 		$freezes_edu = get_option('smde_edu_freezes');
-		$shares_class = get_option('smde_class_shares');
+		$shares_class = get_option('smde_class_');
 		$freezes_class = get_option('smde_class_freezes');
 
 		//initializing variables for network settings in case installation is not multisite to avoid notices and warnings
@@ -57,9 +64,9 @@ function smde_add_education_settings() {
 		//in case of multisite installation, we receive network options for locations and properties
 		if (is_multisite()){
 			$network_locations = get_blog_option(1, 'smde_net_locations');
-			$network_shares_edu = get_blog_option(1, 'smde_net_edu_shares');
+			$network_shares_edu = get_blog_option(1, 'smde_net_edu_');
 			$network_freezes_edu = get_blog_option(1, 'smde_net_edu_freezes');
-			$network_shares_class = get_blog_option(1, 'smde_net_class_shares');
+			$network_shares_class = get_blog_option(1, 'smde_net_class_');
 			$network_freezes_class = get_blog_option(1, 'smde_net_class_freezes');
 		}
 
@@ -92,36 +99,43 @@ function smde_add_education_settings() {
 		//adding settings for educational properties
 		foreach (edu_meta::$edu_properties as $key => $data) {
 
-			add_settings_field ('smde_edu_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_edu, $freezes_edu, $network_shares_edu, $network_freezes_edu){
-				$checked_edu_share = isset($shares_edu[$key]) ? true : false;
-				$checked_edu_freeze = isset($freezes_edu[$key]) ? true : false;
-
+			add_settings_field ('smde_edu_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_edu,$network_shares_edu){
 				//in case share or freeze is network enabled, checkbox becomes disabled to prevent changes
-				$disabled_share = isset($network_shares_edu[$key]) && $network_shares_edu[$key] ? 'disabled' : '';
-				$disabled_freeze = isset($network_freezes_edu[$key]) && $network_freezes_edu[$key] ? 'disabled' : '';
+
+		//		$shares_class[$key] = !empty($shares_class[$key]) ? $shares_class[$key] : '0';
+		if (!empty($network_shares_edu)) {
+			if ($network_shares_edu[$key] == '0') {
+				$shares_edu = get_option('smde_edu_');
+			// $shares_class[$key] == '0';
+			 $valeur_key_edu = '4';
+
+			}
+			else {
+				$shares_edu[$key] = $network_shares_edu[$key];
+				 $valeur_key_edu = $shares_edu[$key];
+			}
+		}else
+		 {
+			$disabled_ca = '';
+			$valeur_key_edu = '4';
+
+		}
 				?>
-					<label for="smde_edu_shares[<?=$key?>]"><i>Share</i> <input type="checkbox" name="smde_edu_shares[<?=$key?>]" id="smde_edu_shares[<?=$key?>]" value="1" <?php checked(1, $checked_edu_share); echo $disabled_share?>></label>
-					<label for="smde_edu_freezes[<?=$key?>]"><i>Freeze</i> <input type="checkbox" name="smde_edu_freezes[<?=$key?>]" id="smde_edu_freezes[<?=$key?>]" value="1" <?php checked(1, $checked_edu_freeze); echo $disabled_freeze?>></label>
+				<label for="smde_edu_disable[<?=$key?>]">Disable <input type="radio"  name="smde_edu_[<?=$key?>]" value="1" id="smde_edu_disable[<?=$key?>]" <?php if ($shares_edu[$key]=='1') { echo "checked='checked'"; }
+				?>  <?php  if ($valeur_key_edu == '1' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?> ></label>
+				<label for="smde_edu_local_value[<?=$key?>]">Local value <input type="radio"  name="smde_edu_[<?=$key?>]" value="0" id="smde_edu_local_value[<?=$key?>]" <?php if ($shares_edu[$key]=='0' || empty($shares_edu[$key])) { echo "checked='checked'"; }
+				?>  <?php  if ($valeur_key_edu == '0' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>></label>
+				<label  for="smde_edu_share[<?=$key?>]">Share <input type="radio"  name="smde_edu_[<?=$key?>]" value="2" id="smde_edu_share[<?=$key?>]" <?php if ($shares_edu[$key]=='2') { echo "checked='checked'"; }
+				?>  <?php  if ($valeur_key_edu == '2' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>></label>
+				<label for="smde_edu_freeze[<?=$key?>]">Freeze <input type="radio"  name="smde_edu_[<?=$key?>]" value="3" id="smde_edu_freeze[<?=$key?>]"  <?php if ($shares_edu[$key]=='3') { echo "checked='checked'"; }
+				?> <?php  if ($valeur_key_edu == '3' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>></label>
 					<br><span class="description"><?=$data[1]?></span>
 				<?php
 				//if checkboxes are disabled, we add hidden field to store value of option
-				if ('disabled' == $disabled_share){
-					?>
-						<input type="hidden" name="smde_edu_shares[<?=$key?>]" value="1">
-					<?php
-				}
-				if ('disabled' == $disabled_freeze){
-					?>
-						<input type="hidden" name="smde_edu_freezes[<?=$key?>]" value="1">
-					<?php
-				}
 			}, 'smde_meta_edu_properties', 'smde_meta_edu_properties');
 		}
-
 		//adding settings for classification properties
 		foreach (class_meta::$classification_properties_main as $key => $data) {
-
-			//we do not add option for 'specificClass' property (no need to control it)
 			if ('specificClass' == $key){
 				continue;
 			}
@@ -129,47 +143,82 @@ function smde_add_education_settings() {
 			if (is_multisite() && get_blog_option(1, 'smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
 				continue;
 			}
+		  add_settings_field ('smde_class_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_class,$network_shares_class, $network_freezes_class){
+		    $checked_class_share = isset($shares_class[$key]) ? true : false;
+		    $checked_class_freeze = isset($freezes_class[$key]) ? true : false;
 
-			add_settings_field ('smde_class_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_class, $freezes_class, $network_shares_class, $network_freezes_class){
-				$checked_class_share = isset($shares_class[$key]) ? true : false;
-				$checked_class_freeze = isset($freezes_class[$key]) ? true : false;
-				//in case share or freeze is network enabled, checkbox becomes disabled to prevent changes
-				$disabled_share = isset($network_shares_class[$key]) && $network_shares_class[$key] ? 'disabled' : '';
-				$disabled_freeze = isset($network_freezes_class[$key]) && $network_freezes_class[$key] ? 'disabled' : '';
-				?>
-					<label for="smde_class_shares[<?=$key?>]"><i>Share</i> <input type="checkbox" name="smde_class_shares[<?=$key?>]" id="smde_class_shares[<?=$key?>]" value="1" <?php checked(1, $checked_class_share); echo $disabled_share?>></label>
-					<label for="smde_class_freezes[<?=$key?>]"><i>Freeze</i> <input type="checkbox" name="smde_class_freezes[<?=$key?>]" id="smde_class_freezes[<?=$key?>]" value="1" <?php checked(1, $checked_class_freeze); echo $disabled_freeze?>></label>
-					<br><span class="description"><?=$data[1]?></span>
-				<?php
-				//if checkboxes are disabled, we add hidden field to store value of option
-				if ('disabled' == $disabled_share){
-					?>
-						<input type="hidden" name="smde_class_shares[<?=$key?>]" value="1">
-					<?php
-				}
-				if ('disabled' == $disabled_freeze){
-					?>
-						<input type="hidden" name="smde_class_freezes[<?=$key?>]" value="1">
-					<?php
-				}
-			}, 'smde_meta_edu_properties', 'smde_meta_class_properties');
+		if (!empty($network_shares_class)) {
+			if ($network_shares_class[$key] == '0') {
+				$shares_class = get_option('smde_class_');
+			// $shares_class[$key] == '0';
+			 $valeur_key = '4';
 
+			}
+			else {
+				$shares_class[$key] = $network_shares_class[$key];
+				 $valeur_key = $shares_class[$key];
+			}
+		}else
+		 {
+			$disabled_ca = '';
+		}
+
+		    ?>
+				<label for="smde_class_disable[<?=$key?>]">Disable <input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }
+				?> <?php checked('disable', get_option('smde_class_'.$key)); ?> <?php  if ($valeur_key == '1' || $valeur_key == '4') {echo "";}else {echo "disabled";}
+ ?> ></label>
+				<label for="smde_class_local_value[<?=$key?>]">Local value <input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0' || empty($shares_class[$key])) { echo "checked='checked'"; }
+				?>  <?php checked('0', get_option('smde_class_'.$key)); ?> <?php  if ($valeur_key == '0' || $valeur_key == '4') {echo "";}else {echo "disabled";}
+?>></label>
+				<label  for="smde_class_share[<?=$key?>]">Share <input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }
+				?> <?php checked('share', get_option($shares_class[$key])); ?> <?php  if ($valeur_key == '2' || $valeur_key == '4') {echo "";}else {echo "disabled";}
+ ?>></label>
+				<label for="smde_class_freeze[<?=$key?>]">Freeze <input type="radio"  name="smde_class_[<?=$key?>]" value="3" id="smde_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }
+				?>  <?php checked('freeze', get_option('smde_class_'.$key)); ?><?php  if ($valeur_key == '3' || $valeur_key == '4') {echo "";}else {echo "disabled";}
+ ?>></label>
+		      <br><span class="description"><?=$data[1]?></span>
+		    <?php
+		    //if checkboxes are disabled, we add hidden field to store value of option
+		  }, 'smde_meta_edu_properties', 'smde_meta_class_properties');
 		}
 
 		if (is_multisite() && get_blog_option(1, 'smde_net_for_lang')){
 			add_settings_field ('smde_class_eduLang', 'Studying content', function () use ($key, $shares_class, $freezes_class, $network_shares_class, $network_freezes_class){
-				$checked_class_share = isset($shares_class['eduLang']) ? true : false;
-				$checked_class_freeze = isset($freezes_class['eduLang']) ? true : false;
+
 				//in case share or freeze is network enabled, checkbox becomes disabled to prevent changes
-				$disabled_share = isset($network_shares_class['eduLang']) && $network_shares_class['eduLang'] ? 'disabled' : '';
-				$disabled_freeze = isset($network_freezes_class['eduLang']) && $network_freezes_class['eduLang'] ? 'disabled' : '';
+				$key = 'eduLang';
+				if (!empty($network_shares_class)) {
+					if ($network_shares_class[$key] == '0') {
+						$shares_class = get_option('smde_net_for_lang');
+					// $shares_class[$key] == '0';
+					 $valeur_key_langue = '4';
+					}
+					else {
+						$shares_class[$key] = $network_shares_class[$key];
+						 $valeur_key_langue = $shares_class[$key];
+					}
+				}else
+				 {
+					$disabled_ca = '';
+				}
 				?>
-					<label for="smde_class_shares[eduLang]"><i>Share</i> <input type="checkbox" name="smde_class_shares[eduLang]" id="smde_class_shares[eduLang]" value="1" <?php checked(1, $checked_class_share);  echo $disabled_share?>></label>
-					<label for="smde_class_freezes[eduLang]"><i>Freeze</i> <input type="checkbox" name="smde_class_freezes[eduLang]" id="smde_class_freezes[eduLang]" value="1" <?php checked(1, $checked_class_freeze);  echo $disabled_freeze?>></label>
+				<label for="smde_class_disable[<?=$key?>]">Disable <input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }
+				?> <?php checked('disable', get_option('smde_class_'.$key)); ?> <?php  if ($valeur_key_langue == '1' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}
+ ?> ></label>
+				<label for="smde_class_local_value[<?=$key?>]">Local value <input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0' || empty($shares_class[$key])) { echo "checked='checked'"; }
+				?>  <?php checked('0', get_option('smde_class_'.$key)); ?> <?php  if ($valeur_key_langue == '0' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}
+?>></label>
+				<label  for="smde_class_share[<?=$key?>]">Share <input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }
+				?> <?php checked('share', get_option($shares_class[$key])); ?> <?php  if ($valeur_key_langue == '2' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}
+ ?>></label>
+				<label for="smde_class_freeze[<?=$key?>]">Freeze <input type="radio"  name="smde_class_[<?=$key?>]" value="3" id="smde_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }
+				?>  <?php checked('freeze', get_option('smde_class_'.$key)); ?><?php  if ($valeur_key_langue == '3' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}
+ ?>></label>
 					<br><span class="description">Language which content is about</span>
 				<?php
 			}, 'smde_meta_edu_properties', 'smde_meta_class_properties');
 		}
+
 	}
 }
 
@@ -258,23 +307,18 @@ function smde_render_metabox_edu_properties(){
 	}
 }
 
-/**
- * Function for updating options and forcing overwritings on settings update
- */
 function smde_update_overwrites(){
 
 	//collecting options for locations, freezes and shares
 	$locations = get_option('smde_locations');
-	$shares_edu = get_option('smde_edu_shares');
-	$freezes_edu = get_option('smde_edu_freezes');
-	$shares_class = get_option('smde_class_shares');
-	$freezes_class = get_option('smde_class_freezes');
+	$shares_edu = get_option('smde_edu_');
+	$shares_class = get_option('smde_class_');
+
 
 	//if there is no freezes or shres at all, exit
-	if(empty($shares_edu) && empty($freezes_edu) && empty($freezes_class) && empty($shares_class)){
+	if(empty($shares_edu) && empty($shares_class)){
 		return;
 	}
-
 	//Wordpress Database variable for database operations
 	global $wpdb;
     //Get the posts table name
@@ -320,165 +364,154 @@ function smde_update_overwrites(){
 
     //checking if there is somthing to share for educational properties, we always skip site-meta location
 	if(!empty($shares_edu)){
+		//looping through all active location
+						foreach ($shares_edu as $key => $value) {
+							if ($value=='2') {
+								foreach ($locations as $location => $val){
+									if ($location == $meta_type) {
+										continue;
+									}
+						        	//Getting all posts of $location type
+						        	$posts_ids = $wpdb->get_results($wpdb->prepare("
+						        	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
 
-		//looping through all active locations
-		foreach ($locations as $location => $val){
-			if ($location == $meta_type) {
-				continue;
-			}
-        	//Getting all posts of $location type
-        	$posts_ids = $wpdb->get_results($wpdb->prepare("
-        	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
+						        	//looping through all posts of type $locations
+						        	foreach ($posts_ids as $post_id) {
+						        		$post_id = $post_id['ID'];
 
-        	//looping through all posts of type $locations
-        	foreach ($posts_ids as $post_id) {
-        		$post_id = $post_id['ID'];
+						        		foreach ($shares_edu as $key => $value) {
+													if ($value=='2') {
+						        			$meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$location;
+						        			$metadata_meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$meta_type;
+						        			//we share value only in case no value existed for this field before
+						        			if(!get_post_meta($post_id, $meta_key) || '' == get_post_meta($post_id, $meta_key)){
+						        				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
+						        			}
+						        		}
+											 }
+						        	}
 
-        		foreach ($shares_edu as $key => $value) {
-        			$meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$location;
-        			$metadata_meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$meta_type;
-        			//we share value only in case no value existed for this field before
-        			if(!get_post_meta($post_id, $meta_key) || '' == get_post_meta($post_id, $meta_key)){
-        				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
-        			}
+								}
+							}
+							if ($value=='3') {
+								foreach ($locations as $location => $val){
+									if ($location == $meta_type) {
+										continue;
+									}
+						        	//Getting all posts of $location type
+						        	$posts_ids = $wpdb->get_results($wpdb->prepare("
+						        	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
+
+						        	//looping through all posts of type $locations
+						        	foreach ($posts_ids as $post_id) {
+						        		$post_id = $post_id['ID'];
+
+						        		foreach ($shares_edu as $key => $value) {
+														if ($value=='3') {
+						        			$meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$location;
+						        			$metadata_meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$meta_type;
+						        			//we freeze values only exisitng in Book Info
+						        			if(isset($metaData[$metadata_meta_key])){
+
+						        				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
+						        			}
+													}
+						        		}
+						        	}
+
+								}
+							}
         		}
         	}
 
-		}
-	}
+					if(!empty($shares_class)){
+						//looping through all active location
+										foreach ($shares_class as $key => $value) {
+											if ($value=='2') {
+												foreach ($locations as $location => $val){
+													if ($location == $meta_type) {
+														continue;
+													}
+										        	//Getting all posts of $location type
+										        	$posts_ids = $wpdb->get_results($wpdb->prepare("
+										        	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
 
-	//checking if there is somthing to freeze for educational properties, we always skip site-meta location
-	if(!empty($freezes_edu)){
+										        	//looping through all posts of type $locations
+										        	foreach ($posts_ids as $post_id) {
+										        		$post_id = $post_id['ID'];
 
-		//looping through all active locations
-		foreach ($locations as $location => $val){
-			if ($location == $meta_type) {
-				continue;
-			}
-        	//Getting all posts of $location type
-        	$posts_ids = $wpdb->get_results($wpdb->prepare("
-        	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
+										        		foreach ($shares_class as $key => $value) {
+																	if ($value=='2') {
+																		$meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$location;
+											        			$meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$location;
+											        			$meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$location;
+											        			$metadata_meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$meta_type;
+											        			$metadata_meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$meta_type;
+											        			$metadata_meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$meta_type;
+										        			//we share value only in case no value existed for this field before
+																	if((!get_post_meta($post_id, $meta_key) || '' == get_post_meta($post_id, $meta_key)) && isset($metaData[$metadata_meta_key])){
+										        				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
+										        					//if description and url were provided, we also share them
+										        					if (isset($metaData[$metadata_meta_key_desc])){
+										        						update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
+										        					}
+										        					if (isset($metaData[$metadata_meta_key_url])) {
+										        						update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
+										        					}
+										        				}
 
-        	//looping through all posts of type $locations
-        	foreach ($posts_ids as $post_id) {
-        		$post_id = $post_id['ID'];
+										        		}
+															 }
+										        	}
 
-        		foreach ($freezes_edu as $key => $value) {
-        			$meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$location;
-        			$metadata_meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$meta_type;
-        			//we freeze values only exisitng in Book Info
-        			if(isset($metaData[$metadata_meta_key])){
-        				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
-        			}
-        		}
-        	}
+												}
+											}
+											if ($value=='3') {
+												foreach ($locations as $location => $val){
+													if ($location == $meta_type) {
+														continue;
+													}
+										        	//Getting all posts of $location type
+										        	$posts_ids = $wpdb->get_results($wpdb->prepare("
+										        	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
 
-		}
-	}
+										        	//looping through all posts of type $locations
+										        	foreach ($posts_ids as $post_id) {
+										        		$post_id = $post_id['ID'];
 
-	//checking if there is somthing to share for classification properties, we always skip site-meta location
-	if(!empty($shares_class)){
+										        		foreach ($shares_class as $key => $value) {
+																		if ($value=='3') {
+																			$meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$location;
+												        			$meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$location;
+												        			$meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$location;
+												        			$metadata_meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$meta_type;
+												        			$metadata_meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$meta_type;
+												        			$metadata_meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$meta_type;
+										        			//we freeze values only exisitng in Book Info
+										        			if(isset($metaData[$metadata_meta_key])){
 
-		//looping through all active locations
-		foreach ($locations as $location => $val){
-			if ($location == $meta_type) {
-				continue;
-			}
-        	//Getting all posts of $location type
-        	$posts_ids = $wpdb->get_results($wpdb->prepare("
-        	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
+										        				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
+																			//in case description and url were provided, we also share them
+																			if (isset($metaData[$metadata_meta_key_desc])){
+																				update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
+																			}
+																			if (isset($metaData[$metadata_meta_key_url])) {
+																				update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
+																			}
 
-        	//looping through all posts of type $locations
-        	foreach ($posts_ids as $post_id) {
-        		$post_id = $post_id['ID'];
+										        			}
+																	}
+										        		}
+										        	}
 
-        		foreach ($shares_class as $key => $value) {
-        			$meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$location;
-        			$meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$location;
-        			$meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$location;
-        			$metadata_meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$meta_type;
-        			$metadata_meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$meta_type;
-        			$metadata_meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$meta_type;
-
-					//we share value only in case no value existed for this field before
-        			if((!get_post_meta($post_id, $meta_key) || '' == get_post_meta($post_id, $meta_key)) && isset($metaData[$metadata_meta_key])){
-
-        				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
-
-        				if (!get_blog_option(1, 'smde_net_for_lang')){
-        					//if description and url were provided, we also share them
-        					if (isset($metaData[$metadata_meta_key_desc])){
-        						update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
-        					}
-        					if (isset($metaData[$metadata_meta_key_url])) {
-        						update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
-        					}
-        				}
-        			}
-        		}
-        	}
-		}
-	}
-
-	//checking if there is somthing to freeze for classification properties, we always skip site-meta location
-	if(!empty($freezes_class)){
-
-		//looping through all active locations
-		foreach ($locations as $location => $val){
-			if ($location == $meta_type) {
-				continue;
-			}
-        	//Getting all posts of $location type
-        	$posts_ids = $wpdb->get_results($wpdb->prepare("
-        	SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
-
-        	//looping through all posts of type $locations
-        	foreach ($posts_ids as $post_id) {
-        		$post_id = $post_id['ID'];
-
-        		foreach ($freezes_class as $key => $value) {
-        			$meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$location;
-        			$meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$location;
-        			$meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$location;
-        			$metadata_meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$meta_type;
-        			$metadata_meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$meta_type;
-        			$metadata_meta_key_url = 'smde_'.strtolower($key).'_url_class_vocab_'.$meta_type;
-
-        			//we overwrite value only if it is defined in Book Info - Site Meta
-        			if(isset($metaData[$metadata_meta_key])){
-
-        				update_post_meta($post_id, $meta_key, $metaData[$metadata_meta_key]);
-
-        				if (!get_blog_option(1, 'smde_net_for_lang')){
-        					//in case description and url were provided, we also share them
-        					if (isset($metaData[$metadata_meta_key_desc])){
-        						update_post_meta($post_id, $meta_key_desc, $metaData[$metadata_meta_key_desc]);
-        					}
-        					if (isset($metaData[$metadata_meta_key_url])) {
-        						update_post_meta($post_id, $meta_key_url, $metaData[$metadata_meta_key_url]);
-        					}
-        				}
-        			}
-        		}
-        	}
-		}
-	}
+												}
+											}
+				        		}
+				        	}
 }
 
 add_action('admin_menu', 'smde_add_education_settings', 100);
 add_action('updated_option', function( $option_name, $old_value, $value ){
-	if ('smde_edu_freezes' == $option_name){
-		$shares = get_option('smde_edu_shares') ?: [];
-		$value = empty($value) ? [] : $value;
-		$shares = array_merge($shares, $value);
-		update_option('smde_edu_shares', $shares);
-	}
-	if ('smde_class_freezes' == $option_name){
-		$shares = get_option('smde_class_shares') ?: [];
-		$value = empty($value) ? [] : $value;
-		$shares = array_merge($shares, $value);
-		update_option('smde_class_shares', $shares);
-	}
 	if ('smde_locations' == $option_name){
 		$locations_general = get_option('smd_locations') ?: [];
 		$value = empty($value) ? [] : $value;

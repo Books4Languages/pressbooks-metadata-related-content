@@ -73,7 +73,7 @@ Take a look at detailed changelog [here](/CHANGELOG.md)
 
 ### 1.2
 * **REMOVED**
-    *  Auto update from github
+    *  Auto update from github.
 * **ENHANCEMENTS***
 		* Make in corect order the admin panel. Change name site-meta in home page
 * **List of Files revised**
