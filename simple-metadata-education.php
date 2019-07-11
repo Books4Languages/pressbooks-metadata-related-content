@@ -1,16 +1,29 @@
 <?php
 
-/*
-Plugin Name: Simple Metadata Education
-Plugin URI: https://github.com/my-language-skills/simple-metadata-education
-Description: Simple Metadata add-on for educational purposes.
-Version: 1.1
-Author: My Language Skills team
-Author URI: https://github.com/my-language-skills
-Text Domain: simple-metadata-education
-Domain Path: /languages
-License: GPL 3.0
-*/
+/**
+ * Simple Metadata - Education
+ *
+ * This file is read by WordPress to generate the plugin information in the plugin
+ * admin area. This file also includes all of the dependencies used by the plugin,
+ * registers the activation and deactivation functions, and defines a function
+ * that starts the plugin.
+ *
+ * @link              https://github.com/my-language-skills/simple-metadata-education
+ * @since             1.0
+ * @package           simple-metadata-education
+ *
+ * @wordpress-plugin
+ * Plugin Name:       Simple Metadata - Education
+ * Plugin URI:        https://github.com/my-language-skills/simple-metadata-education
+ * Description:       Simple Metadata add-on for educational purposes.
+ * Version:           1.1
+ * Author:            My Language Skills team
+ * Author URI:        https://github.com/my-language-skills/
+ * License:           GPL 3.0
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
+ * Text Domain:       simple-metadata-education
+ * Domain Path:       /languages
+ */
 
 defined ("ABSPATH") or die ("No script assholes!");
 
