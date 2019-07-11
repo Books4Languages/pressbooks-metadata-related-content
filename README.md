@@ -72,12 +72,17 @@ Take a look at detailed changelog [here](/CHANGELOG.md)
 
 
 ### 1.2
+* **ADDITIONS**
+		* Internationalization
 * **REMOVED**
     *  Auto update from github.
 * **ENHANCEMENTS***
 		* Make in corect order the admin panel. Change name site-meta in home page
 * **List of Files revised**
-   * smd-admin-settings.php
+   * smde-admin-settings.php
+	 * simple-metadata-education.php
+	 * smde-classification-vocabulary.php
+
 
 
 ### 1.1
