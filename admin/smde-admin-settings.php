@@ -15,18 +15,18 @@ function smde_add_education_settings() {
 	if ((1 != get_current_blog_id() && is_multisite()) || !is_multisite()){
 
 		//adding submenu page to main plugin settigns page
-		add_submenu_page('smd_set_page','Educational Metadata', 'Educational Metadata', 'manage_options', 'smde_set_page', 'smde_render_settings');
+		add_submenu_page('smd_set_page',__('Educational Metadata', 'simple-metadata-education'), __('Educational Metadata', 'simple-metadata-education'), 'manage_options', 'smde_set_page', 'smde_render_settings');
 
 		//adding active locations metabox and settings section
-		add_meta_box('smde-metadata-location', 'Educational Metadata', 'smde_render_metabox_schema_locations', 'smd_set_page', 'normal', 'core');
+		add_meta_box('smde-metadata-location', __('Educational Metadata', 'simple-metadata-education'), 'smde_render_metabox_schema_locations', 'smd_set_page', 'normal', 'core');
 
 		add_settings_section( 'smde_meta_locations', '', '', 'smde_meta_locations' );
 
 		//adding properties metabox and sections for educational properties and classification properties
-		add_meta_box('smde-metadata-edu-properties', 'Properties Management', 'smde_render_metabox_edu_properties', 'smde_set_page', 'normal', 'core');
+		add_meta_box('smde-metadata-edu-properties', __('Properties Management', 'simple-metadata-education'), 'smde_render_metabox_edu_properties', 'smde_set_page', 'normal', 'core');
 
-		add_settings_section( 'smde_meta_edu_properties', 'Educational Properties', '', 'smde_meta_edu_properties' );
-		add_settings_section( 'smde_meta_class_properties', 'Classification Properties', '', 'smde_meta_edu_properties' );
+		add_settings_section( 'smde_meta_edu_properties', __('Educational Properties', 'simple-metadata-education'), '', 'smde_meta_edu_properties' );
+		add_settings_section( 'smde_meta_class_properties', __('Classification Properties', 'simple-metadata-education'), '', 'smde_meta_edu_properties' );
 
 		//registering setings to corresponding sections
 		register_setting('smde_meta_locations', 'smde_locations');
@@ -121,14 +121,27 @@ function smde_add_education_settings() {
 
 		}
 				?>
-				<label for="smde_edu_disable[<?=$key?>]">Disable <input type="radio"  name="smde_edu_[<?=$key?>]" value="1" id="smde_edu_disable[<?=$key?>]" <?php if ($shares_edu[$key]=='1') { echo "checked='checked'"; }
-				?>  <?php  if ($valeur_key_edu == '1' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?> ></label>
-				<label for="smde_edu_local_value[<?=$key?>]">Local value <input type="radio"  name="smde_edu_[<?=$key?>]" value="0" id="smde_edu_local_value[<?=$key?>]" <?php if ($shares_edu[$key]=='0' || empty($shares_edu[$key])) { echo "checked='checked'"; }
-				?>  <?php  if ($valeur_key_edu == '0' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>></label>
-				<label  for="smde_edu_share[<?=$key?>]">Share <input type="radio"  name="smde_edu_[<?=$key?>]" value="2" id="smde_edu_share[<?=$key?>]" <?php if ($shares_edu[$key]=='2') { echo "checked='checked'"; }
-				?>  <?php  if ($valeur_key_edu == '2' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>></label>
-				<label for="smde_edu_freeze[<?=$key?>]">Freeze <input type="radio"  name="smde_edu_[<?=$key?>]" value="3" id="smde_edu_freeze[<?=$key?>]"  <?php if ($shares_edu[$key]=='3') { echo "checked='checked'"; }
-				?> <?php  if ($valeur_key_edu == '3' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>></label>
+				<label for="smde_edu_disable[<?=$key?>]">
+					<?php esc_html_e('Disable', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_edu_[<?=$key?>]" value="1" id="smde_edu_disable[<?=$key?>]" <?php if ($shares_edu[$key]=='1') { echo "checked='checked'"; }?>
+					<?php  if ($valeur_key_edu == '1' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";} ?>
+					>
+				</label>
+				<label for="smde_edu_local_value[<?=$key?>]">
+					<?php esc_html_e('Local value', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_edu_[<?=$key?>]" value="0" id="smde_edu_local_value[<?=$key?>]" <?php if ($shares_edu[$key]=='0' || empty($shares_edu[$key])) { echo "checked='checked'"; } ?>
+					<?php  if ($valeur_key_edu == '0' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>>
+				</label>
+				<label  for="smde_edu_share[<?=$key?>]">
+					<?php esc_html_e('Share', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_edu_[<?=$key?>]" value="2" id="smde_edu_share[<?=$key?>]" <?php if ($shares_edu[$key]=='2') { echo "checked='checked'"; }?>
+					<?php  if ($valeur_key_edu == '2' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>>
+				</label>
+				<label for="smde_edu_freeze[<?=$key?>]">
+					<?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_edu_[<?=$key?>]" value="3" id="smde_edu_freeze[<?=$key?>]"  <?php if ($shares_edu[$key]=='3') { echo "checked='checked'"; }?>
+					<?php  if ($valeur_key_edu == '3' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>>
+				</label>
 					<br><span class="description"><?=$data[1]?></span>
 				<?php
 				//if checkboxes are disabled, we add hidden field to store value of option
@@ -161,21 +174,39 @@ function smde_add_education_settings() {
 		}else
 		 {
 			$disabled_ca = '';
+			$valeur_key = '4';
 		}
 
 		    ?>
-				<label for="smde_class_disable[<?=$key?>]">Disable <input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }
-				?> <?php checked('disable', get_option('smde_class_'.$key)); ?> <?php  if ($valeur_key == '1' || $valeur_key == '4') {echo "";}else {echo "disabled";}
- ?> ></label>
-				<label for="smde_class_local_value[<?=$key?>]">Local value <input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0' || empty($shares_class[$key])) { echo "checked='checked'"; }
-				?>  <?php checked('0', get_option('smde_class_'.$key)); ?> <?php  if ($valeur_key == '0' || $valeur_key == '4') {echo "";}else {echo "disabled";}
-?>></label>
-				<label  for="smde_class_share[<?=$key?>]">Share <input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }
-				?> <?php checked('share', get_option($shares_class[$key])); ?> <?php  if ($valeur_key == '2' || $valeur_key == '4') {echo "";}else {echo "disabled";}
- ?>></label>
-				<label for="smde_class_freeze[<?=$key?>]">Freeze <input type="radio"  name="smde_class_[<?=$key?>]" value="3" id="smde_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }
-				?>  <?php checked('freeze', get_option('smde_class_'.$key)); ?><?php  if ($valeur_key == '3' || $valeur_key == '4') {echo "";}else {echo "disabled";}
- ?>></label>
+				<label for="smde_class_disable[<?=$key?>]">
+					<?php esc_html_e('Disable', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]"
+						<?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }?>
+						<?php checked('disable', get_option('smde_class_'.$key)); ?> <?php  if ($valeur_key == '1' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
+					>
+				</label>
+				<label for="smde_class_local_value[<?=$key?>]">
+					<?php esc_html_e('Local value', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0' || empty($shares_class[$key])) { echo "checked='checked'"; }?>
+						<?php checked('0', get_option('smde_class_'.$key)); ?>
+						<?php  if ($valeur_key == '0' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
+					>
+				</label>
+				<label  for="smde_class_share[<?=$key?>]">
+					<?php esc_html_e('Share', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?>
+						<?php checked('share', get_option($shares_class[$key])); ?>
+						<?php  if ($valeur_key == '2' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
+					>
+				</label>
+				<label for="smde_class_freeze[<?=$key?>]">
+					<?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_class_[<?=$key?>]" value="3" id="smde_class_freeze[<?=$key?>]"
+					<?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }?>
+					<?php checked('freeze', get_option('smde_class_'.$key)); ?>
+					<?php  if ($valeur_key == '3' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
+					>
+				</label>
 		      <br><span class="description"><?=$data[1]?></span>
 		    <?php
 		    //if checkboxes are disabled, we add hidden field to store value of option
@@ -200,21 +231,42 @@ function smde_add_education_settings() {
 				}else
 				 {
 					$disabled_ca = '';
+					$valeur_key_langue = '4';
 				}
 				?>
-				<label for="smde_class_disable[<?=$key?>]">Disable <input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }
-				?> <?php checked('disable', get_option('smde_class_'.$key)); ?> <?php  if ($valeur_key_langue == '1' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}
- ?> ></label>
-				<label for="smde_class_local_value[<?=$key?>]">Local value <input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0' || empty($shares_class[$key])) { echo "checked='checked'"; }
-				?>  <?php checked('0', get_option('smde_class_'.$key)); ?> <?php  if ($valeur_key_langue == '0' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}
-?>></label>
-				<label  for="smde_class_share[<?=$key?>]">Share <input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }
-				?> <?php checked('share', get_option($shares_class[$key])); ?> <?php  if ($valeur_key_langue == '2' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}
- ?>></label>
-				<label for="smde_class_freeze[<?=$key?>]">Freeze <input type="radio"  name="smde_class_[<?=$key?>]" value="3" id="smde_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }
-				?>  <?php checked('freeze', get_option('smde_class_'.$key)); ?><?php  if ($valeur_key_langue == '3' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}
- ?>></label>
-					<br><span class="description">Language which content is about</span>
+				<label for="smde_class_disable[<?=$key?>]">
+					<?php esc_html_e('Disable', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]"
+					<?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }?>
+					<?php checked('disable', get_option('smde_class_'.$key)); ?>
+					<?php  if ($valeur_key_langue == '1' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}?>
+					>
+				</label>
+				<label for="smde_class_local_value[<?=$key?>]">
+					<?php esc_html_e('Local value', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]"
+					<?php if ($shares_class[$key]=='0' || empty($shares_class[$key])) { echo "checked='checked'"; }?>
+					<?php checked('0', get_option('smde_class_'.$key)); ?>
+					<?php  if ($valeur_key_langue == '0' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}?>
+					>
+				</label>
+				<label  for="smde_class_share[<?=$key?>]">
+					<?php esc_html_e('Share', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]"
+					<?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?>
+					<?php checked('share', get_option($shares_class[$key])); ?>
+					<?php  if ($valeur_key_langue == '2' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";} ?>
+					>
+				</label>
+				<label for="smde_class_freeze[<?=$key?>]">
+					<?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
+					<input type="radio"  name="smde_class_[<?=$key?>]" value="3" id="smde_class_freeze[<?=$key?>]"
+					<?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }?>
+					<?php checked('freeze', get_option('smde_class_'.$key)); ?>
+					<?php  if ($valeur_key_langue == '3' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";} ?>
+					>
+				</label>
+					<br><span class="description"><?php esc_html_e('Language which content is about', 'simple-metadata-education'); ?></span>
 				<?php
 			}, 'smde_meta_edu_properties', 'smde_meta_class_properties');
 		}
@@ -237,10 +289,10 @@ function smde_render_settings() {
         <div class="wrap">
         	<?php if (isset($_GET['settings-updated']) && $_GET['settings-updated']) { //in case settings were saved we show notice and fire overwriting?>
         	<div class="notice notice-success is-dismissible">
-				<p><strong>Settings saved.</strong></p>
+				<p><strong><?php esc_html_e('Settings saved.', 'simple-metadata-education'); ?></strong></p>
 			</div>
 			<?php smde_update_overwrites(); }?>
-            <h2>Simple Metadata Education Settings</h2>
+            <h2><?php esc_html_e('Simple Metadata Education Settings', 'simple-metadata-education'); ?></h2>
             <div class="metabox-holder">
 					<?php
 					do_meta_boxes('smde_set_page', 'normal','');
@@ -266,7 +318,9 @@ function smde_render_settings() {
 function smde_render_metabox_schema_locations(){
 	?>
 	<div id="smde_meta_locations" class="smde_meta_locations">
-		<span class="description">Description for educational locations metabox</span>
+		<span class="description">
+			<?php esc_html_e('Description for educational locations metabox', 'simple-metadata-education'); ?>
+		</span>
 		<form method="post" action="options.php">
 			<?php
 			settings_fields( 'smde_meta_locations' );
@@ -289,7 +343,9 @@ function smde_render_metabox_edu_properties(){
 	if (isset($locations[$level]) && $locations[$level]){
 	?>
 	<div id="smde_meta_edu_properties" class="smde_meta_edu_properties">
-		<span class="description">Description for educational properties metabox</span>
+		<span class="description">
+			<?php esc_html_e('Description for educational properties metabox', 'simple-metadata-education'); ?>
+		</span>
 		<form method="post" action="options.php">
 			<?php
 			settings_fields( 'smde_meta_edu_properties' );
@@ -302,7 +358,9 @@ function smde_render_metabox_edu_properties(){
 	<?php
 	} else { // we don't show properties controls in case Book Info - Site-Meta location is not active (senseless)
 		?>
-			<p style="color: red;">Activate <?=$label?> location in order to manage properties.</p>
+			<p style="color: red;">
+				<?php printf(esc_html__('Activate %s location in order to manage properties.', 'simple-metadata-education'), $label); ?>
+			</p>
 		<?php
 	}
 }

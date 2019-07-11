@@ -34,7 +34,14 @@ if(is_plugin_active('simple-metadata/simple-metadata.php')){
 		add_action( 'network_admin_notices', function () {
 			?>
     		<div class="notice notice-info is-dismissible">
-        		<p><strong>'Simple Metadata Education'</strong> functionality is deprecated due to the following reason: <strong>'Simple Metadata'</strong> plugin is not installed or not activated. Please, install <strong>'Simple Metadata'</strong> in order to fix the problem.</p>
+        		<p>
+							<strong>'Simple Metadata Education'</strong>
+							<?php esc_html_e('functionality is deprecated due to the following reason:', 'simple-metadata-education'); ?>
+							<strong>'Simple Metadata'</strong>
+							<?php esc_html_e('plugin is not installed or not activated. Please, install', 'simple-metadata-education'); ?>
+							<strong>'Simple Metadata'</strong>
+							<?php esc_html_e('in order to fix the problem.', 'simple-metadata-education'); ?>
+						</p>
     		</div>
     	<?php
 		});
@@ -42,9 +49,33 @@ if(is_plugin_active('simple-metadata/simple-metadata.php')){
 		add_action( 'admin_notices', function () {
 			?>
     		<div class="notice notice-info is-dismissible">
-        		<p><strong>'Simple Metadata Education'</strong> functionality is deprecated due to the following reason: <strong>'Simple Metadata'</strong> plugin is not installed or not activated. Please, install <strong>'Simple Metadata'</strong> plugin in order to fix the problem.</p>
+        		<p>
+							<strong>'Simple Metadata Education'</strong>
+							<?php esc_html_e('functionality is deprecated due to the following reason:', 'simple-metadata-education'); ?>
+							<strong>'Simple Metadata'</strong>
+							<?php esc_html_e('plugin is not installed or not activated. Please, install', 'simple-metadata-education'); ?>
+							<strong>'Simple Metadata'</strong>
+							<?php esc_html_e('in order to fix the problem.', 'simple-metadata-education'); ?>
+						</p>
     		</div>
     	<?php
 		});
 	}
 }
+
+/**
+ * Internalization
+ * It loads the MO file for plugin's translation
+ *
+ * @since 1.2
+ * @author @davideC00
+ *
+ */
+	function smde_load_plugin_textdomain() {
+    load_plugin_textdomain( 'simple-metadata-education', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+}
+
+/**
+ * Called when the activated plugin has been loaded
+ */
+add_action( 'plugins_loaded', 'smde_load_plugin_textdomain' );
