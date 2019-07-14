@@ -20,7 +20,7 @@
  * Author:            My Language Skills team
  * Author URI:        https://github.com/my-language-skills/
  * License:           GPL 3.0
- * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       simple-metadata-education
  * Domain Path:       /languages
  */
@@ -77,13 +77,13 @@ if(is_plugin_active('simple-metadata/simple-metadata.php')){
 }
 
 /**
- * Internalization
- * It loads the MO file for plugin's translation
+ * Internacionalization.
+ * It loads the MO file for plugin's translation.
  *
  * @since 1.2
- * @author @davideC00
  *
  */
+
 	function smde_load_plugin_textdomain() {
     load_plugin_textdomain( 'simple-metadata-education', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 }

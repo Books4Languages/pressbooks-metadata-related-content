@@ -1,5 +1,18 @@
 <?php
 
+/**
+ * Summary (no period for file headers)
+ *
+ * Description. (use period)
+ *
+ * @link URL
+ *
+ * @package simple-metadata-education
+ * @subpackage XXXXXX/XXXXXX
+ * @since x.x.x (when the file was introduced)
+ */
+
+
 //creating metaboxes for educational metadata
 
 use \vocabularies\SMDE_Metadata_Educational as edu_meta;
@@ -8,8 +21,12 @@ use \vocabularies\SMDE_Metadata_Classification as class_meta;
 defined ("ABSPATH") or die ("No script assholes!");
 
 /**
- * Function for producing metaboxes in all active locations
- */
+* Function for producing metaboxes in all active locations.
+*
+* @since
+*
+*/
+
 function smde_create_metaboxes() {
 
 	//for blog 1 in multisite installation we don't create metaboxes as we don't create settings page
@@ -23,9 +40,7 @@ function smde_create_metaboxes() {
 			new edu_meta($location);
 			new class_meta($location);
 		}
-
 	}
-
 }
 
 

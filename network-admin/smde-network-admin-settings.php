@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * Summary (no period for file headers)
+ *
+ * Description. (use period)
+ *
+ * @link URL
+ *
+ * @package simple-metadata-education
+ * @subpackage XXXXXX/XXXXXX
+ * @since x.x.x (when the file was introduced)
+ */
+
 //network settings functionality
 
 use \vocabularies\SMDE_Metadata_Educational as edu_meta;
@@ -8,8 +20,12 @@ use \vocabularies\SMDE_Metadata_Classification as class_meta;
 defined ("ABSPATH") or die ("No script assholes!");
 
 /**
- * Function for adding network settings page
- */
+* Function for adding network settings page.
+*
+* @since
+*
+*/
+
 function smde_add_network_settings() {
 
   //adding settings metaboxes and settigns sections
@@ -165,8 +181,12 @@ function smde_add_network_settings() {
 }
 
 /**
- * Function for rendering network settings page
- */
+* Function for rendering network settings page.
+*
+* @since
+*
+*/
+
 function smde_render_network_settings(){
 	wp_enqueue_script('common');
 		wp_enqueue_script('wp-lists');
@@ -198,8 +218,12 @@ function smde_render_network_settings(){
 }
 
 /**
- * Function for rendering metabox of locations
- */
+* Function for rendering metabox of locations.
+*
+* @since
+*
+*/
+
 function smde_network_render_metabox_schema_locations(){
 	?>
 	<div id="smde_network_meta_locations" class="smde_network_meta_locations">
@@ -219,8 +243,12 @@ function smde_network_render_metabox_schema_locations(){
 }
 
 /**
- * Function for rendering metabox for properties management
- */
+* Function for rendering metabox for properties management.
+*
+* @since
+*
+*/
+
 function smde_network_render_metabox_edu_properties(){
 	?>
 	<div id="smde_network_meta_edu_properties" class="smde_network_meta_edu_properties">
@@ -240,8 +268,12 @@ function smde_network_render_metabox_edu_properties(){
 }
 
 /**
- * Function for rendering metabox for properties management
- */
+* Function for rendering metabox for properties management.
+*
+* @since
+*
+*/
+
 function smde_network_render_metabox_for_lang(){
 	?>
 	<div id="smde_network_meta_for_lang" class="smde_network_meta_for_lang">
@@ -261,8 +293,12 @@ function smde_network_render_metabox_for_lang(){
 }
 
 /**
- * Handler for locations settings update
- */
+* Handler for locations settings update.
+*
+* @since
+*
+*/
+
 function smde_update_network_locations() {
 
 	//checking admin reffer to prevent direct access to this function
@@ -324,8 +360,12 @@ function smde_update_network_locations() {
 }
 
 /**
- * Handler for properties settings update
- */
+* Handler for properties settings update.
+*
+* @since
+*
+*/
+
 function smde_update_network_options() {
 
 	//checking admin reffer to prevent direct access to this function
@@ -382,8 +422,12 @@ function smde_update_network_options() {
 }
 
 /**
- * Handler for type of education update
- */
+* Handler for type of education update.
+*
+* @since
+*
+*/
+
 function smde_update_network_for_lang() {
 	//checking admin reffer to prevent direct access to this function
 	check_admin_referer('smde_network_meta_for_lang-options');

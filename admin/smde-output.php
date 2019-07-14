@@ -1,12 +1,28 @@
 <?php
 
+/**
+ * Summary (no period for file headers)
+ *
+ * Description. (use period)
+ *
+ * @link URL
+ *
+ * @package simple-metadata-education
+ * @subpackage XXXXXX/XXXXXX
+ * @since x.x.x (when the file was introduced)
+ */
+
 //functionality for printing metatags
 
 use \vocabularies\SMDE_Metadata_Lrmi as lrmi_meta;
 
 /**
- * Function for printing metatags in site front-end
- */
+* Function for printing metatags in site front-end.
+*
+* @since
+*
+*/
+
 function smde_print_tags () {
 
 	//retreiving option for active locations
@@ -40,5 +56,4 @@ function smde_print_tags () {
 			echo $lrmi_meta->smde_get_metatags();
 		}
 	}
-
 }

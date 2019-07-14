@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * Summary (no period for file headers)
+ *
+ * Description. (use period)
+ *
+ * @link URL
+ *
+ * @package simple-metadata-education
+ * @subpackage XXXXXX/XXXXXX
+ * @since x.x.x (when the file was introduced)
+ */
+
 use \vocabularies\SMDE_Metadata_Educational as edu_meta;
 use \vocabularies\SMDE_Metadata_Classification as class_meta;
 
@@ -8,8 +20,12 @@ use \vocabularies\SMDE_Metadata_Classification as class_meta;
 defined ("ABSPATH") or die ("No script assholes!");
 
 /**
- * Function to add plugin settings subpage and registering settings and their sections
- */
+* Function to add plugin settings subpage and registering settings and their sections.
+*
+* @since
+*
+*/
+
 function smde_add_education_settings() {
 	//we don't create settings page in blog 1 (not necessary)
 	if ((1 != get_current_blog_id() && is_multisite()) || !is_multisite()){
@@ -274,9 +290,14 @@ function smde_add_education_settings() {
 	}
 }
 
+
 /**
- * Function for rendering settings subpage
- */
+* Function for rendering settings subpage.
+*
+* @since
+*
+*/
+
 function smde_render_settings() {
 	if(!current_user_can('manage_options')){
 		return;
@@ -313,8 +334,12 @@ function smde_render_settings() {
 }
 
 /**
- * Function for rendering 'Locations' metabox
- */
+* Function for rendering 'Locations' metabox.
+*
+* @since
+*
+*/
+
 function smde_render_metabox_schema_locations(){
 	?>
 	<div id="smde_meta_locations" class="smde_meta_locations">
@@ -334,8 +359,12 @@ function smde_render_metabox_schema_locations(){
 }
 
 /**
- * Function for rendering 'edu properties' metabox
- */
+* Function for rendering 'edu properties' metabox.
+*
+* @since
+*
+*/
+
 function smde_render_metabox_edu_properties(){
 	$locations = get_option('smde_locations');
 	$level = is_plugin_active('pressbooks/pressbooks.php') ? 'metadata' : 'site-meta';
@@ -364,6 +393,13 @@ function smde_render_metabox_edu_properties(){
 		<?php
 	}
 }
+
+/**
+* Summary.
+*
+* @since
+*
+*/
 
 function smde_update_overwrites(){
 
