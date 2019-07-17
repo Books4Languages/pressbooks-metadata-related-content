@@ -3,16 +3,15 @@
 /**
  * Summary (no period for file headers)
  *
- * Description. (use period)
+ * Functionality for printing metatags
  *
  * @link URL
  *
  * @package simple-metadata-education
- * @subpackage XXXXXX/XXXXXX
+ * @subpackage output
  * @since x.x.x (when the file was introduced)
  */
 
-//functionality for printing metatags
 
 use \vocabularies\SMDE_Metadata_Lrmi as lrmi_meta;
 

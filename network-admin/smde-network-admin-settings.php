@@ -1,18 +1,18 @@
 <?php
 
 /**
- * Summary (no period for file headers)
+ * Network settings functionality
  *
  * Description. (use period)
  *
  * @link URL
  *
  * @package simple-metadata-education
- * @subpackage XXXXXX/XXXXXX
+ * @subpackage network-admin/settings
  * @since x.x.x (when the file was introduced)
  */
 
-//network settings functionality
+
 
 use \vocabularies\SMDE_Metadata_Educational as edu_meta;
 use \vocabularies\SMDE_Metadata_Classification as class_meta;

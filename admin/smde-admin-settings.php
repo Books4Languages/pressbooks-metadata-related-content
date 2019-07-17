@@ -3,19 +3,18 @@
 /**
  * Summary (no period for file headers)
  *
- * Description. (use period)
+ * Creates settings subpage for Simple Metadata
  *
  * @link URL
  *
  * @package simple-metadata-education
- * @subpackage XXXXXX/XXXXXX
+ * @subpackage admin/settings
  * @since x.x.x (when the file was introduced)
  */
 
 use \vocabularies\SMDE_Metadata_Educational as edu_meta;
 use \vocabularies\SMDE_Metadata_Classification as class_meta;
 
-//Creating settings subpage for Simple Metadata
 
 defined ("ABSPATH") or die ("No script assholes!");
 

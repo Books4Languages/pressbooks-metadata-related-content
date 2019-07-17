@@ -8,7 +8,7 @@
  * @link URL
  *
  * @package simple-metadata-education
- * @subpackage xxxxxx/xxxxxx
+ * @subpackage classes
  * @since x.x.x (when the file was introduced)
  */
 

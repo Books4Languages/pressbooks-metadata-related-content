@@ -3,17 +3,17 @@
 /**
  * Summary (no period for file headers)
  *
- * Description. (use period)
+ * Creates metaboxes for educational metadata
  *
  * @link URL
  *
  * @package simple-metadata-education
- * @subpackage XXXXXX/XXXXXX
+ * @subpackage admin/init_metaboxe
  * @since x.x.x (when the file was introduced)
  */
 
 
-//creating metaboxes for educational metadata
+
 
 use \vocabularies\SMDE_Metadata_Educational as edu_meta;
 use \vocabularies\SMDE_Metadata_Classification as class_meta;
