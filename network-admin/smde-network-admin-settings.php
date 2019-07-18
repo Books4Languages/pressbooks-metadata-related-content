@@ -316,7 +316,7 @@ function smde_network_render_metabox_for_lang(){
 	?>
 	<div id="smde_network_meta_for_lang" class="smde_network_meta_for_lang">
 		<span class="description">
-      <?php esc_html_e('Description for language education metabox', 'simple-metadata-education'); ?>
+      <?php esc_html_e('If activate, some of the educational descriptions would be related to languages. Like levels (A1, A2..) or fields of education.', 'simple-metadata-education'); ?>
     </span>
 		<form method="post" action="edit.php?action=smde_update_network_for_lang">
 			<?php
