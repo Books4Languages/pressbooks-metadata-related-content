@@ -266,7 +266,10 @@ function smde_network_render_metabox_schema_locations(){
 	?>
 	<div id="smde_network_meta_locations" class="smde_network_meta_locations">
 		<span class="description">
-      <?php esc_html_e('Description for educational network locations metabox', 'simple-metadata-education'); ?>
+      <?php esc_html_e('Activate the public post types where metadata will be available.', 'simple-metadata-education'); ?>
+      <br>
+      <?php esc_html_e('If selected, site administrators can not modify.', 'simple-metadata-education'); ?>
+
     </span>
 		<form method="post" action="edit.php?action=smde_update_network_locations">
 			<?php
@@ -291,7 +294,7 @@ function smde_network_render_metabox_edu_properties(){
 	?>
 	<div id="smde_network_meta_edu_properties" class="smde_network_meta_edu_properties">
 		<span class="description">
-      <?php esc_html_e('Description for educational network properties metabox', 'simple-metadata-education'); ?>
+      <?php esc_html_e('Control of the properties over the subsites.', 'simple-metadata-education'); ?>
     </span>
 		<form method="post" action="edit.php?action=smde_update_network_options">
 			<?php
