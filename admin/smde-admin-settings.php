@@ -136,6 +136,95 @@ function smde_add_education_settings() {
 
 		}
 				?>
+				<?php if ($shares_edu[$key]=='1') {
+
+					function runMyFunction() {
+						if (isset($_GET['field_name'])) {
+							$locations2 = get_option('smde_locations');
+							$key = $_GET['field_name'];
+								global $wpdb;
+									 //Get the posts table name
+									 $postsTable = $wpdb->prefix . "posts";
+									 //Get the postmeta table name
+									 $postMetaTable = $wpdb->prefix . "postmeta";
+
+									 //defining site-meta post type
+									 $meta_type = is_plugin_active('pressbooks/pressbooks.php') ? 'metadata' : 'site-meta';
+
+									 //fetching site-meta/book info post
+									 $meta_post = $wpdb->get_results($wpdb->prepare("
+											 SELECT ID FROM $postsTable WHERE post_type LIKE %s AND
+											 post_status LIKE %s",$meta_type,'publish'),ARRAY_A);
+
+									 //If we have more than one or 0 ids in the array then return and stop operation
+									 //If we have no chapters or posts to distribute data also stop operation
+									 if(count($meta_post) > 1 || count($meta_post) == 0){
+											 return;
+									 }
+
+									 //unwrapping ID from subarrays
+									 $meta_post_id = $meta_post[0]['ID'];
+
+
+									 //getting metadata of site-meta/books info post
+									 $meta_post_meta = $wpdb->get_results($wpdb->prepare("
+											 SELECT `meta_key`, `meta_value` FROM $postMetaTable WHERE `post_id` LIKE %s
+											 AND `meta_key` LIKE %s AND `meta_key` LIKE %s
+											 AND `meta_value` <>''",$meta_post_id,'%%smde_%%','%%edu_vocabs%%'.$meta_type.'%%')
+													 ,ARRAY_A);
+
+									//Array for storing metakey=>metavalue
+									 $metaData = [];
+									 //unwrapping data from subarrays
+									 foreach($meta_post_meta as $meta){
+											 $metaData[$meta['meta_key']] = $meta['meta_value'];
+									 }
+									 //if there are no fields of Life Cycle meta in site-meta/ book info, nothing to share or freeze, exit
+									 if(count($metaData) == 0){
+											 return;
+									 }
+
+									 foreach ($locations2 as $location => $val){
+										 if ($location == $meta_type) {
+											 continue;
+										 }
+												 //Getting all posts of $location type
+												 $posts_ids = $wpdb->get_results($wpdb->prepare("
+												 SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
+												 $posts_ids_meta_type = $wpdb->get_results($wpdb->prepare("
+												 SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$meta_type),ARRAY_A);
+												 //looping through all posts of type $locations
+												 foreach ($posts_ids as $post_id) {
+													 $post_id = $post_id['ID'];
+														 $meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$location;
+														 $metadata_meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$meta_type;
+															 delete_post_meta($post_id, $meta_key);
+															 delete_post_meta($post_id, $metadata_meta_key);
+
+												 }
+												 foreach ($posts_ids_meta_type as $post_id_meta_type) {
+													 $post_id_meta_type = $post_id_meta_type['ID'];
+														 $meta_key_meta_type = 'smde_'.strtolower($key).'_edu_vocabs_'.$location;
+														 $metadata_meta_key_type = 'smde_'.strtolower($key).'_edu_vocabs_'.$meta_type;
+															 delete_post_meta($post_id_meta_type, $meta_key_meta_type);
+															 delete_post_meta($post_id_meta_type, $metadata_meta_key_type);
+
+												 }
+							}
+						}
+}
+
+if (isset($_GET['hello'])) {
+	runMyFunction();
+	//refresh the page
+	?><meta http-equiv="refresh" content="0;URL=admin.php?page=smde_set_page"><?php
+}
+ if ($shares_edu[$key]=='1') {
+echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin.php?page=smde_set_page&hello=true&field_name='.$key.'&sharekey='.$shares_edu[$key].'">X</a>';}
+
+?>
+				&nbsp;&nbsp;
+			<?php } ?>
 				<label for="smde_edu_disable[<?=$key?>]">
 					<?php esc_html_e('Disable', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_edu_[<?=$key?>]" value="1" id="smde_edu_disable[<?=$key?>]" <?php if ($shares_edu[$key]=='1') { echo "checked='checked'"; }?>
@@ -191,8 +280,96 @@ function smde_add_education_settings() {
 			$disabled_ca = '';
 			$valeur_key = '4';
 		}
-
 		    ?>
+				<?php if ($shares_class[$key]=='1') {
+
+					function runMyFunction() {
+						if (isset($_GET['field_name'])) {
+							$locations2 = get_option('smde_locations');
+							$key = $_GET['field_name'];
+								global $wpdb;
+									 //Get the posts table name
+									 $postsTable = $wpdb->prefix . "posts";
+									 //Get the postmeta table name
+									 $postMetaTable = $wpdb->prefix . "postmeta";
+
+									 //defining site-meta post type
+									 $meta_type = is_plugin_active('pressbooks/pressbooks.php') ? 'metadata' : 'site-meta';
+
+									 //fetching site-meta/book info post
+									 $meta_post = $wpdb->get_results($wpdb->prepare("
+											 SELECT ID FROM $postsTable WHERE post_type LIKE %s AND
+											 post_status LIKE %s",$meta_type,'publish'),ARRAY_A);
+
+									 //If we have more than one or 0 ids in the array then return and stop operation
+									 //If we have no chapters or posts to distribute data also stop operation
+									 if(count($meta_post) > 1 || count($meta_post) == 0){
+											 return;
+									 }
+
+									 //unwrapping ID from subarrays
+									 $meta_post_id = $meta_post[0]['ID'];
+
+
+									 //getting metadata of site-meta/books info post
+									 $meta_post_meta = $wpdb->get_results($wpdb->prepare("
+											 SELECT `meta_key`, `meta_value` FROM $postMetaTable WHERE `post_id` LIKE %s
+											 AND `meta_key` LIKE %s AND `meta_key` LIKE %s
+											 AND `meta_value` <>''",$meta_post_id,'%%smde_%%','%%class_vocab%%'.$meta_type.'%%')
+													 ,ARRAY_A);
+
+									//Array for storing metakey=>metavalue
+									 $metaData = [];
+									 //unwrapping data from subarrays
+									 foreach($meta_post_meta as $meta){
+											 $metaData[$meta['meta_key']] = $meta['meta_value'];
+									 }
+									 //if there are no fields of Life Cycle meta in site-meta/ book info, nothing to share or freeze, exit
+									 if(count($metaData) == 0){
+											 return;
+									 }
+
+									 foreach ($locations2 as $location => $val){
+										 if ($location == $meta_type) {
+											 continue;
+										 }
+												 //Getting all posts of $location type
+												 $posts_ids = $wpdb->get_results($wpdb->prepare("
+												 SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$location),ARRAY_A);
+												 $posts_ids_meta_type = $wpdb->get_results($wpdb->prepare("
+												 SELECT `ID` FROM `$postsTable` WHERE `post_type` = %s",$meta_type),ARRAY_A);
+												 //looping through all posts of type $locations
+												 foreach ($posts_ids as $post_id) {
+													 $post_id = $post_id['ID'];
+														 $meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$location;
+														 $metadata_meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$meta_type;
+															 delete_post_meta($post_id, $meta_key);
+															 delete_post_meta($post_id, $metadata_meta_key);
+
+												 }
+												 foreach ($posts_ids_meta_type as $post_id_meta_type) {
+													 $post_id_meta_type = $post_id_meta_type['ID'];
+														 $meta_key_meta_type = 'smde_'.strtolower($key).'_class_vocab_'.$location;
+														 $metadata_meta_key_type = 'smde_'.strtolower($key).'_class_vocab_'.$meta_type;
+															 delete_post_meta($post_id_meta_type, $meta_key_meta_type);
+															 delete_post_meta($post_id_meta_type, $metadata_meta_key_type);
+
+												 }
+							}
+						}
+}
+
+if (isset($_GET['hello'])) {
+	runMyFunction();
+	//refresh the page
+	?><meta http-equiv="refresh" content="0;URL=admin.php?page=smde_set_page"><?php
+}
+ if ($shares_edu[$key]=='1') {
+echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin.php?page=smde_set_page&hello=true&field_name='.$key.'&sharekey='.$shares_edu[$key].'">X</a>';}
+
+?>
+				&nbsp;&nbsp;
+			<?php } ?>
 				<label for="smde_class_disable[<?=$key?>]">
 					<?php esc_html_e('Disable', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]"
