@@ -52,7 +52,7 @@ class SMDE_Metadata_Educational{
 	 */
 	public static $edu_properties = array(
 
-		'learningResourceType'	 		=>	array ( 'Learning Resource Type','Specific kind of learning object. The most dominant kind shall be first.',
+		'learningResourceType'	 		=>	array ( 'Learning Resource Type','Specific kind of learning object (Activities, Articles, Assignments, courses, examinations...). The most dominant kind shall be first.',
 			array ( '' 			=> '--Select--',
 			        'activities'		=> 'Activities',
 				'articles'		=> 'Articles',
