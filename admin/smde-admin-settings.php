@@ -283,7 +283,7 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 		    ?>
 				<?php if ($shares_class[$key]=='1') {
 
-					function runMyFunction() {
+					function runMyFunction8() {
 						if (isset($_GET['field_name'])) {
 							$locations2 = get_option('smde_locations');
 							$key = $_GET['field_name'];
@@ -360,11 +360,11 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 }
 
 if (isset($_GET['hello'])) {
-	runMyFunction();
+	runMyFunction8();
 	//refresh the page
 	?><meta http-equiv="refresh" content="0;URL=admin.php?page=smde_set_page"><?php
 }
- if ($shares_edu[$key]=='1') {
+ if ($shares_class[$key]=='1') {
 echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin.php?page=smde_set_page&hello=true&field_name='.$key.'&sharekey='.$shares_edu[$key].'">X</a>';}
 
 ?>
