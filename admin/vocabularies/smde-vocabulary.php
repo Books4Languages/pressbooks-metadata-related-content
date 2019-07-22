@@ -54,18 +54,18 @@ class SMDE_Metadata_Educational{
 
 		'learningResourceType'	 		=>	array ( 'Learning Resource Type','Specific kind of learning object (Activities, Articles, Assignments, courses, examinations...). The most dominant kind shall be first.',
 			array ( '' 			=> '--Select--',
-			        'activities'		=> 'Activities',
-				'articles'		=> 'Articles',
-				'assignments'		=> 'Assignments',
-				'courses'		=> 'Courses',
-				'examination'		=> 'Examination',
-				'exercise'		=> 'Exercise',
-				'glossaries'		=> 'Glossaries',
-				'lectures'		=> 'Lectures',
-				'lessons'		=> 'Lessons',
+			  'activities'	  	=> 'Activities',
+				'articles'	      => 'Articles',
+				'assignments'	  	=> 'Assignments',
+				'courses'	      	=> 'Courses',
+				'examination'	  	=> 'Examination',
+				'exercise'	    	=> 'Exercise',
+				'glossaries'	  	=> 'Glossaries',
+				'lectures'        => 'Lectures',
+				'lessons'	      	=> 'Lessons',
 				'lesson plans'		=> 'Lesson plans',
-				'papers'		=> 'Papers',
-			        'quizzes'	 	=> 'Quizzes')),
+				'papers'	      	=> 'Papers',
+			  'quizzes'	      	=> 'Quizzes')),
 				/*'context'		=> array ( 'Context','The principal environment within which the learning and use of this learning object is intended to take place.',
 			array ( '' 			=> '--Select--',
 				'school'		=> 'School',
@@ -74,17 +74,17 @@ class SMDE_Metadata_Educational{
 				'other'			=> 'Other')), */
 		'educationalUse'			=> array( 'Educational Use', 'The purpose of a work in the context of education.',
 			array(	'' 			=> '--Select--',
-				'assessment'		=> 'Assessment',
-				'instruction'		=> 'Instruction',
+				'assessment'	        	=> 'Assessment',
+				'instruction'	        	=> 'Instruction',
 				'professional support'	=> 'Professional Support')),
-		'endUserRole'		 		=> array ( 'Intended End User Role', 'Principal user(s) for which this learning object was designed.',
+	 	'endUserRole'		 	    	=> array ( 'Intended End User Role', 'Principal user(s) for which this learning object was designed.',
 			array ( '' 			=> '--Select--',
-				'student' 	 	=> 'Student',
-				'teacher'	 	=> 'Teacher',
-				'manager'	 	=> 'Manager')),
-		'typicalAgeRange' 			=> array ( 'Age Range','Age of the typical intended user.',
-			array ( '' 			=> '--Select--',
-				'18-' 			=> 'Adults',
+				'student'     	 	=> 'Student',
+				'teacher'	  	    => 'Teacher',
+				'manager'	      	=> 'Manager')),
+  	'typicalAgeRange'	=> array ( 'Age Range','Age of the typical intended user.',
+			array ( '' 		=> '--Select--',
+			        	'18-' 		=> 'Adults',
 			      	'17-18'			=> '17-18 years',
 			      	'16-17' 		=> '16-17 years',
 			      	'15-16' 		=> '15-16 years',
@@ -100,25 +100,25 @@ class SMDE_Metadata_Educational{
 			      	'3-5'  			=> '3-5 years')),
 		'interactivityType' 	 		=> array ( 'Interactivity Type','Predominant mode of learning supported by this learning object.',
 			array ( '' 			=> '--Select--',
-				'expositive' 		=> 'Expositive',
-			        'mixed'	 		=> 'Mixed',
-			        'active' 		=> 'Active')),
-		'interactivityLevel' 	 		=> array ( 'Interactivity Level', 'The degree of interactivity characterizing this learning object.',
-			array ( '' 			=> '--Select--',
+				'expositive' 	=> 'Expositive',
+			  'mixed'	 	   	=> 'Mixed',
+			  'active' 	   	=> 'Active')),
+		'interactivityLevel' 	 	=> array ( 'Interactivity Level', 'The degree of interactivity characterizing this learning object.',
+			array ( '' 		=> '--Select--',
 				'very low'	 	=> 'Very Low',
-			        'low'		 	=> 'Low',
-			        'medium'	 	=> 'Medium',
-			   	'high'			=> 'High',
-			   	'very high'	 	=> 'Very High')),
-		'difficulty'				=> array ( 'Difficulty', 'How hard it is to work with or through this learning object for the typical intended target audience.',
-			array ( '' 			=> '--Select--',
-				'very easy'		=> 'Very Easy',
-				'easy'			=> 'Easy',
-				'medium'		=> 'Medium',
-				'difficult'		=> 'Difficult',
+			  'low'		    	=> 'Low',
+			  'medium'    	=> 'Medium',
+			 	'high'		  	=> 'High',
+		   	'very high'	 	=> 'Very High')),
+  	'difficulty'	=> array ( 'Difficulty', 'How hard it is to work with or through this learning object for the typical intended target audience.',
+			array ( '' 		=> '--Select--',
+				'very easy'	      => 'Very Easy',
+				'easy'	      		=> 'Easy',
+				'medium'	      	=> 'Medium',
+				'difficult'		    => 'Difficult',
 				'very difficult'	=> 'Very Difficult')),
-		'typicalLearningTime'			=> array ( 'Class Learning Time (hours)','Approximate or typical time it takes to work with or through this learning object for the typical intended target audience.', 'number'),
-		'description' 				=> array ( 'Description', 'Comments on how this learning object is to be used.')
+		'typicalLearningTime' 	=> array ( 'Class Learning Time (hours)','Approximate or typical time it takes to work with or through this learning object for the typical intended target audience.', 'number'),
+		'description' 		=> array ( 'Description', 'Comments on how this learning object is to be used.')
 	);
 
 	/**
@@ -168,8 +168,8 @@ class SMDE_Metadata_Educational{
 	public function smde_add_metabox( $meta_position ) {
 		//adding metabox to desired location
 		x_add_metadata_group( $this->groupId, $meta_position, array(
-			'label' 		=>	'Educational Metadata',
-			'priority' 		=>	'high'
+			'label'   	=>	'Educational Metadata',
+			'priority'  =>	'high'
 		) );
 
 		//adding metafields for every property in this class
@@ -199,10 +199,10 @@ class SMDE_Metadata_Educational{
 					) );
 				} elseif (!post_type_supports($meta_position, 'excerpt')){
 					x_add_metadata_field( $fieldId, $meta_position, array(
-						'group'       => $this->groupId,
-						'field_type'  => 'textarea',
-						'label'       => $details[0],
-						'description' => $details[1],
+						'group'            => $this->groupId,
+						'field_type'       => 'textarea',
+						'label'            => $details[0],
+						'description'      => $details[1],
 						'display_callback' => array($this, $callback)
 					) );
 				}
@@ -270,12 +270,12 @@ class SMDE_Metadata_Educational{
 	public static function get_site_meta_metadata(){
 		$post_type = is_plugin_active ('pressbooks/pressbooks.php') ? 'metadata' : 'site-meta';
 		$args = array(
-			'post_type' => $post_type,
+			'post_type'      => $post_type,
 			'posts_per_page' => 1,
-			'post_status' => 'publish',
-			'orderby' => 'modified',
-			'no_found_rows' => true,
-			'cache_results' => true,
+			'post_status'    => 'publish',
+			'orderby'        => 'modified',
+			'no_found_rows'  => true,
+			'cache_results'  => true,
 		);
 
 		$q = new \WP_Query();
