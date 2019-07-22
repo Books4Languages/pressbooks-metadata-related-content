@@ -32,13 +32,12 @@ class SMDE_Metadata_Lrmi extends SMDE_Metadata_Educational {
 	 * @access   public
 	 */
 	public static $lrmi_properties = array(
-
-      	'interactivityType'		=> 'interactivityType',
-      	'learningResourceType'	=> 'learningResourceType',
-		'educationalRole'		=> 'endUserRole',
-		'educationalUse'		=> 'educationalUse',
+   'interactivityType'		=> 'interactivityType',
+   'learningResourceType'	=> 'learningResourceType',
+		'educationalRole'		  => 'endUserRole',
+		'educationalUse'	   	=> 'educationalUse',
 		'typicalAgeRange' 		=> 'typicalAgeRange',
-		'timeRequired'			=> 'typicalLearningTime'
+		'timeRequired'		   	=> 'typicalLearningTime'
 	);
 
 
