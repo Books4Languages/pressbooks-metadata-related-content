@@ -43,29 +43,29 @@ function smde_add_network_settings() {
   add_settings_section( 'smde_network_meta_for_lang', '', '', 'smde_network_meta_for_lang' );
 
   //registering settings
-  register_setting('smde_network_meta_locations', 'smde_net_locations');
-	register_setting ('smde_network_meta_edu_properties', 'smde_net_edu_shares');
-	register_setting ('smde_network_meta_edu_properties', 'smde_net_edu_freezes');
-	register_setting ('smde_network_meta_edu_properties', 'smde_net_class_shares');
-	register_setting ('smde_network_meta_edu_properties', 'smde_net_class_freezes');
-	register_setting ('smde_network_meta_for_lang', 'smde_net_for_lang');
+  add_site_option ( 'smde_net_locations', '');
+	add_site_option ( 'smde_net_edu_shares', ''); //Delete?
+	add_site_option ( 'smde_net_edu_freezes', '');
+	add_site_option ( 'smde_net_class_shares', ''); //Delete?
+	add_site_option ( 'smde_net_class_freezes', '');
+	add_site_option ( 'smde_net_for_lang', '');
 
 
-  register_setting ('smde_network_meta_edu_properties', 'smde_net_edu_');
-  register_setting ('smde_network_meta_class_properties', 'smde_net_class_');
+  add_site_option ( 'smde_net_edu_', '');
+  add_site_option ( 'smde_net_class_', '');
 
 	// getting options values from DB
 	$post_types = smd_get_all_post_types();
-	$locations = get_option('smde_net_locations');
-	$shares_edu1 = get_option('smde_net_edu_shares');
-	$freezes_edu = get_option('smde_net_edu_freezes');
-	$shares_class1 = get_option('smde_net_class_shares');
-	$freezes_class = get_option('smde_net_class_freezes');
-	$is_for_lang = get_option('smde_net_for_lang');
+	$locations = get_site_option('smde_net_locations');
+	$shares_edu1 = get_site_option('smde_net_edu_shares');
+	$freezes_edu = get_site_option('smde_net_edu_freezes');
+	$shares_class1 = get_site_option('smde_net_class_shares');
+	$freezes_class = get_site_option('smde_net_class_freezes');
+	$is_for_lang = get_site_option('smde_net_for_lang');
 
 
-  $shares_edu = get_option('smde_net_edu_');
-  $shares_class = get_option('smde_net_class_');
+  $shares_edu = get_site_option('smde_net_edu_');
+  $shares_class = get_site_option('smde_net_class_');
 
 	//adding settings for locations
 	foreach ($post_types as $post_type) {
@@ -134,13 +134,13 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
     <?php } ?>
 
       <label for="smde_net_edu_disable[<?=$key?>]"><?php esc_html_e('Disable', 'simple-metadata-education');?> <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="1" id="smde_net_edu_disable[<?=$key?>]" <?php if ($shares_edu[$key]=='1') { echo "checked='checked'"; }
-      ?> <?php checked('disable', get_option('smde_net_edu_'.$key)); ?> ></label>
+      ?> <?php checked('disable', get_site_option('smde_net_edu_'.$key)); ?> ></label>
       <label for="smde_net_edu_local_value[<?=$key?>]"><?php esc_html_e('Local value', 'simple-metadata-education');?> <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="0" id="smde_net_edu_local_value[<?=$key?>]" <?php if ($shares_edu[$key]=='0') { echo "checked='checked'"; }
-      ?>  <?php checked('0', get_option('smde_net_edu_'.$key)); ?> ></label>
+      ?>  <?php checked('0', get_site_option('smde_net_edu_'.$key)); ?> ></label>
       <label  for="smde_net_edu_share[<?=$key?>]"><?php esc_html_e('Share', 'simple-metadata-education');?> <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="2" id="smde_net_edu_share[<?=$key?>]" <?php if ($shares_edu[$key]=='2') { echo "checked='checked'"; }
-      ?> <?php checked('share', get_option($shares_edu[$key])); ?>></label>
+      ?> <?php checked('share', get_site_option($shares_edu[$key])); ?>></label>
       <label for="smde_net_edu_freeze[<?=$key?>]"><?php esc_html_e('Freeze', 'simple-metadata-education');?> <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="3" id="smde_net_edu_freeze[<?=$key?>]"  <?php if ($shares_edu[$key]=='3') { echo "checked='checked'"; }
-      ?>  <?php checked('freeze', get_option('smde_net_edu_'.$key)); ?>></label>
+      ?>  <?php checked('freeze', get_site_option('smde_net_edu_'.$key)); ?>></label>
         <br><span class="description"><?=$data[1]?></span>
       <?php
       //if checkboxes are disabled, we add hidden field to store value of option
@@ -155,7 +155,7 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 				continue;
 		}
 
-		if (get_blog_option(1, 'smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
+		if (get_site_option('smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
 				continue;
 		}
 
@@ -167,19 +167,19 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 
 	?>
       <label for="smde_net_class_disable[<?=$key?>]"><?php esc_html_e('Disable', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="1" id="smde_net_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }
-      ?> <?php checked('disable', get_option('smde_net_class_'.$key)); ?> ></label>
+      ?> <?php checked('disable', get_site_option('smde_net_class_'.$key)); ?> ></label>
       <label for="smde_net_class_local_value[<?=$key?>]"><?php esc_html_e('Local value', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="0" id="smde_net_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0') { echo "checked='checked'"; }
-      ?>  <?php checked('0', get_option('smde_net_class_'.$key)); ?> ></label>
+      ?>  <?php checked('0', get_site_option('smde_net_class_'.$key)); ?> ></label>
       <label  for="smde_net_class_share[<?=$key?>]"><?php esc_html_e('Share', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="2" id="smde_net_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }
-      ?> <?php checked('share', get_option($shares_class[$key])); ?>></label>
+      ?> <?php checked('share', get_site_option($shares_class[$key])); ?>></label>
       <label for="smde_net_class_freeze[<?=$key?>]"><?php esc_html_e('Freeze', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="3" id="smde_net_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }
-      ?>  <?php checked('freeze', get_option('smde_net_class_'.$key)); ?>></label>
+      ?>  <?php checked('freeze', get_site_option('smde_net_class_'.$key)); ?>></label>
         <br><span class="description"><?=$data[1]?></span>
       <?php
 		}, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
 	}
 
-	if (get_blog_option(1, 'smde_net_for_lang')){
+	if (get_site_option('smde_net_for_lang')){
 		add_settings_field ('smde_net_class_shares[eduLang]', __('Studying content', 'simple-metadata-annotation'), function () use ($key, $shares_class, $freezes_class){
 			$checked_class_share = isset($shares_class['eduLang']) ? true : false;
 			$checked_class_freeze = isset($freezes_class['eduLang']) ? true : false;
@@ -189,19 +189,19 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 			?>
       <label for="smde_net_class_disable[<?=$key?>]">
         <?php esc_html_e('Disable', 'simple-metadata-education'); ?>
-        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="1" id="smde_net_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; } ?> <?php checked('disable', get_option('smde_net_class_'.$key)); ?> >
+        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="1" id="smde_net_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; } ?> <?php checked('disable', get_site_option('smde_net_class_'.$key)); ?> >
       </label>
       <label for="smde_net_class_local_value[<?=$key?>]">
         <?php esc_html_e('Local value', 'simple-metadata-education'); ?>
-        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="0" id="smde_net_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0') { echo "checked='checked'"; } ?>  <?php checked('0', get_option('smde_net_class_'.$key)); ?> >
+        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="0" id="smde_net_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0') { echo "checked='checked'"; } ?>  <?php checked('0', get_site_option('smde_net_class_'.$key)); ?> >
       </label>
       <label  for="smde_net_class_share[<?=$key?>]">
         <?php esc_html_e('Share', 'simple-metadata-education'); ?>
-        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="2" id="smde_net_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?> <?php checked('share', get_option($shares_class[$key])); ?>>
+        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="2" id="smde_net_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?> <?php checked('share', get_site_option($shares_class[$key])); ?>>
       </label>
       <label for="smde_net_class_freeze[<?=$key?>]">
         <?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
-        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="3" id="smde_net_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }?>  <?php checked('freeze', get_option('smde_net_class_'.$key)); ?>>
+        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="3" id="smde_net_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }?>  <?php checked('freeze', get_site_option('smde_net_class_'.$key)); ?>>
       </label>
 				<br>
         <span class="description"><?php esc_html_e('Language which content is about', 'simple-metadata-education'); ?></span>
@@ -352,7 +352,7 @@ function smde_update_network_locations() {
 	$locations = isset($_POST['smde_net_locations']) ? $_POST['smde_net_locations'] : array();
 
 	 //collecting locations of general meta accumulative option from POST request
-	$locations_general = get_blog_option(1, 'smd_net_locations') ?: array();
+	$locations_general = get_site_option('smd_net_locations') ?: array();
 
 	$locations_general = array_merge($locations_general, $locations);
 
@@ -364,8 +364,8 @@ function smde_update_network_locations() {
 	}
 
 	//updating network locations option
-	update_blog_option(1, 'smde_net_locations', $locations);
-	update_blog_option(1, 'smd_net_locations', $locations_general);
+	update_site_option('smde_net_locations', $locations);
+	update_site_option('smd_net_locations', $locations_general);
 
 	//Grabbing all the site IDs
     $siteids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
@@ -421,8 +421,8 @@ function smde_update_network_options() {
     $shares_class = isset($_POST['smde_net_class_']) ? $_POST['smde_net_class_'] : array();
 
     //updating network options
-	update_blog_option(1, 'smde_net_edu_', $shares_edu);
-	update_blog_option(1, 'smde_net_class_', $shares_class);
+	update_site_option('smde_net_edu_', $shares_edu);
+	update_site_option('smde_net_class_', $shares_class);
 
 	//Grabbing all the site IDs
     $siteids = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
@@ -474,7 +474,7 @@ function smde_update_network_for_lang() {
 	check_admin_referer('smde_network_meta_for_lang-options');
 
 	$is_for_languages = isset($_POST['smde_net_for_lang']) ? $_POST['smde_net_for_lang'] : '';
-	update_blog_option(1, 'smde_net_for_lang', $is_for_languages);
+	update_site_option('smde_net_for_lang', $is_for_languages);
 
 	// At the end we redirect back to our options page.
     wp_redirect(add_query_arg(array('page' => 'smd_net_set_page',

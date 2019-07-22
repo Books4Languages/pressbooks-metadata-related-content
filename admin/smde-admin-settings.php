@@ -63,7 +63,7 @@ function smde_add_education_settings() {
 		$post_types = smd_get_all_post_types();
 		$locations = get_option('smde_locations');
 		$shares_edu = get_option('smde_edu_');
-		$shares_edu1 = get_option('smde_net_edu_shares');
+		$shares_edu1 = get_site_option('smde_net_edu_shares');
 
 		$freezes_edu = get_option('smde_edu_freezes');
 		$shares_class = get_option('smde_class_');
@@ -78,11 +78,11 @@ function smde_add_education_settings() {
 
 		//in case of multisite installation, we receive network options for locations and properties
 		if (is_multisite()){
-			$network_locations = get_blog_option(1, 'smde_net_locations');
-			$network_shares_edu = get_blog_option(1, 'smde_net_edu_');
-			$network_freezes_edu = get_blog_option(1, 'smde_net_edu_freezes');
-			$network_shares_class = get_blog_option(1, 'smde_net_class_');
-			$network_freezes_class = get_blog_option(1, 'smde_net_class_freezes');
+			$network_locations = get_site_option('smde_net_locations');
+			$network_shares_edu = get_site_option('smde_net_edu_');
+			$network_freezes_edu = get_site_option('smde_net_edu_freezes');
+			$network_shares_class = get_site_option('smde_net_class_');
+			$network_freezes_class = get_site_option('smde_net_class_freezes');
 		}
 
 		//adding options for locations
@@ -257,7 +257,7 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 				continue;
 			}
 
-			if (is_multisite() && get_blog_option(1, 'smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
+			if (is_multisite() && get_site_option('smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
 				continue;
 			}
 		  add_settings_field ('smde_class_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_class,$network_shares_class, $network_freezes_class){
@@ -387,7 +387,10 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 				<label  for="smde_class_share[<?=$key?>]">
 					<?php esc_html_e('Share', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?>
-						<?php checked('share', get_option($shares_class[$key])); ?>
+
+						<?php //Moved options to site meta check this code
+						checked('share', get_option($shares_class[$key]));
+						?>
 						<?php  if ($valeur_key == '2' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
@@ -405,14 +408,14 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 		  }, 'smde_meta_edu_properties', 'smde_meta_class_properties');
 		}
 
-		if (is_multisite() && get_blog_option(1, 'smde_net_for_lang')){
+		if (is_multisite() && get_site_option('smde_net_for_lang')){
 			add_settings_field ('smde_class_eduLang', 'Studying content', function () use ($key, $shares_class, $freezes_class, $network_shares_class, $network_freezes_class){
 
 				//in case share or freeze is network enabled, checkbox becomes disabled to prevent changes
 				$key = 'eduLang';
 				if (!empty($network_shares_class)) {
 					if ($network_shares_class[$key] == '0') {
-						$shares_class = get_option('smde_net_for_lang');
+						$shares_class = get_site_option('smde_net_for_lang');
 					// $shares_class[$key] == '0';
 					 $valeur_key_langue = '4';
 					}
@@ -446,7 +449,9 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 					<?php esc_html_e('Share', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]"
 					<?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?>
-					<?php checked('share', get_option($shares_class[$key])); ?>
+					<?php //Moved options to site meta check this code
+					checked('share', get_option($shares_class[$key]));
+					?>
 					<?php  if ($valeur_key_langue == '2' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";} ?>
 					>
 				</label>
