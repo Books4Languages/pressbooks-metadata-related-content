@@ -45,7 +45,7 @@ class SMDE_Metadata_Classification{
 	public $groupId;
 
 	/**
-	 * The variable that holds the properties of this vocabulary
+	 * Holds all the classification properties
 	 *
 	 * @since    0.x
 	 * @access   public

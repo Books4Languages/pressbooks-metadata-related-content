@@ -31,9 +31,8 @@ require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 
 //we enable plugin functionality only if main plugin - Simple Metadata - is installed
 if(is_plugin_active('simple-metadata/simple-metadata.php')){
-	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-vocabulary.php";
-	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-lrmi-vocabulary.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-classification-vocabulary.php";
+	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-educational-vocabulary.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/smde-admin-settings.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/smde-output.php";
 	include_once plugin_dir_path( __FILE__ ) . "admin/smde-init-metaboxes.php";

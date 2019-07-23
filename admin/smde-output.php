@@ -13,7 +13,8 @@
  */
 
 
-use \vocabularies\SMDE_Metadata_Lrmi as lrmi_meta;
+//From this class it will use only lrmi functions and properties
+use \vocabularies\SMDE_Metadata_Educational as lrmi_meta;
 
 /**
 * Function for printing metatags in site front-end.

@@ -13,8 +13,6 @@
  */
 
 
-
-
 use \vocabularies\SMDE_Metadata_Educational as edu_meta;
 use \vocabularies\SMDE_Metadata_Classification as class_meta;
 
@@ -36,7 +34,7 @@ function smde_create_metaboxes() {
 		$active_locations = get_option('smde_locations') ?: [];
 
 		foreach ($active_locations as $location => $val) {
-			//initializing instances of classes of educational vocabularies (more then 1 in future) and classification vocabulary
+			//create objects for each smde_location values (site_meta, post, page... )
 			new edu_meta($location);
 			new class_meta($location);
 		}
