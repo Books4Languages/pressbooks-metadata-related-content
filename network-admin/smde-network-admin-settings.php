@@ -97,7 +97,7 @@ function smde_add_network_settings() {
 			?>
       <?php if ($shares_edu[$key]=='1') {
 
-        function runMyFunction() {
+        function runMyFunction8() {
           if (isset($_GET['field_name'])) {
             $key = $_GET['field_name'];
 
@@ -122,7 +122,7 @@ function smde_add_network_settings() {
 }
 
 if (isset($_GET['hello'])) {
-runMyFunction();
+runMyFunction8();
 //refresh the page
 ?> <meta http-equiv="refresh" content="0;URL=admin.php?page=smd_net_set_page"><?php
 }

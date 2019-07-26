@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Summary (no period for file headers)
- *
- * Functionality for printing metatags
+ * Funtion for printing metatags in html
  *
  * @link URL
  *
@@ -17,7 +15,8 @@
 use \vocabularies\SMDE_Metadata_Educational as lrmi_meta;
 
 /**
-* Function for printing metatags in site front-end.
+* Prints metatags
+* Used by simple-metadata plugin in smd_general_functions
 *
 * @since
 *

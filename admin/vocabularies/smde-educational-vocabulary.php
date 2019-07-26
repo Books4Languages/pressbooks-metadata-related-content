@@ -337,7 +337,7 @@ class SMDE_Metadata_Educational{
     $val = '';
 
         //Starting point of educational schema part 1
-        $html  = "\n<!-- LRMI Microtags -->\n";
+        $html  = "\n/*-- LRMI Microtags --*/\n";
 
 
     $partTwoMetadata = null;
@@ -347,7 +347,7 @@ class SMDE_Metadata_Educational{
       //Constructing the key for the data
       //Add strtolower in all vocabs remember
       $dataKey = strtolower('smde_' . $desc . '_' . $this->groupId .'_'. $this->type_level);
-      //Getting the data
+      //Getting the data from db
       $val = $this->smde_get_value($dataKey);
 
       //Checking if the value exists and that the key is in the array for the schema
@@ -360,7 +360,9 @@ class SMDE_Metadata_Educational{
           if ( 'timeRequired' == $key ) {
             $val = 'PT'. $val.'H';
           }
-          $html .= "<meta itemprop = '" . $key . "' content = '" . $val . "'>\n";
+          // $html .= "<meta itemprop = '" . $key . "' content = '" . $val . "'>\n";
+          $html .= ',' == $html[-1] ? "\n" : ",\n\t"; //adds identation and new paragraph
+          $html .= '"'.$key.'": "'.$val.'"';
         }else{
           $partTwoMetadata[$key] = $val;
         }
@@ -371,29 +373,37 @@ class SMDE_Metadata_Educational{
     //Starting point of educational schema part 2
     if ( isset( $this->metadata['pb_title'] ) ) {
       $this->metadata['pb_title'] = $this->metadata['pb_title'][0];
-      $html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-               ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n"
-               ."	<meta itemprop = 'targetName' content = '" .$this->metadata['pb_title']. "'>\n"
-               ."</span>\n";
+      $html .= ",\n";
+      $html .=
+      '"educationalAlignment": {
+      	"@type": "AlignmentObject",
+        "alignmentType": "educationalSubject",
+        "targetName": "'.$this->metadata['pb_title'].'"
+      }';
     }
 
     if(isset( $partTwoMetadata['educationalRole'] )){
-      $html .= "<span itemprop = 'audience' itemscope itemtype = 'http://schema.org/EducationalAudience'>\n"
-               ."	<meta itemprop = 'educationalRole' content = '$partTwoMetadata[educationalRole]'/>\n"
-               ."</span>\n";
+      $html .= ',' == $html[-1] ? "\n" : ",\n\t";
+      $html .=
+      '"educationalRole":  {
+        "@type":  "EducationalAudience",
+        "educationalRole":  "'.$partTwoMetadata['educationalRole'].'"
+      }';
     }
 
     //initilizing instance of classification vocabulary class and calling its method for prinitng metatags
     $class_meta = new class_meta($this->type_level);
     if (is_multisite() && get_site_option('smde_net_for_lang')){
       //adds to the html to print the metatags_lang from class_meta
+      $html	.=	",";
       $html .= $class_meta->smde_get_metatags_lang();
     } else {
       //adds to the html to print the metatags from class_meta
+      $html	.=	",";
       $html .= $class_meta->smde_get_metatags();
     }
 
-      $html .= "<!-- END OF LRMI MICROTAGS-->\n";
+      $html .= "\n/*-- END OF LRMI MICROTAGS--*/\n";
     echo $html;
   }
 

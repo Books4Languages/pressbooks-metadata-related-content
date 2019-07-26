@@ -560,8 +560,7 @@ class SMDE_Metadata_Classification{
 	 * @since    1.0
 	 * @access   public
 	 */
-	public function smde_get_metatags() {
-
+public function smde_get_metatags(){
 		//Getting post meta of metadata (Book Info) or site-meta post
         if($this->type_level == 'metadata' || $this->type_level == 'site-meta'){
             $this->metadata = self::get_site_meta_metadata();
@@ -571,6 +570,7 @@ class SMDE_Metadata_Classification{
 
 
 		$cleanCollect = [];
+
 
 		//going thorugh all properties of this class and putting them into multidimensional array (with url and description)
 		foreach ( self::$classification_properties_main as $key => $desc ) {
@@ -597,88 +597,117 @@ class SMDE_Metadata_Classification{
 			}
 		}
 
-		$html = "\n<!--CLASSIFICATION METATAGS-->\n";
+		$html = "\n/*--CLASSIFICATION METATAGS--*/\n";
 
-		//Starting point of classification schema
-		if ( array_key_exists('iscedLevel', $cleanCollect) ) {
-			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-			         ."	<meta itemprop = 'alignmentType' content = 'educationalLevel'/>\n"
-			         ."	<meta itemprop = 'educationalFramework' content = 'ISCED-2011'/>\n"
-			         ."	<meta itemprop = 'targetName' content = '" .$this->get_isced_level($cleanCollect['iscedLevel']['val']). "'>\n"
-			         ."	<meta itemprop = 'alternateName' content = 'ISCED 2011, Level  " .$cleanCollect['iscedLevel']['val']. "' />";
-			if (isset($cleanCollect['iscedLevel']['desc'])){
-			    $html .="	<link itemprop='targetDescription' content ='".$cleanCollect['iscedLevel']['desc']."' />\n";
-			}
-			if (isset($cleanCollect['iscedLevel']['url'])){
-				$html .="	<link itemprop='targetUrl' href='".$cleanCollect['iscedLevel']['url']."' />\n";
-			}
-			$html .= "</span>\n";
+		$html .= "\t" . '"educationalAlignment":	[';
+		if ( array_key_exists('iscedLevel', $cleanCollect) ){
+			$html .= "}" == $html[-1] ? "," : "";
+			$html .=	$this->smde_get_html_for_AlignmentObjects(
+		    "educationalLevel",
+		    "ISCED-2011",
+		    $this->get_isced_level($cleanCollect['iscedLevel']['val']),
+				'ISCED 2011, Level ' . $cleanCollect['iscedLevel']['val'],
+		    $cleanCollect['iscedLevel']['desc'],
+		    $cleanCollect['iscedLevel']['url']
+		  );
 		}
-
-		if ( array_key_exists('iscedField', $cleanCollect) ) {
-			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n"
-			         ."	<meta itemprop = 'educationalFramework' content = 'ISCED-2013'/>\n"
-			         ."	<meta itemprop = 'targetName' content = '" .$cleanCollect['iscedField']['val']. "'>\n";
-			if (isset($cleanCollect['iscedField']['desc'])){
-			    $html .="	<link itemprop='targetDescription' content ='".$cleanCollect['iscedField']['desc']."' />\n";
-			}
-			if (isset($cleanCollect['iscedField']['url'])){
-				$html .="	<link itemprop='targetUrl' href='".$cleanCollect['iscedField']['url']."' />\n";
-			}
-			$html .= "</span>\n";
+		if ( array_key_exists('iscedField', $cleanCollect) ){
+			$html .= "}" == $html[-1] ? "," : "";
+		  $html .=	$this->smde_get_html_for_AlignmentObjects(
+		    "educationalSubject",
+		    "ISCED-2013",
+		    $cleanCollect['iscedField']['val'],
+		    '',
+		    $cleanCollect['iscedField']['desc'],
+		    $cleanCollect['iscedField']['url']
+		  );
 		}
-
-		if ( array_key_exists( 'eduLevel', $cleanCollect ) && array_key_exists( 'eduFrame', $cleanCollect )) {
-			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n"
-			         ."	<meta itemprop = 'educationalFramework' content = '" .$cleanCollect['eduFrame']['val']. "'>\n"
-			         ."	<meta itemprop = 'targetName' content = '" .$cleanCollect['eduLevel']['val']. "'>\n";
-			if (isset($cleanCollect['eduLevel']['desc'])){
-			    $html .="	<link itemprop='targetDescription' content ='".$cleanCollect['eduLevel']['desc']."' />\n";
-			}
-			if (isset($cleanCollect['eduLevel']['url'])){
-				$html .="	<link itemprop='targetUrl' href='".$cleanCollect['eduLevel']['url']."' />\n";
-			}
-			$html .= "</span>\n";
-
+		if ( array_key_exists('eduLevel', $cleanCollect) && array_key_exists( 'eduFrame', $cleanCollect ) ){
+			$html .= "}" == $html[-1] ? "," : "";
+		  $html .=	$this->smde_get_html_for_AlignmentObjects(
+		    "educationalSubject",
+		    $cleanCollect['eduFrame']['val'],
+		    $cleanCollect['eduLevel']['val'],
+		    '',
+		    $cleanCollect['eduLevel']['desc'],
+		    $cleanCollect['eduLevel']['url']
+		  );
 		} elseif ( array_key_exists( 'eduLevel', $cleanCollect ) && !array_key_exists( 'eduFrame', $cleanCollect )) {
-			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-			         ."	<meta itemprop = 'alignmentType' content = 'educationalLevel'/>\n"
-			         ."	<meta itemprop = 'targetName' content = '" .$cleanCollect['eduLevel']['val']. "'>\n";
-			if (isset($cleanCollect['eduLevel']['desc'])){
-			    $html .="	<link itemprop='targetDescription' content ='".$cleanCollect['eduLevel']['desc']."' />\n";
-			}
-			if (isset($cleanCollect['eduLevel']['url'])){
-				$html .="	<link itemprop='targetUrl' href='".$cleanCollect['eduLevel']['url']."' />\n";
-			}
-			$html .="</span>\n";
+			$html .= "}" == $html[-1] ? "," : "";
+		  $html .=	$this->smde_get_html_for_AlignmentObjects(
+		    "educationalLevel",
+		    '',
+		    $cleanCollect['eduLevel']['val'],
+		    '',
+		    $cleanCollect['eduLevel']['desc'],
+		    $cleanCollect['eduLevel']['url']
+		  );
 		}
-
 		if (array_key_exists('additionalClass', $cleanCollect)){
-			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n";
-			$html .= "	<meta itemprop = 'targetName' content = '" .$cleanCollect['additionalClass']['val']. "'>\n";
+			$html .= "}" == $html[-1] ? "," : "";
+			$html .='
+		{
+			"@type":  "AlignmentObject",
+			"alignmentType":  "educationalSubject",
+			"targetDescription":	"'.$cleanCollect['additionalClass']['desc'].'",
+			"targetUrl":	"'.$cleanCollect['additionalClass']['url'].'"';
+
+			$html .=',
+			"targetName": [
+					 	"'.$cleanCollect['additionalClass']['val'].'"';
 			if (array_key_exists('specificClass', $cleanCollect)){
 				foreach($cleanCollect['specificClass']['val'] as $specificClass){
 					if (!empty($specificClass)){
-			    		$html .="	<meta itemprop = 'targetName' content = '" .$specificClass. "'>\n";
-			    	}
+							//$html .="	<meta itemprop = 'targetName' content = '" .$specificClass. "'>\n";
+							$html	.=	",\n\t\t\t\t\t\t";
+							$html	.=	'"'.$specificClass.'"';
+					}
 				}
 			}
-			if (isset($cleanCollect['additionalClass']['desc'])){
-			    $html .="	<link itemprop='targetDescription' content ='".$cleanCollect['additionalClass']['desc']."' />\n";
-			}
-			if (isset($cleanCollect['additionalClass']['url'])){
-				$html .="	<link itemprop='targetUrl' href='".$cleanCollect['additionalClass']['url']."' />\n";
-			}
-			$html .= "</span>\n";
+			$html .=  "\n\t\t\t\t\t]\n";
+			$html .=  "\t\t}\n";
+		}
+		$html .= "\t]\n";
+		$html .= "/*--END OF CLASSIFICATION METATAGS--*/\n";
+		return $html;
+}
+
+/**
+ * Create the common structure of the metatags for AlignmentObject
+ *
+ * @see smde_get_metatags
+ *
+ * @since    1.2
+ * @access  public
+ */
+
+function smde_get_html_for_AlignmentObjects($educationalLevel, $iescedNum, $targetName, $alternateName, $targetDescription, $targetUrl)
+{
+		$html ='
+		{
+			"@type":  "AlignmentObject",
+			"alignmentType":  "'.$educationalLevel.'",
+			"educationalFramework":	"'.$iescedNum.'",
+			"targetName": "'.$targetName.'"';
+
+		if(!empty($targetName)){
+			$html .= "," == $html[-1] ? "\n" : ","; // There is a comma in the option before
+			$html .=  '"alternateName":	"'.$alternateName.'"';
 		}
 
-		$html .= "<!--END OF CLASSIFICATION METATAGS-->\n";
+		if(!empty($targetDescription)){
+			$html .= "," == $html[-1] ? "\n" : ","; // There is a comma in the option before
+			$html .=  '"targetDescription":	"'.$targetDescription.'"';
+		}
 
+		if(!empty($targetUrl)){
+			$html .= "," == $html[-1] ? "\n" : ",";
+			$html .=  '"targetUrl": "'.$targetUrl.'"';
+		}
+
+		$html .=	"\n\t\t}";
 		return $html;
-	}
+}
 
 	/**
 	 * Function that creates the vocabulary metatags
@@ -715,17 +744,10 @@ class SMDE_Metadata_Classification{
 			}
 		}
 
-		$html = "\n<!--CLASSIFICATION METATAGS-->\n";
-
+		$html = "\n\n/*--CLASSIFICATION METATAGS--*/\n";
+		$html.= '	"educationalAlignment" : [';
 		//Starting point of classification schema
-
 		if ( array_key_exists('iscedLevel', $cleanCollect) ) {
-			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-			         ."	<meta itemprop = 'alignmentType' content = 'educationalLevel'/>\n"
-			         ."	<meta itemprop = 'educationalFramework' content = 'ISCED-2011'/>\n"
-			         ."	<meta itemprop = 'targetName' content = '" .$this->get_isced_level($cleanCollect['iscedLevel']['val']). "'>\n"
-			         ."	<meta itemprop = 'alternateName' content = 'ISCED 2011, Level  " .$cleanCollect['iscedLevel']['val']. "' />";
-
 			switch ($cleanCollect['iscedLevel']['val']) {
 
 				case '9':
@@ -785,39 +807,49 @@ class SMDE_Metadata_Classification{
 				}
 
 			$cleanCollect['iscedLevel']['url'] = 'http://uis.unesco.org/en/topic/international-standard-classification-education-isced';
+			$html	.=	"}"	==	$html[-1]	?	","	: "";
+			$html .=	'
+		{
+			"@type":	"AlignmentObject",
+			"alignmentType": "educationalLevel",
+			"educationalFramework": "ISCED-2011",
+			"targetName":	"'.$this->get_isced_level($cleanCollect['iscedLevel']['val']).'",
+			"alternateName": "ISCED 2011, Level '.$cleanCollect['iscedLevel']['val'].'",
+			"targetDescription":	"'.$cleanCollect['iscedLevel']['desc'].'",
+			"targetUrl":	"'.$cleanCollect['iscedLevel']['url'].'"
+		}';
+	}
+		$html	.=	"}"	==	$html[-1]	?	","	: "";
+		$html .=	'
+		{
+			"@type":	"AlignmentObject",
+			"alignmentType": "educationalSubject",
+			"educationalFramework": "ISCED-2013",
+			"targetName":	[
+				"Arts and Humanities",
+				"Languages",
+				"Language Acquisition"
+			],
+			"alternateName": "ISCED 2011, Level '.$cleanCollect['iscedLevel']['val'].'",
+			"targetDescription":	"Language acquisition is the  study  of  the  structure  and  composition  of  languages taught as second or foreign languages (i.e. that are intended for non-native or non-fluent speakers of the language). It includes the study of related cultures, literature, linguistics and phonetics if related to the specific language being acquired and forms part of the same programme or qualification. Classical or dead languages are included here as it is assumed there are no 		native speakers of the  language  and  hence  the  manner  of  teaching  and  the  content  of  the  curriculum are more similar to the teaching of foreign languages.",
+			"targetUrl":	"http://uis.unesco.org/en/topic/international-standard-classification-education-isced"
+		}';
 
-			$html .= "</span>\n";
-		}
-
-		$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n"
-			         ."	<meta itemprop = 'educationalFramework' content = 'ISCED-2013'/>\n"
-			         ."	<meta itemprop = 'targetName' content = 'Arts and Humanities'>\n"
-			         ."	<meta itemprop = 'targetName' content = 'Languages'>\n"
-			         ."	<meta itemprop = 'targetName' content = 'Language Acquisition'>\n"
-			         ."		<link itemprop='targetDescription' content ='Language acquisition is the  study  of  the  structure  and  composition  of  languages taught as second or foreign languages (i.e. that are intended for non-native or non-fluent speakers of the language). It includes the study of related cultures, literature, linguistics and phonetics if related to the specific language being acquired and forms part of the same programme or qualification. Classical or dead languages are included here as it is assumed there are no native speakers of the  language  and  hence  the  manner  of  teaching  and  the  content  of  the  curriculum are more similar to the teaching of foreign languages.' />\n"
-			         ."		<link itemprop='targetUrl' content ='http://uis.unesco.org/en/topic/international-standard-classification-education-isced' />\n"
-			         ."</span>\n";
-
-		if (array_key_exists('eduLang', $cleanCollect)){
-			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n"
-			         ."	<meta itemprop = 'targetName' content = '".$cleanCollect['eduLang']['val']."'>\n";
-
-			$cleanCollect['eduLang']['desc'] = 'Second language.';
-			$cleanCollect['eduLang']['url'] = 'http://uis.unesco.org/en/topic/international-standard-classification-education-isced';
-
-			$html .="	<link itemprop='targetDescription' content ='".$cleanCollect['eduLang']['desc']."' />\n";
-			$html .="	<link itemprop='targetUrl' href='".$cleanCollect['eduLang']['url']."' />\n";
-
-			$html .= "</span>\n";
-		}
+	if (array_key_exists('eduLang', $cleanCollect)){
+		$cleanCollect['eduLang']['desc'] = 'Second language.';
+		$cleanCollect['eduLang']['url'] = 'http://uis.unesco.org/en/topic/international-standard-classification-education-isced';
+			$html	.=	"}"	==	$html[-1]	?	","	: "";
+			$html .=	'
+		{
+			"@type":	"AlignmentObject",
+			"alignmentType": "educationalSubject",
+			"targetName": "'.$cleanCollect['eduLang']['val'].'",
+			"targetDescription": "'.$cleanCollect['eduLang']['desc'].'",
+			"targetUrl":	"'.$cleanCollect['eduLang']['url'].'"
+		}';
+	}
 
 		if ( array_key_exists( 'eduLevel', $cleanCollect )) {
-			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-			         ."	<meta itemprop = 'alignmentType' content = 'educationalLevel'/>\n"
-			         ."	<meta itemprop = 'educationalFramework' content = 'CEFR'>\n"
-			         ."	<meta itemprop = 'targetName' content = '" .$cleanCollect['eduLevel']['val']. "'>\n";
 
 			switch ($cleanCollect['eduLevel']['val']) {
 
@@ -859,26 +891,20 @@ class SMDE_Metadata_Classification{
 			}
 
 			$cleanCollect['eduLevel']['url'] = 'https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions';
-
-			$html .="	<link itemprop='targetDescription' content ='".$cleanCollect['eduLevel']['desc']."' />\n";
-			$html .="	<link itemprop='targetUrl' href='".$cleanCollect['eduLevel']['url']."' />\n";
-
-			$html .= "</span>\n";
+			$html	.=	"}"	==	$html[-1]	?	","	: "";
+			$html .=	'
+		{
+			"@type":	"AlignmentObject",
+			"alignmentType": "educationalLevel",
+			"educationalFramework": "CEFR",
+			"targetName":	"'.$cleanCollect['eduLevel']['val'].'",
+			"targetDescription":	"'.$cleanCollect['eduLevel']['desc'].'",
+			"targetUrl":	"'.$cleanCollect['eduLevel']['url'].'"
+		}';
 
 		}
 
 		if (array_key_exists('additionalClass', $cleanCollect)){
-
-			$html .= "<span itemprop = 'educationalAlignment' itemscope itemtype = 'http://schema.org/AlignmentObject'>\n"
-			         ."	<meta itemprop = 'alignmentType' content = 'educationalSubject'/>\n";
-			$html .= "	<meta itemprop = 'targetName' content = '" .$cleanCollect['additionalClass']['val']. "'>\n";
-			if (array_key_exists('specificClass', $cleanCollect)){
-				foreach($cleanCollect['specificClass']['val'] as $specificClass){
-					if (!empty($specificClass)){
-			    		$html .="	<meta itemprop = 'targetName' content = '" .$specificClass. "'>\n";
-			    	}
-				}
-			}
 
 			switch ($cleanCollect['additionalClass']['val']) {
 
@@ -908,16 +934,35 @@ include: Fixed expressions (consisting of several words, which are used and lear
 					$cleanCollect['additionalClass']['desc'] = 'CEFR not only provides a scaling of overall language proficiency in a given language, but also a breakdown of language use and language competences which will make it easier for practitioners to specify objectives and describe achievements of the most diverse kinds in accordance with the varying needs, characteristics and resources of learners';
 					break;
 			}
-
 			$cleanCollect['additionalClass']['url'] = 'https://www.coe.int/en/web/common-european-framework-reference-languages';
+			$html	.=	"}"	==	$html[-1]	?	","	: "";
+			$html .=	'
+		{
+			"@type":	"AlignmentObject",
+			"alignmentType": "educationalSubject",
+			"targetName":	[
+				"'.$cleanCollect['additionalClass']['val'].'"';
 
-			$html .="	<link itemprop='targetDescription' content ='".$cleanCollect['additionalClass']['desc']."' />\n";
-			$html .="	<link itemprop='targetUrl' href='".$cleanCollect['additionalClass']['url']."' />\n";
+			if (array_key_exists('specificClass', $cleanCollect)){
+				foreach($cleanCollect['specificClass']['val'] as $specificClass){
+					if (!empty($specificClass)){
+			    		//$html .="	<meta itemprop = 'targetName' content = '" .$specificClass. "'>\n";
+							$html .=	","	==	$html[-1]	?	"\n"	:	",\n";
+							$html	.=	"\t\t\t\t" . '"'.$specificClass.'"';
+			    	}
+				}
 
-			$html .= "</span>\n";
+			}
+			$html	.=	"\n\t\t\t]";
+			$html .=	","	==	$html[-1]	?	"\n"	:	",";
+			$html .=	'
+			"targetDescription:":	"'.$cleanCollect['additionalClass']['desc'].'",
+			"targetUrl":	"'.$cleanCollect['additionalClass']['url'].'"
+		}';
+
 		}
-
-		$html .= "<!--END OF CLASSIFICATION METATAGS-->\n";
+		$html .=	"\n\t]";
+		$html .=	"\n/*--END OF CLASSIFICATION METATAGS--*/\n";
 
 		return $html;
 	}
