@@ -138,7 +138,7 @@ function smde_add_education_settings() {
 				?>
 				<?php if ($shares_edu[$key]=='1') {
 
-					function runMyFunction() {
+					function runMyFunction122() {
 						if (isset($_GET['field_name'])) {
 							$locations2 = get_option('smde_locations');
 							$key = $_GET['field_name'];
@@ -215,7 +215,7 @@ function smde_add_education_settings() {
 }
 
 if (isset($_GET['hello'])) {
-	runMyFunction();
+	runMyFunction122();
 	//refresh the page
 	?><meta http-equiv="refresh" content="0;URL=admin.php?page=smde_set_page"><?php
 }
@@ -283,7 +283,7 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 		    ?>
 				<?php if ($shares_class[$key]=='1') {
 
-					function runMyFunction8() {
+					function runMyFunction1228() {
 						if (isset($_GET['field_name'])) {
 							$locations2 = get_option('smde_locations');
 							$key = $_GET['field_name'];
@@ -360,12 +360,12 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 }
 
 if (isset($_GET['hello'])) {
-	runMyFunction8();
+	runMyFunction1228();
 	//refresh the page
 	?><meta http-equiv="refresh" content="0;URL=admin.php?page=smde_set_page"><?php
 }
  if ($shares_class[$key]=='1') {
-echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin.php?page=smde_set_page&hello=true&field_name='.$key.'&sharekey='.$shares_edu[$key].'">X</a>';}
+echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin.php?page=smde_set_page&hello=true&field_name='.$key.'&sharekey='.$shares_class[$key].'">X</a>';}
 
 ?>
 				&nbsp;&nbsp;
