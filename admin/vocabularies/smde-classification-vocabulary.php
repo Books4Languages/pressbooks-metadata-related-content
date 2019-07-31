@@ -55,7 +55,7 @@ class SMDE_Metadata_Classification{
         'iscedLevel'=>array( 'ISCED level of education','Level of education according to ISCED-P 2011'.'<br><a target="_blank" href="http://uis.unesco.org/en/topic/international-standard-classification-education-isced">Click Here for more information</a>',
 			array(
 				'' => '--Select--',
-				'10' => 'Early Childhood Education',
+				'0' => 'Early Childhood Education',
 			 	'1'  => 'Primary education',
 				'2'  => 'Lower secondary education',
 				'3'  => 'Upper secondary education',
@@ -114,8 +114,7 @@ class SMDE_Metadata_Classification{
 
 			self::$classification_properties_main['iscedLevel'] = array( __('ISCED level of education', 'simple-metadata-education'),__('Level of education according to ISCED-P 2011', 'simple-metadata-education') .'<br><a target="_blank" href="http://www.uis.unesco.org/Education/Documents/isced-2011-en.pdf">' . __('Click Here for more information', 'simple-metadata-education'). '</a>',
 				array(
-					'9'  => __('Not elsewhere classified', 'simple-metadata-education'),
-					'10' => __('Early Childhood Education', 'simple-metadata-education'),
+					'0' => __('Early Childhood Education', 'simple-metadata-education'),
 					'1'  => __('Primary education', 'simple-metadata-education'),
 					'2'  => __('Lower secondary education', 'simple-metadata-education'),
 					'3'  => __('Upper secondary education', 'simple-metadata-education'),
@@ -123,7 +122,8 @@ class SMDE_Metadata_Classification{
 					'5'  => __('Short-cycle tertiary education', 'simple-metadata-education'),
 					'6'  => __('Bachelor’s or equivalent level', 'simple-metadata-education'),
 					'7'  => __('Master’s or equivalent level', 'simple-metadata-education'),
-					'8'  => __('Doctoral or equivalent level', 'simple-metadata-education')));
+					'8'  => __('Doctoral or equivalent level', 'simple-metadata-education'),
+					'9'  => __('Not elsewhere classified', 'simple-metadata-education')));
 
 			self::$classification_properties_main['eduLang'] =
 			array(__('Studying content', 'simple-metadata-education'),
@@ -511,7 +511,7 @@ class SMDE_Metadata_Classification{
 	private function get_isced_level($level){
 		$isced_level_data = array(
 			''  => __('--Select--', 'simple-metadata-education'),
-			'10' => __('Early Childhood Education', 'simple-metadata-education'),
+			'0' => __('Early Childhood Education', 'simple-metadata-education'),
 			'1' => __('Primary education', 'simple-metadata-education'),
 			'2' => __('Lower secondary education', 'simple-metadata-education'),
 			'3' => __('Upper secondary education', 'simple-metadata-education'),
@@ -596,10 +596,9 @@ public function smde_get_metatags(){
 				}
 			}
 		}
-
-		$html = "\n/*--CLASSIFICATION METATAGS--*/\n";
-
+		$html = "";
 		$html .= "\t" . '"educationalAlignment":	[';
+		//ISCED level
 		if ( array_key_exists('iscedLevel', $cleanCollect) ){
 			$html .= "}" == $html[-1] ? "," : "";
 			$html .=	$this->smde_get_html_for_AlignmentObjects(
@@ -611,6 +610,20 @@ public function smde_get_metatags(){
 		    $cleanCollect['iscedLevel']['url']
 		  );
 		}
+		//Educational Framework
+		if ( array_key_exists('eduLevel', $cleanCollect) && array_key_exists( 'eduFrame', $cleanCollect ) ){
+			$html .= "}" == $html[-1] ? "," : "";
+		  $html .=	$this->smde_get_html_for_AlignmentObjects(
+		    "educationalSubject",
+		    $cleanCollect['eduFrame']['val'],
+		    $cleanCollect['eduLevel']['val'],
+		    '',
+		    $cleanCollect['eduLevel']['desc'],
+		    $cleanCollect['eduLevel']['url']
+		  );
+		}
+
+		//ISCED Field
 		if ( array_key_exists('iscedField', $cleanCollect) ){
 			$html .= "}" == $html[-1] ? "," : "";
 		  $html .=	$this->smde_get_html_for_AlignmentObjects(
@@ -622,17 +635,9 @@ public function smde_get_metatags(){
 		    $cleanCollect['iscedField']['url']
 		  );
 		}
-		if ( array_key_exists('eduLevel', $cleanCollect) && array_key_exists( 'eduFrame', $cleanCollect ) ){
-			$html .= "}" == $html[-1] ? "," : "";
-		  $html .=	$this->smde_get_html_for_AlignmentObjects(
-		    "educationalSubject",
-		    $cleanCollect['eduFrame']['val'],
-		    $cleanCollect['eduLevel']['val'],
-		    '',
-		    $cleanCollect['eduLevel']['desc'],
-		    $cleanCollect['eduLevel']['url']
-		  );
-		} elseif ( array_key_exists( 'eduLevel', $cleanCollect ) && !array_key_exists( 'eduFrame', $cleanCollect )) {
+
+		//Educational level
+		if ( array_key_exists( 'eduLevel', $cleanCollect ) && !array_key_exists( 'eduFrame', $cleanCollect )) {
 			$html .= "}" == $html[-1] ? "," : "";
 		  $html .=	$this->smde_get_html_for_AlignmentObjects(
 		    "educationalLevel",
@@ -643,6 +648,8 @@ public function smde_get_metatags(){
 		    $cleanCollect['eduLevel']['url']
 		  );
 		}
+
+		//Additional classification
 		if (array_key_exists('additionalClass', $cleanCollect)){
 			$html .= "}" == $html[-1] ? "," : "";
 			$html .='
@@ -658,7 +665,6 @@ public function smde_get_metatags(){
 			if (array_key_exists('specificClass', $cleanCollect)){
 				foreach($cleanCollect['specificClass']['val'] as $specificClass){
 					if (!empty($specificClass)){
-							//$html .="	<meta itemprop = 'targetName' content = '" .$specificClass. "'>\n";
 							$html	.=	",\n\t\t\t\t\t\t";
 							$html	.=	'"'.$specificClass.'"';
 					}
@@ -667,8 +673,7 @@ public function smde_get_metatags(){
 			$html .=  "\n\t\t\t\t\t]\n";
 			$html .=  "\t\t}\n";
 		}
-		$html .= "\t]\n";
-		$html .= "/*--END OF CLASSIFICATION METATAGS--*/\n";
+		$html .= "\n\t]";
 		return $html;
 }
 
@@ -744,18 +749,13 @@ function smde_get_html_for_AlignmentObjects($educationalLevel, $iescedNum, $targ
 			}
 		}
 
-		$html = "\n\n/*--CLASSIFICATION METATAGS--*/\n";
+		$html = "\n";
 		$html.= '	"educationalAlignment" : [';
 		//Starting point of classification schema
 		if ( array_key_exists('iscedLevel', $cleanCollect) ) {
 			switch ($cleanCollect['iscedLevel']['val']) {
 
-				case '9':
-
-					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 9 are Not elsewhere classified.';
-					break;
-
-				case '10':
+				case '0':
 
 					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 0, or early childhood education, are typically designed with a holistic approach to support children’s early cognitive, physical, social and emotional development and introduce young children to organized instruction outside of the family context. ISCED level 0 refers to early childhood programmes that have an intentional education component. These programmes aim to develop socio-emotional skills necessary for participation in school and society. They also develop some of the skills needed for academic readiness and prepare children for entry into primary education.';
 					break;
@@ -800,6 +800,10 @@ function smde_get_html_for_AlignmentObjects($educationalLevel, $iescedNum, $targ
 					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 8, or doctoral or equivalent level, are designed primarily to lead to an advanced research qualification. Programmes at this ISCED level are devoted to advanced study and original research and are typically offered only by research-oriented tertiary educational institutions such as universities. Doctoral programmes exist in both academic and professional fields.';
 					break;
 
+				case '9':
+
+					$cleanCollect['iscedLevel']['desc'] = 'Programmes at ISCED level 9 are Not elsewhere classified.';
+					break;
 
 				default:
 					$cleanCollect['iscedLevel']['desc'] = 'The International Standard Classification of Education (ISCED) belongs to the United Nations International Family of Economic and Social Classifications, which are applied in statistics worldwide with the purpose of assembling, compiling and analysing cross-nationally comparable data. ISCED is the reference classification for organizing education programmes and related qualifications by education levels and fields. ISCED is a product of international agreement and adopted formally by the General Conference of UNESCO Member States. ISCED is designed to serve as a framework to classify educational activities as defined in programmes and the resulting qualifications into internationally agreed categories. The basic concepts and definitions of ISCED are therefore intended to be internationally valid and comprehensive of the full range of education systems.';
@@ -962,7 +966,6 @@ include: Fixed expressions (consisting of several words, which are used and lear
 
 		}
 		$html .=	"\n\t]";
-		$html .=	"\n/*--END OF CLASSIFICATION METATAGS--*/\n";
 
 		return $html;
 	}

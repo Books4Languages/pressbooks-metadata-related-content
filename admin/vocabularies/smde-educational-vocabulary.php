@@ -64,12 +64,12 @@ class SMDE_Metadata_Educational{
 	 * @access   public
 	 */
   public static $lrmi_properties = array(
-   'interactivityType'		=> 'interactivityType',
-   'learningResourceType'	=> 'learningResourceType',
-		'educationalRole'		  => 'endUserRole',
-		'educationalUse'	   	=> 'educationalUse',
-		'typicalAgeRange' 		=> 'typicalAgeRange',
-		'timeRequired'		   	=> 'typicalLearningTime'
+    'interactivityType'		=> 'interactivityType',
+    'learningResourceType'=> 'learningResourceType',
+    'educationalRole'		  => 'endUserRole',
+    'educationalUse'	   	=> 'educationalUse',
+    'typicalAgeRange' 		=> 'typicalAgeRange',
+    'timeRequired'		   	=> 'typicalLearningTime'
 	);
 
   /**
@@ -337,8 +337,7 @@ class SMDE_Metadata_Educational{
     $val = '';
 
         //Starting point of educational schema part 1
-        $html  = "\n/*-- LRMI Microtags --*/\n";
-
+    $html  = ",";
 
     $partTwoMetadata = null;
 
@@ -360,8 +359,7 @@ class SMDE_Metadata_Educational{
           if ( 'timeRequired' == $key ) {
             $val = 'PT'. $val.'H';
           }
-          // $html .= "<meta itemprop = '" . $key . "' content = '" . $val . "'>\n";
-          $html .= ',' == $html[-1] ? "\n" : ",\n\t"; //adds identation and new paragraph
+          $html .= ',' == $html[-1] ? "\n\t" : ",\n\t"; //adds identation and new paragraph
           $html .= '"'.$key.'": "'.$val.'"';
         }else{
           $partTwoMetadata[$key] = $val;
@@ -371,9 +369,10 @@ class SMDE_Metadata_Educational{
     //Ending schema part 1
 
     //Starting point of educational schema part 2
+    //Learning Resource Type
     if ( isset( $this->metadata['pb_title'] ) ) {
       $this->metadata['pb_title'] = $this->metadata['pb_title'][0];
-      $html .= ",\n";
+      $html .= ",\n\t";
       $html .=
       '"educationalAlignment": {
       	"@type": "AlignmentObject",
@@ -382,6 +381,7 @@ class SMDE_Metadata_Educational{
       }';
     }
 
+    //Educational Use
     if(isset( $partTwoMetadata['educationalRole'] )){
       $html .= ',' == $html[-1] ? "\n" : ",\n\t";
       $html .=
@@ -395,15 +395,14 @@ class SMDE_Metadata_Educational{
     $class_meta = new class_meta($this->type_level);
     if (is_multisite() && get_site_option('smde_net_for_lang')){
       //adds to the html to print the metatags_lang from class_meta
-      $html	.=	",";
+      $html	.=	",\n";
       $html .= $class_meta->smde_get_metatags_lang();
     } else {
       //adds to the html to print the metatags from class_meta
-      $html	.=	",";
+      $html	.=	",\n";
       $html .= $class_meta->smde_get_metatags();
     }
 
-      $html .= "\n/*-- END OF LRMI MICROTAGS--*/\n";
     echo $html;
   }
 

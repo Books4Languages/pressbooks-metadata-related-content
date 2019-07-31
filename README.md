@@ -78,9 +78,9 @@ Take a look at detailed changelog [here](/CHANGELOG.md)
 		* Disable and delete data of fields in database
 		* Create radio button for settings of fields
 * **REMOVED**
-    *  Auto update from github.
+   *  Auto update from github.
 * **ENHANCEMENTS***
-		* Make in corect order the admin panel. Change name site-meta in home page
+   * Make in corect order the admin panel. Change name site-meta in home page
 * **List of Files revised**
    * smde-admin-settings.php
 	 * simple-metadata-education.php
