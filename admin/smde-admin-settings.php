@@ -374,23 +374,19 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 					<?php esc_html_e('Disable', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]"
 						<?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }?>
-						<?php checked('disable', get_option('smde_class_'.$key)); ?> <?php  if ($valeur_key == '1' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
+					 <?php  if ($valeur_key == '1' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
 				<label for="smde_class_local_value[<?=$key?>]">
 					<?php esc_html_e('Local value', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0' || empty($shares_class[$key])) { echo "checked='checked'"; }?>
-						<?php checked('0', get_option('smde_class_'.$key)); ?>
+
 						<?php  if ($valeur_key == '0' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
 				<label  for="smde_class_share[<?=$key?>]">
 					<?php esc_html_e('Share', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?>
-
-						<?php //Moved options to site meta check this code
-						checked('share', get_option($shares_class[$key]));
-						?>
 						<?php  if ($valeur_key == '2' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
@@ -398,7 +394,6 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 					<?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="3" id="smde_class_freeze[<?=$key?>]"
 					<?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }?>
-					<?php checked('freeze', get_option('smde_class_'.$key)); ?>
 					<?php  if ($valeur_key == '3' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
@@ -433,7 +428,6 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 					<?php esc_html_e('Disable', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]"
 					<?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }?>
-					<?php checked('disable', get_option('smde_class_'.$key)); ?>
 					<?php  if ($valeur_key_langue == '1' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
@@ -441,7 +435,6 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 					<?php esc_html_e('Local value', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]"
 					<?php if ($shares_class[$key]=='0' || empty($shares_class[$key])) { echo "checked='checked'"; }?>
-					<?php checked('0', get_option('smde_class_'.$key)); ?>
 					<?php  if ($valeur_key_langue == '0' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
@@ -450,7 +443,6 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]"
 					<?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?>
 					<?php //Moved options to site meta check this code
-					checked('share', get_option($shares_class[$key]));
 					?>
 					<?php  if ($valeur_key_langue == '2' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";} ?>
 					>
@@ -459,7 +451,6 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 					<?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="3" id="smde_class_freeze[<?=$key?>]"
 					<?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }?>
-					<?php checked('freeze', get_option('smde_class_'.$key)); ?>
 					<?php  if ($valeur_key_langue == '3' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";} ?>
 					>
 				</label>

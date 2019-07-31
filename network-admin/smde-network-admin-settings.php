@@ -134,13 +134,13 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
     <?php } ?>
 
       <label for="smde_net_edu_disable[<?=$key?>]"><?php esc_html_e('Disable', 'simple-metadata-education');?> <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="1" id="smde_net_edu_disable[<?=$key?>]" <?php if ($shares_edu[$key]=='1') { echo "checked='checked'"; }
-      ?> <?php checked('disable', get_site_option('smde_net_edu_'.$key)); ?> ></label>
+      ?>  ></label>
       <label for="smde_net_edu_local_value[<?=$key?>]"><?php esc_html_e('Local value', 'simple-metadata-education');?> <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="0" id="smde_net_edu_local_value[<?=$key?>]" <?php if ($shares_edu[$key]=='0') { echo "checked='checked'"; }
-      ?>  <?php checked('0', get_site_option('smde_net_edu_'.$key)); ?> ></label>
+      ?>   ></label>
       <label  for="smde_net_edu_share[<?=$key?>]"><?php esc_html_e('Share', 'simple-metadata-education');?> <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="2" id="smde_net_edu_share[<?=$key?>]" <?php if ($shares_edu[$key]=='2') { echo "checked='checked'"; }
-      ?> <?php checked('share', get_site_option($shares_edu[$key])); ?>></label>
+      ?>></label>
       <label for="smde_net_edu_freeze[<?=$key?>]"><?php esc_html_e('Freeze', 'simple-metadata-education');?> <input type="radio"  name="smde_net_edu_[<?=$key?>]" value="3" id="smde_net_edu_freeze[<?=$key?>]"  <?php if ($shares_edu[$key]=='3') { echo "checked='checked'"; }
-      ?>  <?php checked('freeze', get_site_option('smde_net_edu_'.$key)); ?>></label>
+      ?> ></label>
         <br><span class="description"><?=$data[1]?></span>
       <?php
       //if checkboxes are disabled, we add hidden field to store value of option
@@ -167,13 +167,13 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 
 	?>
       <label for="smde_net_class_disable[<?=$key?>]"><?php esc_html_e('Disable', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="1" id="smde_net_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }
-      ?> <?php checked('disable', get_site_option('smde_net_class_'.$key)); ?> ></label>
+      ?>></label>
       <label for="smde_net_class_local_value[<?=$key?>]"><?php esc_html_e('Local value', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="0" id="smde_net_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0') { echo "checked='checked'"; }
-      ?>  <?php checked('0', get_site_option('smde_net_class_'.$key)); ?> ></label>
+      ?>   ></label>
       <label  for="smde_net_class_share[<?=$key?>]"><?php esc_html_e('Share', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="2" id="smde_net_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }
-      ?> <?php checked('share', get_site_option($shares_class[$key])); ?>></label>
+      ?> ></label>
       <label for="smde_net_class_freeze[<?=$key?>]"><?php esc_html_e('Freeze', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="3" id="smde_net_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }
-      ?>  <?php checked('freeze', get_site_option('smde_net_class_'.$key)); ?>></label>
+      ?> ></label>
         <br><span class="description"><?=$data[1]?></span>
       <?php
 		}, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
@@ -189,19 +189,19 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
 			?>
       <label for="smde_net_class_disable[<?=$key?>]">
         <?php esc_html_e('Disable', 'simple-metadata-education'); ?>
-        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="1" id="smde_net_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; } ?> <?php checked('disable', get_site_option('smde_net_class_'.$key)); ?> >
+        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="1" id="smde_net_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; } ?> >
       </label>
       <label for="smde_net_class_local_value[<?=$key?>]">
         <?php esc_html_e('Local value', 'simple-metadata-education'); ?>
-        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="0" id="smde_net_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0') { echo "checked='checked'"; } ?>  <?php checked('0', get_site_option('smde_net_class_'.$key)); ?> >
+        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="0" id="smde_net_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0') { echo "checked='checked'"; } ?>  >
       </label>
       <label  for="smde_net_class_share[<?=$key?>]">
         <?php esc_html_e('Share', 'simple-metadata-education'); ?>
-        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="2" id="smde_net_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?> <?php checked('share', get_site_option($shares_class[$key])); ?>>
+        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="2" id="smde_net_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?> >
       </label>
       <label for="smde_net_class_freeze[<?=$key?>]">
         <?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
-        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="3" id="smde_net_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }?>  <?php checked('freeze', get_site_option('smde_net_class_'.$key)); ?>>
+        <input type="radio"  name="smde_net_class_[<?=$key?>]" value="3" id="smde_net_class_freeze[<?=$key?>]"  <?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }?>>
       </label>
 				<br>
         <span class="description"><?php esc_html_e('Language which content is about', 'simple-metadata-education'); ?></span>
