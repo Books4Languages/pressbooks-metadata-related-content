@@ -74,11 +74,11 @@ Take a look at detailed changelog [here](/CHANGELOG.md)
 
 ### 1.2
 * **ADDITIONS**
-		* Internationalization
+   * Internationalization
 * **REMOVED**
-    *  Auto update from github.
+   *  Auto update from github.
 * **ENHANCEMENTS***
-		* Make in corect order the admin panel. Change name site-meta in home page
+   * Make in corect order the admin panel. Change name site-meta in home page
 * **List of Files revised**
    * smde-admin-settings.php
 	 * simple-metadata-education.php
