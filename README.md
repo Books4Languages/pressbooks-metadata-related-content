@@ -75,6 +75,8 @@ Take a look at detailed changelog [here](/CHANGELOG.md)
 ### 1.2
 * **ADDITIONS**
 		* Internationalization
+		* Disable and delete data of fields in database
+		* Create radio button for settings of fields
 * **REMOVED**
     *  Auto update from github.
 * **ENHANCEMENTS***
@@ -83,6 +85,7 @@ Take a look at detailed changelog [here](/CHANGELOG.md)
    * smde-admin-settings.php
 	 * simple-metadata-education.php
 	 * smde-classification-vocabulary.php
+	 * smde-network-admin-settings.php
 
 
 
