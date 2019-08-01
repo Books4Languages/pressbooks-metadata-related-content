@@ -127,7 +127,7 @@ runMyFunction8();
 ?> <meta http-equiv="refresh" content="0;URL=admin.php?page=smd_net_set_page"><?php
 }
 if ($shares_edu[$key]=='1') {
-echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin.php?page=smd_net_set_page&hello=true&field_name='.$key.'&sharekey='.$shares_edu[$key].'">X</a>';}
+echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the all sites?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smd_net_set_page&hello=true&field_name='.$key.'&sharekey='.$shares_edu[$key].''>X</a>";}
 
 ?>
       &nbsp;&nbsp;
@@ -166,6 +166,43 @@ echo '<a style="color:red; text-decoration: none; font-size: 14px;"href = "admin
       $shares_class[$key] = !empty($shares_class[$key]) ? $shares_class[$key] : '0';
 
 	?>
+  <?php if ($shares_class[$key]=='1') {
+    if (isset($_GET['hello25'])) {
+
+    function runMyFunction88() {
+      if (isset($_GET['field_name'])) {
+        $key = $_GET['field_name'];
+
+          global $wpdb;
+             //If we have more than one or 0 ids in the array then return and stop operation
+             //If we have no chapters or posts to distribute data also stop operation
+             $prefixx = $wpdb->prefix;
+             $post_meta_texte = "_postmeta";
+
+             //getting metadata of site-meta/books info post
+             $select_all_id_blogs = $wpdb->get_results("
+                 SELECT blog_id FROM students_wp_blogs",ARRAY_N);
+              foreach ($select_all_id_blogs as $key1 => $valuee) {
+                $postMetaTable = $prefixx . $valuee[0] . $post_meta_texte;
+                $metadata_meta_key_site = 'smde_'.strtolower($key).'_class_vocab_';
+            $recuperation_de_la_table = $wpdb->get_results("
+                DELETE FROM $postMetaTable  WHERE meta_key like '%{$metadata_meta_key_site}%' ");
+
+
+              }
+      }
+}
+
+runMyFunction88();
+//refresh the page
+?> <meta http-equiv="refresh" content="0;URL=admin.php?page=smd_net_set_page"><?php
+}
+if ($shares_class[$key]=='1') {
+echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the all sites?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smd_net_set_page&hello25=true&field_name='.$key.'&sharekey='.$shares_class[$key].''>X</a>";}
+
+?>
+  &nbsp;&nbsp;
+<?php } ?>
       <label for="smde_net_class_disable[<?=$key?>]"><?php esc_html_e('Disable', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="1" id="smde_net_class_disable[<?=$key?>]" <?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }
       ?>></label>
       <label for="smde_net_class_local_value[<?=$key?>]"><?php esc_html_e('Local value', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="0" id="smde_net_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0') { echo "checked='checked'"; }
