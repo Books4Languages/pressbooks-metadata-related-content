@@ -55,7 +55,7 @@ class SMDE_Metadata_Classification{
         'iscedLevel'=>array( 'ISCED level of education','Level of education according to ISCED-P 2011'.'<br><a target="_blank" href="http://uis.unesco.org/en/topic/international-standard-classification-education-isced">Click Here for more information</a>',
 			array(
 				'' => '--Select--',
-				'0' => 'Early Childhood Education',
+				'10' => 'Early Childhood Education',
 			 	'1'  => 'Primary education',
 				'2'  => 'Lower secondary education',
 				'3'  => 'Upper secondary education',
@@ -114,7 +114,7 @@ class SMDE_Metadata_Classification{
 
 			self::$classification_properties_main['iscedLevel'] = array( __('ISCED level of education', 'simple-metadata-education'),__('Level of education according to ISCED-P 2011', 'simple-metadata-education') .'<br><a target="_blank" href="http://www.uis.unesco.org/Education/Documents/isced-2011-en.pdf">' . __('Click Here for more information', 'simple-metadata-education'). '</a>',
 				array(
-					'0' => __('Early Childhood Education', 'simple-metadata-education'),
+					'10' => __('Early Childhood Education', 'simple-metadata-education'),
 					'1'  => __('Primary education', 'simple-metadata-education'),
 					'2'  => __('Lower secondary education', 'simple-metadata-education'),
 					'3'  => __('Upper secondary education', 'simple-metadata-education'),
@@ -511,7 +511,7 @@ class SMDE_Metadata_Classification{
 	private function get_isced_level($level){
 		$isced_level_data = array(
 			''  => __('--Select--', 'simple-metadata-education'),
-			'0' => __('Early Childhood Education', 'simple-metadata-education'),
+			'10' => __('Early Childhood Education', 'simple-metadata-education'),
 			'1' => __('Primary education', 'simple-metadata-education'),
 			'2' => __('Lower secondary education', 'simple-metadata-education'),
 			'3' => __('Upper secondary education', 'simple-metadata-education'),
@@ -520,7 +520,7 @@ class SMDE_Metadata_Classification{
 			'6' => __('Bachelor’s or equivalent level', 'simple-metadata-education'),
 			'7' => __('Master’s or equivalent level', 'simple-metadata-education'),
 			'8' => __('Doctoral or equivalent level', 'simple-metadata-education'),
-			'9' => __('Not elsewhere classified', 'simple-metadata-education'),);
+			'9' => __('Not elsewhere classified', 'simple-metadata-education'));
 		return $isced_level_data[$level];
 	}
 
@@ -562,11 +562,11 @@ class SMDE_Metadata_Classification{
 	 */
 public function smde_get_metatags(){
 		//Getting post meta of metadata (Book Info) or site-meta post
-        if($this->type_level == 'metadata' || $this->type_level == 'site-meta'){
-            $this->metadata = self::get_site_meta_metadata();
-        } else {
-            $this->metadata = get_post_meta( get_the_ID() );
-        }
+    if($this->type_level == 'metadata' || $this->type_level == 'site-meta'){
+        $this->metadata = self::get_site_meta_metadata();
+    } else {
+        $this->metadata = get_post_meta( get_the_ID() );
+    }
 
 
 		$cleanCollect = [];
@@ -596,7 +596,7 @@ public function smde_get_metatags(){
 				}
 			}
 		}
-		$html = "";
+		$html = ",\n";
 		$html .= "\t" . '"educationalAlignment":	[';
 		//ISCED level
 		if ( array_key_exists('iscedLevel', $cleanCollect) ){
@@ -606,8 +606,8 @@ public function smde_get_metatags(){
 		    "ISCED-2011",
 		    $this->get_isced_level($cleanCollect['iscedLevel']['val']),
 				'ISCED 2011, Level ' . $cleanCollect['iscedLevel']['val'],
-		    $cleanCollect['iscedLevel']['desc'],
-		    $cleanCollect['iscedLevel']['url']
+		    isset($cleanCollect['iscedLevel']['desc'])	? $cleanCollect['iscedLevel']['desc'] : "",
+		    isset($cleanCollect['iscedLevel']['url'])	?	$cleanCollect['iscedLevel']['url']	: ""
 		  );
 		}
 		//Educational Framework
@@ -618,8 +618,8 @@ public function smde_get_metatags(){
 		    $cleanCollect['eduFrame']['val'],
 		    $cleanCollect['eduLevel']['val'],
 		    '',
-		    $cleanCollect['eduLevel']['desc'],
-		    $cleanCollect['eduLevel']['url']
+		    isset($cleanCollect['eduLevel']['desc']) ? $cleanCollect['eduLevel']['desc'] : "",
+		    isset($cleanCollect['eduLevel']['url'])	?	$cleanCollect['eduLevel']['url']	: ""
 		  );
 		}
 
@@ -631,8 +631,8 @@ public function smde_get_metatags(){
 		    "ISCED-2013",
 		    $cleanCollect['iscedField']['val'],
 		    '',
-		    $cleanCollect['iscedField']['desc'],
-		    $cleanCollect['iscedField']['url']
+		    isset($cleanCollect['iscedField']['desc']) ? $cleanCollect['iscedField']['desc'] : "",
+		    isset($cleanCollect['iscedField']['url'])	?	$cleanCollect['iscedField']['url']	: ""
 		  );
 		}
 
@@ -644,8 +644,8 @@ public function smde_get_metatags(){
 		    '',
 		    $cleanCollect['eduLevel']['val'],
 		    '',
-		    $cleanCollect['eduLevel']['desc'],
-		    $cleanCollect['eduLevel']['url']
+		    isset($cleanCollect['eduLevel']['desc']) ? $cleanCollect['eduLevel']['desc'] : "",
+		    isset($cleanCollect['eduLevel']['url'])	?	$cleanCollect['eduLevel']['url']	: ""
 		  );
 		}
 
@@ -656,8 +656,8 @@ public function smde_get_metatags(){
 		{
 			"@type":  "AlignmentObject",
 			"alignmentType":  "educationalSubject",
-			"targetDescription":	"'.$cleanCollect['additionalClass']['desc'].'",
-			"targetUrl":	"'.$cleanCollect['additionalClass']['url'].'"';
+			"targetDescription":	"'. (isset($cleanCollect['additionalClass']['desc'])	? $cleanCollect['additionalClass']['desc'] :"").'",
+			"targetUrl":	"'. (isset($cleanCollect['additionalClass']['url'])	? $cleanCollect['additionalClass']['url'] :	"").'"';
 
 			$html .=',
 			"targetName": [
@@ -678,7 +678,7 @@ public function smde_get_metatags(){
 }
 
 /**
- * Create the common structure of the metatags for AlignmentObject
+ * Create the common structure of the metatags for AlignmentObject (Schema class)
  *
  * @see smde_get_metatags
  *
@@ -695,18 +695,18 @@ function smde_get_html_for_AlignmentObjects($educationalLevel, $iescedNum, $targ
 			"educationalFramework":	"'.$iescedNum.'",
 			"targetName": "'.$targetName.'"';
 
-		if(!empty($targetName)){
-			$html .= "," == $html[-1] ? "\n" : ","; // There is a comma in the option before
+		if(!empty($alternateName)){
+			$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t"; // There is a comma in the option before
 			$html .=  '"alternateName":	"'.$alternateName.'"';
 		}
 
 		if(!empty($targetDescription)){
-			$html .= "," == $html[-1] ? "\n" : ","; // There is a comma in the option before
+			$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t"; // There is a comma in the option before
 			$html .=  '"targetDescription":	"'.$targetDescription.'"';
 		}
 
 		if(!empty($targetUrl)){
-			$html .= "," == $html[-1] ? "\n" : ",";
+			$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t";
 			$html .=  '"targetUrl": "'.$targetUrl.'"';
 		}
 
@@ -950,7 +950,6 @@ include: Fixed expressions (consisting of several words, which are used and lear
 			if (array_key_exists('specificClass', $cleanCollect)){
 				foreach($cleanCollect['specificClass']['val'] as $specificClass){
 					if (!empty($specificClass)){
-			    		//$html .="	<meta itemprop = 'targetName' content = '" .$specificClass. "'>\n";
 							$html .=	","	==	$html[-1]	?	"\n"	:	",\n";
 							$html	.=	"\t\t\t\t" . '"'.$specificClass.'"';
 			    	}

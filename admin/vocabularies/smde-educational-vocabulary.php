@@ -337,10 +337,9 @@ class SMDE_Metadata_Educational{
     $val = '';
 
         //Starting point of educational schema part 1
-    $html  = ",";
 
     $partTwoMetadata = null;
-
+    $html = ",";
     //going through all properties of class and ones, which don't require specific markup
     foreach ( self::$lrmi_properties as $key => $desc ) {
       //Constructing the key for the data
@@ -372,7 +371,7 @@ class SMDE_Metadata_Educational{
     //Learning Resource Type
     if ( isset( $this->metadata['pb_title'] ) ) {
       $this->metadata['pb_title'] = $this->metadata['pb_title'][0];
-      $html .= ",\n\t";
+      $html .= ',' == $html[-1] ? "\n" : ",\n\t";
       $html .=
       '"educationalAlignment": {
       	"@type": "AlignmentObject",
@@ -391,17 +390,17 @@ class SMDE_Metadata_Educational{
       }';
     }
 
+    $html = strcmp(",", $html) == 0 ?  "" : $html ;
     //initilizing instance of classification vocabulary class and calling its method for prinitng metatags
     $class_meta = new class_meta($this->type_level);
     if (is_multisite() && get_site_option('smde_net_for_lang')){
       //adds to the html to print the metatags_lang from class_meta
-      $html	.=	",\n";
       $html .= $class_meta->smde_get_metatags_lang();
     } else {
       //adds to the html to print the metatags from class_meta
-      $html	.=	",\n";
       $html .= $class_meta->smde_get_metatags();
     }
+
 
     echo $html;
   }
