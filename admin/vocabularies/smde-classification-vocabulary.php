@@ -721,6 +721,8 @@ public function smde_get_metatags(){
 			$html .=  "\t\t}\n";
 		}
 		$html .= "\n\t]";
+		//If there are no AlignmentObject return a void html
+		$html = ",\n\t\"educationalAlignment\":	[\n\t]" == $html ? ''	: $html;
 		return $html;
 }
 
