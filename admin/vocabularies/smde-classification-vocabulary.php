@@ -370,6 +370,36 @@ class SMDE_Metadata_Classification{
 		echo '';
 	}
 
+
+	/**
+	 * Function to render fields, which are disabled by admin/network admin
+	 *
+	 * @since
+	 *
+	 */
+	public function render_disable_field ($field_slug, $field, $value) {
+		global $post;
+
+		//Getting the origin for overwritten data
+				$dataFrom = is_plugin_active('pressbooks/pressbooks.php') ? 'Book-Info' : 'Site-Meta';
+
+			//getting value of post meta
+				$meta_value = $label = get_post_meta($post->ID, $field_slug, true);
+
+				//gettign porperty name from field name
+				$property = explode('_', $field_slug)[1];
+
+				//getting label of this property
+				foreach (self::$classification_properties_main as $key => $value) {
+					if (strtolower($key) == $property){
+						$property = $value[0];
+					}
+				}
+		?>
+				<p> </p>
+				<?php
+	}
+
 	/**
 	 * The function which produces the metaboxes for the vocabulary
 	 *
@@ -389,16 +419,33 @@ class SMDE_Metadata_Classification{
 		foreach ( self::$classification_properties_main as $property => $details ) {
 
 			$callback = null;
-
+			$freezes_class = [];
+			$disable_class = [];
 			//retreiving list of frozen properties
-			$freezes_class = get_option('smde_class_freezes');
+			$freezes_classS = get_option('smde_class_');
 
+			foreach ((array) $freezes_classS as $key => $value) {
+				if ($value=='3') {
+					$freezes_class[$key] = '1';
+				}
+				if ($value=='1') {
+					$disable_class[$key] = '1';
+				}
+			}
 			//if this property is frozen, we render its metafield correspondingly
 			if ($meta_position != 'site-meta' && $meta_position!= 'metadata' && isset($freezes_class[$property]) && $freezes_class[$property]){
 				if (is_multisite() && get_site_option('smde_net_for_lang')){
 					$callback = 'render_frozen_field_lang';
 				} else {
-					$callback = 'render_frozen_field';
+					if ($meta_position != 'site-meta' && $meta_position!= 'metadata' && isset($freezes_class[$property]) && $freezes_class[$property]){
+
+							$callback = 'render_frozen_field';
+
+					}
+
+					if ($meta_position != 'site-meta' && $meta_position!= 'metadata' && isset($disable_class[$property]) && $disable_class[$property]){
+						$callback = 'render_disable_field';
+					}
 				}
 			}
 
