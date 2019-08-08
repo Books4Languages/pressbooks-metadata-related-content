@@ -107,10 +107,11 @@ function smde_add_network_settings() {
                  //If we have no chapters or posts to distribute data also stop operation
                  $prefixx = $wpdb->prefix;
                  $post_meta_texte = "_postmeta";
+                 $prefixx_blog =$prefixx.'blogs';
 
                  //getting metadata of site-meta/books info post
                  $select_all_id_blogs = $wpdb->get_results("
-                     SELECT blog_id FROM students_wp_blogs",ARRAY_N);
+                     SELECT blog_id FROM $prefixx_blog",ARRAY_N);
                   foreach ($select_all_id_blogs as $key1 => $valuee) {
                     $postMetaTable = $prefixx . $valuee[0] . $post_meta_texte;
                     $metadata_meta_key_site = 'smde_'.strtolower($key).'_edu_vocabs_';
@@ -178,10 +179,12 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
              //If we have no chapters or posts to distribute data also stop operation
              $prefixx = $wpdb->prefix;
              $post_meta_texte = "_postmeta";
+             $prefixx_blog =$prefixx.'blogs';
+
 
              //getting metadata of site-meta/books info post
              $select_all_id_blogs = $wpdb->get_results("
-                 SELECT blog_id FROM students_wp_blogs",ARRAY_N);
+                 SELECT blog_id FROM $prefixx_blog",ARRAY_N);
               foreach ($select_all_id_blogs as $key1 => $valuee) {
                 $postMetaTable = $prefixx . $valuee[0] . $post_meta_texte;
                 $metadata_meta_key_site = 'smde_'.strtolower($key).'_class_vocab_';
