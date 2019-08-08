@@ -219,7 +219,7 @@ runMyFunction1227();
 	?><meta http-equiv="refresh" content="0;URL=admin.php?page=smde_set_page"><?php
 }
  if ($shares_edu[$key]=='1') {
-echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the site?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smde_set_page&hello12=true&field_name='.$key.'&sharekey='.$shares_edu[$key].''>X</a>";}
+echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the site?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smde_set_page&hello12=true&field_name=$key'>X</a>";}
 
 ?>
 				&nbsp;&nbsp;
@@ -365,7 +365,7 @@ runMyFunction1228();
 
 
  if ($shares_class[$key]=='1') {
-echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the site?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smde_set_page&hello=true&field_name='.$key.'&sharekey='.$shares_class[$key].''>X</a>";}
+echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the site?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smde_set_page&hello=true&field_name=$key'>X</a>";}
 
 ?>
 				&nbsp;&nbsp;
