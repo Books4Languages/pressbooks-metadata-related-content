@@ -798,7 +798,7 @@ function smde_get_html_for_AlignmentObjects($educationalLevel, $iescedNum, $targ
 			}
 		}
 
-		$html = "\n";
+		$html = ",\n";
 		$html.= '	"educationalAlignment" : [';
 		//Starting point of classification schema
 		if ( array_key_exists('iscedLevel', $cleanCollect) ) {
