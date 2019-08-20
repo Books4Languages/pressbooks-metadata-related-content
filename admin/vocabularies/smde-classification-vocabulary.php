@@ -422,9 +422,9 @@ class SMDE_Metadata_Classification{
 			$freezes_class = [];
 			$disable_class = [];
 			//retreiving list of frozen properties
-			$freezes_classS = get_option('smde_class_');
+			$class_values = get_option('smde_class_');
 
-			foreach ((array) $freezes_classS as $key => $value) {
+			foreach ( (array) $class_values as $key => $value) {
 				if ($value=='3') {
 					$freezes_class[$key] = '1';
 				}
@@ -432,21 +432,19 @@ class SMDE_Metadata_Classification{
 					$disable_class[$key] = '1';
 				}
 			}
+
+
 			//if this property is frozen, we render its metafield correspondingly
-			if ($meta_position != 'site-meta' && $meta_position!= 'metadata' && isset($freezes_class[$property]) && $freezes_class[$property]){
+			if (isset($freezes_class[$property]) && $freezes_class[$property] && $meta_position != 'site-meta' && $meta_position!= 'metadata' ) {
 				if (is_multisite() && get_site_option('smde_net_for_lang')){
 					$callback = 'render_frozen_field_lang';
 				} else {
-					if ($meta_position != 'site-meta' && $meta_position!= 'metadata' && isset($freezes_class[$property]) && $freezes_class[$property]){
-
-							$callback = 'render_frozen_field';
-
-					}
-
-					if ($meta_position != 'site-meta' && $meta_position!= 'metadata' && isset($disable_class[$property]) && $disable_class[$property]){
-						$callback = 'render_disable_field';
-					}
+					$callback = 'render_frozen_field';
 				}
+			}
+
+			if (isset($disable_class[$property]) && $disable_class[$property] && $meta_position != 'site-meta' && $meta_position!= 'metadata'){
+					$callback = 'render_disable_field';
 			}
 
 			//constructing field name
