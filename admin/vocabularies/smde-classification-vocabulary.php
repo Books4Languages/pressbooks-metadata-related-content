@@ -473,7 +473,6 @@ class SMDE_Metadata_Classification{
 						'description' => $details[1],
 						'display_callback' => array($this, $callback)
 					) );
-
 			}else if($property != 'prerequisite') {
 				if ( $details[2] == 'number' ) {
 						x_add_metadata_field( $fieldId, $meta_position, array(
@@ -505,7 +504,7 @@ class SMDE_Metadata_Classification{
 				}
 			}
 
-			$properties_to_skip = ['complexityLev', 'specificClass', 'prerequisite', 'eduLevelPrerequisite', 'additionalClassPrerequisite'];
+			$properties_to_skip = ['additionalClass', 'specificClass', 'complexityLev', 'prerequisite', 'eduLevelPrerequisite', 'additionalClassPrerequisite'];
 			//creating URL and description fields for all levels, except Specific Classification
 			if ( !in_array($property, $properties_to_skip) && ((is_multisite() && !get_site_option('smde_net_for_lang')) || !is_multisite())) {
 
@@ -738,9 +737,11 @@ public function smde_get_metatags(){
 			$html .='
 		{
 			"@type":  "AlignmentObject",
-			"alignmentType":  "educationalSubject",
-			"targetDescription":	"'. (isset($cleanCollect['additionalClass']['desc'])	? $cleanCollect['additionalClass']['desc'] :"").'",
-			"targetUrl":	"'. (isset($cleanCollect['additionalClass']['url'])	? $cleanCollect['additionalClass']['url'] :	"").'"';
+			"alignmentType":  "educationalSubject"';
+
+			// The Description and URl are disabled for now
+			// "targetDescription":	"'. (isset($cleanCollect['additionalClass']['desc'])	? $cleanCollect['additionalClass']['desc'] :"").'",
+			// "targetUrl":	"'. (isset($cleanCollect['additionalClass']['url'])	? $cleanCollect['additionalClass']['url'] :	"").'"';
 
 			$html .=',
 			"targetName": [
