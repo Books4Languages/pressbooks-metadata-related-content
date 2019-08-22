@@ -418,15 +418,16 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 
 				//in case share or freeze is network enabled, checkbox becomes disabled to prevent changes
 				$key = 'eduLang';
+				// $shares_class[$key] == '0';
 				if (!empty($network_shares_class)) {
+
 					if ($network_shares_class[$key] == '0') {
-						$shares_class = get_site_option('smde_net_for_lang');
-					// $shares_class[$key] == '0';
-					 $valeur_key_langue = '4';
+						$shares_class = get_site_option('smde_net_class');
+						$valeur_key_langue = '4';
 					}
 					else {
 						$shares_class[$key] = $network_shares_class[$key];
-						 $valeur_key_langue = $shares_class[$key];
+						$valeur_key_langue = $shares_class[$key];
 					}
 				}else
 				 {
