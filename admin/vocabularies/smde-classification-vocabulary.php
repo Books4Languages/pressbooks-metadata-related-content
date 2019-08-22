@@ -65,6 +65,7 @@ class SMDE_Metadata_Classification{
 				'7'  => 'Master’s or equivalent level',
 				'8'  => 'Doctoral or equivalent level',
 				'9'  => 'Not elsewhere classified')),
+		'eduLevel'				=> array( 'Educational Level','The level of this subject. For ex. B1 for an English Course, or Grade 2 for a Physics Course.'),
     'eduFrame'=>array( 'Educational Framework','The Framework that the educational level belongs to. Example: CEFR, Common Core, European Baccalaureate'),
 		'iscedField' => array( 'ISCED field of education','Broad field of education according to ISCED-F 2013.'. '<br><a target="_blank" href="http://uis.unesco.org/en/topic/international-standard-classification-education-isced">Click Here for more information</a>',
 			array(
@@ -80,8 +81,8 @@ class SMDE_Metadata_Classification{
 				'Agriculture, forestry, fisheries and veterinary' => 	'Agriculture, forestry, fisheries and veterinary',
 				'Health and welfare' 															=> 	'Health and welfare',
 				'Services' 																				=> 	'Services',)),
-		'eduLevel'				=> array( 'Educational Level','The level of this subject. For ex. B1 for an English Course, or Grade 2 for a Physics Course.'),
 		'additionalClass' => array( 'Additional Classification', 'More specified subject of current educational level. For ex. \'Grammar\' part of B1 English Course, \'Thermodynamics\' for Grade 7 of Physics Course'),
+		'specificClass'	  => array(	'Specific Classification', 'Narrow definition of subject field. For ex. \'Verbs\' in \'Grammar\' materials, \'Thermodynamics Laws\' in Thermodynamics', 'multiple'),
 		'complexityLev' => array( 'Complexity Level', 'Defines a level or range that measures the difficulty or challenge presented by the learning resource being described.',
 			array(
 				'' 					=> '--Select--',
@@ -91,7 +92,6 @@ class SMDE_Metadata_Classification{
 				'Apply'  		=> 'Apply',
 				'Understand'=> 'Understand',
 				'Remember'  => 'Remember')),
-		'specificClass'	  => array(	'Specific Classification', 'Narrow definition of subject field. For ex. \'Verbs\' in \'Grammar\' materials, \'Thermodynamics Laws\' in Thermodynamics', 'multiple'),
 		'prerequisite' => array( 'Prerequisite', 'The prerequisite of this content'),
 		'eduLevelPrerequisite' => array( 'Educational Level','The level of this subject. For ex. B1 for an English Course, or Grade 2 for a Physics Course.'),
 		'additionalClassPrerequisite' => array( 'Additional Classification','More specified subject of current educational level. For ex. \'Grammar\' part of B1 English Course, \'Thermodynamics\' for Grade 7 of Physics Course')
@@ -504,8 +504,8 @@ class SMDE_Metadata_Classification{
 				}
 			}
 
-			$properties_to_skip = ['additionalClass', 'specificClass', 'complexityLev', 'prerequisite', 'eduLevelPrerequisite', 'additionalClassPrerequisite'];
-			//creating URL and description fields for all levels, except Specific Classification
+			$properties_to_skip = ['eduFrame', 'additionalClass', 'specificClass', 'complexityLev', 'prerequisite', 'eduLevelPrerequisite', 'additionalClassPrerequisite'];
+			//creating URL and description fields for all levels, except the ones in $propeties_to_skip
 			if ( !in_array($property, $properties_to_skip) && ((is_multisite() && !get_site_option('smde_net_for_lang')) || !is_multisite())) {
 
 			  $fieldId = strtolower('smde_' . $property . '_desc_' .$this->groupId. '_' .$meta_position);
@@ -690,6 +690,20 @@ public function smde_get_metatags(){
 				)
 		  );
 		}
+
+		//Educational level
+		if ( array_key_exists( 'eduLevel', $cleanCollect ) && !array_key_exists( 'eduFrame', $cleanCollect )) {
+			$html .= "}" == $html[-1] ? "," : "";
+			$html .=	$this->smde_get_html_for_AlignmentObjects(
+				array(
+				'alignmentType' 		=> 'educationalLevel',
+				'targetName'				=> $cleanCollect['eduLevel']['val'],
+				'targetDescription' => isset($cleanCollect['eduLevel']['desc']) ? $cleanCollect['eduLevel']['desc'] : '',
+				'targetUrl'					=> isset($cleanCollect['eduLevel']['url'])	?	$cleanCollect['eduLevel']['url']	: ''
+				)
+			);
+		}
+
 		//Educational Framework
 		if ( array_key_exists('eduLevel', $cleanCollect) && array_key_exists( 'eduFrame', $cleanCollect ) ){
 			$html .= "}" == $html[-1] ? "," : "";
@@ -717,47 +731,6 @@ public function smde_get_metatags(){
 				)
 		  );
 		}
-
-		//Educational level
-		if ( array_key_exists( 'eduLevel', $cleanCollect ) && !array_key_exists( 'eduFrame', $cleanCollect )) {
-			$html .= "}" == $html[-1] ? "," : "";
-		  $html .=	$this->smde_get_html_for_AlignmentObjects(
-				array(
-		    'alignmentType' 		=> 'educationalLevel',
-		    'targetName'				=> $cleanCollect['eduLevel']['val'],
-		    'targetDescription' => isset($cleanCollect['eduLevel']['desc']) ? $cleanCollect['eduLevel']['desc'] : '',
-		    'targetUrl'					=> isset($cleanCollect['eduLevel']['url'])	?	$cleanCollect['eduLevel']['url']	: ''
-				)
-		  );
-		}
-
-		//Additional classification
-		if (array_key_exists('additionalClass', $cleanCollect)){
-			$html .= "}" == $html[-1] ? "," : "";
-			$html .='
-		{
-			"@type":  "AlignmentObject",
-			"alignmentType":  "educationalSubject"';
-
-			// The Description and URl are disabled for now
-			// "targetDescription":	"'. (isset($cleanCollect['additionalClass']['desc'])	? $cleanCollect['additionalClass']['desc'] :"").'",
-			// "targetUrl":	"'. (isset($cleanCollect['additionalClass']['url'])	? $cleanCollect['additionalClass']['url'] :	"").'"';
-
-			$html .=',
-			"targetName": [
-					 	"'.$cleanCollect['additionalClass']['val'].'"';
-			if (array_key_exists('specificClass', $cleanCollect)){
-				foreach($cleanCollect['specificClass']['val'] as $specificClass){
-					if (!empty($specificClass)){
-							$html	.=	",\n\t\t\t\t\t\t";
-							$html	.=	'"'.$specificClass.'"';
-					}
-				}
-			}
-			$html .=  "\n\t\t\t\t\t]\n";
-			$html .=  "\t\t}";
-		}
-
 
 		if (array_key_exists('complexityLev', $cleanCollect) ){
 			$html .= "}" == $html[-1] ? "," : "";
@@ -790,9 +763,37 @@ public function smde_get_metatags(){
 		  );
 		}
 
-		$html .= "\n\t]";
-		//If there are no AlignmentObject return a void html
+		$html .= "\n\t]";  //Finish of educationalAlignment
+
+		//If there are no AlignmentObjects return a void html
 		$html = ",\n\t\"educationalAlignment\":	[\n\t]" == $html ? ''	: $html;
+
+		//Additional classification
+		if (array_key_exists('additionalClass', $cleanCollect)){
+			$html .= ",\n\t";
+			$html .='"about" :	{
+			"@type":  "AlignmentObject",
+			"alignmentType":  "educationalSubject"';
+
+			// The Description and URl are disabled for now
+			// "targetDescription":	"'. (isset($cleanCollect['additionalClass']['desc'])	? $cleanCollect['additionalClass']['desc'] :"").'",
+			// "targetUrl":	"'. (isset($cleanCollect['additionalClass']['url'])	? $cleanCollect['additionalClass']['url'] :	"").'"';
+
+			$html .=',
+			"targetName": [
+					 	"'.$cleanCollect['additionalClass']['val'].'"';
+			if (array_key_exists('specificClass', $cleanCollect)){
+				foreach($cleanCollect['specificClass']['val'] as $specificClass){
+					if (!empty($specificClass)){
+							$html	.=	",\n\t\t\t\t\t\t";
+							$html	.=	'"'.$specificClass.'"';
+					}
+				}
+			}
+			$html .=  "\n\t\t\t\t\t]\n";
+			$html .=  "\t\t}";
+		}
+
 		return $html;
 }
 
@@ -934,21 +935,21 @@ function smde_get_html_for_AlignmentObjects($props)
 			"targetUrl":	"'.$cleanCollect['iscedLevel']['url'].'"
 		}';
 	}
-		$html	.=	"}"	==	$html[-1]	?	","	: "";
-		$html .=	'
-		{
-			"@type":	"AlignmentObject",
-			"alignmentType": "educationalSubject",
-			"educationalFramework": "ISCED-2013",
-			"targetName":	[
-				"Arts and Humanities",
-				"Languages",
-				"Language Acquisition"
-			],
-			"alternateName": "ISCED 2011, Level '.$cleanCollect['iscedLevel']['val'].'",
-			"targetDescription":	"Language acquisition is the  study  of  the  structure  and  composition  of  languages taught as second or foreign languages (i.e. that are intended for non-native or non-fluent speakers of the language). It includes the study of related cultures, literature, linguistics and phonetics if related to the specific language being acquired and forms part of the same programme or qualification. Classical or dead languages are included here as it is assumed there are no 		native speakers of the  language  and  hence  the  manner  of  teaching  and  the  content  of  the  curriculum are more similar to the teaching of foreign languages.",
-			"targetUrl":	"http://uis.unesco.org/en/topic/international-standard-classification-education-isced"
-		}';
+
+	$html	.=	"}"	==	$html[-1]	?	","	: "";
+	$html .=	'
+	{
+		"@type":	"AlignmentObject",
+		"alignmentType": "educationalSubject",
+		"educationalFramework": "ISCED-2013",
+		"targetName":	[
+			"Arts and Humanities",
+			"Languages",
+			"Language Acquisition"
+		],
+		"targetDescription":	"Language acquisition is the  study  of  the  structure  and  composition  of  languages taught as second or foreign languages (i.e. that are intended for non-native or non-fluent speakers of the language). It includes the study of related cultures, literature, linguistics and phonetics if related to the specific language being acquired and forms part of the same programme or qualification. Classical or dead languages are included here as it is assumed there are no 		native speakers of the  language  and  hence  the  manner  of  teaching  and  the  content  of  the  curriculum are more similar to the teaching of foreign languages.",
+		"targetUrl":	"http://uis.unesco.org/en/topic/international-standard-classification-education-isced"
+	}';
 
 	if (array_key_exists('eduLang', $cleanCollect)){
 		$cleanCollect['eduLang']['desc'] = 'Second language.';
@@ -1019,63 +1020,6 @@ function smde_get_html_for_AlignmentObjects($props)
 
 		}
 
-		if (array_key_exists('additionalClass', $cleanCollect)){
-
-			switch ($cleanCollect['additionalClass']['val']) {
-
-				case 'Culture':
-
-					$cleanCollect['additionalClass']['desc'] = 'Sociolinguistic  competences refer  to  the  sociocultural  conditions  of  language  use. Through its sensitivity to social conventions (rules of politeness, norms governing relations  between  generations,  sexes,  classes  and  social  groups,  linguistic  codification  of certain fundamental rituals in the functioning of a community), the sociolinguistic component strictly affects all language communication between representatives of different cultures, even though participants may often be unaware of its influence.';
-					break;
-
-				case 'Grammar':
-
-					$cleanCollect['additionalClass']['desc'] = 'Grammatical competence may be defined as knowledge of, and ability to use, the grammatical resources of a language. Formally, the grammar of a language may be seen as the set of principles governing the  assembly  of  elements  into  meaningful  labelled  and  bracketed  strings  (sentences). Grammatical competence is the ability to understand and express meaning by producing and recognising well-formed phrases and sentences in accordance with these principles (as opposed to memorising and reproducing them as fixed formulae).';
-					break;
-
-				case 'Orthography':
-
-					$cleanCollect['additionalClass']['desc'] = 'Orthographic competence involves a knowledge of and skill in the perception and production of the symbols of which written texts are composed. The writing systems of all European languages are based on the alphabetic principle, though those of some other languages follow an ideographic (logographic) principle (e.g. Chinese) or a consonantal principle (e.g. Arabic). For alphabetic systems, learners should know and be able to perceive and produce';
-					break;
-
-				case 'Vocabulary':
-
-					$cleanCollect['additionalClass']['desc'] = 'Lexical  competence,  knowledge  of,  and  ability  to  use,  the  vocabulary  of  a  language, consists of lexical elements and grammatical elements. Lexical elements
-include: Fixed expressions (consisting of several words, which are used and learnt as wholes), and Single word forms (a particular single word form may have several distinct meanings)';
-					break;
-
-				default:
-
-					$cleanCollect['additionalClass']['desc'] = 'CEFR not only provides a scaling of overall language proficiency in a given language, but also a breakdown of language use and language competences which will make it easier for practitioners to specify objectives and describe achievements of the most diverse kinds in accordance with the varying needs, characteristics and resources of learners';
-					break;
-			}
-			$cleanCollect['additionalClass']['url'] = 'https://www.coe.int/en/web/common-european-framework-reference-languages';
-			$html	.=	"}"	==	$html[-1]	?	","	: "";
-			$html .=	'
-		{
-			"@type":	"AlignmentObject",
-			"alignmentType": "educationalSubject",
-			"targetName":	[
-				"'.$cleanCollect['additionalClass']['val'].'"';
-
-			if (array_key_exists('specificClass', $cleanCollect)){
-				foreach($cleanCollect['specificClass']['val'] as $specificClass){
-					if (!empty($specificClass)){
-							$html .=	","	==	$html[-1]	?	"\n"	:	",\n";
-							$html	.=	"\t\t\t\t" . '"'.$specificClass.'"';
-			    	}
-				}
-
-			}
-			$html	.=	"\n\t\t\t]";
-			$html .=	","	==	$html[-1]	?	"\n"	:	",";
-			$html .=	'
-			"targetDescription":	"'.$cleanCollect['additionalClass']['desc'].'",
-			"targetUrl":	"'.$cleanCollect['additionalClass']['url'].'"
-		}';
-		}
-
-
 		if (array_key_exists('complexityLev', $cleanCollect) ){
 			$html .= "}" == $html[-1] ? "," : "";
 		  $html .=	$this->smde_get_html_for_AlignmentObjects(
@@ -1109,6 +1053,62 @@ include: Fixed expressions (consisting of several words, which are used and lear
 
 
 		$html .=	"\n\t]";
+
+
+		if (array_key_exists('additionalClass', $cleanCollect)){
+
+			switch ($cleanCollect['additionalClass']['val']) {
+
+				case 'Culture':
+
+					$cleanCollect['additionalClass']['desc'] = 'Sociolinguistic  competences refer  to  the  sociocultural  conditions  of  language  use. Through its sensitivity to social conventions (rules of politeness, norms governing relations  between  generations,  sexes,  classes  and  social  groups,  linguistic  codification  of certain fundamental rituals in the functioning of a community), the sociolinguistic component strictly affects all language communication between representatives of different cultures, even though participants may often be unaware of its influence.';
+					break;
+
+				case 'Grammar':
+
+					$cleanCollect['additionalClass']['desc'] = 'Grammatical competence may be defined as knowledge of, and ability to use, the grammatical resources of a language. Formally, the grammar of a language may be seen as the set of principles governing the  assembly  of  elements  into  meaningful  labelled  and  bracketed  strings  (sentences). Grammatical competence is the ability to understand and express meaning by producing and recognising well-formed phrases and sentences in accordance with these principles (as opposed to memorising and reproducing them as fixed formulae).';
+					break;
+
+				case 'Orthography':
+
+					$cleanCollect['additionalClass']['desc'] = 'Orthographic competence involves a knowledge of and skill in the perception and production of the symbols of which written texts are composed. The writing systems of all European languages are based on the alphabetic principle, though those of some other languages follow an ideographic (logographic) principle (e.g. Chinese) or a consonantal principle (e.g. Arabic). For alphabetic systems, learners should know and be able to perceive and produce';
+					break;
+
+				case 'Vocabulary':
+
+					$cleanCollect['additionalClass']['desc'] = 'Lexical  competence,  knowledge  of,  and  ability  to  use,  the  vocabulary  of  a  language, consists of lexical elements and grammatical elements. Lexical elements
+include: Fixed expressions (consisting of several words, which are used and learnt as wholes), and Single word forms (a particular single word form may have several distinct meanings)';
+					break;
+
+				default:
+
+					$cleanCollect['additionalClass']['desc'] = 'CEFR not only provides a scaling of overall language proficiency in a given language, but also a breakdown of language use and language competences which will make it easier for practitioners to specify objectives and describe achievements of the most diverse kinds in accordance with the varying needs, characteristics and resources of learners';
+					break;
+			}
+			$cleanCollect['additionalClass']['url'] = 'https://www.coe.int/en/web/common-european-framework-reference-languages';
+			$html .= ",\n\t";
+			$html .=	'"about":
+		{
+			"@type":	"AlignmentObject",
+			"alignmentType": "educationalSubject",
+			"targetName":	[
+				"'.$cleanCollect['additionalClass']['val'].'"';
+
+			if (array_key_exists('specificClass', $cleanCollect)){
+				foreach($cleanCollect['specificClass']['val'] as $specificClass){
+					if (!empty($specificClass)){
+							$html .=	","	==	$html[-1]	?	"\n"	:	",\n";
+							$html	.=	"\t\t\t\t" . '"'.$specificClass.'"';
+			    	}
+				}
+			}
+
+			$html	.=	"\n\t\t\t]";
+			$html .=	","	==	$html[-1]	?	"\n"	:	",";
+			$html .=	'
+			"targetDescription":	"'.$cleanCollect['additionalClass']['desc'].'",
+			"targetUrl":	"'.$cleanCollect['additionalClass']['url'].'"'  ."\n\t\t}";
+		}
 
 		return $html;
 	}
