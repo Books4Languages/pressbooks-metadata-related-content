@@ -484,23 +484,11 @@ class SMDE_Metadata_Educational{
     //Ending schema part 1
 
     //Starting point of educational schema part 2
-    //Learning Resource Type
-    if ( isset( $this->metadata['pb_title'] ) ) {
-      $this->metadata['pb_title'] = $this->metadata['pb_title'][0];
-      $html .= ',' == $html[-1] ? "\n" : ",\n\t";
-      $html .=
-      '"educationalAlignment": {
-      	"@type": "AlignmentObject",
-        "alignmentType": "educationalSubject",
-        "targetName": "'.$this->metadata['pb_title'].'"
-      }';
-    }
 
     //Educational Use
     if(isset( $partTwoMetadata['educationalRole'] )){
-      $html .= ',' == $html[-1] ? "\n" : ",\n\t";
-      $html .=
-      '"educationalRole":  {
+      $html .= ',' == $html[-1] ? "\n\t" : ",\n\t";
+      $html .='"audience":  {
         "@type":  "EducationalAudience",
         "educationalRole":  "'.$partTwoMetadata['educationalRole'].'"
       }';
