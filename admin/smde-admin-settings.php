@@ -252,9 +252,19 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 		}
 		//adding settings for classification properties
 		foreach (class_meta::$classification_properties_main as $key => $data) {
+
 			if ('specificClass' == $key){
 				continue;
 			}
+
+			if('prerequisite' == $key){
+	      add_settings_field ('smde_net_class_'.$key, '', function (){
+	          ?>
+	            <tr><th scope="row" style="font-size:16px">Prerequisite </th></tr>
+	          <?php
+	      }, 'smde_meta_edu_properties', 'smde_meta_class_properties');
+	      continue;
+	    }
 
 			if (is_multisite() && get_site_option('smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
 				continue;

@@ -2,7 +2,7 @@
 
 Requires Simple Metadata (1.1 version)
 
-* Contributors: @colomet, @danzhik, @huguespages
+* Contributors: @colomet, @danzhik, @huguespages, @davideC00
 * Donate link: https://opencollective.com/mylanguageskills
 * Tags: pressbooks, links, metadata, education
 * Requires at least: 4.9.6

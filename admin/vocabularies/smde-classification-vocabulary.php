@@ -65,7 +65,7 @@ class SMDE_Metadata_Classification{
 				'7'  => 'Master’s or equivalent level',
 				'8'  => 'Doctoral or equivalent level',
 				'9'  => 'Not elsewhere classified')),
-        'eduFrame'=>array( 'Educational Framework','The Framework that the educational level belongs to. Example: CEFR, Common Core, European Baccalaureate'),
+    'eduFrame'=>array( 'Educational Framework','The Framework that the educational level belongs to. Example: CEFR, Common Core, European Baccalaureate'),
 		'iscedField' => array( 'ISCED field of education','Broad field of education according to ISCED-F 2013.'. '<br><a target="_blank" href="http://uis.unesco.org/en/topic/international-standard-classification-education-isced">Click Here for more information</a>',
 			array(
 				'' => '--Select--',
@@ -82,7 +82,10 @@ class SMDE_Metadata_Classification{
 				'Services' 																				=> 	'Services',)),
 		'eduLevel'				=> array( 'Educational Level','The level of this subject. For ex. B1 for an English Course, or Grade 2 for a Physics Course.'),
 		'additionalClass' => array( 'Additional Classification', 'More specified subject of current educational level. For ex. \'Grammar\' part of B1 English Course, \'Thermodynamics\' for Grade 7 of Physics Course'),
-		'specificClass'	  => array(	'Specific Classification', 'Narrow definition of subject field. For ex. \'Verbs\' in \'Grammar\' materials, \'Thermodynamics Laws\' in Thermodynamics', 'multiple')
+		'specificClass'	  => array(	'Specific Classification', 'Narrow definition of subject field. For ex. \'Verbs\' in \'Grammar\' materials, \'Thermodynamics Laws\' in Thermodynamics', 'multiple'),
+		'prerequisite' => array( 'Prerequisite', 'The prerequisite of this content'),
+		'eduLevelPrerequisite' => array( 'Educational Level','The level of this subject. For ex. B1 for an English Course, or Grade 2 for a Physics Course.'),
+		'additionalClassPrerequisite' => array( 'Additional Classification','More specified subject of current educational level. For ex. \'Grammar\' part of B1 English Course, \'Thermodynamics\' for Grade 7 of Physics Course')
 	);
 
 	public function __construct($typeLevelInput) {
@@ -317,6 +320,7 @@ class SMDE_Metadata_Classification{
 		$this->smde_add_metabox( $this->type_level );
 	}
 
+
 	/**
 	 * Function to render fields, which are frozen by admin/network admin
 	 */
@@ -357,7 +361,7 @@ class SMDE_Metadata_Classification{
 
 		?>
         <p>
-					<strong><?=$property?></strong><?php printf(esc_html__( 'is overwritten by %s. The value is "%s"', 'simple-metadata-annotation'), $dataFrom, $label);?>
+					<strong><?=$property?></strong><?php printf(esc_html__( ' is overwritten by %s. The value is "%s"', 'simple-metadata-annotation'), $dataFrom, $label);?>
 				</p>
         <input type="hidden" name="<?=$field_slug?>" value="<?=$meta_value?>" />
         <?php
@@ -415,6 +419,8 @@ class SMDE_Metadata_Classification{
 			'priority' 		=>	'high'
 		) );
 
+
+
 		//adiing metafields for exery property of this class
 		foreach ( self::$classification_properties_main as $property => $details ) {
 
@@ -433,7 +439,6 @@ class SMDE_Metadata_Classification{
 				}
 			}
 
-
 			//if this property is frozen, we render its metafield correspondingly
 			if (isset($freezes_class[$property]) && $freezes_class[$property] && $meta_position != 'site-meta' && $meta_position!= 'metadata' ) {
 				if (is_multisite() && get_site_option('smde_net_for_lang')){
@@ -447,6 +452,7 @@ class SMDE_Metadata_Classification{
 					$callback = 'render_disable_field';
 			}
 
+
 			//constructing field name
 			$fieldId = strtolower('smde_' . $property . '_' .$this->groupId. '_' .$meta_position);
 
@@ -459,7 +465,7 @@ class SMDE_Metadata_Classification{
 						'display_callback' => array($this, $callback)
 					) );
 
-			}else {
+			}else if($property != 'prerequisite') {
 				if ( $details[2] == 'number' ) {
 						x_add_metadata_field( $fieldId, $meta_position, array(
 							'group'            => $this->groupId,
@@ -490,10 +496,11 @@ class SMDE_Metadata_Classification{
 				}
 			}
 
+			$properties_to_skip = ['specificClass', 'prerequisite', 'eduLevelPrerequisite', 'additionalClassPrerequisite'];
 			//creating URL and description fields for all levels, except Specific Classification
-			if ($property != 'specificClass' && ((is_multisite() && !get_site_option('smde_net_for_lang')) || !is_multisite())) {
+			if ( !in_array($property, $properties_to_skip) && ((is_multisite() && !get_site_option('smde_net_for_lang')) || !is_multisite())) {
 
-			    $fieldId = strtolower('smde_' . $property . '_desc_' .$this->groupId. '_' .$meta_position);
+			  $fieldId = strtolower('smde_' . $property . '_desc_' .$this->groupId. '_' .$meta_position);
 				x_add_metadata_field( $fieldId, $meta_position, array(
 								'field_type'			   => 'textarea',
 								'group'            => $this->groupId,
@@ -511,7 +518,23 @@ class SMDE_Metadata_Classification{
 								'display_callback' => array($this, $callback)
 							) );
 			}
+
+			if( $property == 'prerequisite' ){
+				x_add_metadata_field( $fieldId, $meta_position, array(
+					'group'            => $this->groupId,
+					'display_callback' => array($this, 'smde_render_prerequisite_field')
+				) );
+			}
 		}
+	}
+
+	function smde_render_prerequisite_field(){
+		?>
+		<div class="custom-metadata-field text">
+			<hr />
+			<label style="font-size:20px;padding:10px 0px"> Prerequisite </label>
+		</div>
+		<?php
 	}
 
 	/**
@@ -641,6 +664,7 @@ public function smde_get_metatags(){
 				}
 			}
 		}
+
 		$html = ",\n";
 		$html .= "\t" . '"educationalAlignment":	[';
 		//ISCED level
@@ -716,8 +740,34 @@ public function smde_get_metatags(){
 				}
 			}
 			$html .=  "\n\t\t\t\t\t]\n";
-			$html .=  "\t\t}\n";
+			$html .=  "\t\t}";
 		}
+
+		//Prerequisite zone
+		if (array_key_exists('eduLevelPrerequisite', $cleanCollect) ){
+			$html .= "}" == $html[-1] ? "," : "";
+		  $html .=	$this->smde_get_html_for_AlignmentObjects(
+		    "requires",
+		    '',
+		    $cleanCollect['eduLevelPrerequisite']['val'],
+		    '',
+		    '',
+				''
+		  );
+		}
+
+		if (array_key_exists('additionalClassPrerequisite', $cleanCollect) ){
+			$html .= "}" == $html[-1] ? "," : "";
+		  $html .=	$this->smde_get_html_for_AlignmentObjects(
+		    "requires",
+		    '',
+		    $cleanCollect['additionalClassPrerequisite']['val'],
+		    '',
+		    '',
+				''
+		  );
+		}
+
 		$html .= "\n\t]";
 		//If there are no AlignmentObject return a void html
 		$html = ",\n\t\"educationalAlignment\":	[\n\t]" == $html ? ''	: $html;
@@ -733,14 +783,22 @@ public function smde_get_metatags(){
  * @access  public
  */
 
-function smde_get_html_for_AlignmentObjects($educationalLevel, $iescedNum, $targetName, $alternateName, $targetDescription, $targetUrl)
+function smde_get_html_for_AlignmentObjects($educationalType, $iescedNum, $targetName, $alternateName, $targetDescription, $targetUrl)
 {
 		$html ='
 		{
 			"@type":  "AlignmentObject",
-			"alignmentType":  "'.$educationalLevel.'",
-			"educationalFramework":	"'.$iescedNum.'",
-			"targetName": "'.$targetName.'"';
+			"alignmentType":  "'.$educationalType.'"';
+
+		if(!empty($iescedNum)){
+			$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t"; // There is a comma in the option before
+			$html .=  '"educationalFramework":	"'.$iescedNum.'"';
+		}
+
+		if(!empty($targetName)){
+			$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t"; // There is a comma in the option before
+			$html .=  '"targetName":	"'.$targetName.'"';
+		}
 
 		if(!empty($alternateName)){
 			$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t"; // There is a comma in the option before
