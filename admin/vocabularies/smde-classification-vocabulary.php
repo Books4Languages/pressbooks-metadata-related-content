@@ -82,6 +82,15 @@ class SMDE_Metadata_Classification{
 				'Services' 																				=> 	'Services',)),
 		'eduLevel'				=> array( 'Educational Level','The level of this subject. For ex. B1 for an English Course, or Grade 2 for a Physics Course.'),
 		'additionalClass' => array( 'Additional Classification', 'More specified subject of current educational level. For ex. \'Grammar\' part of B1 English Course, \'Thermodynamics\' for Grade 7 of Physics Course'),
+		'complexityLev' => array( 'Complexity Level', 'Defines a level or range that measures the difficulty or challenge presented by the learning resource being described.',
+			array(
+				'' 					=> '--Select--',
+				'Create'  	=> 'Create',
+				'Evaluate'  => 'Evaluate',
+				'Analyze' 	=> 'Analyze',
+				'Apply'  		=> 'Apply',
+				'Understand'=> 'Understand',
+				'Remember'  => 'Remember')),
 		'specificClass'	  => array(	'Specific Classification', 'Narrow definition of subject field. For ex. \'Verbs\' in \'Grammar\' materials, \'Thermodynamics Laws\' in Thermodynamics', 'multiple'),
 		'prerequisite' => array( 'Prerequisite', 'The prerequisite of this content'),
 		'eduLevelPrerequisite' => array( 'Educational Level','The level of this subject. For ex. B1 for an English Course, or Grade 2 for a Physics Course.'),
@@ -496,7 +505,7 @@ class SMDE_Metadata_Classification{
 				}
 			}
 
-			$properties_to_skip = ['specificClass', 'prerequisite', 'eduLevelPrerequisite', 'additionalClassPrerequisite'];
+			$properties_to_skip = ['complexityLev', 'specificClass', 'prerequisite', 'eduLevelPrerequisite', 'additionalClassPrerequisite'];
 			//creating URL and description fields for all levels, except Specific Classification
 			if ( !in_array($property, $properties_to_skip) && ((is_multisite() && !get_site_option('smde_net_for_lang')) || !is_multisite())) {
 
@@ -665,30 +674,34 @@ public function smde_get_metatags(){
 			}
 		}
 
+
 		$html = ",\n";
 		$html .= "\t" . '"educationalAlignment":	[';
 		//ISCED level
 		if ( array_key_exists('iscedLevel', $cleanCollect) ){
 			$html .= "}" == $html[-1] ? "," : "";
 			$html .=	$this->smde_get_html_for_AlignmentObjects(
-		    "educationalLevel",
-		    "ISCED-2011",
-		    $this->get_isced_level($cleanCollect['iscedLevel']['val']),
-				'ISCED 2011, Level ' . $cleanCollect['iscedLevel']['val'],
-		    isset($cleanCollect['iscedLevel']['desc'])	? $cleanCollect['iscedLevel']['desc'] : "",
-		    isset($cleanCollect['iscedLevel']['url'])	?	$cleanCollect['iscedLevel']['url']	: ""
+				array(
+			    'alignmentType'					=> 'educationalLevel',
+					'educationalFramework'	=> 'ISCED-2011',
+			    'targetName'					 	=> $this->get_isced_level($cleanCollect['iscedLevel']['val']),
+					'alternateName'					=> 'ISCED 2011, Level ' . $cleanCollect['iscedLevel']['val'],
+			    'targetDescription' 		=> isset($cleanCollect['iscedLevel']['desc'])	? $cleanCollect['iscedLevel']['desc'] : "",
+			    'targetUrl'							=> isset($cleanCollect['iscedLevel']['url'])	?	$cleanCollect['iscedLevel']['url']	: ""
+				)
 		  );
 		}
 		//Educational Framework
 		if ( array_key_exists('eduLevel', $cleanCollect) && array_key_exists( 'eduFrame', $cleanCollect ) ){
 			$html .= "}" == $html[-1] ? "," : "";
 		  $html .=	$this->smde_get_html_for_AlignmentObjects(
-		    "educationalSubject",
-		    $cleanCollect['eduFrame']['val'],
-		    $cleanCollect['eduLevel']['val'],
-		    '',
-		    isset($cleanCollect['eduLevel']['desc']) ? $cleanCollect['eduLevel']['desc'] : "",
-		    isset($cleanCollect['eduLevel']['url'])	?	$cleanCollect['eduLevel']['url']	: ""
+				array(
+			   'alignmentType' 				=> "educationalLevel",
+			   'educationalFramework' => $cleanCollect['eduFrame']['val'],
+			   'targetName'						=> $cleanCollect['eduLevel']['val'],
+			   'targetDescription' 		=> isset($cleanCollect['eduLevel']['desc']) ? $cleanCollect['eduLevel']['desc'] : "",
+			   'targetUrl'						=> isset($cleanCollect['eduLevel']['url'])	?	$cleanCollect['eduLevel']['url']	: ""
+				)
 		  );
 		}
 
@@ -696,12 +709,13 @@ public function smde_get_metatags(){
 		if ( array_key_exists('iscedField', $cleanCollect) ){
 			$html .= "}" == $html[-1] ? "," : "";
 		  $html .=	$this->smde_get_html_for_AlignmentObjects(
-		    "educationalSubject",
-		    "ISCED-2013",
-		    $cleanCollect['iscedField']['val'],
-		    '',
-		    isset($cleanCollect['iscedField']['desc']) ? $cleanCollect['iscedField']['desc'] : "",
-		    isset($cleanCollect['iscedField']['url'])	?	$cleanCollect['iscedField']['url']	: ""
+				array(
+		    'alignmentType'					=> 'educationalSubject',
+		    'educationalFramework'	=> 'ISCED-2013',
+		    'targetName' 						=> $cleanCollect['iscedField']['val'],
+				'targetDescription'			=> isset($cleanCollect['iscedField']['desc']) ? $cleanCollect['iscedField']['desc'] : '',
+		    'targetUrl' 						=> isset($cleanCollect['iscedField']['url'])	?	$cleanCollect['iscedField']['url']	: ''
+				)
 		  );
 		}
 
@@ -709,12 +723,12 @@ public function smde_get_metatags(){
 		if ( array_key_exists( 'eduLevel', $cleanCollect ) && !array_key_exists( 'eduFrame', $cleanCollect )) {
 			$html .= "}" == $html[-1] ? "," : "";
 		  $html .=	$this->smde_get_html_for_AlignmentObjects(
-		    "educationalLevel",
-		    '',
-		    $cleanCollect['eduLevel']['val'],
-		    '',
-		    isset($cleanCollect['eduLevel']['desc']) ? $cleanCollect['eduLevel']['desc'] : "",
-		    isset($cleanCollect['eduLevel']['url'])	?	$cleanCollect['eduLevel']['url']	: ""
+				array(
+		    'alignmentType' 		=> 'educationalLevel',
+		    'targetName'				=> $cleanCollect['eduLevel']['val'],
+		    'targetDescription' => isset($cleanCollect['eduLevel']['desc']) ? $cleanCollect['eduLevel']['desc'] : '',
+		    'targetUrl'					=> isset($cleanCollect['eduLevel']['url'])	?	$cleanCollect['eduLevel']['url']	: ''
+				)
 		  );
 		}
 
@@ -743,28 +757,35 @@ public function smde_get_metatags(){
 			$html .=  "\t\t}";
 		}
 
+
+		if (array_key_exists('complexityLev', $cleanCollect) ){
+			$html .= "}" == $html[-1] ? "," : "";
+		  $html .=	$this->smde_get_html_for_AlignmentObjects(
+				array(
+		    'alignmentType' => 'textComplexity',
+		    'targetName'		=> $cleanCollect['complexityLev']['val']
+				)
+		  );
+		}
+
 		//Prerequisite zone
 		if (array_key_exists('eduLevelPrerequisite', $cleanCollect) ){
 			$html .= "}" == $html[-1] ? "," : "";
 		  $html .=	$this->smde_get_html_for_AlignmentObjects(
-		    "requires",
-		    '',
-		    $cleanCollect['eduLevelPrerequisite']['val'],
-		    '',
-		    '',
-				''
+				array(
+		    'alignmentType' => 'requires',
+		    'targetName'		=> $cleanCollect['eduLevelPrerequisite']['val'],
+				)
 		  );
 		}
 
 		if (array_key_exists('additionalClassPrerequisite', $cleanCollect) ){
 			$html .= "}" == $html[-1] ? "," : "";
 		  $html .=	$this->smde_get_html_for_AlignmentObjects(
-		    "requires",
-		    '',
-		    $cleanCollect['additionalClassPrerequisite']['val'],
-		    '',
-		    '',
-				''
+				array(
+		    'alignmentType' => 'requires',
+		    'targetName'		=> $cleanCollect['additionalClassPrerequisite']['val'],
+				)
 		  );
 		}
 
@@ -775,44 +796,28 @@ public function smde_get_metatags(){
 }
 
 /**
- * Create the common structure of the metatags for AlignmentObject (Schema class)
+ * Create the common structure of the metatags for AlignmentObject
  *
  * @see smde_get_metatags
  *
- * @since    1.2
- * @access  public
+ * @since   1.2
+ * @since   1.4 acccepts an array $props
+ *
+ * @param   array $props the properties to add
+ * @return	array $html
+ * @access  protected
  */
-
-function smde_get_html_for_AlignmentObjects($educationalType, $iescedNum, $targetName, $alternateName, $targetDescription, $targetUrl)
+function smde_get_html_for_AlignmentObjects($props)
 {
 		$html ='
 		{
-			"@type":  "AlignmentObject",
-			"alignmentType":  "'.$educationalType.'"';
+			"@type":  "AlignmentObject",';
 
-		if(!empty($iescedNum)){
-			$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t"; // There is a comma in the option before
-			$html .=  '"educationalFramework":	"'.$iescedNum.'"';
-		}
-
-		if(!empty($targetName)){
-			$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t"; // There is a comma in the option before
-			$html .=  '"targetName":	"'.$targetName.'"';
-		}
-
-		if(!empty($alternateName)){
-			$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t"; // There is a comma in the option before
-			$html .=  '"alternateName":	"'.$alternateName.'"';
-		}
-
-		if(!empty($targetDescription)){
-			$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t"; // There is a comma in the option before
-			$html .=  '"targetDescription":	"'.$targetDescription.'"';
-		}
-
-		if(!empty($targetUrl)){
-			$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t";
-			$html .=  '"targetUrl": "'.$targetUrl.'"';
+		foreach($props as $property => $value){
+			if(isset($value) && !empty($value)){
+				$html .= "," == $html[-1] ? "\n\t\t\t" : ",\n\t\t\t"; // Add the comma and formatting
+				$html .=  '"'.$property.'":  "'.$value.'"';
+			}
 		}
 
 		$html .=	"\n\t\t}";
@@ -1064,11 +1069,44 @@ include: Fixed expressions (consisting of several words, which are used and lear
 			$html	.=	"\n\t\t\t]";
 			$html .=	","	==	$html[-1]	?	"\n"	:	",";
 			$html .=	'
-			"targetDescription:":	"'.$cleanCollect['additionalClass']['desc'].'",
+			"targetDescription":	"'.$cleanCollect['additionalClass']['desc'].'",
 			"targetUrl":	"'.$cleanCollect['additionalClass']['url'].'"
 		}';
-
 		}
+
+
+		if (array_key_exists('complexityLev', $cleanCollect) ){
+			$html .= "}" == $html[-1] ? "," : "";
+		  $html .=	$this->smde_get_html_for_AlignmentObjects(
+				array(
+		    'alignmentType' => 'textComplexity',
+		    'targetName'		=> $cleanCollect['complexityLev']['val']
+				)
+		  );
+		}
+
+		//Prerequisite zone
+		if (array_key_exists('eduLevelPrerequisite', $cleanCollect) ){
+			$html .= "}" == $html[-1] ? "," : "";
+		  $html .=	$this->smde_get_html_for_AlignmentObjects(
+				array(
+		    'alignmentType' => 'requires',
+		    'targetName'		=> $cleanCollect['eduLevelPrerequisite']['val'],
+				)
+		  );
+		}
+
+		if (array_key_exists('additionalClassPrerequisite', $cleanCollect) ){
+			$html .= "}" == $html[-1] ? "," : "";
+		  $html .=	$this->smde_get_html_for_AlignmentObjects(
+				array(
+		    'alignmentType' => 'requires',
+		    'targetName'		=> $cleanCollect['additionalClassPrerequisite']['val'],
+				)
+		  );
+		}
+
+
 		$html .=	"\n\t]";
 
 		return $html;
