@@ -434,11 +434,13 @@ class SMDE_Metadata_Educational{
    */
   public function smde_get_metatags() {
     //Getting post meta of site-meta of metadata (Book Info) post
-        if($this->type_level == 'metadata' || $this->type_level == 'site-meta'){
-            $this->metadata = self::get_site_meta_metadata();
-        }else{
-            $this->metadata = get_post_meta( get_the_ID() );
-        }
+    if($this->type_level == 'metadata' || $this->type_level == 'site-meta'){
+        $this->metadata = self::get_site_meta_metadata();
+    }else{
+        $this->metadata = get_post_meta( get_the_ID() );
+    }
+
+    $metadata = [];
 
     //Keys for looping
     $loop_keys = array(
@@ -452,10 +454,10 @@ class SMDE_Metadata_Educational{
     //initializing variable for schema type string
     $val = '';
 
-        //Starting point of educational schema part 1
+    //Starting point of educational schema part 1
 
     $partTwoMetadata = null;
-    $html = ",";
+
     //going through all properties of class and ones, which don't require specific markup
     foreach ( self::$lrmi_properties as $key => $desc ) {
       //Constructing the key for the data
@@ -474,8 +476,7 @@ class SMDE_Metadata_Educational{
           if ( 'timeRequired' == $key ) {
             $val = 'PT'. $val.'H';
           }
-          $html .= ',' == $html[-1] ? "\n\t" : ",\n\t"; //adds identation and new paragraph
-          $html .= '"'.$key.'": "'.$val.'"';
+          $metadata[$key] = $val;
         }else{
           $partTwoMetadata[$key] = $val;
         }
@@ -487,26 +488,23 @@ class SMDE_Metadata_Educational{
 
     //Educational Use
     if(isset( $partTwoMetadata['educationalRole'] )){
-      $html .= ',' == $html[-1] ? "\n\t" : ",\n\t";
-      $html .='"audience":  {
-        "@type":  "EducationalAudience",
-        "educationalRole":  "'.$partTwoMetadata['educationalRole'].'"
-      }';
+      $metadata['audience'] = [
+        '@type' =>  'EducationalAudience',
+        'educationalRole' =>  $partTwoMetadata['educationalRole']
+      ];
     }
 
-    $html = strcmp(",", $html) == 0 ?  "" : $html ;
     //initilizing instance of classification vocabulary class and calling its method for prinitng metatags
     $class_meta = new class_meta($this->type_level);
     if (is_multisite() && get_site_option('smde_net_for_lang')){
-      //adds to the html to print the metatags_lang from class_meta
-      $html .= $class_meta->smde_get_metatags_lang();
+      // add the classification metadata if it's 'content for language'
+      $metadata = array_merge($metadata, $class_meta->smde_get_metatags_lang());
     } else {
-      //adds to the html to print the metatags from class_meta
-      $html .= $class_meta->smde_get_metatags();
+      //  add the classification metadata
+      $metadata = array_merge($metadata, $class_meta->smde_get_metatags());
     }
 
-
-    echo $html;
+    return $metadata;
   }
 
 }

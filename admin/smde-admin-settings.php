@@ -278,7 +278,6 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 				$shares_class = get_option('smde_class_');
 			// $shares_class[$key] == '0';
 			 $valeur_key = '4';
-
 			}
 			else {
 				$shares_class[$key] = $network_shares_class[$key];

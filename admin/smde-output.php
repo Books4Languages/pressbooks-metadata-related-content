@@ -36,6 +36,7 @@ function smde_print_tags () {
 
 	//recieving post type of current post
 	$post_schema = get_post_type();
+	$metadata	=	[];
 
 	//defining if page is post (any post type) or front-page
 	if ( is_front_page() ) {
@@ -44,7 +45,7 @@ function smde_print_tags () {
 			//initializng new instance of educational vocabulary class (in future more vocabularies)
 			$lrmi_meta = new lrmi_meta($front_schema);
 			//calling vocabulary class method for printing metatags
-			echo $lrmi_meta->smde_get_metatags();
+			$metdata = $lrmi_meta->smde_get_metatags();
 		}
 	} elseif (!is_home()){
 		if (isset($locations[$post_schema]) && $locations[$post_schema]) {
@@ -52,7 +53,9 @@ function smde_print_tags () {
 			//initializng new instance of educational vocabulary class (in future more vocabularies)
 			$lrmi_meta = new lrmi_meta($post_schema);
 			//calling vocabulary class method for printing metatags
-			echo $lrmi_meta->smde_get_metatags();
+			$metadata = $lrmi_meta->smde_get_metatags();
 		}
 	}
+
+	return $metadata;
 }
