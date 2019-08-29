@@ -679,11 +679,11 @@ public function smde_get_metatags(){
 		if ( array_key_exists('iscedLevel', $cleanCollect) ){
 			$alignment_object = [[
 				'@type'									=>  'AlignmentObject',
-				'alignmentType' 				=>	'educationalLevel',
+				'alignmentType'					=>	'educationalLevel',
 				'educationalFramework'	=> 	'ISCED-2011',
 				'targetName'					 	=> 	$this->get_isced_level($cleanCollect['iscedLevel']['val']),
 				'alternateName'					=> 	'ISCED 2011, Level ' . $cleanCollect['iscedLevel']['val'],
-				'targetDescription' 		=> 	isset($cleanCollect['iscedLevel']['desc'])	? $cleanCollect['iscedLevel']['desc'] : "",
+				'targetDescription'			=> 	isset($cleanCollect['iscedLevel']['desc'])	? $cleanCollect['iscedLevel']['desc'] : "",
 				'targetUrl'							=> 	isset($cleanCollect['iscedLevel']['url'])	?	$cleanCollect['iscedLevel']['url']	: ""
 			]];
 			$alignment_objects = array_merge($alignment_objects, $alignment_object);
@@ -785,6 +785,7 @@ public function smde_get_metatags(){
 		return $metadata;
 }
 
+
 	/**
 	 * Function that creates the vocabulary metatags
 	 *
@@ -794,11 +795,11 @@ public function smde_get_metatags(){
 	public function smde_get_metatags_lang() {
 
 		//Getting post meta of metadata (Book Info) or site-meta post
-        if($this->type_level == 'metadata' || $this->type_level == 'site-meta'){
-            $this->metadata = self::get_site_meta_metadata();
-        } else {
-            $this->metadata = get_post_meta( get_the_ID() );
-        }
+    if($this->type_level == 'metadata' || $this->type_level == 'site-meta'){
+        $this->metadata = self::get_site_meta_metadata();
+    } else {
+        $this->metadata = get_post_meta( get_the_ID() );
+    }
 
 
 		$cleanCollect = [];
@@ -981,42 +982,6 @@ public function smde_get_metatags(){
 			$alignment_objects = array_merge($alignment_objects, $alignment_object);
 		}
 
-
-		// Complexity Level
-		if (array_key_exists('complexityLev', $cleanCollect) ){
-			$alignment_object = [[
-				'@type'									=>  'AlignmentObject',
-				'alignmentType' 				=>	'textComplexity',
-				'targetName'					 	=> 	$cleanCollect['complexityLev']['val']
-			]];
-			$alignment_objects = array_merge($alignment_objects, $alignment_object);
-		}
-
-		//Educational Level Prerequisite
-		if (array_key_exists('eduLevelPrerequisite', $cleanCollect) ){
-			$alignment_object = [[
-				'@type'									=>  'AlignmentObject',
-				'alignmentType' 				=>	'requires',
-				'targetName'					 	=> 	$cleanCollect['eduLevelPrerequisite']['val']
-			]];
-			$alignment_objects = array_merge($alignment_objects, $alignment_object);
-		}
-
-		// Additional Classfication Prerequisite
-		if (array_key_exists('additionalClassPrerequisite', $cleanCollect) ){
-
-			$alignment_object = [[
-				'@type'									=>  'AlignmentObject',
-				'alignmentType' 				=>	'requires',
-				'targetName'					 	=> 	$cleanCollect['additionalClassPrerequisite']['val']
-			]];
-			$alignment_objects = array_merge($alignment_objects, $alignment_object);
-		}
-
-		if(!empty($alignment_objects)){
-			$metadata['educationalAlignment'] = array_merge($metadata, $alignment_objects);
-		}
-
 		// Additional Classification
 		if (array_key_exists('additionalClass', $cleanCollect)){
 
@@ -1071,6 +1036,43 @@ include: Fixed expressions (consisting of several words, which are used and lear
 			$metadata = array_merge($metadata, $add_class_metadata);
 
 		}
+
+		// Complexity Level
+		if (array_key_exists('complexityLev', $cleanCollect) ){
+			$alignment_object = [[
+				'@type'									=>  'AlignmentObject',
+				'alignmentType' 				=>	'textComplexity',
+				'targetName'					 	=> 	$cleanCollect['complexityLev']['val']
+			]];
+			$alignment_objects = array_merge($alignment_objects, $alignment_object);
+		}
+
+		//Educational Level Prerequisite
+		if (array_key_exists('eduLevelPrerequisite', $cleanCollect) ){
+			$alignment_object = [[
+				'@type'									=>  'AlignmentObject',
+				'alignmentType' 				=>	'requires',
+				'targetName'					 	=> 	$cleanCollect['eduLevelPrerequisite']['val']
+			]];
+			$alignment_objects = array_merge($alignment_objects, $alignment_object);
+		}
+
+		// Additional Classfication Prerequisite
+		if (array_key_exists('additionalClassPrerequisite', $cleanCollect) ){
+
+			$alignment_object = [[
+				'@type'									=>  'AlignmentObject',
+				'alignmentType' 				=>	'requires',
+				'targetName'					 	=> 	$cleanCollect['additionalClassPrerequisite']['val']
+			]];
+			$alignment_objects = array_merge($alignment_objects, $alignment_object);
+		}
+
+		if(!empty($alignment_objects)){
+			$metadata['educationalAlignment'] = array_merge($metadata, $alignment_objects);
+		}
+
+
 
 		return $metadata;
 	}
