@@ -135,10 +135,8 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
     }, 'smde_network_meta_edu_properties', 'smde_network_meta_edu_properties');
 	}
 
-	//adding settings for classification properties management
-	foreach (class_meta::$classification_properties_main as $key => $data) {
-
-
+  //adding settings for classification properties management
+  foreach (class_meta::$classification_properties_main as $key => $data) {
 
     //we do not add option for 'specificClass' property (no need to control it)
     if ('specificClass' == $key ){
@@ -160,15 +158,15 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
       continue;
     }
 
-		if (get_site_option('smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
-				continue;
-		}
+  	if (get_site_option('smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
+  			continue;
+  	}
 
-		add_settings_field ('smde_net_class_'.$key, ucfirst($data[0]), function () use ($key, $data, $props_class){
+  	add_settings_field ('smde_net_class_'.$key, ucfirst($data[0]), function () use ($key, $data, $props_class){
 
       $props_class[$key] = !empty($props_class[$key]) ? $props_class[$key] : '0';
 
-	?>
+  ?>
   <?php if ($props_class[$key]=='1') {
     if (isset($_GET['hello25'])) {
 
@@ -196,18 +194,18 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 
               }
       }
-}
+  }
 
-runMyFunction88();
-//refresh the page
-?> <meta http-equiv="refresh" content="0;URL=admin.php?page=smd_net_set_page"><?php
-}
-if ($props_class[$key]=='1') {
-echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the all sites?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smd_net_set_page&hello25=true&field_name=$key'>X</a>";}
+  runMyFunction88();
+  //refresh the page
+  ?> <meta http-equiv="refresh" content="0;URL=admin.php?page=smd_net_set_page"><?php
+  }
+  if ($props_class[$key]=='1') {
+  echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the all sites?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smd_net_set_page&hello25=true&field_name=$key'>X</a>";}
 
-?>
+  ?>
   &nbsp;&nbsp;
-<?php } ?>
+  <?php } ?>
       <label for="smde_net_class_disable[<?=$key?>]"><?php esc_html_e('Disable', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="1" id="smde_net_class_disable[<?=$key?>]" <?php if ($props_class[$key]=='1') { echo "checked='checked'"; }
       ?>></label>
       <label for="smde_net_class_local_value[<?=$key?>]"><?php esc_html_e('Local value', 'simple-metadata-education'); ?> <input type="radio"  name="smde_net_class_[<?=$key?>]" value="0" id="smde_net_class_local_value[<?=$key?>]" <?php if ($props_class[$key]=='0') { echo "checked='checked'"; }
@@ -218,8 +216,8 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
       ?> ></label>
         <br><span class="description"><?=$data[1]?></span>
       <?php
-		}, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
-	}
+  	}, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
+  }
 
   /*
   if (get_site_option('smde_net_for_lang')){
