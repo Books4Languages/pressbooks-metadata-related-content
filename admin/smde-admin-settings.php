@@ -61,28 +61,22 @@ function smde_add_education_settings() {
 
 
 		$post_types = smd_get_all_post_types();
-		$locations = get_option('smde_locations');
-		$shares_edu = get_option('smde_edu_');
-		$shares_edu1 = get_site_option('smde_net_edu_shares');
 
-		$freezes_edu = get_option('smde_edu_freezes');
-		$shares_class = get_option('smde_class_');
-		$freezes_class = get_option('smde_class_freezes');
+		$locations = get_option('smde_locations');
+
+		$props_edu =  get_option('smde_edu_');
+		$props_class =  get_option('smde_class_');
 
 		//initializing variables for network settings in case installation is not multisite to avoid notices and warnings
 		$network_locations = [];
-		$network_shares_edu = [];
-		$network_freezes_edu = [];
-		$network_shares_class = [];
-		$network_freezes_class = [];
+		$network_props_edu = [];
+		$network_props_class = [];
 
 		//in case of multisite installation, we receive network options for locations and properties
 		if (is_multisite()){
-			$network_locations = get_site_option('smde_net_locations');
-			$network_shares_edu = get_site_option('smde_net_edu_');
-			$network_freezes_edu = get_site_option('smde_net_edu_freezes');
-			$network_shares_class = get_site_option('smde_net_class_');
-			$network_freezes_class = get_site_option('smde_net_class_freezes');
+			$network_locations =  get_site_option('smde_net_locations');
+			$network_props_edu =  get_site_option('smde_net_edu_');
+			$network_props_class =  get_site_option('smde_net_class_');
 		}
 
 		//adding options for locations
@@ -114,20 +108,20 @@ function smde_add_education_settings() {
 		//adding settings for educational properties
 		foreach (edu_meta::$edu_properties as $key => $data) {
 
-			add_settings_field ('smde_edu_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_edu,$network_shares_edu){
+			add_settings_field ('smde_edu_'.$key, ucfirst($data[0]), function () use ($key, $data, $props_edu,$network_props_edu){
 				//in case share or freeze is network enabled, checkbox becomes disabled to prevent changes
 
-		//		$shares_class[$key] = !empty($shares_class[$key]) ? $shares_class[$key] : '0';
-		if (!empty($network_shares_edu)) {
-			if ($network_shares_edu[$key] == '0') {
-				$shares_edu = get_option('smde_edu_');
-			// $shares_class[$key] == '0';
-			 $valeur_key_edu = '4';
+		//		$props_class[$key] = !empty($props_class[$key]) ? $props_class[$key] : '0';
+		if (!empty($network_props_edu)) {
+			if ($network_props_edu[$key] == '0') {
+				$props_edu = get_option('smde_edu_');
+				// $props_class[$key] == '0';
+				$valeur_key_edu = '4';
 
 			}
 			else {
-				$shares_edu[$key] = $network_shares_edu[$key];
-				 $valeur_key_edu = $shares_edu[$key];
+				$props_edu[$key] = $network_props_edu[$key];
+				$valeur_key_edu = $props_edu[$key];
 			}
 		}else
 		 {
@@ -136,7 +130,7 @@ function smde_add_education_settings() {
 
 		}
 				?>
-				<?php if ($shares_edu[$key]=='1') {
+				<?php if ($props_edu[$key]=='1') {
 
 					if (isset($_GET['hello12'])) {
 					function runMyFunction1227() {
@@ -218,7 +212,7 @@ runMyFunction1227();
 //refresh the page
 	?><meta http-equiv="refresh" content="0;URL=admin.php?page=smde_set_page"><?php
 }
- if ($shares_edu[$key]=='1') {
+ if ($props_edu[$key]=='1') {
 echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the site?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smde_set_page&hello12=true&field_name=$key'>X</a>";}
 
 ?>
@@ -226,23 +220,23 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 			<?php } ?>
 				<label for="smde_edu_disable[<?=$key?>]">
 					<?php esc_html_e('Disable', 'simple-metadata-education'); ?>
-					<input type="radio"  name="smde_edu_[<?=$key?>]" value="1" id="smde_edu_disable[<?=$key?>]" <?php if ($shares_edu[$key]=='1') { echo "checked='checked'"; }?>
+					<input type="radio"  name="smde_edu_[<?=$key?>]" value="1" id="smde_edu_disable[<?=$key?>]" <?php if ($props_edu[$key]=='1') { echo "checked='checked'"; }?>
 					<?php  if ($valeur_key_edu == '1' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";} ?>
 					>
 				</label>
 				<label for="smde_edu_local_value[<?=$key?>]">
 					<?php esc_html_e('Local value', 'simple-metadata-education'); ?>
-					<input type="radio"  name="smde_edu_[<?=$key?>]" value="0" id="smde_edu_local_value[<?=$key?>]" <?php if ($shares_edu[$key]=='0' || empty($shares_edu[$key])) { echo "checked='checked'"; } ?>
+					<input type="radio"  name="smde_edu_[<?=$key?>]" value="0" id="smde_edu_local_value[<?=$key?>]" <?php if ($props_edu[$key]=='0' || empty($props_edu[$key])) { echo "checked='checked'"; } ?>
 					<?php  if ($valeur_key_edu == '0' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>>
 				</label>
 				<label  for="smde_edu_share[<?=$key?>]">
 					<?php esc_html_e('Share', 'simple-metadata-education'); ?>
-					<input type="radio"  name="smde_edu_[<?=$key?>]" value="2" id="smde_edu_share[<?=$key?>]" <?php if ($shares_edu[$key]=='2') { echo "checked='checked'"; }?>
+					<input type="radio"  name="smde_edu_[<?=$key?>]" value="2" id="smde_edu_share[<?=$key?>]" <?php if ($props_edu[$key]=='2') { echo "checked='checked'"; }?>
 					<?php  if ($valeur_key_edu == '2' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>>
 				</label>
 				<label for="smde_edu_freeze[<?=$key?>]">
 					<?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
-					<input type="radio"  name="smde_edu_[<?=$key?>]" value="3" id="smde_edu_freeze[<?=$key?>]"  <?php if ($shares_edu[$key]=='3') { echo "checked='checked'"; }?>
+					<input type="radio"  name="smde_edu_[<?=$key?>]" value="3" id="smde_edu_freeze[<?=$key?>]"  <?php if ($props_edu[$key]=='3') { echo "checked='checked'"; }?>
 					<?php  if ($valeur_key_edu == '3' || $valeur_key_edu == '4') {echo "";}else {echo "disabled";}  ?>>
 				</label>
 					<br><span class="description"><?=$data[1]?></span>
@@ -269,19 +263,17 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 			if (is_multisite() && get_site_option('smde_net_for_lang') && ('eduFrame' == $key || 'iscedField' == $key)){
 				continue;
 			}
-		  add_settings_field ('smde_class_'.$key, ucfirst($data[0]), function () use ($key, $data, $shares_class,$network_shares_class, $network_freezes_class){
-		    $checked_class_share = isset($shares_class[$key]) ? true : false;
-		    $checked_class_freeze = isset($freezes_class[$key]) ? true : false;
+		  add_settings_field ('smde_class_'.$key, ucfirst($data[0]), function () use ($key, $data, $props_class,$network_props_class){
 
-		if (!empty($network_shares_class)) {
-			if ($network_shares_class[$key] == '0') {
-				$shares_class = get_option('smde_class_');
-			// $shares_class[$key] == '0';
+		if (!empty($network_props_class)) {
+			if ($network_props_class[$key] == '0') {
+				$props_class = get_option('smde_class_');
+			// $props_class[$key] == '0';
 			 $valeur_key = '4';
 			}
 			else {
-				$shares_class[$key] = $network_shares_class[$key];
-				 $valeur_key = $shares_class[$key];
+				$props_class[$key] = $network_props_class[$key];
+				 $valeur_key = $props_class[$key];
 			}
 		}else
 		 {
@@ -289,7 +281,7 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 			$valeur_key = '4';
 		}
 		    ?>
-				<?php if ($shares_class[$key]=='1') {
+				<?php if ($props_class[$key]=='1') {
 
 					if (isset($_GET['hello'])) {
 					function runMyFunction1228() {
@@ -373,7 +365,7 @@ runMyFunction1228();
 }
 
 
- if ($shares_class[$key]=='1') {
+ if ($props_class[$key]=='1') {
 echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the site?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smde_set_page&hello=true&field_name=$key'>X</a>";}
 
 ?>
@@ -382,27 +374,27 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 				<label for="smde_class_disable[<?=$key?>]">
 					<?php esc_html_e('Disable', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]"
-						<?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }?>
+						<?php if ($props_class[$key]=='1') { echo "checked='checked'"; }?>
 					 <?php  if ($valeur_key == '1' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
 				<label for="smde_class_local_value[<?=$key?>]">
 					<?php esc_html_e('Local value', 'simple-metadata-education'); ?>
-					<input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]" <?php if ($shares_class[$key]=='0' || empty($shares_class[$key])) { echo "checked='checked'"; }?>
+					<input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]" <?php if ($props_class[$key]=='0' || empty($props_class[$key])) { echo "checked='checked'"; }?>
 
 						<?php  if ($valeur_key == '0' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
 				<label  for="smde_class_share[<?=$key?>]">
 					<?php esc_html_e('Share', 'simple-metadata-education'); ?>
-					<input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]" <?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?>
+					<input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]" <?php if ($props_class[$key]=='2') { echo "checked='checked'"; }?>
 						<?php  if ($valeur_key == '2' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
 				<label for="smde_class_freeze[<?=$key?>]">
 					<?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="3" id="smde_class_freeze[<?=$key?>]"
-					<?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }?>
+					<?php if ($props_class[$key]=='3') { echo "checked='checked'"; }?>
 					<?php  if ($valeur_key == '3' || $valeur_key == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
@@ -413,20 +405,20 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 		}
 
 		if (is_multisite() && get_site_option('smde_net_for_lang')){
-			add_settings_field ('smde_class_eduLang', 'Studying content', function () use ($key, $shares_class, $freezes_class, $network_shares_class, $network_freezes_class){
+			add_settings_field ('smde_class_eduLang', 'Studying content', function () use ($key, $props_class, $network_props_class){
 
 				//in case share or freeze is network enabled, checkbox becomes disabled to prevent changes
 				$key = 'eduLang';
-				// $shares_class[$key] == '0';
-				if (!empty($network_shares_class)) {
+				// $props_class[$key] == '0';
+				if (!empty($network_props_class)) {
 
-					if ($network_shares_class[$key] == '0') {
-						$shares_class = get_site_option('smde_net_class');
+					if ($network_props_class[$key] == '0') {
+						$props_class = get_site_option('smde_net_class');
 						$valeur_key_langue = '4';
 					}
 					else {
-						$shares_class[$key] = $network_shares_class[$key];
-						$valeur_key_langue = $shares_class[$key];
+						$props_class[$key] = $network_props_class[$key];
+						$valeur_key_langue = $props_class[$key];
 					}
 				}else
 				 {
@@ -437,21 +429,21 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 				<label for="smde_class_disable[<?=$key?>]">
 					<?php esc_html_e('Disable', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]"
-					<?php if ($shares_class[$key]=='1') { echo "checked='checked'"; }?>
+					<?php if ($props_class[$key]=='1') { echo "checked='checked'"; }?>
 					<?php  if ($valeur_key_langue == '1' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
 				<label for="smde_class_local_value[<?=$key?>]">
 					<?php esc_html_e('Local value', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]"
-					<?php if ($shares_class[$key]=='0' || empty($shares_class[$key])) { echo "checked='checked'"; }?>
+					<?php if ($props_class[$key]=='0' || empty($props_class[$key])) { echo "checked='checked'"; }?>
 					<?php  if ($valeur_key_langue == '0' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}?>
 					>
 				</label>
 				<label  for="smde_class_share[<?=$key?>]">
 					<?php esc_html_e('Share', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]"
-					<?php if ($shares_class[$key]=='2') { echo "checked='checked'"; }?>
+					<?php if ($props_class[$key]=='2') { echo "checked='checked'"; }?>
 					<?php //Moved options to site meta check this code
 					?>
 					<?php  if ($valeur_key_langue == '2' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";} ?>
@@ -460,7 +452,7 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 				<label for="smde_class_freeze[<?=$key?>]">
 					<?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
 					<input type="radio"  name="smde_class_[<?=$key?>]" value="3" id="smde_class_freeze[<?=$key?>]"
-					<?php if ($shares_class[$key]=='3') { echo "checked='checked'"; }?>
+					<?php if ($props_class[$key]=='3') { echo "checked='checked'"; }?>
 					<?php  if ($valeur_key_langue == '3' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";} ?>
 					>
 				</label>
@@ -585,14 +577,14 @@ function smde_render_metabox_edu_properties(){
 
 function smde_update_overwrites(){
 
-	//collecting options for locations, freezes and shares
+	//collecting options for locations, freezes and props
 	$locations = get_option('smde_locations');
-	$shares_edu = get_option('smde_edu_');
-	$shares_class = get_option('smde_class_');
+	$props_edu = get_option('smde_edu_');
+	$props_class = get_option('smde_class_');
 
 
 	//if there is no freezes or shres at all, exit
-	if(empty($shares_edu) && empty($shares_class)){
+	if(empty($props_edu) && empty($props_class)){
 		return;
 	}
 	//Wordpress Database variable for database operations
@@ -639,9 +631,9 @@ function smde_update_overwrites(){
     }
 
     //checking if there is somthing to share for educational properties, we always skip site-meta location
-	if(!empty($shares_edu)){
+	if(!empty($props_edu)){
 		//looping through all active location
-						foreach ($shares_edu as $key => $value) {
+						foreach ($props_edu as $key => $value) {
 							if ($value=='2') {
 								foreach ($locations as $location => $val){
 									if ($location == $meta_type) {
@@ -655,7 +647,7 @@ function smde_update_overwrites(){
 						        	foreach ($posts_ids as $post_id) {
 						        		$post_id = $post_id['ID'];
 
-						        		foreach ($shares_edu as $key => $value) {
+						        		foreach ($props_edu as $key => $value) {
 													if ($value=='2') {
 						        			$meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$location;
 						        			$metadata_meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$meta_type;
@@ -682,7 +674,7 @@ function smde_update_overwrites(){
 						        	foreach ($posts_ids as $post_id) {
 						        		$post_id = $post_id['ID'];
 
-						        		foreach ($shares_edu as $key => $value) {
+						        		foreach ($props_edu as $key => $value) {
 														if ($value=='3') {
 						        			$meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$location;
 						        			$metadata_meta_key = 'smde_'.strtolower($key).'_edu_vocabs_'.$meta_type;
@@ -700,9 +692,9 @@ function smde_update_overwrites(){
         		}
         	}
 
-					if(!empty($shares_class)){
+					if(!empty($props_class)){
 						//looping through all active location
-										foreach ($shares_class as $key => $value) {
+										foreach ($props_class as $key => $value) {
 											if ($value=='2') {
 												foreach ($locations as $location => $val){
 													if ($location == $meta_type) {
@@ -716,7 +708,7 @@ function smde_update_overwrites(){
 										        	foreach ($posts_ids as $post_id) {
 										        		$post_id = $post_id['ID'];
 
-										        		foreach ($shares_class as $key => $value) {
+										        		foreach ($props_class as $key => $value) {
 																	if ($value=='2') {
 																		$meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$location;
 											        			$meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$location;
@@ -755,7 +747,7 @@ function smde_update_overwrites(){
 										        	foreach ($posts_ids as $post_id) {
 										        		$post_id = $post_id['ID'];
 
-										        		foreach ($shares_class as $key => $value) {
+										        		foreach ($props_class as $key => $value) {
 																		if ($value=='3') {
 																			$meta_key = 'smde_'.strtolower($key).'_class_vocab_'.$location;
 												        			$meta_key_desc = 'smde_'.strtolower($key).'_desc_class_vocab_'.$location;
