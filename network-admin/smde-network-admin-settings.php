@@ -138,10 +138,18 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 	//adding settings for classification properties management
 	foreach (class_meta::$classification_properties_main as $key => $data) {
 
-		//we do not add option for 'specificClass' property (no need to control it)
-		if ('specificClass' == $key ){
-				continue;
-		}
+
+
+    //we do not add option for 'specificClass' property (no need to control it)
+    if ('specificClass' == $key ){
+    		continue;
+    }
+
+    // Skip eduLang becouse is only for language Content
+    if('eduLang' ==	$key && !get_site_option('smde_net_for_lang')){
+      continue;
+    }
+
 
     if('prerequisite' == $key){
       add_settings_field ('smde_net_class_'.$key, '', function (){
@@ -213,13 +221,14 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 		}, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
 	}
 
-	if (get_site_option('smde_net_for_lang')){
-		add_settings_field ('smde_net_class_shares[eduLang]', __('Studying content', 'simple-metadata-annotation'), function () use ($key, $props_class){
+  /*
+  if (get_site_option('smde_net_for_lang')){
+    add_settings_field ('smde_net_class_shares[eduLang]', __('Studying content', 'simple-metadata-annotation'), function () use ($key, $props_class){
 
       $key = 'eduLang';
       $props_class[$key] = !empty($props_class[$key]) ? $props_class[$key] : '0';
 
-			?>
+      ?>
       <label for="smde_net_class_disable[<?=$key?>]">
         <?php esc_html_e('Disable', 'simple-metadata-education'); ?>
         <input type="radio"  name="smde_net_class_[<?=$key?>]" value="1" id="smde_net_class_disable[<?=$key?>]" <?php if ($props_class[$key]=='1') { echo "checked='checked'"; } ?> >
@@ -236,11 +245,12 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
         <?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
         <input type="radio"  name="smde_net_class_[<?=$key?>]" value="3" id="smde_net_class_freeze[<?=$key?>]"  <?php if ($props_class[$key]=='3') { echo "checked='checked'"; }?>>
       </label>
-				<br>
+        <br>
         <span class="description"><?php esc_html_e('Language which content is about', 'simple-metadata-education'); ?></span>
-			<?php
-		}, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
-	}
+      <?php
+    }, 'smde_network_meta_edu_properties', 'smde_network_meta_class_properties');
+  }
+  */
 
 	//adding setting for languages education
 	add_settings_field ('smde_net_for_lang', __('Content is for languages education', 'simple-metdata-education'), function () use ($is_for_lang){

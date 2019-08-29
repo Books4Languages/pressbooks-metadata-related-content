@@ -83,6 +83,7 @@ class SMDE_Metadata_Classification{
 				'Services' 																				=> 	'Services',)),
 		'additionalClass' => array( 'Additional Classification', 'More specified subject of current educational level. For ex. \'Grammar\' part of B1 English Course, \'Thermodynamics\' for Grade 7 of Physics Course'),
 		'specificClass'	  => array(	'Specific Classification', 'Narrow definition of subject field. For ex. \'Verbs\' in \'Grammar\' materials, \'Thermodynamics Laws\' in Thermodynamics', 'multiple'),
+		'eduLang'				=> array( 'Studying content', 'Language which content is about'),
 		'complexityLev' => array( 'Complexity Level', 'Defines a level or range that measures the difficulty or challenge presented by the learning resource being described.',
 			array(
 				'' 					=> '--Select--',

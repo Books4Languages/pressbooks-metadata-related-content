@@ -50,15 +50,6 @@ function smde_add_education_settings() {
 
 		register_setting ('smde_meta_edu_properties', 'smde_class_');
 
-		register_setting ('smde_meta_edu_properties', 'smde_edu_shares');
-
-
-		register_setting ('smde_meta_edu_properties', 'smde_edu_freezes');
-
-		register_setting ('smde_meta_edu_properties', 'smde_class_shares');
-
-		register_setting ('smde_meta_edu_properties', 'smde_class_freezes');
-
 
 		$post_types = smd_get_all_post_types();
 
@@ -251,6 +242,11 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 				continue;
 			}
 
+			// Skip eduLang becouse is only for language Content
+			if( 'eduLang' ==	$key && is_multisite() && !get_site_option('smde_net_for_lang') ){
+				continue;
+			}
+
 			if('prerequisite' == $key){
 	      add_settings_field ('smde_net_class_'.$key, '', function (){
 	          ?>
@@ -268,15 +264,14 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 		if (!empty($network_props_class)) {
 			if ($network_props_class[$key] == '0') {
 				$props_class = get_option('smde_class_');
-			// $props_class[$key] == '0';
-			 $valeur_key = '4';
+				// $props_class[$key] == '0';
+			  $valeur_key = '4';
 			}
 			else {
 				$props_class[$key] = $network_props_class[$key];
-				 $valeur_key = $props_class[$key];
+				$valeur_key = $props_class[$key];
 			}
-		}else
-		 {
+		}else {
 			$disabled_ca = '';
 			$valeur_key = '4';
 		}
@@ -403,64 +398,6 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 		    //if checkboxes are disabled, we add hidden field to store value of option
 		  }, 'smde_meta_edu_properties', 'smde_meta_class_properties');
 		}
-
-		if (is_multisite() && get_site_option('smde_net_for_lang')){
-			add_settings_field ('smde_class_eduLang', 'Studying content', function () use ($key, $props_class, $network_props_class){
-
-				//in case share or freeze is network enabled, checkbox becomes disabled to prevent changes
-				$key = 'eduLang';
-				// $props_class[$key] == '0';
-				if (!empty($network_props_class)) {
-
-					if ($network_props_class[$key] == '0') {
-						$props_class = get_site_option('smde_net_class');
-						$valeur_key_langue = '4';
-					}
-					else {
-						$props_class[$key] = $network_props_class[$key];
-						$valeur_key_langue = $props_class[$key];
-					}
-				}else
-				 {
-					$disabled_ca = '';
-					$valeur_key_langue = '4';
-				}
-				?>
-				<label for="smde_class_disable[<?=$key?>]">
-					<?php esc_html_e('Disable', 'simple-metadata-education'); ?>
-					<input type="radio"  name="smde_class_[<?=$key?>]" value="1" id="smde_class_disable[<?=$key?>]"
-					<?php if ($props_class[$key]=='1') { echo "checked='checked'"; }?>
-					<?php  if ($valeur_key_langue == '1' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}?>
-					>
-				</label>
-				<label for="smde_class_local_value[<?=$key?>]">
-					<?php esc_html_e('Local value', 'simple-metadata-education'); ?>
-					<input type="radio"  name="smde_class_[<?=$key?>]" value="0" id="smde_class_local_value[<?=$key?>]"
-					<?php if ($props_class[$key]=='0' || empty($props_class[$key])) { echo "checked='checked'"; }?>
-					<?php  if ($valeur_key_langue == '0' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";}?>
-					>
-				</label>
-				<label  for="smde_class_share[<?=$key?>]">
-					<?php esc_html_e('Share', 'simple-metadata-education'); ?>
-					<input type="radio"  name="smde_class_[<?=$key?>]" value="2" id="smde_class_share[<?=$key?>]"
-					<?php if ($props_class[$key]=='2') { echo "checked='checked'"; }?>
-					<?php //Moved options to site meta check this code
-					?>
-					<?php  if ($valeur_key_langue == '2' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";} ?>
-					>
-				</label>
-				<label for="smde_class_freeze[<?=$key?>]">
-					<?php esc_html_e('Freeze', 'simple-metadata-education'); ?>
-					<input type="radio"  name="smde_class_[<?=$key?>]" value="3" id="smde_class_freeze[<?=$key?>]"
-					<?php if ($props_class[$key]=='3') { echo "checked='checked'"; }?>
-					<?php  if ($valeur_key_langue == '3' || $valeur_key_langue == '4') {echo "";}else {echo "disabled";} ?>
-					>
-				</label>
-					<br><span class="description"><?php esc_html_e('Language which content is about', 'simple-metadata-education'); ?></span>
-				<?php
-			}, 'smde_meta_edu_properties', 'smde_meta_class_properties');
-		}
-
 	}
 }
 
