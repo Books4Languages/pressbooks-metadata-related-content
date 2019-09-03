@@ -16,7 +16,7 @@ Requires Simple Metadata (1.1 version)
 Plugin for automatic generation of educational meta fields in web-pages.
 
 ## Description  
-Simple Metadata Education plugin is add-on for (Simple Metadata)[https://github.com/my-language-skills/simple-metadata/] plugin, aimed for educational purposes. With use of this plugin, you will be able to provide relevant information on your educational content, following commonly accepted standards of educational metadata, like LRMI, LOM (coming soon) and Dublin Core (coming soon).
+Simple Metadata Education plugin is add-on for [Simple Metadata](https://github.com/my-language-skills/simple-metadata/) plugin, aimed for educational purposes. With use of this plugin, you will be able to provide relevant information on your educational content, following commonly accepted standards of educational metadata, like LRMI, LOM (coming soon) and Dublin Core (coming soon).
 
 General Metadata
 
@@ -49,9 +49,9 @@ Soon Attachments.
 
 ## Frequently Asked Questions
 1. If I don't need to use all the fields of the plugin, can I leave them empty?
-			-Yes, you can leaves them empty. If one field is empty the link will not appear in the frontend.
+			- Yes, you can leaves them empty. If one field is empty the link will not appear in the frontend.
 2. More information
-			-[Simple metadata](https://github.com/my-language-skills/simple-metadata/).
+			- [Simple metadata](https://github.com/my-language-skills/simple-metadata/).
 3. Developer information can be found in the [developer documentation](doc/dev-doc.md/) and the [developer guide](doc/dev-guide.md/).
 
 ## Requirements
