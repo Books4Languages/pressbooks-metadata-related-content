@@ -29,11 +29,6 @@ defined ("ABSPATH") or die ("No script assholes!");
 
 require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 
-//Add the pressbook metadata
-if(is_plugin_active('pressbooks/pressbooks.php')){
-	include_once plugin_dir_path( __FILE__ ) . "admin/smde-pressbook-integration.php";
-}
-
 //we enable plugin functionality only if main plugin - Simple Metadata - is installed
 if(is_plugin_active('simple-metadata/simple-metadata.php')){
 	include_once plugin_dir_path( __FILE__ ) . "admin/vocabularies/smde-classification-vocabulary.php";

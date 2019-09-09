@@ -57,10 +57,5 @@ function smde_print_tags () {
 		}
 	}
 
-	//Add the pressbook metadata
-	if(is_plugin_active('pressbooks/pressbooks.php')){
-		$metadata = array_merge($metadata, 	smde_get_pressbooks_metadata());
-	}
-
 	return $metadata;
 }
