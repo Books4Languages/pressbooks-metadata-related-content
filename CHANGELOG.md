@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 1.2.1
+
+### Plugin
+* **Added** Pressbook Integration
+
 ## 1.2
 
 ### Plugin
@@ -35,7 +40,7 @@
 
 * Metabox properties
   * **Added** Prerequisite
-    * **Added** Educational Level 
+    * **Added** Educational Level
     * **Added** Additional Classification
   * **Added** Complexity Level
   * **Fixed** position of Studying content thta was always the last one
