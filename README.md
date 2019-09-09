@@ -72,23 +72,13 @@ The Simple Metadata Education plugin is supplied "as is" and all use is at your 
 Take a look at detailed [changelog](/CHANGELOG.md)
 
 ### 1.2
-* **ADDITIONS**
-		* Internationalization
-		* Disable and delete data of fields in database
-		* Create radio button for settings of fields
 
-* **REMOVED**
-   *  Auto update from Github.
-
-* **ENHANCEMENTS***
-   * Make in correct order the admin panel. Change name site-meta in home page
-
-* **List of Files revised**
-   * smde-admin-settings.php
-	 * simple-metadata-education.php
-	 * smde-classification-vocabulary.php
-	 * smde-network-admin-settings.php
-
+* Internationalization
+* Updated of educational properties
+* Changed order of content
+* Disable and delete button
+* Microdata to json-ld
+* Removed Auto update
 
 ### 1.1
 * add plugin update checker

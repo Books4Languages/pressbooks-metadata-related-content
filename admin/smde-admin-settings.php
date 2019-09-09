@@ -9,7 +9,7 @@
  *
  * @package simple-metadata-education
  * @subpackage admin/settings
- * @since x.x.x (when the file was introduced)
+ * @since 1.0
  */
 
 use \vocabularies\SMDE_Metadata_Educational as edu_meta;
@@ -21,7 +21,7 @@ defined ("ABSPATH") or die ("No script assholes!");
 /**
 * Function to add plugin settings subpage and registering settings and their sections.
 *
-* @since
+* @since 1.0
 *
 */
 
@@ -405,7 +405,7 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 /**
 * Function for rendering settings subpage.
 *
-* @since
+* @since 1.0
 *
 */
 
@@ -447,7 +447,7 @@ function smde_render_settings() {
 /**
 * Function for rendering 'Locations' metabox.
 *
-* @since
+* @since 1.0
 *
 */
 
@@ -472,7 +472,7 @@ function smde_render_metabox_schema_locations(){
 /**
 * Function for rendering 'edu properties' metabox.
 *
-* @since
+* @since 1.0
 *
 */
 
@@ -508,7 +508,7 @@ function smde_render_metabox_edu_properties(){
 /**
 * Summary.
 *
-* @since
+* @since 1.0
 *
 */
 

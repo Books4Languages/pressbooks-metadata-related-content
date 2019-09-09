@@ -1,9 +1,59 @@
 
 # Changelog
 
+## 1.2
+
+### Plugin
+* **Added** Internationalization
+* **Removed** Auto-Update from Github
+* **Changed** unistall.php using functions from simple-metadata
+
+
+### Administration
+* **Added** disable button in settings
+* **Changed** moved network options in site_meta table
+* **Changed** order in admin panel
+
+* Network Settings
+  * **Added** Disable and delete button
+  * **Changed** button -> radio buttons
+* Site settings
+  * **Added** Disable and delete button
+  * **Changed** button -> radio buttons
+
+### Educational
+* **Merged** LOM and LMRI vocabularies
+* **Changed** Microdata -> Json-ld
+
+* Metabox properties
+  * **Changed** order
+  * **Update** properties
+
+
+### Classification
+* **Changed** Microdata -> Json-ld
+
+* Metabox properties
+  * **Added** Prerequisite
+    * **Added** Educational Level 
+    * **Added** Additional Classification
+  * **Added** Complexity Level
+  * **Fixed** position of Studying content thta was always the last one
+
+* Metadata properties
+  * Intended End User Role
+    * **Changed** educationalRole -> audience
+  * Prerequisite
+    * **Added** requires  
+  * Complexity Level
+    * **Added** textComplexity
+
+
+
+## 1.1
+* **Added** Plugin Checker
+
 ## 1.0
-Plugin rebuild
-### 1.0
 * **Additions**
   * **Types**
    * Book type

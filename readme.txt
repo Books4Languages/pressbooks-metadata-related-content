@@ -4,7 +4,7 @@ Donate link: https://opencollective.com/mylanguageskills
 Tags: multisite, pressbooks, simple metadata, metadata, schema.org, rich snippets, wordpress-plugin,
 Requires at least: 5.2
 Tested up to: 5.2.2
-Stable tag: 1.3
+Stable tag: 1.2
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -77,9 +77,23 @@ As Simple metadata annotation is an extension of Simple metadata, visit the [Sim
 
 == Changelog ==
 
-= 1.0 =
-* Initial release.
+= 1.2 =
 
+* Internationalization
+* Updated of educational properties
+* Changed order of content
+* Disable and delete button
+* Microdata to json-ld
+* Removed Auto update
+
+= 1.1 =
+
+* add plugin update checker
+
+= 1.0 =
+
+* Initial release
+* Requires Simple Metadata 1.1
 
 == Upgrade Notice ==
 

@@ -15,7 +15,7 @@
  *
  * @package simple-metadata-education
  * @subpackage classes
- * @since x.x.x (when the file was introduced)
+ * @since 1.0
  */
 
 namespace vocabularies;
@@ -35,7 +35,7 @@ class SMDE_Metadata_Educational{
 	 * The type level that identifies where these metaboxes will be created
 	 * It can be for example site_page, page, post ecc...
    *
-	 * @since    0.x
+	 * @since    1.0
 	 * @access   public
    */
   public $type_level;
@@ -43,7 +43,7 @@ class SMDE_Metadata_Educational{
   /**
    * Holds the values from the database for the vocabulary output
    *
-   * @since    0.x
+   * @since    1.0
    * @access   public
    */
   public $metadata;
@@ -51,7 +51,7 @@ class SMDE_Metadata_Educational{
   /**
    * Holds the group id of the metabox
    *
-   * @since    0.x
+   * @since    1.0
    * @access   public
    */
   public $groupId;
@@ -60,7 +60,7 @@ class SMDE_Metadata_Educational{
    * Properties from LRMI
 	 * The variable that holds the relations between LRMI properties names and LOM
 	 *
-	 * @since    0.x
+	 * @since    1.0
 	 * @access   public
 	 */
   public static $lrmi_properties = array(
@@ -75,7 +75,7 @@ class SMDE_Metadata_Educational{
   /**
 	 * The variable that holds all educational properties
 	 *
-	 * @since    0.x
+	 * @since    1.0
 	 * @access   public
 	 */
   public static $edu_properties = array(
@@ -230,6 +230,8 @@ class SMDE_Metadata_Educational{
 
 /**
   * Function to render fields, which are frozen by admin/network admin
+  *
+  * @since 1.0
   */
   public function render_frozen_field ($field_slug, $field, $value) {
 		global $post;
@@ -258,8 +260,8 @@ class SMDE_Metadata_Educational{
   /**
    * Function to render fields, which are disabled by admin/network admin
    *
-   * @since
    *
+   * @since 1.0
    */
   public function render_disable_field ($field_slug, $field, $value) {
     global $post;
@@ -289,7 +291,7 @@ class SMDE_Metadata_Educational{
    *
    * @param string Accepting a string so we can distinguish on witch place each metabox is created (site_page, page, post...)
    *
-   * @since 0.x
+   * @since 1.0
    */
   public function smde_add_metabox( $meta_position ) {
  		//adding metabox to desired location
@@ -371,8 +373,8 @@ class SMDE_Metadata_Educational{
   /**
 	 * A function needed for the array of metadata that comes from each post site-meta cpt or chapter
 	 * It automatically returns the first item in the array.
-	 * @since 0.x
 	 *
+   * @since 1.0
 	 */
   protected function smde_get_first( $my_array ) {
 		if ( $my_array == '' ) {
@@ -385,7 +387,7 @@ class SMDE_Metadata_Educational{
   /**
 	 * Gets the value for the microtags from $this->metadata.
 	 *
-	 * @since    0.x
+	 * @since    1.0
 	 * @access   public
 	 */
   protected function smde_get_value( $propName ) {
@@ -402,6 +404,7 @@ class SMDE_Metadata_Educational{
 	 * This is like when we use pressbooks to gather all data from Book Info
 	 * We are always working on a single post -- automatic
 	 * This function will be mostly used when the plugin is on wordpress mode and not on pressbooks mode.
+   * @since 1.0
 	 */
   public static function get_site_meta_metadata(){
 		$post_type = is_plugin_active ('pressbooks/pressbooks.php') ? 'metadata' : 'site-meta';
@@ -429,7 +432,7 @@ class SMDE_Metadata_Educational{
    * Function that creates the vocabulary metatags
    * Prints the LMRI metatags in the html
    *
-   * @since    0.x
+   * @since    1.2
    * @access   public
    */
   public function smde_get_metatags() {

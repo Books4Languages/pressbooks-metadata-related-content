@@ -7,7 +7,7 @@
  *
  * @package simple-metadata-education
  * @subpackage output
- * @since x.x.x (when the file was introduced)
+ * @since 1.0
  */
 
 
@@ -18,7 +18,7 @@ use \vocabularies\SMDE_Metadata_Educational as lrmi_meta;
 * Prints metatags
 * Used by simple-metadata plugin in smd_general_functions
 *
-* @since
+* @since 1.0
 *
 */
 

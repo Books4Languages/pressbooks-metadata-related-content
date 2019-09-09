@@ -9,7 +9,7 @@
  *
  * @package simple-metadata-education
  * @subpackage admin/init_metaboxe
- * @since x.x.x (when the file was introduced)
+ * @since 1.0 (when the file was introduced)
  */
 
 
@@ -21,7 +21,7 @@ defined ("ABSPATH") or die ("No script assholes!");
 /**
 * Function for producing metaboxes in all active locations.
 *
-* @since
+* @since 1.0
 *
 */
 

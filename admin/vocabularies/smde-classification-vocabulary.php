@@ -9,7 +9,7 @@
  *
  * @package simple-metadata-education
  * @subpackage classes
- * @since x.x.x (when the file was introduced)
+ * @since 1.0
  */
 
 namespace vocabularies;
@@ -23,7 +23,7 @@ class SMDE_Metadata_Classification{
 	/**
 	 * The type level that identifies where these metaboxes will be created
 	 *
-	 * @since    0.x
+	 * @since    1.0
 	 * @access   public
 	 */
 	public $type_level;
@@ -31,7 +31,7 @@ class SMDE_Metadata_Classification{
 	/**
 	 * The variable that holds the values from the database for the vocabulary output
 	 *
-	 * @since    0.x
+	 * @since    1.0
 	 * @access   public
 	 */
 	public $metadata;
@@ -39,7 +39,7 @@ class SMDE_Metadata_Classification{
 	/**
 	 * The variable that holds the group id of the metabox
 	 *
-	 * @since    0.x
+	 * @since    1.0
 	 * @access   public
 	 */
 	public $groupId;
@@ -47,7 +47,7 @@ class SMDE_Metadata_Classification{
 	/**
 	 * Holds all the classification properties
 	 *
-	 * @since    0.x
+	 * @since    1.0
 	 * @access   public
 	 */
 	public static $classification_properties_main = array(
@@ -141,190 +141,7 @@ class SMDE_Metadata_Classification{
 			self::$classification_properties_main['eduLang'] =
 			array(__('Studying content', 'simple-metadata-education'),
 						__('Language which content is about', 'simple-metadata-education'),
-				array ( '' 				=> __('--Select--', 'simple-metadata-education'),
-						'ab'     			=> __('Abkhazian', 'simple-metadata-education'),
-						'aa'     			=> __('Afar', 'simple-metadata-education'),
-						'af'     			=> __('Afrikaans', 'simple-metadata-education'),
-						'ak'     			=> __('Akan', 'simple-metadata-education'),
-						'sq'     			=> __('Albanian', 'simple-metadata-education'),
-						'am'     			=> __('Amharic', 'simple-metadata-education'),
-						'ar'     			=> __('Arabic', 'simple-metadata-education'),
-						'an'     			=> __('Aragonese', 'simple-metadata-education'),
-						'hy'     			=> __('Armenian', 'simple-metadata-education'),
-						'as'     			=> __('Assamese', 'simple-metadata-education'),
-						'av'     			=> __('Avaric', 'simple-metadata-education'),
-						'ae'     			=> __('Avestan', 'simple-metadata-education'),
-						'ay'     			=> __('Aymara', 'simple-metadata-education'),
-						'az'     			=> __('Azerbaijani', 'simple-metadata-education'),
-						'bm'     			=> __('Bambara', 'simple-metadata-education'),
-						'ba'     			=> __('Bashkir', 'simple-metadata-education'),
-						'eu'     			=> __('Basque', 'simple-metadata-education'),
-						'bn'     			=> __('Bengali', 'simple-metadata-education'),
-						'be'     			=> __('Belarusian', 'simple-metadata-education'),
-						'bh'     			=> __('Bihari languages', 'simple-metadata-education'),
-						'bi'     			=> __('Bislama', 'simple-metadata-education'),
-						'nb'     			=> __('Bokmål, Norwegian; Norwegian Bokmål', 'simple-metadata-education'),
-						'bs'     			=> __('Bosnian', 'simple-metadata-education'),
-						'br'					=> __('Breton', 'simple-metadata-education'),
-						'bg'     			=> __('Bulgarian', 'simple-metadata-education'),
-						'my'     			=> __('Burmese', 'simple-metadata-education'),
-						'km'     			=> __('Central Khmer', 'simple-metadata-education'),
-						'ch'     			=> __('Chamorro', 'simple-metadata-education'),
-						'ce'     			=> __('Chechen', 'simple-metadata-education'),
-						'ny'     			=> __('Chichewa; Chewa; Nyanja', 'simple-metadata-education'),
-						'zh'     			=> __('Chinese', 'simple-metadata-education'),
-						'cv'     			=> __('Chuvash', 'simple-metadata-education'),
-						'kw'     			=> __('Cornish', 'simple-metadata-education'),
-						'co'     			=> __('Corsican', 'simple-metadata-education'),
-						'cr'     			=> __('Cree', 'simple-metadata-education'),
-						'hr'     			=> __('Croatian', 'simple-metadata-education'),
-						'cs'     			=> __('Czech', 'simple-metadata-education'),
-						'da'     			=> __('Danish', 'simple-metadata-education'),
-						'dz'     			=> __('Dzongkha', 'simple-metadata-education'),
-						'nl'     			=> __('Dutch; Flemish', 'simple-metadata-education'),
-						'en'     			=> __('English', 'simple-metadata-education'),
-						'eo'     			=> __('Esperanto', 'simple-metadata-education'),
-						'et'     			=> __('Estonian', 'simple-metadata-education'),
-						'ee'     			=> __('Ewe', 'simple-metadata-education'),
-						'fo'     			=> __('Faroese', 'simple-metadata-education'),
-						'fj'     			=> __('Fijian', 'simple-metadata-education'),
-						'fi'     			=> __('Finnish', 'simple-metadata-education'),
-						'fr'     			=> __('French', 'simple-metadata-education'),
-						'ff'     			=> __('Fulah', 'simple-metadata-education'),
-						'gd'     			=> __('Gaelic', 'simple-metadata-education'),
-						'gl'     			=> __('Galician', 'simple-metadata-education'),
-						'lg'     			=> __('Ganda', 'simple-metadata-education'),
-						'ka'     			=> __('Georgian', 'simple-metadata-education'),
-						'de'     			=> __('German', 'simple-metadata-education'),
-						'el'     			=> __('Greek', 'simple-metadata-education'),
-						'gn'     			=> __('Guarani', 'simple-metadata-education'),
-						'gu'     			=> __('Gujarati', 'simple-metadata-education'),
-						'ht'     			=> __('Haitian', 'simple-metadata-education'),
-						'ha'     			=> __('Hausa', 'simple-metadata-education'),
-						'he'     			=> __('Hebrew', 'simple-metadata-education'),
-						'hz'     			=> __('Herero', 'simple-metadata-education'),
-						'hi'     			=> __('Hindi', 'simple-metadata-education'),
-						'ho'     			=> __('Hiri Motu', 'simple-metadata-education'),
-						'hu'     			=> __('Hungarian', 'simple-metadata-education'),
-						'is'     			=> __('Icelandic', 'simple-metadata-education'),
-						'io'     			=> __('Ido', 'simple-metadata-education'),
-						'ig'     			=> __('Igbo', 'simple-metadata-education'),
-						'id'     			=> __('Indonesian', 'simple-metadata-education'),
-						'ia'     			=> __('Interlingua', 'simple-metadata-education'),
-						'ie'     			=> __('Interlingue', 'simple-metadata-education'),
-						'iu'     			=> __('Inuktitut', 'simple-metadata-education'),
-						'ik'     			=> __('Inupiaq', 'simple-metadata-education'),
-						'ga'     			=> __('Irish', 'simple-metadata-education'),
-						'it'     			=> __('Italian', 'simple-metadata-education'),
-						'ja'     			=> __('Japanese', 'simple-metadata-education'),
-						'jv'     			=> __('Javanese', 'simple-metadata-education'),
-						'kl'     			=> __('Kalaallisut; Greenlandic', 'simple-metadata-education'),
-						'kn'     			=> __('Kannada', 'simple-metadata-education'),
-						'kr'     			=> __('Kanuri', 'simple-metadata-education'),
-						'ks'     			=> __('Kashmiri', 'simple-metadata-education'),
-						'kk'     			=> __('Kazakh', 'simple-metadata-education'),
-						'ki'     			=> __('Kikuyu; Gikuyu', 'simple-metadata-education'),
-						'rw'     			=> __('Kinyarwanda', 'simple-metadata-education'),
-						'kv'     			=> __('Komi', 'simple-metadata-education'),
-						'kg'     			=> __('Kongo', 'simple-metadata-education'),
-						'ko'     			=> __('Korean', 'simple-metadata-education'),
-						'kj'     			=> __('Kuanyama; Kwanyama', 'simple-metadata-education'),
-						'ku'     			=> __('Kurdish', 'simple-metadata-education'),
-						'ky'     			=> __('Kirghiz; Kyrgyz', 'simple-metadata-education'),
-						'lo'     			=> __('Lao', 'simple-metadata-education'),
-						'la'     			=> __('Latin', 'simple-metadata-education'),
-						'lv'     			=> __('Latvian', 'simple-metadata-education'),
-						'li'     			=> __('Limburgan; Limburger; Limburgish', 'simple-metadata-education'),
-						'ln'     			=> __('Lingala', 'simple-metadata-education'),
-						'lt'     			=> __('Lithuanian', 'simple-metadata-education'),
-						'lu'     			=> __('Luba-Katanga', 'simple-metadata-education'),
-						'lb'     			=> __('Luxembourgish; Letzeburgesch', 'simple-metadata-education'),
-						'mk'     			=> __('Macedonian', 'simple-metadata-education'),
-						'mg'     			=> __('Malagasy', 'simple-metadata-education'),
-						'ml'     			=> __('Malayalam', 'simple-metadata-education'),
-						'dv'     			=> __('Maldivian', 'simple-metadata-education'),
-						'gv'     			=> __('Manx', 'simple-metadata-education'),
-						'mi'     			=> __('Maori', 'simple-metadata-education'),
-						'ms'     			=> __('Malay', 'simple-metadata-education'),
-						'mt'     			=> __('Maltese', 'simple-metadata-education'),
-						'mr'     			=> __('Marathi', 'simple-metadata-education'),
-						'mh'     			=> __('Marshallese', 'simple-metadata-education'),
-						'mn'     			=> __('Mongolian', 'simple-metadata-education'),
-						'na'     			=> __('Nauru', 'simple-metadata-education'),
-						'nv'     			=> __('Navajo; Navaho', 'simple-metadata-education'),
-						'nd'     			=> __('Ndebele, North; North Ndebele', 'simple-metadata-education'),
-						'nr'     			=> __('Ndebele, South; South Ndebele', 'simple-metadata-education'),
-						'ng'     			=> __('Ndonga', 'simple-metadata-education'),
-						'ne'     			=> __('Nepali', 'simple-metadata-education'),
-						'se'     			=> __('Northern Sami', 'simple-metadata-education'),
-						'nn'     			=> __('Norwegian Nynorsk; Nynorsk, Norwegian', 'simple-metadata-education'),
-						'no'     			=> __('Norwegian', 'simple-metadata-education'),
-						'oc'     			=> __('Occitan; Provençal', 'simple-metadata-education'),
-						'oj'     			=> __('Ojibwa', 'simple-metadata-education'),
-						'om'     			=> __('Oromo', 'simple-metadata-education'),
-						'or'     			=> __('Oriya', 'simple-metadata-education'),
-						'os'     			=> __('Ossetian; Ossetic', 'simple-metadata-education'),
-						'pa'     			=> __('Panjabi; Punjabi', 'simple-metadata-education'),
-						'pi'     			=> __('Pali', 'simple-metadata-education'),
-						'fa'     			=> __('Persian', 'simple-metadata-education'),
-						'pl'     			=> __('Polish', 'simple-metadata-education'),
-						'pt'     			=> __('Portuguese', 'simple-metadata-education'),
-						'ps'     			=> __('Pushto; Pashto', 'simple-metadata-education'),
-						'qu'     			=> __('Quechua', 'simple-metadata-education'),
-						'ro'     			=> __('Romanian; Moldavian; Moldovan', 'simple-metadata-education'),
-						'rm'     			=> __('Romansh', 'simple-metadata-education'),
-						'rn'     			=> __('Rundi', 'simple-metadata-education'),
-						'ru'     			=> __('Russian', 'simple-metadata-education'),
-						'sm'     			=> __('Samoan', 'simple-metadata-education'),
-						'sg'     			=> __('Sango', 'simple-metadata-education'),
-						'sa'     			=> __('Sanskrit', 'simple-metadata-education'),
-						'sc'     			=> __('Sardinian', 'simple-metadata-education'),
-						'sr'     			=> __('Serbian', 'simple-metadata-education'),
-						'sn'     			=> __('Shona', 'simple-metadata-education'),
-						'ii'     			=> __('Sichuan Yi', 'simple-metadata-education'),
-						'sd'     			=> __('Sindhi', 'simple-metadata-education'),
-						'si'     			=> __('Sinhala; Sinhalese', 'simple-metadata-education'),
-						'sk'     			=> __('Slovak', 'simple-metadata-education'),
-						'sl'     			=> __('Slovenian', 'simple-metadata-education'),
-						'so'     			=> __('Somali', 'simple-metadata-education'),
-						'st'     			=> __('Sotho, Southern', 'simple-metadata-education'),
-						'es'     			=> __('Spanish', 'simple-metadata-education'),
-						'su'     			=> __('Sundanese', 'simple-metadata-education'),
-						'ss'     			=> __('Swati', 'simple-metadata-education'),
-						'sv'     			=> __('Swedish', 'simple-metadata-education'),
-						'sw'     			=> __('Swahili', 'simple-metadata-education'),
-						'tl'     			=> __('Tagalog', 'simple-metadata-education'),
-						'ty'     			=> __('Tahitian', 'simple-metadata-education'),
-						'tg'     			=> __('Tajik', 'simple-metadata-education'),
-						'ta'     			=> __('Tamil', 'simple-metadata-education'),
-						'tt'     			=> __('Tatar', 'simple-metadata-education'),
-						'te'     			=> __('Telugu', 'simple-metadata-education'),
-						'th'     			=> __('Thai', 'simple-metadata-education'),
-						'bo'     			=> __('Tibetan', 'simple-metadata-education'),
-						'ti'     			=> __('Tigrinya', 'simple-metadata-education'),
-						'to'     			=> __('Tonga', 'simple-metadata-education'),
-						'ts'     			=> __('Tsonga', 'simple-metadata-education'),
-						'tn'     			=> __('Tswana', 'simple-metadata-education'),
-						'tr'     			=> __('Turkish', 'simple-metadata-education'),
-						'tk'     			=> __('Turkmen', 'simple-metadata-education'),
-						'tw'     			=> __('Twi', 'simple-metadata-education'),
-						'ug'     			=> __('Uighur; Uyghur', 'simple-metadata-education'),
-						'uk'     			=> __('Ukrainian', 'simple-metadata-education'),
-						'ur'     			=> __('Urdu', 'simple-metadata-education'),
-						'uz'     			=> __('Uzbek', 'simple-metadata-education'),
-						'vl'     			=> __('Valencian', 'simple-metadata-education'),
-						've'     			=> __('Venda', 'simple-metadata-education'),
-						'vi'     			=> __('Vietnamese', 'simple-metadata-education'),
-						'vo'     			=> __('Volapük', 'simple-metadata-education'),
-						'wa'     			=> __('Walloon', 'simple-metadata-education'),
-						'cy'     			=> __('Welsh', 'simple-metadata-education'),
-						'fy'     			=> __('Western Frisian', 'simple-metadata-education'),
-						'wo'     			=> __('Wolof', 'simple-metadata-education'),
-						'xh'     			=> __('Xhosa', 'simple-metadata-education'),
-						'yi'     			=> __('Yiddish', 'simple-metadata-education'),
-						'yo'     			=> __('Yoruba', 'simple-metadata-education'),
-						'za'     			=> __('Zhuang; Chuang', 'simple-metadata-education'),
-						'zu'     		  => __('Zulu', 'simple-metadata-education')));
+						smd_supported_languages());
 		}
 
 		$this->smde_add_metabox( $this->type_level );
@@ -379,6 +196,8 @@ class SMDE_Metadata_Classification{
 
 	/**
 	 * Function to render fields, which are frozen by admin/network admin in languages education (empty string)
+	 *
+	 * @since	1.0
 	 */
 	public function render_frozen_field_lang ($field_slug, $field, $value) {
 		echo '';
@@ -388,7 +207,7 @@ class SMDE_Metadata_Classification{
 	/**
 	 * Function to render fields, which are disabled by admin/network admin
 	 *
-	 * @since
+	 * @since	1.0
 	 *
 	 */
 	public function render_disable_field ($field_slug, $field, $value) {
@@ -419,7 +238,7 @@ class SMDE_Metadata_Classification{
 	 *
 	 * @param string Accepting a string so we can distinguish on witch place each metabox is created
 	 *
-	 * @since 0.x
+	 * @since 1.0
 	 */
 	public function smde_add_metabox( $meta_position ) {
 
@@ -549,7 +368,7 @@ class SMDE_Metadata_Classification{
 	/**
 	 * A function needed for the array of metadata that comes from each post site-meta cpt or chapter
 	 * It automatically returns the first item in the array.
-	 * @since 0.x
+	 * @since 1.0
 	 *
 	 */
 	private function smde_get_first( $my_array ) {
@@ -563,7 +382,7 @@ class SMDE_Metadata_Classification{
 	/**
 	 * Gets the value for the microtags from $this->metadata.
 	 *
-	 * @since    0.x
+	 * @since    1.0
 	 * @access   public
 	 */
 	private function smde_get_value( $propName ) {
@@ -582,7 +401,7 @@ class SMDE_Metadata_Classification{
 	/**
 	 * Gets the value from isced using the level.
 	 *
-	 * @since    0.x
+	 * @since    1.0
 	 * @access   private
 	 */
 	private function get_isced_level($level){
@@ -790,7 +609,7 @@ public function smde_get_metatags(){
 	/**
 	 * Function that creates the vocabulary metatags
 	 *
-	 * @since    0.x
+	 * @since    1.0
 	 * @access   public
 	 */
 	public function smde_get_metatags_lang() {

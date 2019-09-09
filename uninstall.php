@@ -9,7 +9,7 @@
  *
  * @package simple-metadata-education
  * @subpackage unistall
- * @since x.x.x (when the file was introduced)
+ * @since 1.0
  */
 
 // If uninstall not called from WordPress, then exit.
@@ -34,4 +34,4 @@ if (is_multisite()) {
 } else {
 	$blogs_ids = [1];
 }
-smd_delete_local_options_and_post_meta($blogs_ids, 'smde_'); // see: simple metadata library
+smd_delete_local_options_and_post_meta($blogs_ids, 'smde_'); // see: smd_general_function.php library
