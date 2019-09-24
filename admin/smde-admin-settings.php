@@ -72,11 +72,10 @@ function smde_add_education_settings() {
 
 		//adding options for locations
 		foreach ($post_types as $post_type) {
-			if ('metadata' == $post_type){
-				$label = 'Book Info';
-			}
 			if ('site-meta' == $post_type){
 				$label = 'Home Page';
+			} else if ('metadata' == $post_type){
+				$label = 'Book Info';
 			} else {
 				$label = ucfirst($post_type);
 			}

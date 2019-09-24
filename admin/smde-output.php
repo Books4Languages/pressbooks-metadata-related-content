@@ -45,7 +45,7 @@ function smde_print_tags () {
 			//initializng new instance of educational vocabulary class (in future more vocabularies)
 			$lrmi_meta = new lrmi_meta($front_schema);
 			//calling vocabulary class method for printing metatags
-			$metdata = $lrmi_meta->smde_get_metatags();
+			$metadata = $lrmi_meta->smde_get_metatags();
 		}
 	} elseif (!is_home()){
 		if (isset($locations[$post_schema]) && $locations[$post_schema]) {
