@@ -14,7 +14,7 @@ This plugin enhance [Simple metadata](https://github.com/my-language-skills/simp
 
 == Description ==
 
-This plugin provides the ability to have educational schema types and properties.
+This plugin provides the ability to have comment schema property on your site. The property can be deactivated in front-end, if so, the meta-box would be just a place for internal annotations.
 
 
 == Front-page related content =
@@ -22,20 +22,20 @@ This plugin provides the ability to have educational schema types and properties
 
 * Properties
   * Creative Work type
-    * **Added:** xxxxx property
+    * **Added:** comment property
 
 
 = Pages related content =
 
 * Properties
   * Creative Work type
-    * **Added:** xxxx property
+    * **Added:** comment property
 
 
 = Posts and CPTs related content =
 
   * Creative Work type
-    * **Added:** xxxx property
+    * **Added:** comment property
 
 
 == Installation ==
