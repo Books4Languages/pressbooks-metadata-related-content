@@ -8,7 +8,7 @@ Requires Simple Metadata (1.1 version)
 * Requires at least: 4.9.6
 * Tested up to: 5.2.1
 * Requires PHP: 5.3
-* Stable tag: 1.2
+* Stable tag: 1.2.1
 * License: GNU 3.0
 * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 * Gutenberg: compatible
@@ -70,6 +70,10 @@ The Simple Metadata Education plugin is supplied "as is" and all use is at your 
 
 ## Changelog
 Take a look at detailed [changelog](/CHANGELOG.md)
+
+### 1.2.1
+* **BUGFIX**
+	* Network options are now updated automatically after Languages education metabox 'Save changes'. Resolving issue. #17 (some code commented out) Now issue #18
 
 ### 1.2
 

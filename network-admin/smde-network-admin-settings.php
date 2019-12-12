@@ -143,7 +143,7 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
     		continue;
     }
 
-    // Skip eduLang becouse is only for language Content
+    // Skip eduLang because is only for language Content
     if('eduLang' ==	$key && !get_site_option('smde_net_for_lang')){
       continue;
     }
@@ -450,8 +450,8 @@ function smde_update_network_locations() {
 
 function smde_update_network_options() {
 
-	//checking admin reffer to prevent direct access to this function
-	check_admin_referer('smde_network_meta_edu_properties-options');
+	//checking admin reffer to prevent direct access to this function (TEMPORALY DEACTIVATED) #issue #18  v1.2.1
+  //check_admin_referer('smde_network_meta_edu_properties-options');
 
 	//Wordpress Database variable for database operations
     global $wpdb;
@@ -481,8 +481,6 @@ function smde_update_network_options() {
 
     	$props_local = get_option('smde_edu_') ?: array();
     	$props_local = array_merge($props_local, $props_edu);
-
-
 
     	$props_local_class = get_option('smde_class_') ?: array();
     	$props_local_class = array_merge($props_local_class, $props_class);
@@ -521,11 +519,13 @@ function smde_update_network_for_lang() {
     wp_redirect(add_query_arg(array('page' => 'smd_net_set_page',
     'settings-updated' => 'true'), network_admin_url('settings.php')));
 
-    exit;
+    //exit;  (DISABLED)  so following 'smde_update_network_options' function is executable #issue #18  v1.2.1
 }
 
 
 add_action( 'network_admin_menu', 'smde_add_network_settings', 1000);
 add_action( 'network_admin_edit_smde_update_network_locations', 'smde_update_network_locations');
 add_action( 'network_admin_edit_smde_update_network_options', 'smde_update_network_options');
+
 add_action( 'network_admin_edit_smde_update_network_for_lang', 'smde_update_network_for_lang');
+add_action( 'network_admin_edit_smde_update_network_for_lang', 'smde_update_network_options', 11); // runs right after 'language education' metabox is saved #issue #18  v1.2.1

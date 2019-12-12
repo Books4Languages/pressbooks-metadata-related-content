@@ -77,6 +77,11 @@ As Simple metadata annotation is an extension of Simple metadata, visit the [Sim
 
 == Changelog ==
 
+= 1.2.1 =
+* **BUGFIX**
+	* Network options are now updated automatically after Languages education metabox 'Save changes'. Resolving issue. #17 (some code commented out) Now issue #18
+
+
 = 1.2 =
 
 * Internationalization

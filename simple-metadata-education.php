@@ -16,7 +16,7 @@
  * Plugin Name:       Simple Metadata - Education
  * Plugin URI:        https://github.com/my-language-skills/simple-metadata-education
  * Description:       Simple Metadata add-on for educational purposes.
- * Version:           1.2
+ * Version:           1.2.1
  * Author:            My Language Skills team
  * Author URI:        https://github.com/my-language-skills/
  * License:           GPL 3.0

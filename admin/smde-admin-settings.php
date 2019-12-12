@@ -241,7 +241,7 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 				continue;
 			}
 
-			// Skip eduLang becouse is only for language Content
+			// Skip eduLang because is only for language Content
 			if( 'eduLang' ==	$key && is_multisite() && !get_site_option('smde_net_for_lang') ){
 				continue;
 			}
