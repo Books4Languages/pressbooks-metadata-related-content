@@ -449,7 +449,7 @@ function smde_update_network_locations() {
 */
 
 function smde_update_network_options() {
-
+exit;
 	//checking admin reffer to prevent direct access to this function (TEMPORALY DEACTIVATED) #issue #18  v1.2.1
   //check_admin_referer('smde_network_meta_edu_properties-options');
 

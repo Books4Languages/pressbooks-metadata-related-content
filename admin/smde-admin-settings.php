@@ -274,6 +274,7 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 			$disabled_ca = '';
 			$valeur_key = '4';
 		}
+
 		    ?>
 				<?php if ($props_class[$key]=='1') {
 
@@ -352,17 +353,17 @@ echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-d
 												 }
 							}
 						}
-}
-runMyFunction1228();
-//refresh the page
-?><meta http-equiv="refresh" content="0;URL=admin.php?page=smde_set_page"><?php
-}
+			}
+			runMyFunction1228();
+			//refresh the page
+			?><meta http-equiv="refresh" content="0;URL=admin.php?page=smde_set_page"><?php
+			}
 
 
- if ($props_class[$key]=='1') {
-echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the site?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smde_set_page&hello=true&field_name=$key'>X</a>";}
+			 if ($props_class[$key]=='1') {
+			echo "<a onClick=\"javascript: return confirm('Are you sure to delete all meta-data of this field in the site?');\" style='color:red; text-decoration: none; font-size: 14px;'href = 'admin.php?page=smde_set_page&hello=true&field_name=$key'>X</a>";}
 
-?>
+			?>
 				&nbsp;&nbsp;
 			<?php } ?>
 				<label for="smde_class_disable[<?=$key?>]">
